@@ -8,7 +8,7 @@
 
 ## Vue.js
 
-* [响应式原理](Vue/响应式原理.md)
+* [响应式原理](Vue/reactive.md)
 
 ## React.js
 
