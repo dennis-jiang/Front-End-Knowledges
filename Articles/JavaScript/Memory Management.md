@@ -82,7 +82,35 @@ function problem(){
 
 在这个例子中，objectA 和 objectB 通过各自的属性相互引用；也就是说，这两个对象的引用次数都是 2。当函数执行完毕后，objectA 和 objectB 还将继续存在，因为它们的引用次数永远不会是 0。
 
-因为引用计数有这样的问题，现在浏览器已经不再使用这个算法了，这个算法主要存在于IE 8及以前的版本，现代浏览器更多的采用标记-清除算法。
+因为引用计数有这样的问题，现在浏览器已经不再使用这个算法了，这个算法主要存在于IE 8及以前的版本，现代浏览器更多的采用标记-清除算法。在老版的IE中一部分对象并不是原生 JavaScript 对象。例如，其 BOM 和 DOM 中的对象就是使用 C++以 COM（Component Object Model，组件对象模型）对象的形式实现的，而 COM对象的垃圾 收集机制采用的就是引用计数策略。
+
+　　因此，即使 IE的 JavaScript引擎是使用标记清除策略来实现的，但 JavaScript访问的 COM对象依然是基于引用计数策略的。换句话说，只要在IE中涉及 COM对象，就会存在循环引用的问题。
+
+　　下面这个简单的例子，展示了使用 COM对象导致的循环引用问题：
+
+```javascript
+var element = document.getElementById("some_element"); 
+var myObject = new Object();
+myObject.element = element; 
+element.someObject = myObject;
+```
+
+这个例子在一个 DOM元素（element）与一个原生 JavaScript对象（myObject）之间创建了循环引用。
+
+其中，变量 myObject 有一个名为 element 的属性指向 element 对象；而变量 element 也有 一个属性名叫 someObject 回指 myObject。
+
+由于存在这个循环引用，即使将例子中的 DOM从页面中移除，它也永远不会被回收。
+
+为了避免类似这样的循环引用问题，最好是在不使用它们的时候手工断开原生 JavaScript 对象与 DOM元素之间的连接。例如，可以使用下面的代码消除前面例子创建的循环引用：
+
+```javascript
+myObject.element = null; 
+element.someObject = null;
+```
+
+将变量设置为 null 意味着切断变量与它此前引用的值之间的连接。当垃圾收集器下次运行时，就会删除这些值并回收它们占用的内存。
+
+为了解决上述问题，IE9把 BOM和 DOM对象都转换成了真正的 JavaScript对象。这样，就避免了两种垃圾收集算法并存导致的问题，也消除了常见的内存泄漏现象。
 
 #### 标记-清除算法
 
@@ -99,6 +127,23 @@ function problem(){
 ![image-20200109172651697](../../images/JavaScript/Memory Management/image-20200109172651697.png)
 
 在一个环境中声明变量的时候，垃圾回收器将其标记为“进入环境”，当函数执行完毕时，将其标记为“离开环境”，内存被回收。
+
+#### 可能造成内存泄露的情况
+
+上面我们提到了两种可能造成内存泄露的情况：
+
+```
+1. 对象之间的循环引用
+2. 老版IE（IE8及以前）里面DOM与对象之间的循环引用
+```
+
+其他也可能造成循环引用的情况：
+
+```
+1. 全局变量会存在于整个应用生命周期，应用不退出不会回收，使用严格模式可以避免这种情况
+2. 闭包因为自身特性，将函数内部变量暴露到了外部作用域，当其自身执行结束时，所暴露的变量并不会回收
+3. 没有clear的定时器
+```
 
 ### V8的内存管理
 

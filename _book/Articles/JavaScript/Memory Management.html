@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../Vue/reactive.html" />
+    <link rel="next" href="Unit Test.html" />
     
     
     <link rel="prev" href="../../" />
@@ -115,6 +115,19 @@
             
                     
                     JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="Unit Test.html">
+            
+                <a href="Unit Test.html">
+            
+                    
+                    单元测试及原理
             
                 </a>
             
@@ -269,7 +282,23 @@
 }
 </code></pre>
 <p>&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;objectA &#x548C; objectB &#x901A;&#x8FC7;&#x5404;&#x81EA;&#x7684;&#x5C5E;&#x6027;&#x76F8;&#x4E92;&#x5F15;&#x7528;&#xFF1B;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x90FD;&#x662F; 2&#x3002;&#x5F53;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;objectA &#x548C; objectB &#x8FD8;&#x5C06;&#x7EE7;&#x7EED;&#x5B58;&#x5728;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x662F; 0&#x3002;</p>
-<p>&#x56E0;&#x4E3A;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x73B0;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x5DF2;&#x7ECF;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x7B97;&#x6CD5;&#x4E86;&#xFF0C;&#x8FD9;&#x4E2A;&#x7B97;&#x6CD5;&#x4E3B;&#x8981;&#x5B58;&#x5728;&#x4E8E;IE 8&#x53CA;&#x4EE5;&#x524D;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x73B0;&#x4EE3;&#x6D4F;&#x89C8;&#x5668;&#x66F4;&#x591A;&#x7684;&#x91C7;&#x7528;&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x73B0;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x5DF2;&#x7ECF;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x7B97;&#x6CD5;&#x4E86;&#xFF0C;&#x8FD9;&#x4E2A;&#x7B97;&#x6CD5;&#x4E3B;&#x8981;&#x5B58;&#x5728;&#x4E8E;IE 8&#x53CA;&#x4EE5;&#x524D;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x73B0;&#x4EE3;&#x6D4F;&#x89C8;&#x5668;&#x66F4;&#x591A;&#x7684;&#x91C7;&#x7528;&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;&#x3002;&#x5728;&#x8001;&#x7248;&#x7684;IE&#x4E2D;&#x4E00;&#x90E8;&#x5206;&#x5BF9;&#x8C61;&#x5E76;&#x4E0D;&#x662F;&#x539F;&#x751F; JavaScript &#x5BF9;&#x8C61;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5176; BOM &#x548C; DOM &#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x5C31;&#x662F;&#x4F7F;&#x7528; C++&#x4EE5; COM&#xFF08;Component Object Model&#xFF0C;&#x7EC4;&#x4EF6;&#x5BF9;&#x8C61;&#x6A21;&#x578B;&#xFF09;&#x5BF9;&#x8C61;&#x7684;&#x5F62;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x800C; COM&#x5BF9;&#x8C61;&#x7684;&#x5783;&#x573E; &#x6536;&#x96C6;&#x673A;&#x5236;&#x91C7;&#x7528;&#x7684;&#x5C31;&#x662F;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x7B56;&#x7565;&#x3002;</p>
+<p>&#x3000;&#x3000;&#x56E0;&#x6B64;&#xFF0C;&#x5373;&#x4F7F; IE&#x7684; JavaScript&#x5F15;&#x64CE;&#x662F;&#x4F7F;&#x7528;&#x6807;&#x8BB0;&#x6E05;&#x9664;&#x7B56;&#x7565;&#x6765;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x4F46; JavaScript&#x8BBF;&#x95EE;&#x7684; COM&#x5BF9;&#x8C61;&#x4F9D;&#x7136;&#x662F;&#x57FA;&#x4E8E;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x7B56;&#x7565;&#x7684;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x53EA;&#x8981;&#x5728;IE&#x4E2D;&#x6D89;&#x53CA; COM&#x5BF9;&#x8C61;&#xFF0C;&#x5C31;&#x4F1A;&#x5B58;&#x5728;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x3000;&#x3000;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x5C55;&#x793A;&#x4E86;&#x4F7F;&#x7528; COM&#x5BF9;&#x8C61;&#x5BFC;&#x81F4;&#x7684;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x95EE;&#x9898;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> element = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;some_element&quot;</span>); 
+<span class="hljs-keyword">var</span> myObject = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
+myObject.element = element; 
+element.someObject = myObject;
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x5728;&#x4E00;&#x4E2A; DOM&#x5143;&#x7D20;&#xFF08;element&#xFF09;&#x4E0E;&#x4E00;&#x4E2A;&#x539F;&#x751F; JavaScript&#x5BF9;&#x8C61;&#xFF08;myObject&#xFF09;&#x4E4B;&#x95F4;&#x521B;&#x5EFA;&#x4E86;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x53D8;&#x91CF; myObject &#x6709;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; element &#x7684;&#x5C5E;&#x6027;&#x6307;&#x5411; element &#x5BF9;&#x8C61;&#xFF1B;&#x800C;&#x53D8;&#x91CF; element &#x4E5F;&#x6709; &#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x540D;&#x53EB; someObject &#x56DE;&#x6307; myObject&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x5B58;&#x5728;&#x8FD9;&#x4E2A;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF0C;&#x5373;&#x4F7F;&#x5C06;&#x4F8B;&#x5B50;&#x4E2D;&#x7684; DOM&#x4ECE;&#x9875;&#x9762;&#x4E2D;&#x79FB;&#x9664;&#xFF0C;&#x5B83;&#x4E5F;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x88AB;&#x56DE;&#x6536;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x7C7B;&#x4F3C;&#x8FD9;&#x6837;&#x7684;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x95EE;&#x9898;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5728;&#x4E0D;&#x4F7F;&#x7528;&#x5B83;&#x4EEC;&#x7684;&#x65F6;&#x5019;&#x624B;&#x5DE5;&#x65AD;&#x5F00;&#x539F;&#x751F; JavaScript &#x5BF9;&#x8C61;&#x4E0E; DOM&#x5143;&#x7D20;&#x4E4B;&#x95F4;&#x7684;&#x8FDE;&#x63A5;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x6D88;&#x9664;&#x524D;&#x9762;&#x4F8B;&#x5B50;&#x521B;&#x5EFA;&#x7684;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-javascript">myObject.element = <span class="hljs-literal">null</span>; 
+element.someObject = <span class="hljs-literal">null</span>;
+</code></pre>
+<p>&#x5C06;&#x53D8;&#x91CF;&#x8BBE;&#x7F6E;&#x4E3A; null &#x610F;&#x5473;&#x7740;&#x5207;&#x65AD;&#x53D8;&#x91CF;&#x4E0E;&#x5B83;&#x6B64;&#x524D;&#x5F15;&#x7528;&#x7684;&#x503C;&#x4E4B;&#x95F4;&#x7684;&#x8FDE;&#x63A5;&#x3002;&#x5F53;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x4E0B;&#x6B21;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x5220;&#x9664;&#x8FD9;&#x4E9B;&#x503C;&#x5E76;&#x56DE;&#x6536;&#x5B83;&#x4EEC;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x4E0A;&#x8FF0;&#x95EE;&#x9898;&#xFF0C;IE9&#x628A; BOM&#x548C; DOM&#x5BF9;&#x8C61;&#x90FD;&#x8F6C;&#x6362;&#x6210;&#x4E86;&#x771F;&#x6B63;&#x7684; JavaScript&#x5BF9;&#x8C61;&#x3002;&#x8FD9;&#x6837;&#xFF0C;&#x5C31;&#x907F;&#x514D;&#x4E86;&#x4E24;&#x79CD;&#x5783;&#x573E;&#x6536;&#x96C6;&#x7B97;&#x6CD5;&#x5E76;&#x5B58;&#x5BFC;&#x81F4;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4E5F;&#x6D88;&#x9664;&#x4E86;&#x5E38;&#x89C1;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x73B0;&#x8C61;&#x3002;</p>
 <h4 id="&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;">&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;</h4>
 <p>&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;&#x5C31;&#x662F;&#x5F53;&#x53D8;&#x91CF;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#x662F;&#xFF0C;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x6807;&#x8BB0;&#x4F4D;&#x201C;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#x201D;&#xFF1B;&#x800C;&#x5F53;&#x53D8;&#x91CF;&#x79BB;&#x5F00;&#x73AF;&#x5883;&#x65F6;&#xFF0C;&#x6807;&#x8BB0;&#x4E3A;&#x201C;&#x79BB;&#x5F00;&#x73AF;&#x5883;&#x201D;&#xFF0C;&#x5F53;&#x5783;&#x573E;&#x56DE;&#x6536;&#x65F6;&#x9500;&#x6BC1;&#x90A3;&#x4E9B;&#x5E26;&#x6807;&#x8BB0;&#x7684;&#x503C;&#x5E76;&#x56DE;&#x6536;&#x4ED6;&#x4EEC;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;&#x8FD9;&#x91CC;&#x8BF4;&#x7684;&#x73AF;&#x5883;&#x5C31;&#x662F;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x6267;&#x884C;&#x73AF;&#x5883;&#x5B9A;&#x4E49;&#x4E86;&#x53D8;&#x91CF;&#x6216;&#x51FD;&#x6570;&#x6709;&#x6743;&#x8BBF;&#x95EE;&#x7684;&#x6570;&#x636E;&#x3002;&#x6BCF;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x4E0E;&#x4E4B;&#x5173;&#x8054;&#x7684;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#xFF08;variable object&#xFF09;&#xFF0C;&#x73AF;&#x5883;&#x4E2D;&#x6240;&#x5B9A;&#x4E49;&#x7684;&#x6240;&#x4EE5;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x90FD;&#x4FDD;&#x5B58;&#x5728;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x4E2D;&#x3002;&#x67D0;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#x4E2D;&#x6240;&#x6709;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x6539;&#x73AF;&#x5883;&#x88AB;&#x9500;&#x6BC1;&#xFF0C;&#x4FDD;&#x5B58;&#x5728;&#x5176;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x4E5F;&#x968F;&#x4E4B;&#x9500;&#x6BC1;&#x3002;</p>
 <h5 id="&#x5168;&#x5C40;&#x6267;&#x884C;&#x73AF;&#x5883;">&#x5168;&#x5C40;&#x6267;&#x884C;&#x73AF;&#x5883;</h5>
@@ -278,7 +307,15 @@
 <p>&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x6267;&#x884C;&#x73AF;&#x5883;&#x3002;&#x5F53;&#x6267;&#x884C;&#x6D41;&#x8FDB;&#x5165;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x51FD;&#x6570;&#x7684;&#x73AF;&#x5883;&#x4F1A;&#x88AB;&#x63A8;&#x5165;&#x4E00;&#x4E2A;&#x73AF;&#x5883;&#x6808;&#x4E2D;&#x3002;&#x5F53;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x6267;&#x884C;&#x4E4B;&#x540E;&#xFF0C;&#x6808;&#x5C06;&#x5176;&#x73AF;&#x5883;&#x5F39;&#x51FA;&#xFF0C;&#x628A;&#x63A7;&#x5236;&#x6743;&#x8FD4;&#x56DE;&#x7ED9;&#x4E4B;&#x524D;&#x7684;&#x73AF;&#x5883;&#x3002;ECMAScript&#x7A0B;&#x5E8F;&#x4E2D;&#x7684;&#x6267;&#x884C;&#x6D41;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x673A;&#x5236;&#x63A7;&#x5236;&#x7684;&#x3002;</p>
 <p><img src="../../images/JavaScript/Memory Management/image-20200109172651697.png" alt="image-20200109172651697"></p>
 <p>&#x5728;&#x4E00;&#x4E2A;&#x73AF;&#x5883;&#x4E2D;&#x58F0;&#x660E;&#x53D8;&#x91CF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5668;&#x5C06;&#x5176;&#x6807;&#x8BB0;&#x4E3A;&#x201C;&#x8FDB;&#x5165;&#x73AF;&#x5883;&#x201D;&#xFF0C;&#x5F53;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x65F6;&#xFF0C;&#x5C06;&#x5176;&#x6807;&#x8BB0;&#x4E3A;&#x201C;&#x79BB;&#x5F00;&#x73AF;&#x5883;&#x201D;&#xFF0C;&#x5185;&#x5B58;&#x88AB;&#x56DE;&#x6536;&#x3002;</p>
-<h3 id="v8&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;">V8&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;</h3>
+<h4 id="&#x53EF;&#x80FD;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x7684;&#x60C5;&#x51B5;">&#x53EF;&#x80FD;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x7684;&#x60C5;&#x51B5;</h4>
+<p>&#x4E0A;&#x9762;&#x6211;&#x4EEC;&#x63D0;&#x5230;&#x4E86;&#x4E24;&#x79CD;&#x53EF;&#x80FD;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x7684;&#x60C5;&#x51B5;&#xFF1A;</p>
+<pre><code>1. &#x5BF9;&#x8C61;&#x4E4B;&#x95F4;&#x7684;&#x5FAA;&#x73AF;&#x5F15;&#x7528;
+2. &#x8001;&#x7248;IE&#xFF08;IE8&#x53CA;&#x4EE5;&#x524D;&#xFF09;&#x91CC;&#x9762;DOM&#x4E0E;&#x5BF9;&#x8C61;&#x4E4B;&#x95F4;&#x7684;&#x5FAA;&#x73AF;&#x5F15;&#x7528;
+</code></pre><p>&#x5176;&#x4ED6;&#x4E5F;&#x53EF;&#x80FD;&#x9020;&#x6210;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x7684;&#x60C5;&#x51B5;&#xFF1A;</p>
+<pre><code>1. &#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F1A;&#x5B58;&#x5728;&#x4E8E;&#x6574;&#x4E2A;&#x5E94;&#x7528;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5E94;&#x7528;&#x4E0D;&#x9000;&#x51FA;&#x4E0D;&#x4F1A;&#x56DE;&#x6536;&#xFF0C;&#x4F7F;&#x7528;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;
+2. &#x95ED;&#x5305;&#x56E0;&#x4E3A;&#x81EA;&#x8EAB;&#x7279;&#x6027;&#xFF0C;&#x5C06;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x53D8;&#x91CF;&#x66B4;&#x9732;&#x5230;&#x4E86;&#x5916;&#x90E8;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x5F53;&#x5176;&#x81EA;&#x8EAB;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x6240;&#x66B4;&#x9732;&#x7684;&#x53D8;&#x91CF;&#x5E76;&#x4E0D;&#x4F1A;&#x56DE;&#x6536;
+3. &#x6CA1;&#x6709;clear&#x7684;&#x5B9A;&#x65F6;&#x5668;
+</code></pre><h3 id="v8&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;">V8&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;</h3>
 <p>V8&#x662F;&#x6709;&#x5185;&#x5B58;&#x9650;&#x5236;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x6700;&#x5F00;&#x59CB;&#x662F;&#x4E3A;&#x6D4F;&#x89C8;&#x5668;&#x8BBE;&#x8BA1;&#x7684;&#xFF0C;&#x4E0D;&#x592A;&#x53EF;&#x80FD;&#x9047;&#x5230;&#x5927;&#x91CF;&#x5185;&#x5B58;&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x3002;&#x5173;&#x952E;&#x539F;&#x56E0;&#x8FD8;&#x662F;&#x5783;&#x573E;&#x56DE;&#x6536;&#x6240;&#x5BFC;&#x81F4;&#x7684;&#x7EBF;&#x7A0B;&#x6682;&#x505C;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x8FC7;&#x957F;&#x3002;&#x6839;&#x636E;&#x5B98;&#x65B9;&#x8BF4;&#x6CD5;&#xFF0C;&#x4EE5;1.5G&#x5185;&#x5B58;&#x4E3A;&#x4F8B;&#xFF0C;V8&#x4E00;&#x6B21;&#x5C0F;&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x9700;&#x8981;50ms&#xFF0C;&#x800C;&#x4E00;&#x6B21;&#x975E;&#x589E;&#x91CF;&#x7684;&#xFF0C;&#x5373;&#x5168;&#x91CF;&#x7684;&#x5783;&#x573E;&#x56DE;&#x6536;&#x66F4;&#x9700;&#x8981;&#x4E00;&#x79D2;&#x3002;&#x8FD9;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x53EF;&#x63A5;&#x53D7;&#x7684;&#x3002;&#x56E0;&#x6B64;V8&#x9650;&#x5236;&#x4E86;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x4F46;&#x662F;Node.js&#x662F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x4FEE;&#x6539;&#x7684;&#xFF0C;&#x66F4;&#x597D;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x4F7F;&#x7528;<code>Buffer</code>&#x5BF9;&#x8C61;&#xFF0C;&#x56E0;&#x4E3A;<code>Buffer</code>&#x7684;&#x5185;&#x5B58;&#x662F;&#x5E95;&#x5C42;C++&#x5206;&#x914D;&#x7684;&#xFF0C;&#x4E0D;&#x5360;&#x7528;JS&#x5185;&#x5B58;&#xFF0C;&#x6240;&#x4EE5;&#x4ED6;&#x4E5F;&#x5C31;&#x4E0D;&#x53D7;V8&#x9650;&#x5236;&#x3002;</p>
 <p>V8&#x91C7;&#x7528;&#x4E86;&#x5206;&#x4EE3;&#x56DE;&#x6536;&#x7684;&#x7B56;&#x7565;&#xFF0C;&#x5C06;&#x5185;&#x5B58;&#x5206;&#x4E3A;&#x4E24;&#x4E2A;&#x751F;&#x4EE3;&#xFF1A;&#x65B0;&#x751F;&#x4EE3;&#x548C;&#x8001;&#x751F;&#x4EE3;</p>
 <h4 id="&#x65B0;&#x751F;&#x4EE3;">&#x65B0;&#x751F;&#x4EE3;</h4>
@@ -333,7 +370,7 @@
                 </a>
                 
                 
-                <a href="../Vue/reactive.html" class="navigation navigation-next " aria-label="Next page: Vue响应式原理">
+                <a href="Unit Test.html" class="navigation navigation-next " aria-label="Next page: 单元测试及原理">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -344,7 +381,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"JavaScript内存管理","level":"2.1","depth":1,"next":{"title":"Vue响应式原理","level":"4.1","depth":1,"path":"Articles/Vue/reactive.md","ref":"Articles/Vue/reactive.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/JavaScript/Memory Management.md","mtime":"2020-01-09T10:33:07.168Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-09T07:55:25.970Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"JavaScript内存管理","level":"2.1","depth":1,"next":{"title":"单元测试及原理","level":"2.2","depth":1,"path":"Articles/JavaScript/Unit Test.md","ref":"Articles/JavaScript/Unit Test.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/JavaScript/Memory Management.md","mtime":"2020-01-09T14:02:17.259Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-09T14:27:32.253Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

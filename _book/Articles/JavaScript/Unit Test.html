@@ -1,0 +1,379 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>单元测试及原理 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../Vue/reactive.html" />
+    
+    
+    <link rel="prev" href="Memory Management.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">JavaScript</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="Memory Management.html">
+            
+                <a href="Memory Management.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="Unit Test.html">
+            
+                <a href="Unit Test.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">计算机网络</li>
+        
+        
+    
+
+    
+        
+        <li class="header">Vue.js</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">React.js</li>
+        
+        
+    
+
+    
+        
+        <li class="header">Node.js</li>
+        
+        
+    
+
+    
+        
+        <li class="header">工程化</li>
+        
+        
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >单元测试及原理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x53CA;&#x539F;&#x7406;">&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x53CA;&#x539F;&#x7406;</h3>
+<p>&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x662F;&#x6307;&#x5BF9;&#x8F6F;&#x4EF6;&#x4E2D;&#x7684;&#x6700;&#x5C0F;&#x53EF;&#x6D4B;&#x8BD5;&#x5355;&#x5143;&#x8FDB;&#x884C;&#x68C0;&#x67E5;&#x548C;&#x9A8C;&#x8BC1;&#xFF0C;&#x901A;&#x8FC7;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x53EF;&#x4EE5;&#x68C0;&#x6D4B;&#x51FA;&#x6F5C;&#x5728;&#x7684;bug&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x53CD;&#x9988;&#x529F;&#x80FD;&#x8F93;&#x51FA;&#xFF0C;&#x9A8C;&#x8BC1;&#x4EE3;&#x7801;&#x662F;&#x5426;&#x8FBE;&#x5230;&#x9884;&#x671F;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x4EE3;&#x7801;&#x91CD;&#x6784;&#x7684;&#x5B89;&#x5168;&#x6027;&#x3002;</p>
+<p>&#x6709;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = (a, b) =&gt; a + b;
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x8BA1;&#x7B97;&#x4E24;&#x4E2A;&#x6570;&#x7684;&#x548C;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5047;&#x5982;&#x6211;&#x4EEC;&#x60F3;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x903B;&#x8F91;&#x5BF9;&#x4E0D;&#x5BF9;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x4E00;&#x4E0B;&#xFF0C;&#x7136;&#x540E;&#x8DDF;&#x6211;&#x4EEC;&#x9884;&#x671F;&#x7684;&#x4E00;&#x4E2A;&#x503C;&#x6BD4;&#x8F83;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x7B26;&#x5408;&#x5C31;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = (a, b) =&gt; a + b;
+<span class="hljs-keyword">let</span> result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+<span class="hljs-keyword">let</span> expect = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">if</span>(result !== expect){
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`1+2&#x5E94;&#x8BE5;&#x7B49;&#x4E8E;<span class="hljs-subst">${expect}</span>,&#x5B9E;&#x9645;&#x7B49;&#x4E8E;<span class="hljs-subst">${result}</span>`</span>)
+}
+</code></pre>
+<p>&#x8FD9;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x91CC;&#x5199;&#x7684;&#x65B9;&#x6CD5;&#x592A;&#x76F4;&#x767D;&#xFF0C;&#x800C;&#x4E14;&#x4E0D;&#x80FD;&#x590D;&#x7528;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x6539;&#x9020;&#x4E0B;<code>expect</code>&#xFF0C;&#x628A;&#x5B83;&#x53D8;&#x6210;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> expect = (res) =&gt; {
+  <span class="hljs-keyword">return</span> {
+    toBe: (expectRes) =&gt; {
+      <span class="hljs-keyword">if</span>(res !== expectRes){
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`&#x671F;&#x671B;&#x503C;&#x662F;<span class="hljs-subst">${expectRes}</span>&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x5374;&#x662F;<span class="hljs-subst">${res}</span>!`</span>)
+      }
+    }
+  }
+}
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x524D;&#x9762;&#x671F;&#x671B;<code>1+2=3</code>&#xFF0C;&#x8FD9;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x6709;&#x591A;&#x4E2A;&#x7528;&#x4F8B;&#x7684;&#x8BDD;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x4E00;&#x79CD;&#x66F4;&#x901A;&#x7528;&#x4F18;&#x96C5;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5199;&#x7528;&#x4F8B;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x5199;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x7528;&#x4F8B;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> test = (desc, fn) =&gt; {
+  <span class="hljs-keyword">try</span>{
+    fn();
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${desc}</span> -&gt; PASS`</span>)
+  }<span class="hljs-keyword">catch</span>(e){
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`<span class="hljs-subst">${desc}</span> -&gt; FAIL`</span>, e);
+  }
+}
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x901A;&#x7528;&#x65B9;&#x6CD5;&#x6765;&#x6539;&#x5199;&#x4E0B;&#x6211;&#x4EEC;&#x7684;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = (a, b) =&gt; a + b;
+
+<span class="hljs-keyword">const</span> expect = (res) =&gt; {
+  <span class="hljs-keyword">return</span> {
+    toBe: (expectRes) =&gt; {
+      <span class="hljs-keyword">if</span>(res !== expectRes){
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`&#x671F;&#x671B;&#x503C;&#x662F;<span class="hljs-subst">${expectRes}</span>&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x5374;&#x662F;<span class="hljs-subst">${res}</span>!`</span>)
+      }
+    }
+  }
+}
+
+<span class="hljs-keyword">const</span> test = (desc, fn) =&gt; {
+  <span class="hljs-keyword">try</span>{
+    fn();
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${desc}</span> -&gt; PASS`</span>)
+  }<span class="hljs-keyword">catch</span>(e){
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`<span class="hljs-subst">${desc}</span> -&gt; FAIL`</span>, e);
+  }
+}
+
+test(<span class="hljs-string">&apos;1+2=3&apos;</span>, () =&gt; {
+  expect(add(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)).toBe(<span class="hljs-number">3</span>); <span class="hljs-comment">// 1+2=3 -&gt; PASS</span>
+});
+
+test(<span class="hljs-string">&apos;1+2=4&apos;</span>, () =&gt; {
+  expect(add(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)).toBe(<span class="hljs-number">4</span>); <span class="hljs-comment">// 1+2=4 -&gt; FAIL Error: &#x671F;&#x671B;&#x503C;&#x662F;4&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x5374;&#x662F;3!</span>
+});
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x4ECB;&#x7ECD;&#x7684;&#x662F;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x4E8B;&#x5B9E;&#x4E0A;&#x5728;&#x6211;&#x4EEC;&#x5199;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x5199;<code>expect</code>&#x548C;<code>test</code>&#x5171;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x6BD4;&#x5BF9;&#x65B9;&#x6CD5;&#x4E5F;&#x8FDC;&#x8FDC;&#x4E0D;&#x6B62;<code>toBe</code>&#x4E00;&#x4E2A;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;<a href="https://jestjs.io/" target="_blank">Jest</a>&#xFF0C;&#x4ED6;&#x5305;&#x542B;&#x4E86;&#x51E0;&#x4E4E;&#x6240;&#x6709;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x5DE5;&#x5177;&#xFF0C;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5B98;&#x7F51;&#x90FD;&#x6709;&#xFF0C;&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x8BB2;&#x539F;&#x7406;&#xFF0C;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x4E0D;&#x518D;&#x8D58;&#x8FF0;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Memory Management.html" class="navigation navigation-prev " aria-label="Previous page: JavaScript内存管理">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../Vue/reactive.html" class="navigation navigation-next " aria-label="Next page: Vue响应式原理">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"单元测试及原理","level":"2.2","depth":1,"next":{"title":"Vue响应式原理","level":"4.1","depth":1,"path":"Articles/Vue/reactive.md","ref":"Articles/Vue/reactive.md","articles":[]},"previous":{"title":"JavaScript内存管理","level":"2.1","depth":1,"path":"Articles/JavaScript/Memory Management.md","ref":"Articles/JavaScript/Memory Management.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/JavaScript/Unit Test.md","mtime":"2020-01-09T14:36:22.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-09T14:27:32.253Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
