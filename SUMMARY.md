@@ -4,11 +4,13 @@
 
 ## JavaScript
 
+* [JavaScript内存管理](Articles/JavaScript/Memory Management.md)
+
 ## 计算机网络
 
 ## Vue.js
 
-* [响应式原理](Vue/reactive.md)
+* [Vue响应式原理](Articles/Vue/reactive.md)
 
 ## React.js
 
@@ -16,5 +18,5 @@
 
 ## 工程化
 
-## 网易项目实战
+
 

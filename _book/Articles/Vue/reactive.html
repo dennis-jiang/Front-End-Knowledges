@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>响应式原理 · GitBook</title>
+        <title>Vue响应式原理 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -12,20 +12,20 @@
         
         
     
-    <link rel="stylesheet" href="../gitbook/style.css">
+    <link rel="stylesheet" href="../../gitbook/style.css">
 
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
                 
             
         
@@ -53,12 +53,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
-    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
     
-    <link rel="prev" href="../" />
+    <link rel="prev" href="../JavaScript/Memory Management.html" />
     
 
     </head>
@@ -87,9 +87,9 @@
         
         
     
-        <li class="chapter " data-level="1.1" data-path="../">
+        <li class="chapter " data-level="1.1" data-path="../../">
             
-                <a href="../">
+                <a href="../../">
             
                     
                     Introduction
@@ -106,6 +106,19 @@
         <li class="header">JavaScript</li>
         
         
+    
+        <li class="chapter " data-level="2.1" data-path="../JavaScript/Memory Management.html">
+            
+                <a href="../JavaScript/Memory Management.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
     
 
     
@@ -126,7 +139,7 @@
                 <a href="reactive.html">
             
                     
-                    响应式原理
+                    Vue响应式原理
             
                 </a>
             
@@ -152,13 +165,6 @@
     
         
         <li class="header">工程化</li>
-        
-        
-    
-
-    
-        
-        <li class="header">网易项目实战</li>
         
         
     
@@ -192,7 +198,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >响应式原理</a>
+        <a href="../.." >Vue响应式原理</a>
     </h1>
 </div>
 
@@ -225,11 +231,11 @@
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> a = {b: <span class="hljs-number">1</span>}
 </code></pre>
 <p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>Object.getOwnPropertyDescriptor</code>&#x6765;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x63CF;&#x8FF0;&#x7B26;</p>
-<p><img src="../images/Vue/image-20200108124827294.png" alt="image-20200108124827294"></p>
+<p><img src="../../images/Vue/Reactive/image-20200108124827294.png" alt="image-20200108124827294"></p>
 <p>&#x4F60;&#x4F1A;&#x53D1;&#x73B0;<code>a.b</code>&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x7684;<code>writable</code>, <code>enumerable</code>, <code>configurable</code>&#x8FD9;&#x4E09;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;&#x90FD;&#x662F;<code>true</code>&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x524D;&#x9762;&#x8BF4;&#x4ED6;&#x4EEC;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x662F;<code>false</code>&#x554A;&#xFF0C;&#x8FD9;&#x662F;&#x600E;&#x4E48;&#x56DE;&#x4E8B;&#x5462;&#xFF1F;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x7684;&#x65B9;&#x6CD5;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x6211;&#x4EEC;&#x6700;&#x5F00;&#x59CB;&#x7684;&#x5B9A;&#x4E49;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x65F6;&#x5019;&#x5DF2;&#x7ECF;&#x7ED9;&#x4ED6;&#x8D4B;&#x503C;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x4ED6;&#x5DF2;&#x7ECF;&#x662F;&#x53EF;&#x5199;&#x7684;&#x4E86;&#x3002;&#x6211;&#x4EEC;&#x6362;&#x4E00;&#x79CD;&#x58F0;&#x660E;&#x65B9;&#x5F0F;&#xFF0C;&#x7528;<code>Object.defineProperty</code>&#x76F4;&#x63A5;&#x58F0;&#x660E;<code>a.c</code>&#xFF0C;&#x518D;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x5C5E;&#x6027;&#x63CF;&#x8FF0;&#x7B26;</p>
-<p><img src="../images/Vue/image-20200108125615580.png" alt="image-20200108125615580"></p>
+<p><img src="../../images/Vue/Reactive/image-20200108125615580.png" alt="image-20200108125615580"></p>
 <p>&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x7684;&#x65F6;&#x5019;&#x53EA;&#x6307;&#x5B9A;&#x4E86;&#x503C;&#x4E3A;2&#xFF0C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x5176;&#x4ED6;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x90A3;&#x4E48;<code>writable</code>, <code>enumerable</code>, <code>configurable</code>&#x90FD;&#x662F;&#x9ED8;&#x8BA4;&#x503C;<code>false</code>&#xFF0C;&#x4E5F;&#x5C31;&#x610F;&#x5473;&#x7740;<code>a.c</code>&#x4E0D;&#x80FD;&#x4FEE;&#x6539;&#xFF0C;&#x4E0D;&#x80FD;&#x679A;&#x4E3E;&#xFF0C;&#x4E5F;&#x4E0D;&#x80FD;&#x518D;&#x914D;&#x7F6E;&#x3002;&#x5373;&#x4F7F;&#x4F60;&#x663E;&#x5F0F;<code>a.c=3</code>&#x4E5F;&#x6CA1;&#x6709;&#x7528;&#xFF0C;&#x4ED6;&#x7684;&#x503C;&#x8FD8;&#x662F;2&#xFF0C;&#x800C;&#x4E14;&#x8FD9;&#x6837;&#x5199;&#x5728;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x8FD8;&#x4F1A;&#x62A5;&#x9519;&#x3002;&#x56E0;&#x4E3A;<code>configurable</code>&#x662F;<code>false</code>&#xFF0C;&#x4E5F;&#x4E0D;&#x80FD;&#x901A;&#x8FC7;<code>Object.defineProperty</code>&#x518D;&#x4FEE;&#x6539;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x4F1A;&#x76F4;&#x63A5;&#x62A5;&#x9519;&#xFF1A;</p>
-<p><img src="../images/Vue/image-20200108130152526.png" alt="image-20200108130152526"></p>
+<p><img src="../../images/Vue/Reactive/image-20200108130152526.png" alt="image-20200108130152526"></p>
 <h5 id="set-&#x548C;-get">set &#x548C; get</h5>
 <p>&#x8FD9;&#x624D;&#x662F;&#x91CD;&#x5934;&#x620F;&#xFF0C;Vue&#x5C31;&#x662F;&#x901A;&#x8FC7;<code>set</code>&#x548C;<code>get</code>&#x6765;&#x5B9E;&#x73B0;&#x7684;&#x54CD;&#x5E94;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7248;&#x7684;Vue&#x6765;&#x8BB2;&#x89E3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x5148;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;vue:</p>
 <pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">vue</span>(<span class="hljs-params"></span>)</span>{
@@ -278,7 +284,7 @@
 }
 </code></pre>
 <p>&#x8FD9;&#x6837;&#x4F60;&#x6BCF;&#x6B21;&#x4FEE;&#x6539;<code>$data.a</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x754C;&#x9762;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x8BBE;&#x7F6E;&#x4E86;<code>get</code>&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x5199;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x4F1A;&#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;<code>undefined</code>&#xFF0C;&#x4F60;&#x6BCF;&#x6B21;&#x8BFB;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x90FD;&#x662F;<code>undefined</code>&#xFF0C;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86;<code>set</code>&#x65B9;&#x6CD5;&#xFF0C;&#x503C;&#x7684;&#x66F4;&#x65B0;&#x5C31;&#x5FC5;&#x987B;&#x81EA;&#x5DF1;&#x5168;&#x90E8;&#x5B9E;&#x73B0;&#xFF0C;&#x4E0D;&#x5B9E;&#x73B0;&#x53BB;&#x8D4B;&#x503C;&#x4E5F;&#x4E0D;&#x4F1A;&#x6210;&#x529F;&#x3002;&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;<code>get</code>&#x548C;<code>set</code>&#x9700;&#x8981;&#x4F18;&#x5316;&#x7684;&#x5730;&#x65B9;&#x8FD8;&#x5F88;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x662F;&#x4E00;&#x65E6;&#x89E6;&#x53D1;<code>set</code>&#x5C31;&#x66F4;&#x65B0;&#x4E86;&#x6574;&#x4E2A;DOM&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x6709;100&#x4E2A;&#x7EC4;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#x4F7F;&#x7528;&#x4E86;<code>set</code>&#x7684;&#x503C;&#xFF0C;&#x8FD9;&#x4F1A;&#x9020;&#x6210;&#x5F88;&#x5927;&#x7684;&#x8D44;&#x6E90;&#x6D6A;&#x8D39;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x627E;&#x51FA;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5230;&#x5E95;&#x88AB;&#x54EA;&#x4E9B;&#x7EC4;&#x4EF6;&#x4F7F;&#x7528;&#x4E86;&#xFF0C;&#x5F53;&#x53D8;&#x91CF;&#x66F4;&#x65B0;&#x7684;&#x65F6;&#x5019;&#x53EA;&#x53BB;&#x66F4;&#x65B0;&#x90A3;&#x4E9B;&#x7528;&#x5230;&#x4E86;&#x7684;&#x7EC4;&#x4EF6;&#x3002;&#x8FD9;&#x624D;&#x662F;Vue&#x771F;&#x6B63;&#x7684;&#x505A;&#x6CD5;&#xFF1A;</p>
-<p><img src="../images/Vue/image-20200108134432297.png" alt="image-20200108134432297"></p>
+<p><img src="../../images/Vue/Reactive/image-20200108134432297.png" alt="image-20200108134432297"></p>
 <p>&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x7684;<code>get</code>&#x548C;<code>set</code>&#x5C31;&#x53D8;&#x6210;&#x4E86;&#x8FD9;&#x6837;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-keyword">this</span>.$data, key, {
   get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
@@ -512,9 +518,9 @@ construct()
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>&#x6BD4;&#x5BF9;&#x662F;&#x53EA;&#x4F1A;&#x6BD4;&#x5BF9;&#x7B2C;&#x4E00;&#x5C42;&#x7684;div, &#x7B2C;&#x4E8C;&#x5C42;&#x662F;p&#x548C;span&#x6BD4;&#x5BF9;&#xFF0C;&#x4E0D;&#x4F1A;&#x62FF;div&#x548C;span&#x8FDB;&#x884C;&#x6BD4;&#x5BF9;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
-<p><img src="../images/Vue/image-20200108173018255.png" alt="image-20200108173018255"></p>
+<p><img src="../../images/Vue/Reactive/image-20200108173018255.png" alt="image-20200108173018255"></p>
 <p>&#x4ECE;&#x6570;&#x636E;&#x6539;&#x53D8;&#x7684;set&#x65B9;&#x6CD5;&#x5F00;&#x59CB;&#x7684;diff&#x7B97;&#x6CD5;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
-<p><img src="../images/Vue/image-20200108181340241.png" alt="image-20200108181340241"></p>
+<p><img src="../../images/Vue/Reactive/image-20200108181340241.png" alt="image-20200108181340241"></p>
 <p>&#x5982;&#x679C;&#x65B0;&#x65E7;&#x4E24;&#x4E2A;&#x8282;&#x70B9;&#x5B8C;&#x5168;&#x4E0D;&#x4E00;&#x6837;&#x4E86;<code>isSameVnode</code>&#x8FD4;&#x56DE;false&#xFF0C;&#x5219;&#x6574;&#x4E2A;&#x8282;&#x70B9;&#x66F4;&#x65B0;&#xFF0C;&#x5982;&#x679C;&#x8282;&#x70B9;&#x672C;&#x8EAB;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x5C31;&#x6BD4;&#x8F83;&#x4ED6;&#x4EEC;&#x7684;&#x5B50;&#x8282;&#x70B9;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x4F2A;&#x4EE3;&#x7801;&#xFF1A;</p>
 <pre><code class="lang-javascript">patchVnode(oldVnode, vnode){
     <span class="hljs-keyword">const</span> el = vnode.el = oldVnode;
@@ -568,7 +574,7 @@ construct()
 
             
                 
-                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                <a href="../JavaScript/Memory Management.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: JavaScript内存管理">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -580,41 +586,41 @@ construct()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"响应式原理","level":"4.1","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Vue/reactive.md","mtime":"2020-01-08T10:37:19.986Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-08T09:04:20.685Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Vue响应式原理","level":"4.1","depth":1,"previous":{"title":"JavaScript内存管理","level":"2.1","depth":1,"path":"Articles/JavaScript/Memory Management.md","ref":"Articles/JavaScript/Memory Management.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/Vue/reactive.md","mtime":"2020-01-09T10:21:46.213Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-09T07:55:25.970Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <script src="../gitbook/gitbook.js"></script>
-    <script src="../gitbook/theme.js"></script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
     
         
-        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
 

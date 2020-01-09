@@ -27,15 +27,15 @@ var a = {b: 1}
 
 我们可以使用`Object.getOwnPropertyDescriptor`来获取一个属性的描述符
 
-![image-20200108124827294](../images/Vue/image-20200108124827294.png)
+![image-20200108124827294](../../images/Vue/Reactive/image-20200108124827294.png)
 
 你会发现`a.b`这个属性的`writable`, `enumerable`, `configurable`这三个描述符都是`true`，但是我们前面说他们的默认值是`false`啊，这是怎么回事呢？这是因为我们定义属性的方法不一样，我们最开始的定义这个属性的时候已经给他赋值了，所以他已经是可写的了。我们换一种声明方式，用`Object.defineProperty`直接声明`a.c`，再看看他的属性描述符
 
-![image-20200108125615580](../images/Vue/image-20200108125615580.png)
+![image-20200108125615580](../../images/Vue/Reactive/image-20200108125615580.png)
 
 我们定义的时候只指定了值为2，没有指定其他描述符，那么`writable`, `enumerable`, `configurable`都是默认值`false`，也就意味着`a.c`不能修改，不能枚举，也不能再配置。即使你显式`a.c=3`也没有用，他的值还是2，而且这样写在严格模式还会报错。因为`configurable`是`false`，也不能通过`Object.defineProperty`再修改描述符，会直接报错：
 
-![image-20200108130152526](../images/Vue/image-20200108130152526.png)
+![image-20200108130152526](../../images/Vue/Reactive/image-20200108130152526.png)
 
 ##### set 和 get
 
@@ -99,7 +99,7 @@ vue.prototype.render = function(){
 
 这样你每次修改`$data.a`的时候，界面就会自动更新。需要注意的是，如果你设置了`get`方法，但是没有写返回值，会默认返回`undefined`，你每次读这个属性都是`undefined`，如果设置了`set`方法，值的更新就必须自己全部实现，不实现去赋值也不会成功。事实上，`get`和`set`需要优化的地方还很多，我们现在是一旦触发`set`就更新了整个DOM，但实际上我们可能有100个组件，其中只有一个组件使用了`set`的值，这会造成很大的资源浪费。我们需要找出一个变量到底被哪些组件使用了，当变量更新的时候只去更新那些用到了的组件。这才是Vue真正的做法：
 
-![image-20200108134432297](../images/Vue/image-20200108134432297.png)
+![image-20200108134432297](../../images/Vue/Reactive/image-20200108134432297.png)
 
 这样我们的`get`和`set`就变成了这样：
 
@@ -385,11 +385,11 @@ construct()
 
 比对是只会比对第一层的div, 第二层是p和span比对，不会拿div和span进行比对，如下图：
 
-![image-20200108173018255](../images/Vue/image-20200108173018255.png)
+![image-20200108173018255](../../images/Vue/Reactive/image-20200108173018255.png)
 
 从数据改变的set方法开始的diff算法如下图所示：
 
-![image-20200108181340241](../images/Vue/image-20200108181340241.png)
+![image-20200108181340241](../../images/Vue/Reactive/image-20200108181340241.png)
 
 如果新旧两个节点完全不一样了`isSameVnode`返回false，则整个节点更新，如果节点本身是一样的，就比较他们的子节点，下面是伪代码：
 
