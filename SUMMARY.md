@@ -1,12 +1,13 @@
-# Summary
+# 前端进阶
 
 * [Introduction](README.md)
 
 ## JavaScript
 
-* [JavaScript内存管理](Articles/JavaScript/Memory Management.md)
-* [函数式编程](Articles/JavaScript/Functional Programming.md)
-* [单元测试及原理](Articles/JavaScript/Unit Test.md)
+* [JavaScript内存管理](Articles/JavaScript/MemoryManagement.md)
+* [函数式编程](Articles/JavaScript/FunctionalProgramming.md)
+* [compose函数和pipe函数](Articles/JavaScript/ComposePipe.md)
+* [单元测试及原理](Articles/JavaScript/UnitTest.md)
 
 ## 计算机网络
 
