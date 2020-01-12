@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh-hans" >
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>JavaScript内存管理 · GitBook</title>
+        <title>JavaScript内存管理 · 前端进阶</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
-        
+        <meta name="author" content="Dennis Jiang">
         
         
     
@@ -18,6 +18,14 @@
             
                 
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
                 
             
                 
@@ -69,7 +77,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="输入并搜索" />
 </div>
 
             
@@ -301,7 +309,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -334,6 +342,9 @@
                     <div class="page-wrapper" tabindex="-1" role="main">
                         <div class="page-inner">
                             
+<div id="book-search-results">
+    <div class="search-noresults">
+    
 <div id="book-search-results">
     <div class="search-noresults">
     
@@ -377,8 +388,8 @@
 </ul>
 <h4 id="&#x5F15;&#x7528;&#x8BA1;&#x6570;reference-counting">&#x5F15;&#x7528;&#x8BA1;&#x6570;(reference counting)</h4>
 <p>&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x662F;&#x4E00;&#x79CD;&#x56DE;&#x6536;&#x7B56;&#x7565;&#xFF0C;&#x5B83;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x6BCF;&#x4E2A;&#x503C;&#x88AB;&#x5F15;&#x7528;&#x7684;&#x6B21;&#x6570;&#xFF0C;&#x6BCF;&#x6B21;&#x5F15;&#x7528;&#x7684;&#x65F6;&#x5019;&#x52A0;&#x4E00;&#xFF0C;&#x88AB;&#x91CA;&#x653E;&#x65F6;&#x51CF;&#x4E00;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x503C;&#x7684;&#x5F15;&#x7528;&#x6B21;&#x6570;&#x53D8;&#x6210;0&#x4E86;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5C06;&#x5176;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x56DE;&#x6536;&#x3002;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {a: <span class="hljs-number">10</span>};  <span class="hljs-comment">// &#x5F15;&#x7528; +1</span>
-<span class="hljs-keyword">const</span> obj1 = {a: <span class="hljs-number">10</span>};  <span class="hljs-comment">// &#x5F15;&#x7528; +1</span>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {<span class="hljs-attr">a</span>: <span class="hljs-number">10</span>};  <span class="hljs-comment">// &#x5F15;&#x7528; +1</span>
+<span class="hljs-keyword">const</span> obj1 = {<span class="hljs-attr">a</span>: <span class="hljs-number">10</span>};  <span class="hljs-comment">// &#x5F15;&#x7528; +1</span>
 <span class="hljs-keyword">const</span> obj = {};  <span class="hljs-comment">// &#x5F15;&#x7528; -1</span>
 <span class="hljs-keyword">const</span> obj1 = <span class="hljs-literal">null</span>;  <span class="hljs-comment">// &#x5F15;&#x7528;&#x4E3A; 0</span>
 </code></pre>
@@ -469,6 +480,22 @@ element.someObject = <span class="hljs-literal">null</span>;
     </div>
 </div>
 
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
                         </div>
                     </div>
                 
@@ -488,7 +515,7 @@ element.someObject = <span class="hljs-literal">null</span>;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"JavaScript内存管理","level":"1.3.1","depth":2,"next":{"title":"函数式编程","level":"1.3.2","depth":2,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},"previous":{"title":"JavaScript","level":"1.3","depth":1,"ref":"","articles":[{"title":"JavaScript内存管理","level":"1.3.1","depth":2,"path":"Articles/JavaScript/MemoryManagement.md","ref":"Articles/JavaScript/MemoryManagement.md","articles":[]},{"title":"函数式编程","level":"1.3.2","depth":2,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},{"title":"compose函数和pipe函数","level":"1.3.3","depth":2,"path":"Articles/JavaScript/ComposePipe.md","ref":"Articles/JavaScript/ComposePipe.md","articles":[]},{"title":"一些常用函数","level":"1.3.4","depth":2,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},{"title":"单元测试及原理","level":"1.3.5","depth":2,"path":"Articles/JavaScript/UnitTest.md","ref":"Articles/JavaScript/UnitTest.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/JavaScript/MemoryManagement.md","mtime":"2020-01-09T14:02:17.259Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-10T15:31:58.606Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"JavaScript内存管理","level":"1.3.1","depth":2,"next":{"title":"函数式编程","level":"1.3.2","depth":2,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},"previous":{"title":"JavaScript","level":"1.3","depth":1,"ref":"","articles":[{"title":"JavaScript内存管理","level":"1.3.1","depth":2,"path":"Articles/JavaScript/MemoryManagement.md","ref":"Articles/JavaScript/MemoryManagement.md","articles":[]},{"title":"函数式编程","level":"1.3.2","depth":2,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},{"title":"compose函数和pipe函数","level":"1.3.3","depth":2,"path":"Articles/JavaScript/ComposePipe.md","ref":"Articles/JavaScript/ComposePipe.md","articles":[]},{"title":"一些常用函数","level":"1.3.4","depth":2,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},{"title":"单元测试及原理","level":"1.3.5","depth":2,"path":"Articles/JavaScript/UnitTest.md","ref":"Articles/JavaScript/UnitTest.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/MemoryManagement.md","mtime":"2020-01-09T14:02:17.259Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-12T13:56:55.173Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -498,7 +525,27 @@ element.someObject = <span class="hljs-literal">null</span>;
     <script src="../../gitbook/theme.js"></script>
     
         
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
         <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
         
     
         
@@ -515,10 +562,6 @@ element.someObject = <span class="hljs-literal">null</span>;
     
         
         <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

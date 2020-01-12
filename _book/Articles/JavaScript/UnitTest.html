@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh-hans" >
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>单元测试及原理 · GitBook</title>
+        <title>单元测试及原理 · 前端进阶</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
-        
+        <meta name="author" content="Dennis Jiang">
         
         
     
@@ -18,6 +18,14 @@
             
                 
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
                 
             
                 
@@ -69,7 +77,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="输入并搜索" />
 </div>
 
             
@@ -301,7 +309,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -337,15 +345,18 @@
 <div id="book-search-results">
     <div class="search-noresults">
     
+<div id="book-search-results">
+    <div class="search-noresults">
+    
                                 <section class="normal markdown-section">
                                 
                                 <h3 id="&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x53CA;&#x539F;&#x7406;">&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x53CA;&#x539F;&#x7406;</h3>
 <p>&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x662F;&#x6307;&#x5BF9;&#x8F6F;&#x4EF6;&#x4E2D;&#x7684;&#x6700;&#x5C0F;&#x53EF;&#x6D4B;&#x8BD5;&#x5355;&#x5143;&#x8FDB;&#x884C;&#x68C0;&#x67E5;&#x548C;&#x9A8C;&#x8BC1;&#xFF0C;&#x901A;&#x8FC7;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x53EF;&#x4EE5;&#x68C0;&#x6D4B;&#x51FA;&#x6F5C;&#x5728;&#x7684;bug&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x53CD;&#x9988;&#x529F;&#x80FD;&#x8F93;&#x51FA;&#xFF0C;&#x9A8C;&#x8BC1;&#x4EE3;&#x7801;&#x662F;&#x5426;&#x8FBE;&#x5230;&#x9884;&#x671F;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x4EE3;&#x7801;&#x91CD;&#x6784;&#x7684;&#x5B89;&#x5168;&#x6027;&#x3002;</p>
 <p>&#x6709;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = (a, b) =&gt; a + b;
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a + b;
 </code></pre>
 <p>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x8BA1;&#x7B97;&#x4E24;&#x4E2A;&#x6570;&#x7684;&#x548C;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5047;&#x5982;&#x6211;&#x4EEC;&#x60F3;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x903B;&#x8F91;&#x5BF9;&#x4E0D;&#x5BF9;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x4E00;&#x4E0B;&#xFF0C;&#x7136;&#x540E;&#x8DDF;&#x6211;&#x4EEC;&#x9884;&#x671F;&#x7684;&#x4E00;&#x4E2A;&#x503C;&#x6BD4;&#x8F83;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x7B26;&#x5408;&#x5C31;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = (a, b) =&gt; a + b;
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a + b;
 <span class="hljs-keyword">let</span> result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
 <span class="hljs-keyword">let</span> expect = <span class="hljs-number">3</span>;
 <span class="hljs-keyword">if</span>(result !== expect){
@@ -353,9 +364,9 @@
 }
 </code></pre>
 <p>&#x8FD9;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x91CC;&#x5199;&#x7684;&#x65B9;&#x6CD5;&#x592A;&#x76F4;&#x767D;&#xFF0C;&#x800C;&#x4E14;&#x4E0D;&#x80FD;&#x590D;&#x7528;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x6539;&#x9020;&#x4E0B;<code>expect</code>&#xFF0C;&#x628A;&#x5B83;&#x53D8;&#x6210;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x65B9;&#x6CD5;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> expect = (res) =&gt; {
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> expect = <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> {
-    toBe: (expectRes) =&gt; {
+    <span class="hljs-attr">toBe</span>: <span class="hljs-function">(<span class="hljs-params">expectRes</span>) =&gt;</span> {
       <span class="hljs-keyword">if</span>(res !== expectRes){
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`&#x671F;&#x671B;&#x503C;&#x662F;<span class="hljs-subst">${expectRes}</span>&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x5374;&#x662F;<span class="hljs-subst">${res}</span>!`</span>)
       }
@@ -364,7 +375,7 @@
 }
 </code></pre>
 <p>&#x6211;&#x4EEC;&#x524D;&#x9762;&#x671F;&#x671B;<code>1+2=3</code>&#xFF0C;&#x8FD9;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x6709;&#x591A;&#x4E2A;&#x7528;&#x4F8B;&#x7684;&#x8BDD;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x4E00;&#x79CD;&#x66F4;&#x901A;&#x7528;&#x4F18;&#x96C5;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5199;&#x7528;&#x4F8B;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x5199;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x7528;&#x4F8B;&#x65B9;&#x6CD5;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> test = (desc, fn) =&gt; {
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> test = <span class="hljs-function">(<span class="hljs-params">desc, fn</span>) =&gt;</span> {
   <span class="hljs-keyword">try</span>{
     fn();
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${desc}</span> -&gt; PASS`</span>)
@@ -374,11 +385,11 @@
 }
 </code></pre>
 <p>&#x6211;&#x4EEC;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x901A;&#x7528;&#x65B9;&#x6CD5;&#x6765;&#x6539;&#x5199;&#x4E0B;&#x6211;&#x4EEC;&#x7684;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = (a, b) =&gt; a + b;
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> add = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a + b;
 
-<span class="hljs-keyword">const</span> expect = (res) =&gt; {
+<span class="hljs-keyword">const</span> expect = <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> {
-    toBe: (expectRes) =&gt; {
+    <span class="hljs-attr">toBe</span>: <span class="hljs-function">(<span class="hljs-params">expectRes</span>) =&gt;</span> {
       <span class="hljs-keyword">if</span>(res !== expectRes){
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`&#x671F;&#x671B;&#x503C;&#x662F;<span class="hljs-subst">${expectRes}</span>&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x5374;&#x662F;<span class="hljs-subst">${res}</span>!`</span>)
       }
@@ -386,7 +397,7 @@
   }
 }
 
-<span class="hljs-keyword">const</span> test = (desc, fn) =&gt; {
+<span class="hljs-keyword">const</span> test = <span class="hljs-function">(<span class="hljs-params">desc, fn</span>) =&gt;</span> {
   <span class="hljs-keyword">try</span>{
     fn();
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${desc}</span> -&gt; PASS`</span>)
@@ -424,6 +435,22 @@ test(<span class="hljs-string">&apos;1+2=4&apos;</span>, () =&gt; {
     </div>
 </div>
 
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
                         </div>
                     </div>
                 
@@ -443,7 +470,7 @@ test(<span class="hljs-string">&apos;1+2=4&apos;</span>, () =&gt; {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"单元测试及原理","level":"1.3.5","depth":2,"next":{"title":"计算机网络","level":"1.4","depth":1,"ref":"","articles":[]},"previous":{"title":"一些常用函数","level":"1.3.4","depth":2,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/JavaScript/UnitTest.md","mtime":"2020-01-09T14:36:22.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-10T15:31:58.606Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"单元测试及原理","level":"1.3.5","depth":2,"next":{"title":"计算机网络","level":"1.4","depth":1,"ref":"","articles":[]},"previous":{"title":"一些常用函数","level":"1.3.4","depth":2,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/UnitTest.md","mtime":"2020-01-09T14:36:22.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-12T13:56:55.173Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -453,7 +480,27 @@ test(<span class="hljs-string">&apos;1+2=4&apos;</span>, () =&gt; {
     <script src="../../gitbook/theme.js"></script>
     
         
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
         <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
         
     
         
@@ -470,10 +517,6 @@ test(<span class="hljs-string">&apos;1+2=4&apos;</span>, () =&gt; {
     
         
         <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         

@@ -1,0 +1,29 @@
+{
+	"title": "前端进阶",
+	"author": "Dennis Jiang",
+	"description": "前端知识总结",
+	"language": "zh-hans",
+	"gitbook": "3.2.3",
+	"plugins": [
+		"highlight",
+		"search-pro",
+		"livereload",
+		"back-to-top-button",
+		"github",
+		"-sharing",
+		"sharing-plus"
+	],
+	"pluginsConfig": {
+		"github": {
+			"url": "https://github.com/dennis-jiang/Front-End-Knowledges"
+		},
+		"sharing": {
+			"weibo": true,
+			"qq": true,
+			"all": [
+				"douban", "linkedin", "qzone", "facebook", "twitter", "google"
+			]
+		}
+
+	}
+}
