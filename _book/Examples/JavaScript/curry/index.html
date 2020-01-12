@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id='app'></div>
+	<!-- <script type="text/javascript" src="./reactive.js"></script> -->
+	<script type="text/javascript">
+		const curry = (fn) => {
+		  // 先记录主方法原始的参数个数，fn.length就是函数接收的参数个数
+		  const parmasLength = fn.length;
+		  
+		  return executeFun = (...args) => {
+		    // 如果接收参数够了，执行主方法
+		    if(args.length >= parmasLength) {
+		      return fn(...args);
+		    } else {
+		      // 如果参数不够，继续接收参数
+		      return (...args2) => {
+		        // 注意executeFun接收的参数是平铺的，需要将数组解构
+		        return executeFun(...args.concat(args2));
+		      }
+		    }
+		  }
+		}	
+
+		const fun = (a, b, c) => {return [a, b, c]};
+
+		//上述函数经过科里化后就是
+		const curriedFun = curry(fun);	
+
+	</script>
+</body>
+</html>

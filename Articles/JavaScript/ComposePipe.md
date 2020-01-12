@@ -32,7 +32,35 @@ console.log(res);    // 结果还是200
 let res = compose(multiply, add)(10);
 ```
 
-那这个compose方法要怎么实现呢，这里需要借助`Array.prototype.reduce`，这个方法会从左往右迭代，但是我们需要的是从右往左迭代，这个方法是`Array.prototype.reduceRight`:
+在讲这个之前我们先来看一个需要用到的函数`Array.prototype.reduce`
+
+#### Array.prototype.reduce
+
+数组的reduce方法可以实现一个累加效果，它接收两个参数，第一个是一个累加器方法，第二个是初始化值。累加器接收四个参数，第一个是上次的计算值，第二个是数组的当前值，主要用的就是这两个参数，后面两个参数不常用，他们是当前index和当前迭代的数组：
+
+```javascript
+const arr = [[1, 2], [3, 4], [5, 6]];
+// prevRes的初始值是传入的[]，以后会是每次迭代计算后的值
+const flatArr = arr.reduce((prevRes, item) => prevRes.concat(item), []);
+
+console.log(flatArr); // [1, 2, 3, 4, 5, 6]
+```
+
+#### Array.prototype.reduceRight
+
+`Array.prototype.reduce`会从左往右进行迭代，如果需要从右往左迭代，用`Array.prototype.reduceRight`就好了
+
+```javascript
+const arr = [[1, 2], [3, 4], [5, 6]];
+// prevRes的初始值是传入的[]，以后会是每次迭代计算后的值
+const flatArr = arr.reduceRight((prevRes, item) => prevRes.concat(item), []);
+
+console.log(flatArr); // [5, 6, 3, 4, 1, 2]
+```
+
+
+
+那这个compose方法要怎么实现呢，这里需要借助`Array.prototype.reduceRight`:
 
 ```javascript
 const compose = function(){

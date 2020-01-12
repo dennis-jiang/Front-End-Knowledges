@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="UnitTest.html" />
+    <link rel="next" href="CommonFunctions.html" />
     
     
     <link rel="prev" href="FunctionalProgramming.html" />
@@ -148,7 +148,20 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="UnitTest.html">
+        <li class="chapter " data-level="2.4" data-path="CommonFunctions.html">
+            
+                <a href="CommonFunctions.html">
+            
+                    
+                    一些常用函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="UnitTest.html">
             
                 <a href="UnitTest.html">
             
@@ -274,7 +287,24 @@
 <pre><code class="lang-javascript"><span class="hljs-comment">// &#x53C2;&#x6570;&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#x6267;&#x884C;&#xFF0C;&#x6240;&#x4EE5;multiply&#x5728;&#x524D;&#xFF0C;add&#x5728;&#x540E;</span>
 <span class="hljs-keyword">let</span> res = compose(multiply, add)(<span class="hljs-number">10</span>);
 </code></pre>
-<p>&#x90A3;&#x8FD9;&#x4E2A;compose&#x65B9;&#x6CD5;&#x8981;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x5462;&#xFF0C;&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x501F;&#x52A9;<code>Array.prototype.reduce</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4F1A;&#x4ECE;&#x5DE6;&#x5F80;&#x53F3;&#x8FED;&#x4EE3;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x662F;&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#x8FED;&#x4EE3;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;<code>Array.prototype.reduceRight</code>:</p>
+<p>&#x5728;&#x8BB2;&#x8FD9;&#x4E2A;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x51FD;&#x6570;<code>Array.prototype.reduce</code></p>
+<h4 id="arrayprototypereduce">Array.prototype.reduce</h4>
+<p>&#x6570;&#x7EC4;&#x7684;reduce&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7D2F;&#x52A0;&#x6548;&#x679C;&#xFF0C;&#x5B83;&#x63A5;&#x6536;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x662F;&#x4E00;&#x4E2A;&#x7D2F;&#x52A0;&#x5668;&#x65B9;&#x6CD5;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x521D;&#x59CB;&#x5316;&#x503C;&#x3002;&#x7D2F;&#x52A0;&#x5668;&#x63A5;&#x6536;&#x56DB;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x662F;&#x4E0A;&#x6B21;&#x7684;&#x8BA1;&#x7B97;&#x503C;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x6570;&#x7EC4;&#x7684;&#x5F53;&#x524D;&#x503C;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x7684;&#x5C31;&#x662F;&#x8FD9;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x540E;&#x9762;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x4E0D;&#x5E38;&#x7528;&#xFF0C;&#x4ED6;&#x4EEC;&#x662F;&#x5F53;&#x524D;index&#x548C;&#x5F53;&#x524D;&#x8FED;&#x4EE3;&#x7684;&#x6570;&#x7EC4;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]];
+<span class="hljs-comment">// prevRes&#x7684;&#x521D;&#x59CB;&#x503C;&#x662F;&#x4F20;&#x5165;&#x7684;[]&#xFF0C;&#x4EE5;&#x540E;&#x4F1A;&#x662F;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x8BA1;&#x7B97;&#x540E;&#x7684;&#x503C;</span>
+<span class="hljs-keyword">const</span> flatArr = arr.reduce((prevRes, item) =&gt; prevRes.concat(item), []);
+
+<span class="hljs-built_in">console</span>.log(flatArr); <span class="hljs-comment">// [1, 2, 3, 4, 5, 6]</span>
+</code></pre>
+<h4 id="arrayprototypereduceright">Array.prototype.reduceRight</h4>
+<p><code>Array.prototype.reduce</code>&#x4F1A;&#x4ECE;&#x5DE6;&#x5F80;&#x53F3;&#x8FDB;&#x884C;&#x8FED;&#x4EE3;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#x8FED;&#x4EE3;&#xFF0C;&#x7528;<code>Array.prototype.reduceRight</code>&#x5C31;&#x597D;&#x4E86;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]];
+<span class="hljs-comment">// prevRes&#x7684;&#x521D;&#x59CB;&#x503C;&#x662F;&#x4F20;&#x5165;&#x7684;[]&#xFF0C;&#x4EE5;&#x540E;&#x4F1A;&#x662F;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x8BA1;&#x7B97;&#x540E;&#x7684;&#x503C;</span>
+<span class="hljs-keyword">const</span> flatArr = arr.reduceRight((prevRes, item) =&gt; prevRes.concat(item), []);
+
+<span class="hljs-built_in">console</span>.log(flatArr); <span class="hljs-comment">// [5, 6, 3, 4, 1, 2]</span>
+</code></pre>
+<p>&#x90A3;&#x8FD9;&#x4E2A;compose&#x65B9;&#x6CD5;&#x8981;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x5462;&#xFF0C;&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x501F;&#x52A9;<code>Array.prototype.reduceRight</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> compose = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
   <span class="hljs-comment">// &#x5C06;&#x63A5;&#x6536;&#x7684;&#x53C2;&#x6570;&#x5B58;&#x5230;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C; args == [multiply, add]</span>
   <span class="hljs-keyword">const</span> args = [].slice.apply(<span class="hljs-built_in">arguments</span>);
@@ -341,7 +371,7 @@
                 </a>
                 
                 
-                <a href="UnitTest.html" class="navigation navigation-next " aria-label="Next page: 单元测试及原理">
+                <a href="CommonFunctions.html" class="navigation navigation-next " aria-label="Next page: 一些常用函数">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -352,7 +382,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"compose函数和pipe函数","level":"2.3","depth":1,"next":{"title":"单元测试及原理","level":"2.4","depth":1,"path":"Articles/JavaScript/UnitTest.md","ref":"Articles/JavaScript/UnitTest.md","articles":[]},"previous":{"title":"函数式编程","level":"2.2","depth":1,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/JavaScript/ComposePipe.md","mtime":"2020-01-10T07:12:37.574Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-09T14:27:32.253Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"compose函数和pipe函数","level":"2.3","depth":1,"next":{"title":"一些常用函数","level":"2.4","depth":1,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},"previous":{"title":"函数式编程","level":"2.2","depth":1,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Articles/JavaScript/ComposePipe.md","mtime":"2020-01-10T13:41:48.266Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-10T15:31:58.606Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
