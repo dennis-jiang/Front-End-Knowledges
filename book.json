@@ -11,7 +11,9 @@
 		"back-to-top-button",
 		"github",
 		"-sharing",
-		"sharing-plus"
+		"sharing-plus",
+		"chapter-fold",
+		"anchor-navigation-ex"
 	],
 	"pluginsConfig": {
 		"github": {
@@ -23,6 +25,10 @@
 			"all": [
 				"douban", "linkedin", "qzone", "facebook", "twitter", "google"
 			]
+		},
+		"anchor-navigation-ex": {
+			"showLevel": false,
+			"showGoTop": false
 		}
 
 	}

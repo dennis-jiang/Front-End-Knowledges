@@ -1,0 +1,152 @@
+.divider {
+	height: 30px;
+}
+
+.parent{
+	background-color: grey;
+	text-align: center;
+}
+
+.child{
+	background-color: red;
+	display: inline-block;
+}
+
+.parent2 {
+	background-color: grey;
+	width: 100%;
+}
+
+.child2 {
+	background-color: red;
+	display: table;
+	margin: 0 auto;
+}
+
+.parent3 {
+	background-color: grey;
+	width: 100%;
+}
+
+.child3 {
+	background-color: red;
+	width: 100px;
+	margin: 0 auto;
+}
+
+.parent4 {
+	background-color: grey;
+	width: 100%;
+	height: 18px;
+	position: relative;
+}
+
+.child4 {
+	background-color: red;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.parent5 {
+	background-color: grey;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.child5 {
+	background-color: red;
+}
+
+.parent51 {
+	background-color: grey;
+	width: 100%;
+	display: flex;
+}
+
+.child51 {
+	background-color: red;
+	margin: 0 auto;
+}
+
+.parent6 {
+	background-color: grey;
+	width: 100%;
+	height: 100px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.child6 {
+	background-color: red;
+}
+
+.parent7 {
+	background-color: grey;
+	width: 100%;
+	height: 100px;
+	position: relative;
+}
+
+.child7 {
+	background-color: red;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.parent8 {
+	background-color: grey;
+	width: 100%;
+	height: 100px;
+	display: flex;
+	align-items: center;
+}
+
+.child8 {
+	background-color: red;
+}
+
+.parent9 {
+	background-color: grey;
+	width: 500px;
+	height: 100px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.child9 {
+	background-color: red;
+	display: inline-block;
+}
+
+.parent10 {
+	background-color: grey;
+	width: 500px;
+	height: 100px;
+	position: relative;
+}
+
+.child10 {
+	background-color: red;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.parent11 {
+	background-color: grey;
+	width: 500px;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.child11 {
+	background-color: red;
+}
+

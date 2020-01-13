@@ -29,6 +29,14 @@
                 
             
                 
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
                 
             
@@ -110,27 +118,46 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" >
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
             
-                <span>
+                <a href="../Layout/Layout.html">
             
                     
                     页面布局
             
-                </span>
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="1.3" >
+
+            </ul>
             
-                <span>
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="JavaScript.html">
+            
+                <a href="JavaScript.html">
             
                     
                     JavaScript
             
-                </span>
+                </a>
             
 
             
@@ -220,14 +247,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" >
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
             
-                <span>
+                <a href="../Vue/Vue.html">
             
                     
                     Vue.js
             
-                </span>
+                </a>
             
 
             
@@ -352,7 +379,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="compose&#x51FD;&#x6570;">compose&#x51FD;&#x6570;</h3>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><ul><li><span class="title-icon "></span><a href="#compose&#x51FD;&#x6570;"><b></b>compose&#x51FD;&#x6570;</a></li><li><span class="title-icon "></span><a href="#pipe&#x51FD;&#x6570;"><b></b>pipe&#x51FD;&#x6570;</a></li></ul></ul></ul></div><h3 id="compose&#x51FD;&#x6570;"><a name="compose&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#compose&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>compose&#x51FD;&#x6570;</h3>
 <p>compose&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x5C06;&#x9700;&#x8981;&#x5D4C;&#x5957;&#x6267;&#x884C;&#x7684;&#x51FD;&#x6570;&#x5E73;&#x94FA;&#xFF0C;&#x5D4C;&#x5957;&#x6267;&#x884C;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x5C06;&#x4F5C;&#x4E3A;&#x53E6;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x3002;&#x6211;&#x4EEC;&#x8003;&#x8651;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x9700;&#x6C42;&#xFF1A;</p>
 <pre><code>&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x8F93;&#x5165;&#x503C;x&#xFF0C;&#x5148;&#x7ED9;&#x8FD9;&#x4E2A;&#x503C;&#x52A0;10&#xFF0C;&#x7136;&#x540E;&#x7ED3;&#x679C;&#x4E58;&#x4EE5;10
 </code></pre><p>&#x8FD9;&#x4E2A;&#x9700;&#x6C42;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x76F4;&#x63A5;&#x4E00;&#x4E2A;&#x8BA1;&#x7B97;&#x51FD;&#x6570;&#x5C31;&#x884C;&#xFF1A;</p>
@@ -373,7 +400,7 @@
 <span class="hljs-keyword">let</span> res = compose(multiply, add)(<span class="hljs-number">10</span>);
 </code></pre>
 <p>&#x5728;&#x8BB2;&#x8FD9;&#x4E2A;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x51FD;&#x6570;<code>Array.prototype.reduce</code></p>
-<h4 id="arrayprototypereduce">Array.prototype.reduce</h4>
+<h4 id="arrayprototypereduce"><a name="arrayprototypereduce" class="anchor-navigation-ex-anchor" href="#arrayprototypereduce"><i class="fa fa-link" aria-hidden="true"></i></a>Array.prototype.reduce</h4>
 <p>&#x6570;&#x7EC4;&#x7684;reduce&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7D2F;&#x52A0;&#x6548;&#x679C;&#xFF0C;&#x5B83;&#x63A5;&#x6536;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x662F;&#x4E00;&#x4E2A;&#x7D2F;&#x52A0;&#x5668;&#x65B9;&#x6CD5;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x521D;&#x59CB;&#x5316;&#x503C;&#x3002;&#x7D2F;&#x52A0;&#x5668;&#x63A5;&#x6536;&#x56DB;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x662F;&#x4E0A;&#x6B21;&#x7684;&#x8BA1;&#x7B97;&#x503C;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x6570;&#x7EC4;&#x7684;&#x5F53;&#x524D;&#x503C;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x7684;&#x5C31;&#x662F;&#x8FD9;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x540E;&#x9762;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x4E0D;&#x5E38;&#x7528;&#xFF0C;&#x4ED6;&#x4EEC;&#x662F;&#x5F53;&#x524D;index&#x548C;&#x5F53;&#x524D;&#x8FED;&#x4EE3;&#x7684;&#x6570;&#x7EC4;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]];
 <span class="hljs-comment">// prevRes&#x7684;&#x521D;&#x59CB;&#x503C;&#x662F;&#x4F20;&#x5165;&#x7684;[]&#xFF0C;&#x4EE5;&#x540E;&#x4F1A;&#x662F;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x8BA1;&#x7B97;&#x540E;&#x7684;&#x503C;</span>
@@ -381,7 +408,7 @@
 
 <span class="hljs-built_in">console</span>.log(flatArr); <span class="hljs-comment">// [1, 2, 3, 4, 5, 6]</span>
 </code></pre>
-<h4 id="arrayprototypereduceright">Array.prototype.reduceRight</h4>
+<h4 id="arrayprototypereduceright"><a name="arrayprototypereduceright" class="anchor-navigation-ex-anchor" href="#arrayprototypereduceright"><i class="fa fa-link" aria-hidden="true"></i></a>Array.prototype.reduceRight</h4>
 <p><code>Array.prototype.reduce</code>&#x4F1A;&#x4ECE;&#x5DE6;&#x5F80;&#x53F3;&#x8FDB;&#x884C;&#x8FED;&#x4EE3;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#x8FED;&#x4EE3;&#xFF0C;&#x7528;<code>Array.prototype.reduceRight</code>&#x5C31;&#x597D;&#x4E86;</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]];
 <span class="hljs-comment">// prevRes&#x7684;&#x521D;&#x59CB;&#x503C;&#x662F;&#x4F20;&#x5165;&#x7684;[]&#xFF0C;&#x4EE5;&#x540E;&#x4F1A;&#x662F;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x8BA1;&#x7B97;&#x540E;&#x7684;&#x503C;</span>
@@ -407,7 +434,7 @@
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> compose = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> x =&gt; args.reduceRight(<span class="hljs-function">(<span class="hljs-params">res, cb</span>) =&gt;</span> cb(res), x);
 </code></pre>
 <p>Redux&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x5C31;&#x662F;&#x7528;<code>compose</code>&#x5B9E;&#x73B0;&#x7684;&#xFF0C;webpack&#x4E2D;loader&#x7684;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;&#x4E5F;&#x662F;&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x4ED6;&#x4E5F;&#x662F;<code>compose</code>&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
-<h3 id="pipe&#x51FD;&#x6570;">pipe&#x51FD;&#x6570;</h3>
+<h3 id="pipe&#x51FD;&#x6570;"><a name="pipe&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#pipe&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>pipe&#x51FD;&#x6570;</h3>
 <p><code>pipe</code>&#x51FD;&#x6570;&#x8DDF;<code>compose</code>&#x51FD;&#x6570;&#x7684;&#x5DE6;&#x53F3;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4E5F;&#x662F;&#x5C06;&#x53C2;&#x6570;&#x5E73;&#x94FA;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x4ED6;&#x7684;&#x987A;&#x5E8F;&#x662F;<strong>&#x4ECE;&#x5DE6;&#x5F80;&#x53F3;</strong>&#x3002;&#x6211;&#x4EEC;&#x6765;&#x5B9E;&#x73B0;&#x4E0B;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;<code>reduceRight</code>&#x6539;&#x6210;<code>reduce</code>&#x5C31;&#x884C;&#x4E86;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> pipe = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
   <span class="hljs-keyword">const</span> args = [].slice.apply(<span class="hljs-built_in">arguments</span>);
@@ -483,7 +510,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"compose函数和pipe函数","level":"1.3.3","depth":2,"next":{"title":"一些常用函数","level":"1.3.4","depth":2,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},"previous":{"title":"函数式编程","level":"1.3.2","depth":2,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/ComposePipe.md","mtime":"2020-01-10T13:41:48.266Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-12T13:56:55.173Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"compose函数和pipe函数","level":"1.3.3","depth":2,"next":{"title":"一些常用函数","level":"1.3.4","depth":2,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},"previous":{"title":"函数式编程","level":"1.3.2","depth":2,"path":"Articles/JavaScript/FunctionalProgramming.md","ref":"Articles/JavaScript/FunctionalProgramming.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/ComposePipe.md","mtime":"2020-01-10T13:41:48.266Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-13T09:37:47.499Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -514,6 +541,10 @@
     
         
         <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
         
     
         
