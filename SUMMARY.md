@@ -3,6 +3,7 @@
 * [简介](README.md)
 * [页面布局](/Articles/Layout/Layout.md)
     * [居中](/Articles/Layout/Centered.md)
+    * [多列布局](/Articles/Layout/MultiColumns.md)
 *  [JavaScript](/Articles/JavaScript/JavaScript.md)
     * [JavaScript内存管理](/Articles/JavaScript/MemoryManagement.md)
 	* [函数式编程](/Articles/JavaScript/FunctionalProgramming.md)

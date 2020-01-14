@@ -1,0 +1,177 @@
+p {
+	margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.divider {
+	height: 30px;
+}
+
+.left {
+	background-color: #666;
+	float: left;
+	width: 100px;
+}
+
+.right {
+	background-color: #999;
+	margin-left: 120px;
+}
+
+.left2 {
+	background-color: #666;
+	float: left;
+	width: 100px;
+	margin-right: 20px;
+}
+
+.right2 {
+	background-color: #999;
+	overflow: hidden;
+}
+
+.parent3 {
+	background-color: #666;
+}
+
+.child3 {
+	background-color: #999;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.overflow {
+	overflow: hidden;
+}
+
+.parent4 {
+	background-color: #666;
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.left4 {
+	display: table-cell;
+	width: 100px;
+	padding-right: 20px;
+}
+
+.left4 p{
+	background-color: #999;
+}
+
+.right4 {
+	background-color: #999;
+	display: table-cell;
+}
+
+.parent5 {
+	background-color: #666;
+	display: flex;
+}
+
+.left5 {
+	background-color: #999;
+	width: 100px;
+	margin-right: 20px;
+}
+
+.right5 {
+	background-color: #999;
+	flex: 1;
+}
+
+.parent6 {
+	background-color: #666;
+	margin-left: -20px;
+}
+
+.column {
+	float: left;
+	width: 25%;
+	padding-left: 20px;
+	box-sizing: border-box;
+}
+
+.column p {
+	background-color: #999;
+}
+
+.parent-wrapper {
+	margin-left: -20px
+}
+
+.parent7 {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.column2 {
+	display: table-cell;
+	padding-left: 20px;
+}
+
+.column2 p {
+	background-color: #999;
+}
+
+.parent8 {
+	display: table;
+	width: calc(100% + 20px);
+	position: relative;
+	left: -20px;
+	table-layout: fixed;
+}
+
+.column3 {
+	display: table-cell;
+	padding-left: 20px;
+}
+
+.column3 p {
+	background-color: #999;
+}
+
+.parent9 {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.left9, .right9 {
+	display: table-cell;
+}
+
+.left9 {
+	background-color: #666;
+	border-right: 20px solid transparent;
+	background-clip: padding-box;
+}
+
+.right9 {
+	background-color: #999;
+}
+
+.parent10 {
+	overflow: hidden;
+}
+
+.left10 {
+	background-color: #666;
+	float: left;
+	width: 100px;
+	margin-right: 20px;
+}
+
+.right10 {
+	background-color: #999;
+	overflow: hidden;
+}
+
+.left10, .right10 {
+	padding-bottom: 9999px;
+	margin-bottom: -9999px;
+}
+
