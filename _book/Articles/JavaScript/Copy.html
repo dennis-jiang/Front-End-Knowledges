@@ -1,0 +1,769 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>浅拷贝和深拷贝 · 前端进阶</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Dennis Jiang">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="UnitTest.html" />
+    
+    
+    <link rel="prev" href="CommonFunctions.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
+            
+                <a href="../Layout/Layout.html">
+            
+                    
+                    页面布局
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Layout/MultiColumns.html">
+            
+                <a href="../Layout/MultiColumns.html">
+            
+                    
+                    多列布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="JavaScript.html">
+            
+                <a href="JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="MemoryManagement.html">
+            
+                <a href="MemoryManagement.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="FunctionalProgramming.html">
+            
+                <a href="FunctionalProgramming.html">
+            
+                    
+                    函数式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="ComposePipe.html">
+            
+                <a href="ComposePipe.html">
+            
+                    
+                    compose函数和pipe函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="CommonFunctions.html">
+            
+                <a href="CommonFunctions.html">
+            
+                    
+                    一些常用函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.5" data-path="Copy.html">
+            
+                <a href="Copy.html">
+            
+                    
+                    浅拷贝和深拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="UnitTest.html">
+            
+                <a href="UnitTest.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    计算机网络
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
+            
+                <a href="../Vue/Vue.html">
+            
+                    
+                    Vue.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    React.js
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    Node.js
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    工程化
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    数据结构和算法
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >浅拷贝和深拷贝</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x6D45;&#x62F7;&#x8D1D;"><b></b>&#x6D45;&#x62F7;&#x8D1D;</a></li><li><span class="title-icon "></span><a href="#&#x6DF1;&#x62F7;&#x8D1D;"><b></b>&#x6DF1;&#x62F7;&#x8D1D;</a></li><ul><li><span class="title-icon "></span><a href="#json"><b></b>JSON</a></li><li><span class="title-icon "></span><a href="#&#x9012;&#x5F52;&#x904D;&#x5386;"><b></b>&#x9012;&#x5F52;&#x904D;&#x5386;</a></li><li><span class="title-icon "></span><a href="#&#x62F7;&#x8D1D;symbol"><b></b>&#x62F7;&#x8D1D;Symbol</a></li><li><span class="title-icon "></span><a href="#&#x89E3;&#x51B3;&#x5FAA;&#x73AF;&#x5F15;&#x7528;"><b></b>&#x89E3;&#x51B3;&#x5FAA;&#x73AF;&#x5F15;&#x7528;</a></li></ul><li><span class="title-icon "></span><a href="#&#x6D45;&#x62F7;&#x8D1D;&#x7684;&#x5E94;&#x7528;&#xFF1A;mixin--&#x6DF7;&#x5408;&#x6A21;&#x5F0F;"><b></b>&#x6D45;&#x62F7;&#x8D1D;&#x7684;&#x5E94;&#x7528;&#xFF1A;mixin--&#x6DF7;&#x5408;&#x6A21;&#x5F0F;</a></li><li><span class="title-icon "></span><a href="#&#x6DF1;&#x62F7;&#x8D1D;&#x5E94;&#x7528;&#xFF1A;pick&#x51FD;&#x6570;"><b></b>&#x6DF1;&#x62F7;&#x8D1D;&#x5E94;&#x7528;&#xFF1A;pick&#x51FD;&#x6570;</a></li></ul></ul></div><p>JS&#x4E2D;&#x6709;&#x4E24;&#x79CD;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x503C;&#x7C7B;&#x578B;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x628A;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x8D4B;&#x7ED9;&#x53E6;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x65F6;&#xFF0C;&#x5BF9;&#x4E8E;&#x503C;&#x7C7B;&#x578B;&#x5F88;&#x7B80;&#x5355;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = a;
+b = <span class="hljs-number">10</span>;
+<span class="hljs-built_in">console</span>.log(a, b); <span class="hljs-comment">// 1, 10</span>
+</code></pre>
+<p>&#x4F46;&#x662F;&#x5982;&#x679C;a&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x5C31;&#x6709;&#x95EE;&#x9898;&#x4E86;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> a = {<span class="hljs-attr">value</span>: <span class="hljs-number">1</span>};
+<span class="hljs-keyword">let</span> b = a;
+b.value = <span class="hljs-number">10</span>;
+<span class="hljs-built_in">console</span>.log(a.value, b.value); <span class="hljs-comment">// 10, 10</span>
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x6539;&#x53D8;<code>b.value</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;<code>a.value</code>&#x7684;&#x503C;&#x4E5F;&#x8DDF;&#x7740;&#x53D8;&#x4E86;&#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;JS&#x91CC;&#x9762;&#x7684;&#x5BF9;&#x8C61;&#x662F;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x628A;&#x53D8;&#x91CF;a&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF;b&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8D4B;&#x503C;&#x8FC7;&#x53BB;&#x7684;&#x5176;&#x5B9E;&#x662F;a&#x7684;&#x5F15;&#x7528;&#x5730;&#x5740;&#xFF0C;b&#x6709;&#x4E86;&#x76F8;&#x540C;&#x7684;&#x5F15;&#x7528;&#x5730;&#x5740;&#xFF0C;&#x90A3;a&#x8DDF;b&#x6307;&#x5411;&#x7684;&#x90FD;&#x662F;&#x540C;&#x4E00;&#x5757;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x64CD;&#x4F5C;b&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x64CD;&#x4F5C;&#x4E86;&#x8FD9;&#x5757;&#x5185;&#x5B58;&#xFF0C;&#x56E0;&#x4E3A;a&#x4E5F;&#x6307;&#x5411;&#x8FD9;&#x5757;&#x5185;&#x5B58;&#xFF0C;&#x6240;&#x4EE5;a&#x7684;&#x5C5E;&#x6027;&#x4E5F;&#x53D8;&#x4E86;&#x3002;&#x8FD9;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x6D45;&#x62F7;&#x8D1D;&#x3002;</p>
+<h2 id="&#x6D45;&#x62F7;&#x8D1D;"><a name="&#x6D45;&#x62F7;&#x8D1D;" class="anchor-navigation-ex-anchor" href="#&#x6D45;&#x62F7;&#x8D1D;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D45;&#x62F7;&#x8D1D;</h2>
+<p>&#x4E0A;&#x9762;&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x5C06;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x7ED9;&#x53E6;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x662F;&#x4E00;&#x79CD;&#x6D45;&#x62F7;&#x8D1D;&#xFF0C;&#x6D45;&#x62F7;&#x8D1D;&#x5176;&#x5B9E;&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x5F62;&#x5F0F;&#x3002;&#x8FD9;&#x6B21;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x62F7;&#x8D1D;&#x7684;&#x76EE;&#x6807;&#x662F;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> target = {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;John&apos;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+  <span class="hljs-attr">friend</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Michel&apos;</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-number">30</span>
+  }
+}
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x904D;&#x5386;<code>target</code>&#x5BF9;&#x8C61;&#xFF0C;&#x5C06;&#x5B83;&#x8D4B;&#x7ED9;&#x4E00;&#x4E2A;&#x65B0;&#x5BF9;&#x8C61;&#x5C31;&#x884C;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> shallowCopy = <span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+  <span class="hljs-comment">// &#x5224;&#x65AD;&#x53C2;&#x6570;&#x662F;&#x6570;&#x7EC4;&#x8FD8;&#x662F;&#x5BF9;&#x8C61;</span>
+  <span class="hljs-keyword">const</span> result = <span class="hljs-built_in">Array</span>.isArray(obj) ? [] : {};
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> obj) {
+    <span class="hljs-comment">// &#x4F7F;&#x7528;hasOwnProperty&#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x662F;&#x81EA;&#x8EAB;&#x5C5E;&#x6027;</span>
+    <span class="hljs-comment">// &#x53EA;&#x62F7;&#x8D1D;&#x81EA;&#x8EAB;&#x5C5E;&#x6027;&#xFF0C;&#x4E0D;&#x62F7;&#x8D1D;&#x539F;&#x578B;&#x94FE;&#x4E0A;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x5373;&#x7EE7;&#x627F;&#x5C5E;&#x6027;</span>
+    <span class="hljs-keyword">if</span>(obj.hasOwnProperty(key)){
+      result[key] = obj[key];
+    }
+  }
+
+  <span class="hljs-keyword">return</span> result;
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x6765;&#x7528;&#x4E00;&#x4E0B;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> newObj = shallowCopy(target);
+newObj.age = <span class="hljs-number">50</span>;
+<span class="hljs-built_in">console</span>.log(target.age, newObj.age); <span class="hljs-comment">//20, 50</span>
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5F53;&#x6211;&#x4EEC;&#x6539;&#x53D8;newObj&#x7684;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x539F;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x5E76;&#x6CA1;&#x6709;&#x53D7;&#x5F71;&#x54CD;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6539;&#x53D8;<code>newObj.friend</code>&#x5462;&#xFF1F;</p>
+<pre><code class="lang-javascript">newObj.friend.age = <span class="hljs-number">50</span>;
+<span class="hljs-built_in">console</span>.log(target.friend.age, newObj.friend.age); <span class="hljs-comment">//50, 50</span>
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x5F53;&#x6211;&#x4EEC;&#x6539;&#x53D8;<code>newObj.friend</code>&#x7684;&#x5C5E;&#x6027;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x539F;&#x5BF9;&#x8C61;&#x7684;<code>newObj.friend</code>&#x7684;&#x5C5E;&#x6027;&#x4E5F;&#x6539;&#x53D8;&#x4E86;&#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;<code>target.friend</code>&#x672C;&#x8EAB;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x6211;&#x4EEC;&#x62F7;&#x8D1D;&#x7684;&#x65F6;&#x5019;&#x53EA;&#x62F7;&#x8D1D;&#x4E86;&#x4ED6;&#x7684;&#x5F15;&#x7528;&#x5730;&#x5740;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x901A;&#x8FC7;<code>newObj</code>&#x64CD;&#x4F5C;&#x4ED6;&#x7684;&#x65F6;&#x5019;&#x4E5F;&#x6539;&#x53D8;&#x4E86;&#x539F;&#x6765;&#x7684;<code>target</code>&#x3002;</p>
+<p>&#x4ECE;&#x4E0A;&#x9762;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x6211;&#x4EEC;&#x7684;<code>shallowCopy</code>&#x65B9;&#x6CD5;&#x53EA;&#x62F7;&#x8D1D;&#x4E86;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x5C42;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x6D45;&#x62F7;&#x8D1D;&#x3002;&#x5176;&#x5B9E;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x539F;&#x751F;&#x65B9;&#x6CD5;&#x4E5F;&#x662F;&#x53EA;&#x62F7;&#x8D1D;&#x4E00;&#x5C42;&#x7684;&#xFF0C;&#x6BD4;&#x5982;<code>Object.assign</code>&#x548C;<code>...</code>&#x6269;&#x5C55;&#x8FD0;&#x7B97;&#x7B26;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> newObj = <span class="hljs-built_in">Object</span>.assign({}, target); <span class="hljs-comment">// &#x8FD9;&#x662F;&#x4E00;&#x5C42;&#x7684;&#x6D45;&#x62F7;&#x8D1D;</span>
+<span class="hljs-keyword">let</span> newObj = {...target};  <span class="hljs-comment">// &#x8FD9;&#x4E5F;&#x662F;&#x4E00;&#x5C42;&#x7684;&#x6D45;&#x62F7;&#x8D1D;</span>
+</code></pre>
+<p>&#x90A3;&#x6DF1;&#x62F7;&#x8D1D;&#x5E94;&#x8BE5;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;</p>
+<h2 id="&#x6DF1;&#x62F7;&#x8D1D;"><a name="&#x6DF1;&#x62F7;&#x8D1D;" class="anchor-navigation-ex-anchor" href="#&#x6DF1;&#x62F7;&#x8D1D;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6DF1;&#x62F7;&#x8D1D;</h2>
+<h3 id="json"><a name="json" class="anchor-navigation-ex-anchor" href="#json"><i class="fa fa-link" aria-hidden="true"></i></a>JSON</h3>
+<p>&#x6700;&#x7B80;&#x5355;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x7528;<code>JSON.stringify</code>&#x5148;&#x5C06;&#x5BF9;&#x8C61;&#x8F6C;&#x6362;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x7528;<code>JSON.parse</code>&#x91CD;&#x65B0;&#x89E3;&#x6790;&#x4E3A;JSON&#xFF0C;&#x8FD9;&#x6837;&#x65B0;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x4E0E;&#x539F;&#x5BF9;&#x8C61;&#x5C31;&#x5B8C;&#x5168;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x4E86;&#xFF0C;&#x8FD8;&#x662F;&#x4EE5;&#x524D;&#x9762;&#x7684;<code>target</code>&#x4E3A;&#x4F8B;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> newObj = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(target));
+
+newObj.friend.age = <span class="hljs-number">50</span>;
+<span class="hljs-built_in">console</span>.log(target.friend.age, newObj.friend.age); <span class="hljs-comment">//30, 50</span>
+</code></pre>
+<p>&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x6362;&#x4E00;&#x4E2A;<code>target</code>&#x518D;&#x6765;&#x8BD5;&#x8BD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> target2 = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;John&apos;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+  <span class="hljs-attr">drive</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {},
+  <span class="hljs-attr">girlFriend</span>: <span class="hljs-literal">undefined</span>
+}
+
+<span class="hljs-keyword">let</span> newObj = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(target2));
+<span class="hljs-built_in">console</span>.log(newObj);
+</code></pre>
+<p>&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#x56FE;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0;<code>drive</code>&#x548C;<code>girlFriend</code>&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#x90FD;&#x4E22;&#x4E86;&#xFF0C;<strong>&#x8FD9;&#x662F;&#x56E0;&#x4E3A;<code>JSON.stringify</code>&#x4E0D;&#x80FD;&#x5C06;&#x65B9;&#x6CD5;&#x548C;<code>undefined</code>&#x5C5E;&#x6027;&#x8F6C;&#x5316;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5728;&#x8F6C;&#x6362;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x8FC7;&#x7A0B;&#x4E2D;&#x5C31;&#x4E22;&#x4E86;&#xFF0C;&#x518D;&#x89E3;&#x6790;&#x56DE;&#x6765;&#x81EA;&#x7136;&#x4E5F;&#x6CA1;&#x6709;&#x4E86;</strong>&#x3002;</p>
+<p><img src="../../images/JavaScript/Copy/image-20200115153516776.png" alt="image-20200115153516776"></p>
+<h3 id="&#x9012;&#x5F52;&#x904D;&#x5386;"><a name="&#x9012;&#x5F52;&#x904D;&#x5386;" class="anchor-navigation-ex-anchor" href="#&#x9012;&#x5F52;&#x904D;&#x5386;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9012;&#x5F52;&#x904D;&#x5386;</h3>
+<p>&#x8981;&#x89E3;&#x51B3;&#x4E0A;&#x9762;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x8981;&#x81EA;&#x5DF1;&#x52A8;&#x624B;&#xFF0C;&#x6211;&#x4EEC;&#x6539;&#x9020;&#x4E0B;&#x4E0A;&#x9762;&#x7684;<code>shallowCopy</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8BA9;&#x4ED6;&#x80FD;&#x591F;&#x9012;&#x5F52;&#x590D;&#x5236;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> deepCopy = <span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> result = <span class="hljs-built_in">Array</span>.isArray(obj) ? [] : {};
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> obj) {
+    <span class="hljs-keyword">if</span>(obj.hasOwnProperty(key)){
+      <span class="hljs-comment">// &#x5982;&#x679C;&#x5C5E;&#x6027;&#x4E5F;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x9012;&#x5F52;&#x8C03;&#x7528;&#x81EA;&#x8EAB;</span>
+      <span class="hljs-keyword">if</span>(obj[key] &amp;&amp; <span class="hljs-keyword">typeof</span> obj[key] === <span class="hljs-string">&apos;object&apos;</span>){
+        result[key] = deepCopy(obj[key])
+      } <span class="hljs-keyword">else</span> {
+        result[key] = obj[key];
+      }
+    }
+  }
+
+  <span class="hljs-keyword">return</span> result;
+}
+</code></pre>
+<p>&#x6765;&#x770B;&#x4E0B;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> newObj = deepCopy(target2);
+<span class="hljs-built_in">console</span>.log(newObj);
+</code></pre>
+<p><img src="../../images/JavaScript/Copy/image-20200115154213386.png" alt="image-20200115154213386"></p>
+<p>&#x8FD9;&#x4E0B;&#x6211;&#x4EEC;&#x7684;<code>drive</code>&#x65B9;&#x6CD5;&#x548C;<code>girlFriend</code>&#x5C5E;&#x6027;&#x90FD;&#x590D;&#x5236;&#x8FC7;&#x6765;&#x4E86;&#x3002;</p>
+<h3 id="&#x62F7;&#x8D1D;symbol"><a name="&#x62F7;&#x8D1D;symbol" class="anchor-navigation-ex-anchor" href="#&#x62F7;&#x8D1D;symbol"><i class="fa fa-link" aria-hidden="true"></i></a>&#x62F7;&#x8D1D;Symbol</h3>
+<p>&#x90A3;&#x5982;&#x679C;&#x6362;&#x4E00;&#x4E2A;&#x5E26;&#x6709;<code>Symbol</code>&#x5C5E;&#x6027;&#x7684;&#x5BF9;&#x8C61;&#x5462;&#xFF1F;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> target3 = {
+  [<span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&apos;name&apos;</span>)]: <span class="hljs-string">&apos;John&apos;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+  <span class="hljs-attr">drive</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {},
+  <span class="hljs-attr">girlFriend</span>: <span class="hljs-literal">undefined</span>
+}
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> newObj = deepCopy(target3);
+<span class="hljs-built_in">console</span>.log(newObj);
+</code></pre>
+<p><img src="../../images/JavaScript/Copy/image-20200115155047797.png" alt="image-20200115155047797"></p>
+<p>&#x6211;&#x4EEC;&#x53D1;&#x73B0;<code>Symbol</code>&#x5C5E;&#x6027;&#x4E22;&#x4E86;&#xFF0C;&#x90A3;&#x600E;&#x4E48;&#x529E;&#x5462;&#xFF1F;&#x8FD9;&#x4E2A;&#x539F;&#x56E0;&#x662F;<code>for...in...</code>&#x5FAA;&#x73AF;&#x62FF;&#x4E0D;&#x5230;<code>Symbol</code>&#x5C5E;&#x6027;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x62FF;<code>Symbol</code>&#x5C5E;&#x6027;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;<code>Object.getOwnPropertySymbols</code>&#x548C;<code>Reflect.ownKeys</code>&#x3002;<code>Object.getOwnPropertySymbols</code>&#x4F1A;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x7684;<code>Symbol</code>&#x5C5E;&#x6027;&#x5217;&#x8868;&#xFF1A;</p>
+<p><img src="../../images/JavaScript/Copy/image-20200115160547564.png" alt="image-20200115160547564"></p>
+<p><code>Reflect.ownKeys</code>&#x4F1A;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x81EA;&#x6709;&#x5C5E;&#x6027;&#xFF0C;&#x5305;&#x62EC;<code>Symbol</code>&#x5C5E;&#x6027;&#x548C;&#x4E0D;&#x53EF;&#x679A;&#x4E3E;&#x5C5E;&#x6027;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5305;&#x62EC;&#x7EE7;&#x627F;&#x5C5E;&#x6027;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x7684;<code>deepCopy</code>&#x65B9;&#x6CD5;&#x6539;&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> deepCopy = <span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> result = <span class="hljs-built_in">Array</span>.isArray(obj) ? [] : {};
+  <span class="hljs-comment">// &#x7528; Reflect.ownKeys&#x53EF;&#x4EE5;&#x83B7;&#x53D6;Symbol&#x5C5E;&#x6027;&#xFF0C;&#x7528;for...of&#x6765;&#x5FAA;&#x73AF;&#x6570;&#x7EC4;</span>
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> <span class="hljs-built_in">Reflect</span>.ownKeys(obj)) {
+    <span class="hljs-keyword">if</span>(obj.hasOwnProperty(key)){
+      <span class="hljs-keyword">if</span>(obj[key] &amp;&amp; <span class="hljs-keyword">typeof</span> obj[key] === <span class="hljs-string">&apos;object&apos;</span>){
+        result[key] = deepCopy(obj[key])
+      } <span class="hljs-keyword">else</span> {
+        result[key] = obj[key];
+      }
+    }
+  }
+
+  <span class="hljs-keyword">return</span> result;
+}
+</code></pre>
+<p>&#x518D;&#x6765;&#x770B;&#x770B;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> newObj = deepCopy(target3);
+<span class="hljs-built_in">console</span>.log(newObj);
+</code></pre>
+<p><img src="../../images/JavaScript/Copy/image-20200115161745677.png" alt="image-20200115161745677"></p>
+<h3 id="&#x89E3;&#x51B3;&#x5FAA;&#x73AF;&#x5F15;&#x7528;"><a name="&#x89E3;&#x51B3;&#x5FAA;&#x73AF;&#x5F15;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x89E3;&#x51B3;&#x5FAA;&#x73AF;&#x5F15;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x89E3;&#x51B3;&#x5FAA;&#x73AF;&#x5F15;&#x7528;</h3>
+<p>&#x6211;&#x4EEC;&#x6765;&#x8003;&#x8651;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x76EE;&#x6807;&#x5BF9;&#x8C61;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> target4 = {
+  [<span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&apos;name&apos;</span>)]: <span class="hljs-string">&apos;John&apos;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+  <span class="hljs-attr">drive</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {},
+  <span class="hljs-attr">girlFriend</span>: <span class="hljs-literal">undefined</span>
+}
+
+target4.target = target4;
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;<code>target</code>&#x5C5E;&#x6027;&#x53C8;&#x5F15;&#x7528;&#x4E86;&#x81EA;&#x8EAB;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x4E86;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF0C;&#x7528;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x7684;&#x6DF1;&#x62F7;&#x8D1D;&#x65B9;&#x6CD5;&#x76F4;&#x63A5;&#x4F1A;&#x62A5;&#x9519;</p>
+<p><img src="../../images/JavaScript/Copy/image-20200115162212993.png" alt="image-20200115162212993"></p>
+<p>&#x8981;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6BCF;&#x6B21;&#x90FD;&#x5C06;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x952E;&#x548C;&#x503C;&#x90FD;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#xFF0C;&#x7531;&#x4E8E;Object&#x7684;&#x952E;&#x4E0D;&#x80FD;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E0D;&#x80FD;&#x7528;Object&#x8BB0;&#x5F55;&#xFF0C;&#x8FD9;&#x91CC;&#x91C7;&#x7528;&#x4E86;WeakMap&#x6765;&#x8BB0;&#x5F55;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> deepCopy2 = <span class="hljs-function">(<span class="hljs-params">originObj</span>) =&gt;</span> {
+  <span class="hljs-comment">// &#x5168;&#x5C40;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x8BB0;&#x5F55;&#x7684;map&#xFF0C;&#x6240;&#x4EE5;&#x91CC;&#x9762;&#x53C8;&#x5D4C;&#x4E86;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;</span>
+  <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dp</span>(<span class="hljs-params">obj</span>)</span>{
+    <span class="hljs-keyword">const</span> result = <span class="hljs-built_in">Array</span>.isArray(obj) ? [] : {};
+
+    <span class="hljs-keyword">const</span> existObj = map.get(obj);
+    <span class="hljs-comment">// &#x68C0;&#x67E5;map&#x4E2D;&#x662F;&#x4E0D;&#x662F;&#x5DF2;&#x7ECF;&#x6709;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x4E86;&#xFF0C;&#x6709;&#x4E86;&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x4E0D;&#x518D;&#x9012;&#x5F52;</span>
+    <span class="hljs-keyword">if</span>(existObj){
+      <span class="hljs-keyword">return</span> existObj;
+    }
+
+    <span class="hljs-comment">// &#x6CA1;&#x6709;&#x5C31;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;</span>
+    map.set(obj, result);
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> <span class="hljs-built_in">Reflect</span>.ownKeys(obj)) {
+      <span class="hljs-keyword">if</span>(obj.hasOwnProperty(key)){
+        <span class="hljs-keyword">if</span>(obj[key] &amp;&amp; <span class="hljs-keyword">typeof</span> obj[key] === <span class="hljs-string">&apos;object&apos;</span>){
+          result[key] = dp(obj[key])
+        } <span class="hljs-keyword">else</span> {
+          result[key] = obj[key];
+        }
+      }
+    }
+
+    <span class="hljs-keyword">return</span> result;
+  }
+
+  <span class="hljs-keyword">return</span> dp(originObj);
+}
+</code></pre>
+<p><code>WeakMap</code>&#x7684;&#x517C;&#x5BB9;&#x6027;&#x4E0D;&#x662F;&#x5F88;&#x597D;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x8001;&#x6D4F;&#x89C8;&#x5668;&#x4E0D;&#x652F;&#x6301;<code>WeakMap</code>&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#x6765;&#x6A21;&#x62DF;&#xFF0C;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x5B58;&#x952E;&#xFF0C;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x5B58;&#x503C;&#xFF0C;&#x6BCF;&#x6B21;&#x90FD;&#x53EA;&#x5728;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#x672B;&#x5C3E;&#x65B0;&#x589E;&#x503C;&#xFF0C;&#x8FD9;&#x6837;&#x952E;&#x548C;&#x503C;&#x5728;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x7D22;&#x5F15;&#x5C31;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x7D22;&#x5F15;&#x6765;&#x8FDB;&#x884C;&#x952E;&#x548C;&#x503C;&#x7684;&#x5339;&#x914D;&#x3002;</p>
+<h2 id="&#x6D45;&#x62F7;&#x8D1D;&#x7684;&#x5E94;&#x7528;&#xFF1A;mixin--&#x6DF7;&#x5408;&#x6A21;&#x5F0F;"><a name="&#x6D45;&#x62F7;&#x8D1D;&#x7684;&#x5E94;&#x7528;&#xFF1A;mixin--&#x6DF7;&#x5408;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x6D45;&#x62F7;&#x8D1D;&#x7684;&#x5E94;&#x7528;&#xFF1A;mixin--&#x6DF7;&#x5408;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D45;&#x62F7;&#x8D1D;&#x7684;&#x5E94;&#x7528;&#xFF1A;mixin--&#x6DF7;&#x5408;&#x6A21;&#x5F0F;</h2>
+<p>&#x76F4;&#x63A5;&#x770B;&#x4EE3;&#x7801;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mixin = {
+  <span class="hljs-comment">// &#x6CE8;&#x610F;&#xFF1A;&#x8FD9;&#x91CC;&#x7684;say&#x548C;run&#x4E0D;&#x80FD;&#x5199;&#x6210;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#xFF0C;&#x56E0;&#x4E3A;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x62FF;&#x4E0D;&#x5230;&#x6B63;&#x786E;&#x7684;this</span>
+  say() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.name}</span>&#x5728;&#x8BF4;&#x8BDD;`</span>)
+  },
+  run() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-keyword">this</span>.name}</span>&#x5728;&#x8DD1;&#x6B65;`</span>)
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span></span>{
+  <span class="hljs-keyword">constructor</span>(name){
+    <span class="hljs-keyword">this</span>.name = name
+  }
+}
+
+<span class="hljs-built_in">Object</span>.assign(Student.prototype, mixin);
+
+<span class="hljs-keyword">const</span> student1 = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&apos;Jhon&apos;</span>);
+student1.say();
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x7528;&#x7EE7;&#x627F;&#xFF0C;&#x800C;&#x662F;&#x7528;&#x4E86;&#x62F7;&#x8D1D;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x8BA9;<code>Student</code>&#x7C7B;&#x5177;&#x6709;&#x4E86;mixin&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x5C06;mixin&#x91CC;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x590D;&#x5236;&#x5230;&#x4E86;<code>Student</code>&#x7684;&#x539F;&#x578B;&#x94FE;&#x4E0A;&#x3002;&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x5728;&#x5F88;&#x591A;&#x5730;&#x65B9;&#x90FD;&#x6709;&#x5E94;&#x7528;&#xFF0C;&#x6BD4;&#x5982;Vue&#xFF1A;</p>
+<p><img src="../../images/JavaScript/Copy/image-20200115175945936.png" alt="image-20200115175945936"></p>
+<h2 id="&#x6DF1;&#x62F7;&#x8D1D;&#x5E94;&#x7528;&#xFF1A;pick&#x51FD;&#x6570;"><a name="&#x6DF1;&#x62F7;&#x8D1D;&#x5E94;&#x7528;&#xFF1A;pick&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x6DF1;&#x62F7;&#x8D1D;&#x5E94;&#x7528;&#xFF1A;pick&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6DF1;&#x62F7;&#x8D1D;&#x5E94;&#x7528;&#xFF1A;pick&#x51FD;&#x6570;</h2>
+<p>&#x5728;underscore&#x91CC;&#x9762;&#x6709;&#x4E00;&#x4E2A;pick&#x51FD;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="../../images/JavaScript/Copy/image-20200115180254369.png" alt="image-20200115180254369"></p>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x7684;&#x8F93;&#x51FA;&#x662F;&#x4E00;&#x4E2A;&#x53EA;&#x5305;&#x542B;<code>age</code>&#x5C5E;&#x6027;&#x7684;&#x65B0;&#x5BF9;&#x8C61;<code>{age: 30}</code>&#xFF0C;&#x4E0B;&#x9762;&#x8BA9;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x6765;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;pick&#x51FD;&#x6570;&#xFF0C;&#x5B9E;&#x73B0;&#x5728;&#x539F;&#x7406;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x628A;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x6DF1;&#x62F7;&#x8D1D;&#x7684;&#x65B9;&#x6CD5;&#x6539;&#x4E00;&#x4E0B;&#x5C31;&#x884C;&#xFF0C;&#x8BA9;&#x4ED6;&#x53EA;&#x62F7;&#x8D1D;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x5C5E;&#x6027;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> pick = <span class="hljs-function">(<span class="hljs-params">originObj, property</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dp</span>(<span class="hljs-params">obj</span>)</span>{
+    <span class="hljs-keyword">const</span> result = <span class="hljs-built_in">Array</span>.isArray(obj) ? [] : {};
+
+    <span class="hljs-keyword">const</span> existObj = map.get(obj);
+
+    <span class="hljs-keyword">if</span>(existObj){
+      <span class="hljs-keyword">return</span> existObj;
+    }
+
+    map.set(obj, result);
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> <span class="hljs-built_in">Reflect</span>.ownKeys(obj)) {
+      <span class="hljs-comment">// &#x53EA;&#x9700;&#x8981;&#x52A0;&#x4E00;&#x4E2A;&#x68C0;&#x6D4B;&#xFF0C;&#x770B;&#x770B;key&#x662F;&#x4E0D;&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x5C5E;&#x6027;&#x5C31;&#x884C;</span>
+      <span class="hljs-keyword">if</span>(obj.hasOwnProperty(key) &amp;&amp; key === property){
+        <span class="hljs-keyword">if</span>(obj[key] &amp;&amp; <span class="hljs-keyword">typeof</span> obj[key] === <span class="hljs-string">&apos;object&apos;</span>){
+          result[key] = dp(obj[key])
+        } <span class="hljs-keyword">else</span> {
+          result[key] = obj[key];
+        }
+      }
+    }
+
+    <span class="hljs-keyword">return</span> result;
+  }
+
+  <span class="hljs-keyword">return</span> dp(originObj);
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="CommonFunctions.html" class="navigation navigation-prev " aria-label="Previous page: 一些常用函数">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="UnitTest.html" class="navigation navigation-next " aria-label="Next page: 单元测试及原理">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"浅拷贝和深拷贝","level":"1.3.5","depth":2,"next":{"title":"单元测试及原理","level":"1.3.6","depth":2,"path":"Articles/JavaScript/UnitTest.md","ref":"Articles/JavaScript/UnitTest.md","articles":[]},"previous":{"title":"一些常用函数","level":"1.3.4","depth":2,"path":"Articles/JavaScript/CommonFunctions.md","ref":"Articles/JavaScript/CommonFunctions.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/Copy.md","mtime":"2020-01-15T10:15:33.325Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-15T10:14:04.618Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
