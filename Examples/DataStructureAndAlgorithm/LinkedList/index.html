@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id='app'></div>
+	<!-- <script type="text/javascript" src="./reactive.js"></script> -->
+	<script type="text/javascript">
+		const NodeD = {
+			value: 4,
+			next: null
+		};
+
+		const NodeC = {
+			value: 3,
+			next: NodeD
+		};
+
+		const NodeB = {
+			value: 2,
+			next: NodeC
+		};
+
+		const NodeA = {
+			value: 1,
+			next: NodeB
+		};
+
+		const LinkedList = {
+			head: NodeA
+		};
+
+		// 遍历方法还接收一个参数作为回调，可以用来对每个值进行处理
+		const traversal = (linkedList, callback) => {
+			const headNode = linkedList.head;
+			let currentNode = headNode;
+
+			while(currentNode.next) {
+				console.log('currentNode', currentNode);
+				callback(currentNode.value);
+				currentNode = currentNode.next;
+			}
+
+			// 处理最后一个节点的值
+			callback(currentNode.value);
+		}
+
+		// 测试一下
+		let total = 0;
+		const sum = (value) => total = total + value;
+
+		traversal(LinkedList, sum);
+		console.log(total);
+
+		// 检测链表的环
+		const hasCycle = (linkedList) => {
+			const map = new WeakMap();
+			const headNode = linkedList.head;
+			let current = headNode;
+
+			while(current.next){
+				const exist = map.get(current);
+
+				if(exist) return true;
+
+				map.set(current, current.value);
+
+				current = current.next;
+			}
+
+			return false;
+		}
+
+		console.log(hasCycle(LinkedList));
+
+		// 来检测一个有环的
+		const NodeB2 = {
+			value: 2,
+		};
+
+		const NodeA2 = {
+			value: 1,
+			next: NodeB2
+		};
+
+		NodeB2.next = NodeA2;
+
+		const LinkedList2 = {
+			head: NodeA2
+		};
+		console.log(hasCycle(LinkedList2)); // true
+
+
+		// 步进检测
+		const hasCycle2 = (linkedList) => {
+			const headNode = linkedList.head;
+			let pointer1 = headNode;
+			let pointer2 = headNode;
+
+			while(pointer1.next){
+		    // pointer2跑得快，会先到尾部
+		    // 如果他到尾部了，说明没环
+		    if(!pointer2.next || !pointer2.next.next) {
+		    	return false;
+		    }
+		    
+		    if(pointer1 === pointer2) {
+		    	return ture;
+		    }
+		    
+		    pointer1 = pointer1.next;
+		    pointer2 = pointer2.next.next;
+		}
+
+		return false;
+		}
+
+		console.log(hasCycle(LinkedList)); // false
+		console.log(hasCycle(LinkedList2)); // true
+</script>
+</body>
+</html>
