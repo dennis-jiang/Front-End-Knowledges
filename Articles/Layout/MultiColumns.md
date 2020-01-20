@@ -367,6 +367,53 @@ C + G = (W + G) * N;
 
 这样做虽然左右子元素看起来是一样高的，但是调试可以发现，他们的高度已经加了9999px，远远超过父容器了。这并不是真正意义上的等高，真正意义上的等高还是要用前面两种方案。
 
+## 终极方案：Grid
+
+Grid是一个比flex还要强大的布局方案，所以我们这里把它单独拉出来讲，看看用grid怎么实现前面的需求。我们这里主要用到了grid布局的两个属性：
+
+* **grid-template-columns**: 指定grid布局列的排列，支持绝对值（像素），百分比，auto。
+* **grid-column-gap**：列间距
+
+### 定宽 | 自适应
+
+```css
+<div class="parent11">
+	<div class="left11">
+		<p>left11</p>
+	</div>
+	<div class="right11">
+		<p>right11</p>
+		<p>right11</p>
+	</div>
+</div>
+
+.parent11 {
+	display: grid;
+	grid-template-columns: 100px auto;
+	grid-column-gap: 20px;
+}
+```
+
+### 定宽 | 定宽 | 自适应
+
+只需要将上面的`grid-template-columns`改了就行了：
+
+```css
+grid-template-columns: 100px 100px auto;
+```
+
+### 等宽
+
+还是改`grid-template-columns`：
+
+```css
+grid-template-columns: auto auto auto;
+```
+
+### 等高
+
+上面的三个全部是等高的，不需要额外干什么。
+
 ## 总结
 
 通过前面的几种布局，我们可以看到基本上都是用到了三个思路
@@ -374,4 +421,5 @@ C + G = (W + G) * N;
 * **float**：float就是浮动，让左边元素浮动起来，但是这需要解决右边环绕左边的问题，我们用了margin和BFC两种方案来解决。在等高布局中，浮动元素的方案不是等高的，我们通过一个很大的内边距，然后一个负的外边距来进行补偿，这样虽然看起来解决了问题，但是元素的真是高度其实已经变了。
 * **table**：布局中我们用到了表格的两个特性，一个是通过`table-layout`来控制是布局优先还是内容优先，如果将其设置为`fixed`，可以将一列宽度固定，不受内容长度影响。不设置`table-layout`，或者设置为`auto`，这其实是一样的，因为他的默认值就是`auto`，那里面的列都是根据内容长度来自适应的，如果我们想让一列不留白，缩小到内容宽度，只需要给这一列一个很小的宽，比如`0.1%`或者`1px`就行了。我们用到的另一个特性是，表格同一列里面的单元格天生就是等高的，我们用这个来做了等高布局。
 * **flex**：flex本身就是为了布局而生的，所以他原生支持各种布局，一个`flex:1`就可以让他自适应剩下的空间，而且flex默认的`align-items`是`stretch`，这让他在纵轴（cross轴）上天生就是等高的。但是这是CSS3才引入的，一些老的浏览器可能不支持。
+* **grid**: grid比flex还要强大，而且可以直接做二维布局，我们这里用来做一维多列布局，也是杀鸡用牛刀了。它还有很多属性，可以参考[阮一峰的教程](http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)。但是grid很新，如果需要兼容老浏览器，还是要用前面的方案。
 

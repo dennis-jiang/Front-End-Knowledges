@@ -1,3 +1,7 @@
+body {
+	width: 500px;
+}
+
 p {
 	margin-block-start: 0;
     margin-block-end: 0;
@@ -174,4 +178,33 @@ p {
 	padding-bottom: 9999px;
 	margin-bottom: -9999px;
 }
+
+.parent11 {
+	display: grid;
+	grid-template-columns: 100px auto;
+	grid-column-gap: 20px;
+}
+
+.left11 {
+	background-color: #666;
+}
+
+.right11 {
+	background-color: #999;
+}
+
+.parent12 {
+	display: grid;
+	grid-template-columns: 100px 100px auto;
+	grid-column-gap: 20px;
+}
+
+.parent13 {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-column-gap: 20px;
+}
+
+
+
 
