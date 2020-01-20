@@ -232,5 +232,5 @@ vueRouter.install = function(vue) {
 
 其实上面的基础版vue router主要包括两部分，一部分是浏览器地址的监听，将url改变监听到并存入vueRouter类中，另一部分是将vueRouter与vue连接起来，这部分主要是靠vue的插件机制实现的。
 
-这个例子的完整代码可以看我的github: 
+这个例子的完整代码可以看我的github:  https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Vue/vue-router
 
