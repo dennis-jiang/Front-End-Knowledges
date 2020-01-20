@@ -14,6 +14,7 @@
 * [计算机网络]()
 * [Vue.js](/Articles/Vue/Vue.md)
 	* [Vue响应式原理](/Articles/Vue/reactive.md)
+	* [Vue-Router原理](/Articles/Vue/vueRouter.md)
 * [React.js]()
 * [Node.js]()
 * [工程化]()
