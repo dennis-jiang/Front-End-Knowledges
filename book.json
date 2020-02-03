@@ -13,7 +13,8 @@
 		"-sharing",
 		"sharing-plus",
 		"chapter-fold",
-		"anchor-navigation-ex"
+		"anchor-navigation-ex",
+		"katex"
 	],
 	"pluginsConfig": {
 		"github": {
