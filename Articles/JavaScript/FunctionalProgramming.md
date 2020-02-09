@@ -113,7 +113,18 @@ console.log(a); // 50
 
 要给为纯函数可以将依赖注入进去，所谓依赖注入就是将不纯的部分提取出来作为参数，这样我们可以让副作用代码集中在外部，远离核心代码，保证核心代码的稳定性
 
-![image-20200109232711578](../../images/JavaScript/Functional Programming/image-20200109232711578.png)
+```javascript
+// 依赖注入
+const foo = (d, log, something) => {
+  const dt = d.toISOString();
+  return log(`${dt}: ${something}`);
+}
+
+const something = 'log content';
+const d = new Date();
+const log = console.log.bind(console);
+foo(d, log, something);
+```
 
 所以减少副作用一般的方法就是：
 
