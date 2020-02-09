@@ -225,7 +225,7 @@
                 <a href="../JavaScript/CommonFunctions.html">
             
                     
-                    一些常用函数
+                    一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数
             
                 </a>
             
@@ -467,7 +467,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x5192;&#x6CE1;&#x6392;&#x5E8F;"><b></b>&#x5192;&#x6CE1;&#x6392;&#x5E8F;</a></li><li><span class="title-icon "></span><a href="#&#x63D2;&#x5165;&#x6392;&#x5E8F;"><b></b>&#x63D2;&#x5165;&#x6392;&#x5E8F;</a></li></ul></ul></div><p>&#x6392;&#x5E8F;&#x662F;&#x5F88;&#x5E38;&#x89C1;&#x4E5F;&#x5F88;&#x7ECF;&#x5178;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4E0B;&#x9762;&#x8BB2;&#x51E0;&#x79CD;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#xFF1A;</p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x5192;&#x6CE1;&#x6392;&#x5E8F;"><b></b>&#x5192;&#x6CE1;&#x6392;&#x5E8F;</a></li><li><span class="title-icon "></span><a href="#&#x63D2;&#x5165;&#x6392;&#x5E8F;"><b></b>&#x63D2;&#x5165;&#x6392;&#x5E8F;</a></li><li><span class="title-icon "></span><a href="#&#x5FEB;&#x901F;&#x6392;&#x5E8F;"><b></b>&#x5FEB;&#x901F;&#x6392;&#x5E8F;</a></li><li><span class="title-icon "></span><a href="#&#x5F52;&#x5E76;&#x6392;&#x5E8F;"><b></b>&#x5F52;&#x5E76;&#x6392;&#x5E8F;</a></li></ul></ul></div><p>&#x6392;&#x5E8F;&#x662F;&#x5F88;&#x5E38;&#x89C1;&#x4E5F;&#x5F88;&#x7ECF;&#x5178;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4E0B;&#x9762;&#x8BB2;&#x51E0;&#x79CD;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#xFF1A;</p>
 <h2 id="&#x5192;&#x6CE1;&#x6392;&#x5E8F;"><a name="&#x5192;&#x6CE1;&#x6392;&#x5E8F;" class="anchor-navigation-ex-anchor" href="#&#x5192;&#x6CE1;&#x6392;&#x5E8F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5192;&#x6CE1;&#x6392;&#x5E8F;</h2>
 <p>&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x662F;&#x6700;&#x597D;&#x7406;&#x89E3;&#x7684;&#x4E00;&#x79CD;&#x7B97;&#x6CD5;&#xFF0C;&#x4EE5;&#x5347;&#x5E8F;&#x6392;&#x5E8F;&#x4E3A;&#x4F8B;&#xFF0C;&#x5373;&#x6700;&#x5C0F;&#x7684;&#x5728;&#x524D;&#x9762;&#xFF0C;&#x5BF9;&#x6570;&#x7EC4;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x904D;&#x5386;&#xFF0C;&#x5982;&#x679C;&#x76F8;&#x90BB;&#x7684;&#x4E24;&#x4E2A;&#x6570;&#x524D;&#x9762;&#x7684;&#x6BD4;&#x540E;&#x9762;&#x7684;&#x5927;&#xFF0C;&#x5219;&#x4EA4;&#x6362;&#x4ED6;&#x4EEC;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x904D;&#x5386;&#x4F1A;&#x5C06;&#x6700;&#x5927;&#x7684;&#x6570;&#x5B57;&#x6392;&#x5230;&#x6700;&#x540E;&#x53BB;&#xFF0C;&#x7B2C;&#x4E8C;&#x6B21;&#x904D;&#x5386;&#x4F1A;&#x5C06;&#x7B2C;&#x4E8C;&#x5927;&#x7684;&#x6570;&#x5B57;&#x6392;&#x5230;&#x5012;&#x6570;&#x7B2C;&#x4E8C;&#x7684;&#x4F4D;&#x7F6E;&#x3002;&#x3002;&#x3002;&#x4EE5;&#x6B64;&#x7C7B;&#x63A8;&#xFF0C;&#x904D;&#x5386;n-1&#x904D;&#x6574;&#x4E2A;&#x6570;&#x7EC4;&#x5C31;&#x6709;&#x5E8F;&#x4E86;&#x3002;&#x8BE6;&#x7EC6;&#x89E3;&#x8BF4;&#x53C2;&#x8003;<a href="https://www.runoob.com/w3cnote/bubble-sort.html" target="_blank">https://www.runoob.com/w3cnote/bubble-sort.html</a>:</p>
 <p><img src="../../images/DataStructureAndAlgorithm/Sort/bubbleSort.gif" alt="bubbleSort"></p>
@@ -554,7 +554,318 @@
 <span class="hljs-keyword">const</span> newArr = sort(array);
 <span class="hljs-built_in">console</span>.log(newArr); <span class="hljs-comment">// [1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
 </code></pre>
-<p>&#x672A;&#x5B8C;&#x5F85;&#x7EED;&#x3002;&#x3002;&#x3002;</p>
+<h2 id="&#x5FEB;&#x901F;&#x6392;&#x5E8F;"><a name="&#x5FEB;&#x901F;&#x6392;&#x5E8F;" class="anchor-navigation-ex-anchor" href="#&#x5FEB;&#x901F;&#x6392;&#x5E8F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5FEB;&#x901F;&#x6392;&#x5E8F;</h2>
+<p>&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x662F;&#x4E00;&#x4E2A;&#x6548;&#x7387;&#x5F88;&#x9AD8;&#x800C;&#x4E14;&#x9762;&#x8BD5;&#x4E2D;&#x7ECF;&#x5E38;&#x51FA;&#x73B0;&#x7684;&#x6392;&#x5E8F;&#xFF0C;&#x4ED6;&#x7684;&#x5E73;&#x5747;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x662F;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>&#xFF0C;&#x6700;&#x5DEE;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x662F;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">n</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span>&#x3002;&#x4ED6;&#x7684;&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;<strong>&#x9009;&#x5B9A;&#x4E00;&#x4E2A;&#x57FA;&#x51C6;&#x503C;x&#xFF0C;&#x5C06;&#x6BD4;x&#x5C0F;&#x7684;&#x503C;&#x653E;&#x5230;&#x5DE6;&#x8FB9;&#xFF0C;&#x6BD4;x&#x5927;&#x7684;&#x503C;&#x653E;&#x5230;&#x53F3;&#x8FB9;</strong>&#x3002;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;&#x5982;&#x4E0B;&#x6570;&#x7EC4;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> a = [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>];
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x6BCF;&#x6B21;&#x90FD;&#x53D6;&#x6570;&#x7EC4;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x503C;&#x4E3A;x&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6BD4;&#x4ED6;&#x5C0F;&#x7684;&#x653E;&#x5230;&#x5DE6;&#x8FB9;&#xFF0C;&#x5927;&#x7684;&#x653E;&#x5230;&#x53F3;&#x8FB9;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x503C;3&#xFF0C;&#x7ECF;&#x8FC7;&#x8FD9;&#x4E48;&#x4E00;&#x6B21;&#x8FD0;&#x7B97;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x671F;&#x671B;&#x7684;&#x76EE;&#x6807;&#x662F;&#x5F97;&#x5230;&#x7C7B;&#x4F3C;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> a = [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>];
+</code></pre>
+<p>&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;3&#x5DE6;&#x8FB9;&#x7684;&#x90FD;&#x6BD4;3&#x5C0F;&#xFF0C;3&#x53F3;&#x8FB9;&#x7684;&#x90FD;&#x6BD4;3&#x5927;&#xFF0C;&#x5DE6;&#x53F3;&#x4E24;&#x8FB9;&#x91CC;&#x9762;&#x7684;&#x987A;&#x5E8F;&#x53EF;&#x80FD;&#x662F;&#x4E0D;&#x5BF9;&#x7684;&#xFF0C;&#x4F46;&#x662F;3&#x672C;&#x8EAB;&#x7684;&#x4F4D;&#x7F6E;&#x662F;&#x5BF9;&#x7684;&#x3002;&#x600E;&#x4E48;&#x6765;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x7528;x&#x628A;3&#x6682;&#x5B58;&#x4E0B;&#x6765;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;&#x4E24;&#x4E2A;&#x6307;&#x9488;i,j&#x5206;&#x522B;&#x6307;&#x5411;&#x6570;&#x7EC4;&#x6700;&#x5F00;&#x59CB;&#x548C;&#x6700;&#x540E;&#x9762;&#x3002;&#x521D;&#x59CB;&#x72B6;&#x6001;x = 3, i = 0, j = 8&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong><em>3</em></strong></td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
+</tr>
+</tbody>
+</table>
+<p>&#x6211;&#x4EEC;&#x6682;&#x5B58;&#x4E86;a[0]&#xFF0C;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x628A;a[0]&#x6316;&#x51FA;&#x6765;&#x4E86;&#xFF0C;&#x9700;&#x8981;&#x627E;&#x4E00;&#x4E2A;&#x6570;&#x586B;&#x8FDB;&#x53BB;&#x3002;&#x6211;&#x4EEC;&#x4ECE;&#x540E;&#x5F80;&#x524D;&#x627E;&#xFF0C;&#x627E;&#x4E00;&#x4E2A;&#x6BD4;3&#x5C0F;&#x7684;&#x6570;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0;a[3]&#x662F;1(j=3)&#xFF0C;&#x6BD4;3&#x5C0F;&#xFF0C;&#x5C06;&#x5B83;&#x586B;&#x5230;a[0]&#x7684;&#x5751;&#x91CC;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;i=0, j=3&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong><em>1</em></strong></td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"><strong><em>1</em></strong></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
+</tr>
+</tbody>
+</table>
+<p>a[3]&#x88AB;&#x586B;&#x5230;&#x4E86;a[0]&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;a[3]&#x53C8;&#x88AB;&#x6316;&#x51FA;&#x6765;&#x4E86;&#xFF0C;&#x53C8;&#x9700;&#x8981;&#x627E;&#x4E00;&#x4E2A;&#x6570;&#x6765;&#x586B;&#x5145;&#x3002;&#x8FD9;&#x6B21;&#x6211;&#x4EEC;&#x4ECE;&#x524D;&#x5F80;&#x540E;&#x627E;&#xFF0C;&#x627E;&#x4E00;&#x4E2A;&#x6BD4;x&#x5927;&#x7684;&#x6570;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0;a[1]&#x662F;6(i=1)&#xFF0C;&#x6BD4;x&#x5927;&#xFF0C;&#x5C06;&#x5B83;&#x586B;&#x5230;a[3]&#x7684;&#x4F4D;&#x7F6E;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;i=1, j=3&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><strong><em>6</em></strong></td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"><strong><em>6</em></strong></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
+</tr>
+</tbody>
+</table>
+<p>&#x8FD9;&#x65F6;&#x5019;a[1]&#x88AB;&#x586B;&#x5230;&#x4E86;a[3]&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;a[1]&#x53C8;&#x88AB;&#x6316;&#x51FA;&#x6765;&#x4E86;&#xFF0C;&#x53C8;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x586B;&#x5145;&#x6570;&#x5B57;&#xFF0C;&#x6211;&#x4EEC;&#x7EE7;&#x7EED;&#x4ECE;j&#x7684;&#x4F4D;&#x7F6E;&#x5F80;&#x524D;&#x627E;&#x4E00;&#x4E2A;&#x5C0F;&#x7684;&#x3002;&#x6211;&#x4EEC;&#x53D1;&#x73B0;a[2]&#x6BD4;3&#x5C0F;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;a[2]&#x586B;&#x5145;&#x5230;a[1]&#x7684;&#x4F4D;&#x7F6E;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;i=1, j=2;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><strong><em>2</em></strong></td>
+<td style="text-align:center"><strong><em>2</em></strong></td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
+</tr>
+</tbody>
+</table>
+<p>a[2]&#x586B;&#x5145;&#x5230;&#x4E86;a[1]&#xFF0C;a[2]&#x53C8;&#x7A7A;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x7EE7;&#x7EED;&#x4ECE;&#x524D;&#x5F80;&#x540E;&#x627E;&#x4E00;&#x4E2A;&#x5927;&#x7684;&#x6570;&#x5B57;&#x586B;&#x5145;&#x8FDB;&#x53BB;&#xFF0C;i&#x5F00;&#x59CB;&#x81EA;&#x589E;&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x81EA;&#x589E;&#x4E00;&#x4E2A;&#x4E4B;&#x540E;&#x5C31;&#x4E0D;&#x5C0F;&#x4E8E;j&#x4E86;&#x3002;&#x8FD9;&#x8BF4;&#x660E;&#x6211;&#x4EEC;&#x6574;&#x4E2A;&#x6570;&#x7EC4;&#x5DF2;&#x7ECF;&#x904D;&#x5386;&#x5B8C;&#x4E86;&#xFF0C;&#x5FAA;&#x73AF;&#x7ED3;&#x675F;&#x3002;&#x6CE8;&#x610F;&#xFF0C;i&#x81EA;&#x589E;&#x4E00;&#x6B21;&#x540E;&#x4E0D;&#x5C0F;&#x4E8E;j&#xFF0C;&#x89E6;&#x53D1;&#x5FAA;&#x73AF;&#x7ED3;&#x675F;&#x6761;&#x4EF6;&#xFF0C;&#x6B64;&#x65F6;i = 2&#x3002; &#x800C;&#x8FD9;&#x65F6;&#x5019;&#x7684;i&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x6700;&#x5F00;&#x59CB;&#x7F13;&#x5B58;&#x7684;x&#x5E94;&#x8BE5;&#x5728;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;x&#x653E;&#x5165;a[i]&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"><strong><em>3</em></strong></td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
+</tr>
+</tbody>
+</table>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x4E00;&#x6B21;&#x904D;&#x5386;&#x5C31;&#x627E;&#x5230;&#x4E86;&#x57FA;&#x51C6;&#x503C;&#x5E94;&#x8BE5;&#x5728;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5E76;&#x4E14;&#x8C03;&#x6574;&#x4E86;&#x6570;&#x7EC4;&#xFF0C;&#x8BA9;&#x57FA;&#x51C6;&#x503C;&#x5DE6;&#x8FB9;&#x7684;&#x6570;&#x90FD;&#x6BD4;&#x4ED6;&#x5C0F;&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x90FD;&#x6BD4;&#x4ED6;&#x5927;&#x3002;&#x6211;&#x4EEC;&#x6765;&#x5B9E;&#x73B0;&#x4E0B;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> partition = <span class="hljs-function">(<span class="hljs-params">arr</span>) =&gt;</span> {
+  <span class="hljs-keyword">let</span> x = arr[<span class="hljs-number">0</span>];
+  <span class="hljs-keyword">let</span> length = arr.length;
+  <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">let</span> j = length - <span class="hljs-number">1</span>;
+
+  <span class="hljs-keyword">while</span>(i &lt; j) {
+    <span class="hljs-comment">// &#x5148;&#x4ECE;&#x540E;&#x5F80;&#x524D;&#x627E;&#x5C0F;&#x7684;, &#x6CA1;&#x627E;&#x5230;&#x7EE7;&#x7EED;&#x627E;</span>
+    <span class="hljs-keyword">while</span>(i &lt; j &amp;&amp; arr[j] &gt; x) {
+      j--;
+    }
+    <span class="hljs-comment">// &#x627E;&#x5230;&#x4E86;&#xFF0C;&#x5C06;&#x503C;&#x586B;&#x5165;&#x5751;&#x91CC;, a[j]&#x53C8;&#x53D8;&#x6210;&#x4E86;&#x5751;</span>
+    <span class="hljs-keyword">if</span>(i &lt; j) {
+      a[i] = a[j];
+    }
+
+    <span class="hljs-comment">// &#x7136;&#x540E;&#x4ECE;&#x524D;&#x5F80;&#x540E;&#x627E;&#x5927;&#x7684;&#xFF0C;&#x6CA1;&#x627E;&#x5230;&#x7EE7;&#x7EED;&#x627E;</span>
+    <span class="hljs-keyword">while</span>(i &lt; j &amp;&amp; arr[i] &lt; x) {
+      i++;
+    }
+    <span class="hljs-comment">// &#x627E;&#x5230;&#x4E86;&#xFF0C;&#x5C06;&#x503C;&#x586B;&#x5165;&#x4E4B;&#x524D;&#x7684;&#x5751;&#x91CC;</span>
+    <span class="hljs-keyword">if</span>(i &lt; j) {
+      a[j] = a[i];
+    }
+  }
+
+  <span class="hljs-comment">// &#x5C06;&#x57FA;&#x51C6;&#x503C;&#x586B;&#x5165;&#x5751;</span>
+  a[i] = x;
+
+  <span class="hljs-keyword">return</span> arr;
+}
+
+<span class="hljs-keyword">const</span> a = [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>];
+
+<span class="hljs-comment">// &#x6D4B;&#x8BD5;&#x4E0B;</span>
+<span class="hljs-keyword">let</span> result = partition(a);
+<span class="hljs-built_in">console</span>.log(result);   <span class="hljs-comment">// [1, 2, 3, 6, 4, 5, 9, 8, 7]</span>
+</code></pre>
+<p>&#x5728;&#x524D;&#x9762;&#x601D;&#x8DEF;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x7EE7;&#x7EED;&#x9012;&#x5F52;&#x7684;&#x5BF9;&#x57FA;&#x51C6;&#x503C;&#x5DE6;&#x53F3;&#x4E24;&#x8FB9;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x8C03;&#x6574;&#x65B9;&#x6CD5;&#xFF0C;&#x5C31;&#x80FD;&#x5C06;&#x6570;&#x7EC4;&#x7684;&#x6BCF;&#x4E2A;&#x6570;&#x5B57;&#x90FD;&#x653E;&#x5230;&#x6B63;&#x786E;&#x7684;&#x4F4D;&#x7F6E;&#x4E0A;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#xFF0C;&#x8FD9;&#x79CD;&#x601D;&#x60F3;&#x53EB;&#x5206;&#x6CBB;&#x6CD5;&#x3002;&#x524D;&#x9762;&#x8C03;&#x6574;&#x6570;&#x7EC4;&#x7684;&#x65B9;&#x6CD5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x5FAE;&#x8C03;&#xFF0C;&#x8BA9;&#x4ED6;&#x63A5;&#x53D7;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;&#x548C;&#x7ED3;&#x675F;&#x4F4D;&#x7F6E;&#x5E76;&#x8FD4;&#x56DE;&#x57FA;&#x51C6;&#x503C;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> partition = <span class="hljs-function">(<span class="hljs-params">arr, left, right</span>) =&gt;</span> {
+  <span class="hljs-keyword">let</span> x = arr[left];
+  <span class="hljs-keyword">let</span> i = left;
+  <span class="hljs-keyword">let</span> j = right;
+
+  <span class="hljs-keyword">while</span>(i &lt; j) {
+    <span class="hljs-comment">// &#x5148;&#x4ECE;&#x540E;&#x5F80;&#x524D;&#x627E;&#x5C0F;&#x7684;, &#x6CA1;&#x627E;&#x5230;&#x7EE7;&#x7EED;&#x627E;</span>
+    <span class="hljs-keyword">while</span>(i &lt; j &amp;&amp; arr[j] &gt; x) {
+      j--;
+    }
+    <span class="hljs-comment">// &#x627E;&#x5230;&#x4E86;&#xFF0C;&#x5C06;&#x503C;&#x586B;&#x5165;&#x5751;&#x91CC;, a[j]&#x53C8;&#x53D8;&#x6210;&#x4E86;&#x5751;</span>
+    <span class="hljs-keyword">if</span>(i &lt; j) {
+      a[i] = a[j];
+    }
+
+    <span class="hljs-comment">// &#x7136;&#x540E;&#x4ECE;&#x524D;&#x5F80;&#x540E;&#x627E;&#x5927;&#x7684;&#xFF0C;&#x6CA1;&#x627E;&#x5230;&#x7EE7;&#x7EED;&#x627E;</span>
+    <span class="hljs-keyword">while</span>(i &lt; j &amp;&amp; arr[i] &lt; x) {
+      i++;
+    }
+    <span class="hljs-comment">// &#x627E;&#x5230;&#x4E86;&#xFF0C;&#x5C06;&#x503C;&#x586B;&#x5165;&#x4E4B;&#x524D;&#x7684;&#x5751;&#x91CC;</span>
+    <span class="hljs-keyword">if</span>(i &lt; j) {
+      a[j] = a[i];
+    }
+  }
+
+  <span class="hljs-comment">// &#x5C06;&#x57FA;&#x51C6;&#x503C;&#x586B;&#x5165;&#x5751;</span>
+  a[i] = x;
+
+  <span class="hljs-keyword">return</span> i;
+}
+
+<span class="hljs-keyword">const</span> quickSort = <span class="hljs-function">(<span class="hljs-params">arr, left, right</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> length = arr.length;
+  <span class="hljs-keyword">const</span> start = left || <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">const</span> end = right !== <span class="hljs-literal">undefined</span> ? right : length - <span class="hljs-number">1</span>;
+
+  <span class="hljs-keyword">if</span>(start &lt; end) {
+    <span class="hljs-keyword">const</span> index = partition(arr, start, end);
+    quickSort(arr, start, index - <span class="hljs-number">1</span>); <span class="hljs-comment">// &#x8C03;&#x6574;&#x57FA;&#x51C6;&#x503C;&#x5DE6;&#x8FB9;</span>
+    quickSort(arr, index + <span class="hljs-number">1</span>, end); <span class="hljs-comment">// &#x8C03;&#x6574;&#x57FA;&#x51C6;&#x503C;&#x53F3;&#x8FB9;</span>
+  }
+
+  <span class="hljs-keyword">return</span> arr;
+}
+
+<span class="hljs-keyword">const</span> a = [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>];
+
+<span class="hljs-comment">// &#x6D4B;&#x8BD5;&#x4E0B;</span>
+<span class="hljs-keyword">let</span> result = quickSort(a);
+<span class="hljs-built_in">console</span>.log(result);   <span class="hljs-comment">// [1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
+</code></pre>
+<h2 id="&#x5F52;&#x5E76;&#x6392;&#x5E8F;"><a name="&#x5F52;&#x5E76;&#x6392;&#x5E8F;" class="anchor-navigation-ex-anchor" href="#&#x5F52;&#x5E76;&#x6392;&#x5E8F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5F52;&#x5E76;&#x6392;&#x5E8F;</h2>
+<p>&#x5F52;&#x5E76;&#x6392;&#x5E8F;&#x6BD4;&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x597D;&#x7406;&#x89E3;&#xFF0C;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E5F;&#x662F;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>&#xFF0C;&#x91C7;&#x7528;&#x7684;&#x601D;&#x60F3;&#x4E5F;&#x662F;&#x5206;&#x6CBB;&#x6CD5;&#x3002;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x6709;&#x4E24;&#x4E2A;&#x6709;&#x5E8F;&#x6570;&#x7EC4;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> a = [<span class="hljs-number">1</span> ,<span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>];
+<span class="hljs-keyword">const</span> b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x5199;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x6765;&#x5F97;&#x5230;a&#x8DDF;b&#x7EC4;&#x5408;&#x540E;&#x7684;&#x6709;&#x5E8F;&#x6570;&#x7EC4;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x7528;&#x4E24;&#x4E2A;&#x6307;&#x9488;i,j&#x5206;&#x522B;&#x6307;&#x5411;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x7136;&#x540E;&#x5F00;&#x59CB;&#x904D;&#x5386;&#xFF0C;&#x6BD4;&#x8F83;a[i]&#x548C;a[j]&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x5C06;&#x5C0F;&#x7684;&#x90A3;&#x4E2A;&#x653E;&#x5165;&#x65B0;&#x7684;&#x6709;&#x5E8F;&#x6570;&#x7EC4;&#x3002;&#x5F53;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x904D;&#x5386;&#x5B8C;&#xFF0C;&#x5FAA;&#x73AF;&#x7ED3;&#x675F;&#xFF0C;&#x5C06;&#x5269;&#x4E0B;&#x7684;&#x503C;&#x5168;&#x90E8;&#x653E;&#x5165;&#x65B0;&#x7684;&#x6709;&#x5E8F;&#x6570;&#x7EC4;:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> merge = <span class="hljs-function">(<span class="hljs-params">arr1, arr2</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> length1 = arr1.length;
+  <span class="hljs-keyword">const</span> length2 = arr2.length;
+  <span class="hljs-keyword">const</span> newArr = [];
+  <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">while</span>(i &lt; length1 &amp;&amp; j &lt; length2) {
+    <span class="hljs-keyword">if</span>(arr1[i] &lt;= arr2[j]) {
+      newArr.push(arr1[i]);
+      i++;
+    } <span class="hljs-keyword">else</span> {
+      newArr.push(arr2[j]);
+      j++;
+    }
+  }
+
+  <span class="hljs-comment">// arr2&#x8FD8;&#x5269;&#x4E00;&#x4E9B;</span>
+  <span class="hljs-keyword">if</span>(i === length1 &amp;&amp; j &lt; length2) {
+    <span class="hljs-keyword">while</span>(j &lt; length2) {
+      newArr.push(arr2[j]);
+      j++;
+    }
+  }
+
+  <span class="hljs-comment">// arr1&#x8FD8;&#x5269;&#x4E00;&#x4E9B;</span>
+  <span class="hljs-keyword">if</span>(j === length2 &amp;&amp; i &lt; length1) {
+    <span class="hljs-keyword">while</span>(i &lt; length1) {
+      newArr.push(arr1[i]);
+      i++;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> newArr;
+}
+
+<span class="hljs-comment">// &#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;</span>
+<span class="hljs-keyword">const</span> a = [<span class="hljs-number">1</span> ,<span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>];
+<span class="hljs-keyword">const</span> b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
+
+<span class="hljs-keyword">const</span> result = merge(a, b);
+<span class="hljs-built_in">console</span>.log(result);   <span class="hljs-comment">//  [1, 2, 3, 4, 6, 8, 9]</span>
+</code></pre>
+<p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x9012;&#x5F52;&#x7684;&#x5C06;&#x5F85;&#x6392;&#x5E8F;&#x6570;&#x7EC4;&#x5206;&#x6210;&#x5DE6;&#x53F3;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x4E00;&#x76F4;&#x5206;&#x5230;&#x6570;&#x7EC4;&#x53EA;&#x542B;&#x6709;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x4E3A;&#x6B62;&#xFF0C;&#x56E0;&#x4E3A;&#x6570;&#x7EC4;&#x53EA;&#x542B;&#x6709;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x4ED6;&#x662F;&#x6709;&#x5E8F;&#x7684;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mergeSort = <span class="hljs-function">(<span class="hljs-params">arr</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> length = arr.length;
+  <span class="hljs-keyword">if</span>(length &lt;= <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> arr;
+  }
+  <span class="hljs-keyword">const</span> middle = <span class="hljs-built_in">Math</span>.floor(length / <span class="hljs-number">2</span>);
+  <span class="hljs-keyword">const</span> left = arr.slice(<span class="hljs-number">0</span>, middle);
+  <span class="hljs-keyword">const</span> right = arr.slice(middle);
+
+  <span class="hljs-keyword">return</span> merge(mergeSort(left), mergeSort(right));
+}
+
+<span class="hljs-comment">// &#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;</span>
+<span class="hljs-keyword">const</span> a = [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>];
+
+<span class="hljs-comment">// &#x6D4B;&#x8BD5;&#x4E0B;</span>
+<span class="hljs-keyword">let</span> result = mergeSort(a);
+<span class="hljs-built_in">console</span>.log(result);   <span class="hljs-comment">// [1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
+</code></pre>
 
                                 
                                 </section>
@@ -614,7 +925,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"排序算法","level":"1.9.1","depth":2,"next":{"title":"链表","level":"1.9.2","depth":2,"path":"Articles/DataStructureAndAlgorithm/LinkedList.md","ref":"Articles/DataStructureAndAlgorithm/LinkedList.md","articles":[]},"previous":{"title":"数据结构和算法","level":"1.9","depth":1,"path":"Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md","ref":"Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md","articles":[{"title":"排序算法","level":"1.9.1","depth":2,"path":"Articles/DataStructureAndAlgorithm/Sorting.md","ref":"Articles/DataStructureAndAlgorithm/Sorting.md","articles":[]},{"title":"链表","level":"1.9.2","depth":2,"path":"Articles/DataStructureAndAlgorithm/LinkedList.md","ref":"Articles/DataStructureAndAlgorithm/LinkedList.md","articles":[]},{"title":"动态规划","level":"1.9.3","depth":2,"path":"Articles/DataStructureAndAlgorithm/DP.md","ref":"Articles/DataStructureAndAlgorithm/DP.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/DataStructureAndAlgorithm/Sorting.md","mtime":"2020-01-16T08:37:10.202Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-09T06:00:56.309Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"排序算法","level":"1.9.1","depth":2,"next":{"title":"链表","level":"1.9.2","depth":2,"path":"Articles/DataStructureAndAlgorithm/LinkedList.md","ref":"Articles/DataStructureAndAlgorithm/LinkedList.md","articles":[]},"previous":{"title":"数据结构和算法","level":"1.9","depth":1,"path":"Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md","ref":"Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md","articles":[{"title":"排序算法","level":"1.9.1","depth":2,"path":"Articles/DataStructureAndAlgorithm/Sorting.md","ref":"Articles/DataStructureAndAlgorithm/Sorting.md","articles":[]},{"title":"链表","level":"1.9.2","depth":2,"path":"Articles/DataStructureAndAlgorithm/LinkedList.md","ref":"Articles/DataStructureAndAlgorithm/LinkedList.md","articles":[]},{"title":"动态规划","level":"1.9.3","depth":2,"path":"Articles/DataStructureAndAlgorithm/DP.md","ref":"Articles/DataStructureAndAlgorithm/DP.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/DataStructureAndAlgorithm/Sorting.md","mtime":"2020-02-09T09:04:01.032Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-09T08:53:58.900Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
