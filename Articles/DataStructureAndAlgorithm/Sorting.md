@@ -14,12 +14,12 @@ const array = [1, 3, 2, 6, 4, 5, 9, 8, 7];
 const sort = (arr) => {
   let result = [...arr];
   let temp;
-  for(let i = 0; i < result.length; i++){
-    for(let j = i + 1; j < result.length; j++){
-      if(result[i] > result[j]){
-        temp = result[i];
-        result[i] = result[j];
-        result[j] = temp;
+  for(let i = 0; i < result.length - 1; i++){
+    for(let j = 0; j < result.length - 1 -i; j++){
+      if(result[j] > result[j + 1]){
+        temp = result[j];
+        result[j] = result[j + 1];
+        result[j + 1] = temp;
       }
     }
   }
