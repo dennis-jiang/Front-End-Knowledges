@@ -58,10 +58,8 @@ console.log(num);   // 5
 
 动态规划主要有如下两个特点
 
-```
 1. 最优子结构：一个规模为n的问题可以转化为规模比他小的子问题来求解。换言之，f(n)可以通过一个比他规模小的递推式来求解，在前面的斐波拉契数列这个递推式就是f(n) = f(n-1) + f(n -2)。一般具有这种结构的问题也可以用递归求解，但是递归的复杂度太高。
 2. 子问题的重叠性：如果用递归求解，会有很多重复的子问题，动态规划就是修剪了重复的计算来降低时间复杂度。但是因为需要存储中间状态，空间复杂度是增加了。
-```
 
 其实动态规划的难点是归纳出递推式，在斐波拉契数列中，递推式是已经给出的，但是更多情况递推式是需要我们自己去归纳总结的。
 
@@ -415,6 +413,121 @@ function lcs3(str1, str2) {
 let result = lcs3('ABCBDAB', 'BDCABA');
 console.log(result);   // {length: 4, lcs: "BDAB"}
 ```
+
+## 最短编辑距离
+
+这是[leetcode上的一道题目](https://leetcode-cn.com/problems/edit-distance/)，题目描述如下：
+
+![image-20200209114557615](../../images/DataStructureAndAlgorithm/DP/image-20200209114557615.png)
+
+这道题目的思路跟前面最长公共子序列非常像，我们同样假设第一个字符串是$$X=(x_1, x_2 ... x_m)$$,第二个字符串是$$Y=(y_1, y_2 ... y_n)$$。我们要求解的目标为$$r$$, $$r[i][j]$$为长度为$$i$$的$$X$$和长度为$$j$$的$$Y$$的解。我们同样从两个字符串的最后一个字符开始考虑：
+
+1. 如果他们最后一个字符是一样的，那最后一个字符就不需要编辑了，只需要知道他们前面一个字符的最短编辑距离就行了，写成公式就是：如果$$Xi = Y_j$$，$r[i][j] = r[i-1][j-1]$。
+2. 如果他们最后一个字符是不一样的，那最后一个字符肯定需要编辑一次才行。那最短编辑距离就是$$X$$去掉最后一个字符与$$Y$$的最短编辑距离，再加上最后一个字符的一次；或者是是$$Y$$去掉最后一个字符与$$X$$的最短编辑距离，再加上最后一个字符的一次，就看这两个数字哪个小了。这里需要注意的是$$X$$去掉最后一个字符或者$$Y$$去掉最后一个字符，相当于在$$Y$$上进行插入和删除，但是除了插入和删除两个操作外，还有一个操作是替换，如果是替换操作，并不会改变两个字符串的长度，替换的时候，距离为$$r[i][j]=r[i-1][j-1]+1$$。最终是在这三种情况里面取最小值，写成数学公式就是：如果$$Xi \neq Y_j$$，$r[i][j] = \min(r[i-1][j], r[i][j-1],r[i-1][j-1]) + 1$。
+3. 最后就是如果$$X$$或者$Y$有任意一个是空字符串，那为了让他们一样，就往空的那个插入另一个字符串就行了，最短距离就是另一个字符串的长度。数学公式就是：如果$$i=0$$，$$r[i][j] = j$$；如果$$j=0$$，$$r[i][j] = i$$。
+
+上面几种情况总结起来就是
+$$
+r[i][j]=
+    \begin{cases}
+      j, & \text{if}\ i=0 \\
+      i, & \text{if}\ j=0 \\
+      r[i-1][j-1], & \text{if}\ X_i=Y_j \\
+      \min(r[i-1][j], r[i][j-1], r[i-1][j-1]) + 1, & \text{if} \ X_i\neq Y_j
+    \end{cases}
+$$
+
+### 递归方案
+
+老规矩，有了递推公式，我们先来写个递归：
+
+```javascript
+const minDistance = function(str1, str2) {
+    const length1 = str1.length;
+    const length2 = str2.length;
+
+    if(!length1) {
+        return length2;
+    }
+
+    if(!length2) {
+        return length1;
+    }
+
+    const shortStr1 = str1.slice(0, -1);
+    const shortStr2 = str2.slice(0, -1); 
+
+    const isLastEqual = str1[length1-1] === str2[length2-1];
+
+    if(isLastEqual) {
+        return minDistance(shortStr1, shortStr2);
+    } else {
+        const shortStr1Cal = minDistance(shortStr1, str2);
+        const shortStr2Cal = minDistance(str1, shortStr2);
+        const updateCal = minDistance(shortStr1, shortStr2);
+
+        const minShort = shortStr1Cal <= shortStr2Cal ? shortStr1Cal : shortStr2Cal;
+        const minDis = minShort <= updateCal ? minShort : updateCal;
+
+        return minDis + 1;
+    }
+}; 
+
+//测试一下
+let result = minDistance('horse', 'ros');
+console.log(result);  // 3
+
+result = minDistance('intention', 'execution');
+console.log(result);  // 5
+```
+
+### 动态规划
+
+上面的递归方案提交到leetcode会直接超时，因为复杂度太高了，指数级的。还是上我们的动态规划方案吧，跟前面类似，需要一个二维数组来存放每次执行的结果。
+
+```javascript
+const minDistance = function(str1, str2) {
+    const length1 = str1.length;
+    const length2 = str2.length;
+
+    if(!length1) {
+        return length2;
+    }
+
+    if(!length2) {
+        return length1;
+    }
+
+    // i 为行，表示str1
+    // j 为列，表示str2
+    const r = [];
+    for(let i = 0; i < length1 + 1; i++) {
+        r.push([]);
+        for(let j = 0; j < length2 + 1; j++) {
+            if(i === 0) {
+                r[i][j] = j;
+            } else if (j === 0) {
+                r[i][j] = i;
+            } else if(str1[i - 1] === str2[j - 1]){ // 注意下标，i,j包括空字符串，长度会大1
+                r[i][j] = r[i - 1][j - 1];
+            } else {
+                r[i][j] = Math.min(r[i - 1][j ], r[i][j - 1], r[i - 1][j - 1]) + 1;
+            }
+        }
+    }
+
+    return r[length1][length2];
+};
+
+//测试一下
+let result = minDistance('horse', 'ros');
+console.log(result);  // 3
+
+result = minDistance('intention', 'execution');
+console.log(result);  // 5
+```
+
+上述代码因为是双重循环，所以时间复杂度是$$O(n^2)$$。
 
 ## 总结
 
