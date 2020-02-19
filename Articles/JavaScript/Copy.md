@@ -281,20 +281,59 @@ student1.say();
 
 上面的代码我们没有用继承，而是用了拷贝的方式，让`Student`类具有了mixin的方法，我们直接将mixin里面的方法复制到了`Student`的原型链上。这种模式在很多地方都有应用，比如Vue：
 
-![image-20200115175945936](../../images/JavaScript/Copy/image-20200115175945936.png)
+```javascript
+Vue.mixin({
+  data() {
+    return {
+      name: 'Jhon'
+    }
+  },
+  methods: {
+    say() {
+      console.log('hello');
+    }
+  }
+})
+
+new Vue({
+  el: '#app',
+  data() {
+    return {
+      age: 16
+    }
+  },
+  mounted() {
+    this.say();  // hello
+  }
+})
+```
+
+
 
 ## 深拷贝应用：pick函数
 
 在underscore里面有一个pick函数，可以实现如下效果：
 
-![image-20200115180254369](../../images/JavaScript/Copy/image-20200115180254369.png)
+```javascript
+const _ = require('underscore');
 
-上述代码的输出是一个只包含`age`属性的新对象`{age: 30}`，下面让我们自己来实现一个pick函数，实现在原理很简单，把我们之前深拷贝的方法改一下就行，让他只拷贝我们需要的属性：
+let obj = {
+  name: 'Jhon',
+  age: 25
+}
+
+let age = _.pick(obj, 'age');
+console.log(age);   // {age: 25}
+```
+
+上述代码的输出是一个只包含`age`属性的新对象`{age: 30}`，下面让我们自己来实现一个pick函数，实现在原理很简单，把我们之前深拷贝的方法改一下就行，让他只拷贝我们需要的属性。
+
+**注意：underscore只会拷贝一层目标属性，下面我们实现的是递归的深拷贝**
 
 ```javascript
 const pick = (originObj, property) => {
   const map = new WeakMap();
-  function dp(obj){
+  function dp(obj, skipEqual){
     const result = Array.isArray(obj) ? [] : {};
     
     const existObj = map.get(obj);
@@ -307,9 +346,10 @@ const pick = (originObj, property) => {
 
     for(let key of Reflect.ownKeys(obj)) {
       // 只需要加一个检测，看看key是不是我们需要的属性就行
-      if(obj.hasOwnProperty(key) && key === property){
+      if(obj.hasOwnProperty(key) && key === property || skipEqual){
+        // underscore不需要下面的递归，直接 result[key] = obj[key]; 就行
         if(obj[key] && typeof obj[key] === 'object'){
-          result[key] = dp(obj[key])
+          result[key] = dp(obj[key], true)
         } else {
           result[key] = obj[key];
         }
