@@ -11,6 +11,7 @@
 	* [一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数](/Articles/JavaScript/CommonFunctions.md)
 	* [浅拷贝和深拷贝](/Articles/JavaScript/Copy.md)
 	* [单元测试及原理](/Articles/JavaScript/UnitTest.md)
+	* [面向对象：prototype](/Articles/JavaScript/myPrototype.md)
 	* [[转]JS中的prototype、`__proto`__与constructor](/Articles/JavaScript/prototype.md)
 * [计算机网络]()
 * [Vue.js](/Articles/Vue/Vue.md)
