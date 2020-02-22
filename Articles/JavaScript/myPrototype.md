@@ -50,7 +50,7 @@ function Puppy(age) {
   this.puppyAge = age;
 }
 
-// 实例化是可以传年龄参数了
+// 实例化时可以传年龄参数了
 const myPuppy = new Puppy(2);
 ```
 
@@ -115,11 +115,11 @@ console.log(myPuppy2.puppyAge);    // 输出是2
 
 上例说明，**我们修改`prototype.constructor`只是修改了这个指针而已，并没有修改真正的构造函数。**
 
-可能有的朋友会说我打印`myPuppy2.constructor`也有值啊，那`constructor`是不是也是对象的一个属性呢？其实不是的，之所以你能打印出这个值，是因为你打印的时候，发现myPuppy2本身并不具有这个属性，又去原型链上找了，找到了`prototype.constructor`。我们可以用`hasOwnProperty`看一下就知道了：
+可能有的朋友会说我打印`myPuppy2.constructor`也有值啊，那`constructor`是不是也是对象本身的一个属性呢？其实不是的，之所以你能打印出这个值，是因为你打印的时候，发现myPuppy2本身并不具有这个属性，又去原型链上找了，找到了`prototype.constructor`。我们可以用`hasOwnProperty`看一下就知道了：
 
 ![image-20200222152216426](../../images/JavaScript/myPrototype/image-20200222152216426.png)
 
-上面我们其实已经说清楚了`prototype`，`__proto__`，`constructor`几者之间的关系，也知道了JS是怎么靠他们来实现面向对象的，下面画一张图来更直观的看下：
+上面我们其实已经说清楚了`prototype`，`__proto__`，`constructor`几者之间的关系，下面画一张图来更直观的看下：
 
 ![image-20200222153906550](../../images/JavaScript/myPrototype/image-20200222153906550.png)
 
@@ -128,7 +128,11 @@ console.log(myPuppy2.puppyAge);    // 输出是2
 我们知道很多面向对象有静态方法这个概念，比如Java直接是加一个`static`关键字就能将一个方法定义为静态方法。JS中定义一个静态方法更简单，直接将它作为类函数的属性就行：
 
 ```javascript
-Puppy.statciFunc = function() {}      // statciFunc就是一个静态方法
+Puppy.statciFunc = function() {    // statciFunc就是一个静态方法
+  conlose.log('我是静态方法，this拿不到实例对象');
+}      
+
+Puppy.statciFunc();            // 直接通过类名调用
 ```
 
 静态方法和实例方法最主要的区别就是实例方法可以访问到实例，可以对实例进行操作，而静态方法一般用于跟实例无关的操作。这两种方法在jQuery中有大量应用，在jQuery中`$(selector)`其实拿到的就是实例对象，通过`$(selector)`进行操作的方法就是实例方法。比如`$(selector).append()`，这会往这个实例DOM添加新元素，他需要这个DOM实例才知道怎么操作，将`append`作为一个实例方法，他里面的this就会指向这个实例，就可以通过this操作DOM实例。那什么方法适合作为静态方法呢？比如`$.ajax`，这里的`ajax`跟DOM实例没关系，不需要这个this，可以直接挂载在$上作为静态方法。
@@ -176,7 +180,7 @@ const obj = new Child();
 console.log(obj.parentAge);    // 50
 ```
 
-上述方法会多一个`__init__`层级，可以换成修改`Child.prototype`的指向来解决，注意将`Child.prototype.constructor`重置回来：
+上述方法会多一个`__proto__`层级，可以换成修改`Child.prototype`的指向来解决，注意将`Child.prototype.constructor`重置回来：
 
 ```javascript
 function Parent() {
@@ -253,6 +257,7 @@ Child.prototype.__proto__ = Parent.prototype;
 const obj = new Child();
 console.log(myInstanceof(obj, Child) );   // true
 console.log(myInstanceof(obj, Parent) );   // true
+console.log(myInstanceof({}, Parent) );   // false
 ```
 
 ## 总结
