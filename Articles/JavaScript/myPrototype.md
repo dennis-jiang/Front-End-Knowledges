@@ -86,7 +86,7 @@ myPuppy.say();    // 汪汪汪
 
 ![image-20200221181132495](../../images/JavaScript/myPrototype/image-20200221181132495.png)
 
-如果你访问的属性在`Puppy.prototype`也不存在，那又会继续往`Puppy.prototype.__proto__`上找，这时候其实就找到了`Object`了，`Object`再往上找就没有了，也就是null，**这其实就是原型链**。
+如果你访问的属性在`Puppy.prototype`也不存在，那又会继续往`Puppy.prototype.__proto__`上找，这时候其实就找到了`Object.prototype`了，`Object.prototype`再往上找就没有了，也就是null，**这其实就是原型链**。
 
 ![image-20200221181533277](../../images/JavaScript/myPrototype/image-20200221181533277.png)
 
@@ -271,7 +271,8 @@ console.log(myInstanceof({}, Parent) );   // false
 5. `prototype.constructor`指向的是构造函数，也就是类函数本身。改变这个指针并不能改变构造函数。
 6. 对象本身并没有`constructor`属性，你访问到的是原型链上的`prototype.constructor`。
 7. 函数本身也是对象，也具有`__proto__`，他指向的是JS内置对象`Function`的原型`Function.prototype`。所以你才能调用`func.call`,`func.apply`这些方法，你调用的其实是`Function.prototype.call`和`Function.prototype.apply`。
-8. `prototype`本身也是对象，所以他也有`__proto__`，指向了他父级的`prototype`。`__proto__`和`prototype`的这种链式指向构成了JS的原型链。原型链的最终指向是`Object`。`Object`上面原型链是null，即`Object.__proto__ === null`。
+8. `prototype`本身也是对象，所以他也有`__proto__`，指向了他父级的`prototype`。`__proto__`和`prototype`的这种链式指向构成了JS的原型链。原型链的最终指向是`Object`。`Object`上面原型链是null，即`Object.prototype.__proto__ === null`。
+9. 另外要注意的是`Function.__proto__ === Function.prototype`，这是因为JS中所有函数的原型都是`Function.prototype`，也就是说所有函数都是`Function`的实例。`Function`本身也是可以作为函数使用的----`Function()`，所以他也是`Function`的一个实例。类似的还有`Object`，`Array`等，他们也可以作为函数使用:`Object()`, `Array()`。所以他们本身的原型也是`Function.prototype`，即`Object.__proto__ === Function.prototype`。
 
 再来看一下完整图：
 
