@@ -129,7 +129,7 @@ console.log(myPuppy2.puppyAge);    // 输出是2
 
 ```javascript
 Puppy.statciFunc = function() {    // statciFunc就是一个静态方法
-  conlose.log('我是静态方法，this拿不到实例对象');
+  console.log('我是静态方法，this拿不到实例对象');
 }      
 
 Puppy.statciFunc();            // 直接通过类名调用
@@ -260,6 +260,36 @@ console.log(myInstanceof(obj, Parent) );   // true
 console.log(myInstanceof({}, Parent) );   // false
 ```
 
+## ES6的class
+
+最后还是提一嘴ES6的class，其实ES6的class就是前面说的函数类的语法糖，比如我们的Puppy用ES6的class写就是这样：
+
+```javascript
+class Puppy {
+  // 构造函数
+  constructor(age) {            
+    this.puppyAge = age;
+  }
+  
+  // 实例方法
+  say() {
+    console.log("汪汪汪")
+  }
+  
+  // 静态方法
+  static statciFunc() {
+    console.log('我是静态方法，this拿不到实例对象');
+  }
+}
+
+const myPuppy = new Puppy(2);
+console.log(myPuppy.puppyAge);    // 2
+console.log(myPuppy.say());       // 汪汪汪
+console.log(Puppy.statciFunc());  // 我是静态方法，this拿不到实例对象
+```
+
+使用class可以让我们的代码看起来更像标准的面向对象，构造函数，实例方法，静态方法都有明确的标识。但是他本质只是改变了一种写法，所以可以看做是一种语法糖，如果你去看babel编译后的代码，你会发现他其实也是把class编译成了我们前面的函数类，extends关键字也是使用我们前面的原型继承的方式实现的。
+
 ## 总结
 
 最后来个总结，其实前面小节的标题就是核心了，我们再来总结下：
@@ -273,6 +303,7 @@ console.log(myInstanceof({}, Parent) );   // false
 7. 函数本身也是对象，也具有`__proto__`，他指向的是JS内置对象`Function`的原型`Function.prototype`。所以你才能调用`func.call`,`func.apply`这些方法，你调用的其实是`Function.prototype.call`和`Function.prototype.apply`。
 8. `prototype`本身也是对象，所以他也有`__proto__`，指向了他父级的`prototype`。`__proto__`和`prototype`的这种链式指向构成了JS的原型链。原型链的最终指向是`Object`的原型。`Object`上面原型链是null，即`Object.prototype.__proto__ === null`。
 9. 另外要注意的是`Function.__proto__ === Function.prototype`，这是因为JS中所有函数的原型都是`Function.prototype`，也就是说所有函数都是`Function`的实例。`Function`本身也是可以作为函数使用的----`Function()`，所以他也是`Function`的一个实例。类似的还有`Object`，`Array`等，他们也可以作为函数使用:`Object()`, `Array()`。所以他们本身的原型也是`Function.prototype`，即`Object.__proto__ === Function.prototype`。换句话说，这些可以new的内置对象其实都是一个类，就像我们的Puppy类一样。
+10. ES6的class其实是函数类的一种语法糖，书写起来更清晰，但原理是一样的。
 
 再来看一下完整图：
 
