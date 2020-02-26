@@ -106,7 +106,7 @@ function Puppy(age) {
 }
 
 Puppy.prototype.constructor = function myConstructor(age) {
-  this.puppyAge2 = age + 1;
+  this.puppyAge = age + 1;
 }
 
 const myPuppy2 = new Puppy(2);
