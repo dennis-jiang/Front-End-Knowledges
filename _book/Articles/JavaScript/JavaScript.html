@@ -264,7 +264,7 @@
                 <a href="myPrototype.html">
             
                     
-                    面向对象：prototype
+                    JS中的面向对象：prototype、__proto__与constructor
             
                 </a>
             
@@ -272,12 +272,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.8" data-path="prototype.html">
+        <li class="chapter " data-level="1.3.8" data-path="this.html">
             
-                <a href="prototype.html">
+                <a href="this.html">
             
                     
-                    [转]JS中的prototype、__proto__与constructor
+                    this指向
             
                 </a>
             
@@ -565,8 +565,8 @@
 <li><a href="CommonFunctions.html">&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x51FD;&#x6570;</a></li>
 <li><a href="Copy.html">&#x6D45;&#x62F7;&#x8D1D;&#x548C;&#x6DF1;&#x62F7;&#x8D1D;</a></li>
 <li><a href="UnitTest.html">&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x53CA;&#x539F;&#x7406;</a></li>
-<li><a href="myPrototype.html">&#x9762;&#x5411;&#x5BF9;&#x8C61;&#xFF1A;prototype</a></li>
-<li><a href="prototype.html">[&#x8F6C;]JS&#x4E2D;&#x7684;prototype&#x3001;<code>__proto</code>__&#x4E0E;constructor</a></li>
+<li><a href="myPrototype.html">JS&#x4E2D;&#x7684;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#xFF1A;prototype&#x3001;<code>__proto</code>__&#x4E0E;constructor</a></li>
+<li><a href="this.html">this&#x6307;&#x5411;</a></li>
 </ul>
 
                                 
@@ -627,7 +627,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"JavaScript","level":"1.3","depth":1,"next":{"title":"JavaScript内存管理","level":"1.3.1","depth":2,"path":"Articles/JavaScript/MemoryManagement.md","ref":"Articles/JavaScript/MemoryManagement.md","articles":[]},"previous":{"title":"多列布局","level":"1.2.2","depth":2,"path":"Articles/Layout/MultiColumns.md","ref":"Articles/Layout/MultiColumns.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/JavaScript.md","mtime":"2020-02-22T06:16:39.438Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-25T03:41:51.780Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"JavaScript","level":"1.3","depth":1,"next":{"title":"JavaScript内存管理","level":"1.3.1","depth":2,"path":"Articles/JavaScript/MemoryManagement.md","ref":"Articles/JavaScript/MemoryManagement.md","articles":[]},"previous":{"title":"多列布局","level":"1.2.2","depth":2,"path":"Articles/Layout/MultiColumns.md","ref":"Articles/Layout/MultiColumns.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/JavaScript.md","mtime":"2020-02-27T03:44:08.101Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-26T07:48:53.961Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
