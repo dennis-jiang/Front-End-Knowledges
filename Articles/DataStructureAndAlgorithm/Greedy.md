@@ -336,7 +336,7 @@ function getBigNum(nums) {
     
     if(ab > ba) {
       return -1;   // ab大，a放前面
-    } else {
+    } else if (ab < ba) {
       return 1;  
     }
     
