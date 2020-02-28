@@ -101,8 +101,8 @@ function backpack(W, products) {
         id: sortedProduct.id,
         take: W / sortedProduct.w,     
       });
-      W = 0; // 装满了
       allValue = allValue + sortedProduct.v * (W / sortedProduct.w);
+      W = 0; // 装满了
     } else {
       // 不能拿了
       result.push({
@@ -122,7 +122,7 @@ console.log(result);
 
 运行结果：
 
-![image-20200220113537290](../../images/DataStructureAndAlgorithm/Greedy/image-20200220113537290.png)
+![image-20200228103002966](../../images/DataStructureAndAlgorithm/Greedy/image-20200228103002966.png)
 
 ### 0-1背包
 
