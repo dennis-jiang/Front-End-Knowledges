@@ -14,7 +14,8 @@
 		"sharing-plus",
 		"chapter-fold",
 		"anchor-navigation-ex",
-		"katex"
+		"katex",
+		"icp"
 	],
 	"pluginsConfig": {
 		"github": {
@@ -30,6 +31,9 @@
 		"anchor-navigation-ex": {
 			"showLevel": false,
 			"showGoTop": false
+		},
+		"icp": {
+			"number": "苏ICP备16008535号"
 		}
 
 	}
