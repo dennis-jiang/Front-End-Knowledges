@@ -110,7 +110,7 @@ var obj = {
 
 var anotherFunc = obj.func;
 
-anotherFunc();   // 输出是啥？
+anotherFunc();   // 注意这里输出是undefined
 ```
 
 这次我们只是将第一个`var`改成了`let`，但是我们的输出却变成了`undefined`。这是因为let，const定义变量，即使在最外层也不会变成window的属性，只有var定义的变量才会成为window的属性。
@@ -262,7 +262,7 @@ obj.func.apply(obj2, [18, "帅哥"]);   // 我的名字是小小飞, 我的年�
 
 ### 使用bind修改this
 
-`bind`是ES6引入的一个方法，也可以修改this，但是调用它并不会立即执行方法本身，而是会返回一个修改了this的新方法：
+`bind`是ES5引入的一个方法，也可以修改this，但是调用它并不会立即执行方法本身，而是会返回一个修改了this的新方法：
 
 ```javascript
 const obj = {
@@ -281,6 +281,15 @@ func2(18, "帅哥");    // 我的名字是小小飞, 我的年龄是18，我是�
 ```
 
 bind和call，apply最大的区别就是call，apply会立即执行方法，而bind并不会立即执行，而是会返回一个新方法供后面使用。
+
+bind函数也可以接收多个参数，第二个及以后的参数会作为新函数的参数传递进去，比如前面的bind也可以这样写：
+
+```javascript
+const func3 = obj.func.bind(obj2, 18);   // 注意我们这里已经传了一个年龄参数
+func3("帅哥");    //注意这里只传了性别参数，年龄参数已经在func3里面了，输出还是：我的名字是小小飞, 我的年龄是18，我是一个帅哥
+```
+
+
 
 ## 自己写一个call
 
@@ -333,19 +342,20 @@ Function.prototype.myApply = function(...args) {
 
 ## 自己写一个bind
 
-自己写一个bind需要用到前面的call，注意他的返回值是一个方法
+自己写一个bind需要用到前面的apply，注意他的返回值是一个方法
 
 ```javascript
-Function.prototype.myBind = function() {
+Function.prototype.myBind = function(...args) {
   if(typeof this !== "function") {
     throw new Error('Must call with a function');
   }
   
   const _func = this;    // 原方法
   const realThis = args[0] || window;   // 绑定的this
+  const otherArgs = args.slice(1);    // 取出后面的参数作为新函数的默认参数
   
-  return function(...args) {   // 返回一个方法
-    return _func.call(realThis, ...args);  // 使用call执行
+  return function(...args2) {   // 返回一个方法
+    return _func.apply(realThis, [...otherArgs,...args2]);  // 拼接存储参数和新参数，然后用apply执行
   }
 }
 ```
