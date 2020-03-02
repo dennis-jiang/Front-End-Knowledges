@@ -203,7 +203,7 @@ const ele = document.getElementById('test');
 ele.addEventListener('click', func);
 ```
 
-`currentTarget`指的是绑定事件的DOM对象，`target`指的是触发事件的对象。DOM事件回调里面this总是指向`currentTarget`，如果触发事件的对象刚好是绑定事件的对象，即`target === currentTarget`，this也会顺便指向`target`。
+`currentTarget`指的是绑定事件的DOM对象，`target`指的是触发事件的对象。DOM事件回调里面this总是指向`currentTarget`，如果触发事件的对象刚好是绑定事件的对象，即`target === currentTarget`，this也会顺便指向`target`。如果回调是箭头函数，this是箭头函数申明时作用域的this。
 
 ### 严格模式下this是undefined
 
@@ -366,7 +366,7 @@ Function.prototype.myBind = function(...args) {
 2. 函数里面的this总是指向直接调用者。如果没有直接调用者，隐含的调用者是window。
 3. 使用new调用一个函数，这个函数即为构造函数。构造函数里面的this是和实例对象沟通的桥梁，他指向实例对象。
 4. 箭头函数里面的this在它申明时确定，跟他当前作用域的this一样。
-5. DOM事件回调里面，this指向绑定事件的对象(currentTarget)，而不是触发事件的对象(target)。当然这两个可以是一样的。
+5. DOM事件回调里面，this指向绑定事件的对象(currentTarget)，而不是触发事件的对象(target)。当然这两个可以是一样的。如果回调是箭头函数，请参考上一条，this是它申明时作用域的this。
 6. 严格模式下，函数里面的this指向undefined，函数外面(全局作用域)的this还是指向window。
 7. call和apply可以改变this，这两个方法会立即执行原方法，他们的区别是参数形式不一样。
 8. bind也可以修改this，但是他不会立即执行，而是返回一个修改了this的函数。
