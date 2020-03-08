@@ -11,7 +11,7 @@
 
 各章内容在陆续写作中。  
 
-在线阅读地址： http://gitbook.dennisgo.cn/
+在线阅读地址： http://dennisgo.cn/
 
 Github地址： https://github.com/dennis-jiang/Front-End-Knowledges
 
