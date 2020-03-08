@@ -451,8 +451,8 @@ describe('FractionCalculator instance', () => {
 
 文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。本工具刚刚发布，可能还有一些小bug，如果你在使用中遇到任何问题，可以直接在GitHub提issue哦。
 
-项目GitHub地址： https://github.com/dennis-jiang/fraction-calculator
+fc项目GitHub地址： https://github.com/dennis-jiang/fraction-calculator
 
-作者所有博文GitHub项目地址： https://github.com/dennis-jiang/Front-End-Knowledges
+作者博文GitHub项目地址： https://github.com/dennis-jiang/Front-End-Knowledges
 
 作者掘金文章汇总：https://juejin.im/post/5e3ffc85518825494e2772fd
