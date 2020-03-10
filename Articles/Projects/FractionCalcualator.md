@@ -256,7 +256,7 @@ function getGCD(a, b) {
 
 拿到了GCD我们就可以约分了，也可以用来算LCM，来看看怎么算LCM：
 
-> 对于两个数a, b, 如果gcd是他们的最大公约数，那么存在另外两个互质的数字x, y, ：
+> 对于两个数a, b, 如果gcd是他们的最大公约数，那么存在另外两个互质的数字x, y：
 >
 > a = x * gcd
 >
@@ -415,7 +415,7 @@ describe('FractionCalculator instance', () => {
 > 2. 浏览器要支持
 > 3. 老的浏览器，比如IE，尽量支持
 
-根据需求，我们需要支持`import`, `require`, `script`标签三种引入方式。好在webpack很强大，我们只要加一点简单的配置，就能支持者三种了:
+根据需求，我们需要支持`import`, `require`, `script`标签三种引入方式。好在webpack很强大，我们只要加一点简单的配置，就能支持这三种了:
 
 ```javascript
 {
