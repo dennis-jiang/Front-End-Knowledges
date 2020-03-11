@@ -204,9 +204,18 @@ console.log(obj.parentAge);    // 50
 ```javascript
 function myNew(func, ...args) {
   const obj = {};     // 新建一个空对象
-  func.call(obj, ...args);  // 执行构造函数
+  const result = func.call(obj, ...args);  // 执行构造函数
   obj.__proto__ = func.prototype;    // 设置原型链
   
+  // 注意如果原构造函数有Object类型的返回值，包括Functoin, Array, Date, RegExg, Error
+  // 那么应该返回这个返回值
+  const isObject = typeof result === 'object' && result !== null;
+  const isFunction = typeof result === 'function';
+  if(isObject || isFunction) {
+    return result;
+  }
+  
+  // 原构造函数没有Object类型的返回值，返回我们的新对象
   return obj;
 }
 
