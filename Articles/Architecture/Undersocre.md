@@ -4,6 +4,10 @@ Underscore.js是很有名的一个工具库，我也经常用他来处理对象�
 * 同时支持静态方法调用和实例方法调用
 * 支持链式调用
 
+**本文的例子已经上传到GitHub，同一个repo下还有我全部的博文和例子，求个star：**
+
+https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Architecture/Underscore
+
 ## 外层是一个自执行函数
 
 Underscore外层就是一个自执行函数，在自执行函数里面将`_`挂载到了window上。这是很多第三方库惯用的套路。如果你还不知道怎么入手看源码，不知道入口在哪里，或者看不懂他的外层结构，请看[从架构入手轻松读懂框架源码：以jQuery，Zepto，Vue和lodash-es为例](https://juejin.im/post/5e549c4d6fb9a07cd614d268)，这篇文章详细讲解了怎么入手看源码。本文主要讲解Underscore源码架构里面的亮点，怎么入手就不再赘述了。
