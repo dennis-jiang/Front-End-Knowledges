@@ -173,6 +173,61 @@ Node.js的`EventEmitter`思想跟我们前面的例子是一样的，不过他�
 
 ![image-20200323174111868](../../images/DesignPatterns/PubSub/image-20200323174111868.png)
 
+## 观察者模式
+
+这里再提一个很相似的设计模式：观察者模式，有些文章认为他和发布订阅模式是一样的，有些认为他们是有区别的。笔者认为他更像一个低配版的发布订阅模式，我们来实现一个看看：
+
+```javascript
+class Subject {
+  constructor() {
+    // 一个数组存放所有的订阅者
+    // 每个消息对应一个数组，数组结构如下
+    // [
+    //   {
+    //     observer: obj,
+    //     action: () => {}
+    //   }
+    // ]
+    this.observers = [];
+  }
+
+  addObserver(observer, action) {
+    // 将观察者和回调放入数组
+    this.observers.push({observer, action});
+  }
+
+  notify(...args) {
+    // 执行每个观察者的回调
+    this.observers.forEach(item => {
+      const {observer, action} = item;
+      action.call(observer, ...args);
+    })
+  }
+}
+
+const subject = new Subject();
+
+// 添加一个观察者
+subject.addObserver({name: 'John'}, function(msg){
+  console.log(this.name, 'got message: ', msg);
+})
+
+// 再添加一个观察者
+subject.addObserver({name: 'Joe'}, function(msg) {
+  console.log(this.name, 'got message: ', msg);
+})
+
+// 通知所有观察者
+subject.notify('tomorrow is Sunday');
+
+```
+
+上述代码的输出是：
+
+![image-20200323205318223](../../images/DesignPatterns/PubSub/image-20200323205318223.png)
+
+通过这个输出可以看出一旦调了通知的方法`notify`，所有观察者都会收到通知，而且会收到同样的信息。而发布订阅模式还可以自定义需要接受的通知，所以说观察者模式是低配版的发布订阅模式。
+
 ## 总结
 
 本文讲解了发布订阅模式的原理，并自己实现了一个简单的发布订阅模式。在了解了原理后，还去读了Node.js的`EventEmitter`模块的源码，进一步学习了生产环境的发布订阅模式的写法。总结下来发布订阅模式有以下特点：
@@ -180,6 +235,7 @@ Node.js的`EventEmitter`思想跟我们前面的例子是一样的，不过他�
 1. 解决了“回调地狱”
 2. 将多个模块进行了解耦，自己执行时，不需要知道另一个模块的存在，只需要关心发布出来的事件就行
 3. 因为多个模块可以不知道对方的存在，自己关心的事件可能是一个很遥远的旮旯发布出来的，也不能通过代码跳转直接找到发布事件的地方，debug的时候可能会有点困难。
+4. 观察者模式是低配版的发布订阅模式，一旦发布通知，所有观察者都会收到消息，不能做到发布订阅那样精细的控制。
 
 **文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
 
