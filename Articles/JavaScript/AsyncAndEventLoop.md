@@ -247,7 +247,7 @@ setTimeout(() => {
 > 3. 处理里面的`setImmediate`，将它的回调加入`check`阶段的队列
 > 4. 外层`timers`阶段执行完，进入`pending callbacks`，`idle, prepare`，`poll`，这几个队列都是空的，所以继续往下
 > 5. 到了`check`阶段，发现了`setImmediate`的回调，拿出来执行
-> 6. 然后是`close callbacks`，队列时空的，跳过
+> 6. 然后是`close callbacks`，队列是空的，跳过
 > 7. 又是`timers`阶段，执行我们的`console`
 
 但是请注意我们上面`console.log('setTimeout')`和`console.log('setImmediate')`都包在了一个`setTimeout`里面，如果直接写在最外层会怎么样呢？代码改写如下:

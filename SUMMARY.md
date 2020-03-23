@@ -21,6 +21,8 @@
 	* [Vue-Router原理](/Articles/Vue/vueRouter.md)
 * [React.js]()
 * [Node.js]()
+* [设计模式](/Articles/DesignPatterns/DesignPatterns.md)
+    * [从发布订阅模式入手读懂Node.js的EventEmitter源码](/Articles/DesignPatterns/PubSub.md)
 * [架构和源码](/Articles/Architecture/Architecture.md)
     * [从架构入手读源码](/Articles/Architecture/readSourceCode.md)
     * [Underscore源码架构](/Articles/Architecture/Undersocre.md)
