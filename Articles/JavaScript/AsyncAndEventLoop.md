@@ -56,7 +56,7 @@ console.log(3);
 
 ### GUI线程
 
-GUI线程就是渲染页面的，他解析HTML和CSS，然后将它构建成DOM树和渲染树就是这个线程负责的。
+GUI线程就是渲染页面的，他解析HTML和CSS，然后将他们构建成DOM树和渲染树就是这个线程负责的。
 
 ### JS引擎线程
 
@@ -82,7 +82,7 @@ GUI线程就是渲染页面的，他解析HTML和CSS，然后将它构建成DOM�
 
 ### 浏览器的Event Loop
 
-事件循环就是一个循环，是各个异步线程用来通讯和协同执行的机制。各个线程为了交换消息，还有一个公用的数据区，这就是事件队列。各个异步线程执行完后，通过事件触发线程将回调事件放到事件队列，主线程每次干完手上的活儿就来看看这个队列有没有新活儿，有的话就干完。画成一个流程图就是这样：
+事件循环就是一个循环，是各个异步线程用来通讯和协同执行的机制。各个线程为了交换消息，还有一个公用的数据区，这就是事件队列。各个异步线程执行完后，通过事件触发线程将回调事件放到事件队列，主线程每次干完手上的活儿就来看看这个队列有没有新活儿，有的话就取出来执行。画成一个流程图就是这样：
 
 ![image-20200320161732238](../../images/JavaScript/AsyncAndEventLoop/image-20200320161732238.png)
 
@@ -93,12 +93,12 @@ GUI线程就是渲染页面的，他解析HTML和CSS，然后将它构建成DOM�
 > 3. 遇到异步API就将它交给对应的异步线程，自己继续执行同步任务
 > 4. 异步线程执行异步API，执行完后，将异步回调事件放入事件队列上
 > 5. 主线程手上的同步任务干完后就来事件队列看看有没有任务
-> 6. 主线程发现事件队列有任务，就把里面的事件执行完
+> 6. 主线程发现事件队列有任务，就取出里面的任务执行
 > 7. 主线程不断循环上述流程
 
 ### 定时器不准
 
-Event Loop的这个流程里面其实还是隐藏了一些坑的，最典型就问题就是总是先执行同步任务，然后再执行事件队列里面的回调。这个特性就直接影响了定时器的执行，我们想想我们开始那个2秒定时器的执行流程：
+Event Loop的这个流程里面其实还是隐藏了一些坑的，最典型的问题就是总是先执行同步任务，然后再执行事件队列里面的回调。这个特性就直接影响了定时器的执行，我们想想我们开始那个2秒定时器的执行流程：
 
 > 1. 主线程执行同步代码
 > 2. 遇到`setTimeout`，将它交给定时器线程
@@ -109,9 +109,7 @@ Event Loop的这个流程里面其实还是隐藏了一些坑的，最典型就�
 上述流程我们可以看出，如果主线程长时间被阻塞，定时器回调就没机会执行，即使执行了，那时间也不准了，我们将开头那两个例子结合起来就可以看出这个效果：
 
 ```javascript
-const startTime = new Date().getTime();
-
-const syncFunc = () => {
+const syncFunc = (startTime) => {
   const time = new Date().getTime();
   while(true) {
     if(new Date().getTime() - time > 5000) {
@@ -122,16 +120,18 @@ const syncFunc = () => {
   console.log(`syncFunc run, time offset: ${offset}`);
 }
 
-const asyncFunc = () => {
+const asyncFunc = (startTime) => {
   setTimeout(() => {
     const offset = new Date().getTime() - startTime;
     console.log(`asyncFunc run, time offset: ${offset}`);
   }, 2000);
 }
 
-asyncFunc();
+const startTime = new Date().getTime();
 
-syncFunc();
+asyncFunc(startTime);
+
+syncFunc(startTime);
 ```
 
 执行结果如下：
@@ -166,12 +166,12 @@ syncFunc();
 
 常见微任务有：
 
-> 1. **`Promise`**
-> 2. `process.nextTick`
+> 1. `Promise`
+> 2. `process.nextTick`(Node.js)
 > 3. `Object.observe`
 > 4. `MutaionObserver`
 
-上面这些事件类型中尤其要注意`Promise`，他是微任务，也就是说他会在定时器前面运行，我们来看个例子:
+上面这些事件类型中要注意`Promise`，他是微任务，也就是说他会在定时器前面运行，我们来看个例子:
 
 ```javascript
 console.log('1');
@@ -213,7 +213,7 @@ Node.js是运行在服务端的js，虽然他也用到了V8引擎，但是他的
 > 5. check: `setImmediate`在这里执行
 > 6. close callbacks: 一些关闭的回调函数，如：`socket.on('close', ...)`
 
-每个阶段都有一个自己的先进先出的队列，只有当这个队列的事件执行完或者达到该阶段的上限时，才会进入下一个阶段。在每次事件循环之间，Node.js都会检查它是否在等待任何一部I/O或者定时器，如果没有的话，程序就关闭退出了。我们的直观感受就是，如果一个Node程序只有同步代码，你在控制台运行完后，他就自己退出了。
+每个阶段都有一个自己的先进先出的队列，只有当这个队列的事件执行完或者达到该阶段的上限时，才会进入下一个阶段。在每次事件循环之间，Node.js都会检查它是否在等待任何一个I/O或者定时器，如果没有的话，程序就关闭退出了。我们的直观感受就是，如果一个Node程序只有同步代码，你在控制台运行完后，他就自己退出了。
 
 还有个需要注意的是`poll`阶段，他后面并不一定每次都是`check`阶段，`poll`队列执行完后，如果没有`setImmediate`但是有定时器到期，他会绕回去执行定时器阶段：
 
@@ -281,7 +281,7 @@ setImmediate(() => {
 > 5. 先进入`times`阶段，检查当前时间过去了1毫秒没有，如果过了1毫秒，满足`setTimeout`条件，执行回调，如果没过1毫秒，跳过
 > 6. 跳过空的阶段，进入check阶段，执行`setImmediate`回调
 
-通过上述流程的梳理，我们发现关键就在这个1毫秒，如果同步代码执行时间较长，进入Event Loop的时候1毫秒已经过了，`setTimeout`执行，如果1毫秒还没到，就先执行了`setImmediate`。每次我们运行脚本时，机器状态可能不一样，导致运行时有1毫秒的差距，一会儿`setTimeout`先执行，一会儿`setImmediate`先执行。但是这种情况只会发生在最外层的时候。像我们第一个例子那样，因为已经在`timers`阶段，所以里面的`setTimeout`只能等下个循环了，所以`setImmediate`肯定先执行。同理的还有其他`poll`阶段的API也是这样的，比如：
+通过上述流程的梳理，我们发现关键就在这个1毫秒，如果同步代码执行时间较长，进入Event Loop的时候1毫秒已经过了，`setTimeout`执行，如果1毫秒还没到，就先执行了`setImmediate`。每次我们运行脚本时，机器状态可能不一样，导致运行时有1毫秒的差距，一会儿`setTimeout`先执行，一会儿`setImmediate`先执行。但是这种情况只会发生在还没进入`timers`阶段的时候。像我们第一个例子那样，因为已经在`timers`阶段，所以里面的`setTimeout`只能等下个循环了，所以`setImmediate`肯定先执行。同理的还有其他`poll`阶段的API也是这样的，比如：
 
 ```javascript
 var fs = require('fs')
@@ -296,9 +296,9 @@ fs.readFile(__filename, () => {
 });
 ```
 
-这里`setTimeout`和`setImmediate`在`readFile`的回调里面，由于`readFile`本身就在`poll`阶段，所以他里面的定时器只能进入下个`timers`阶段，但是`setImmediate`却可以在接下来的`check`阶段运行，所以`setImmediate`肯定先运行，他运行完后，去检查`timers`，才会运行`setTimeout`。
+这里`setTimeout`和`setImmediate`在`readFile`的回调里面，由于`readFile`回调是I/O操作，他本身就在`poll`阶段，所以他里面的定时器只能进入下个`timers`阶段，但是`setImmediate`却可以在接下来的`check`阶段运行，所以`setImmediate`肯定先运行，他运行完后，去检查`timers`，才会运行`setTimeout`。
 
-同样的，如果他们两个不是在最外层，而是在`setImmediate`的回调里面，其实情况跟外层一样，结果也是随缘的，看下面代码:
+类似的，我们再来看一段代码，如果他们两个不是在最外层，而是在`setImmediate`的回调里面，其实情况跟外层一样，结果也是随缘的，看下面代码:
 
 ```javascript
 console.log('outer');
