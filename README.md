@@ -6,6 +6,7 @@
 * [Vue.js](/Articles/Vue/Vue.md)
 * React.js
 * Node.js
+* [设计模式](/Articles/DesignPatterns/DesignPatterns.md)
 * [架构和源码](/Articles/Architecture/Architecture.md)
 * 工程化
 * [数据结构和算法](/Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md)
