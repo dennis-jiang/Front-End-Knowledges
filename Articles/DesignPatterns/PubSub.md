@@ -1,5 +1,9 @@
 前面一篇文章[setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop](https://juejin.im/post/5e782486518825490455fb17)详细讲解了浏览器和Node.js的异步API及其底层原理Event Loop。本文会讲一下不用原生API怎么达到异步的效果，也就是发布订阅模式。发布订阅模式在面试中也是高频考点，本文会自己实现一个发布订阅模式，弄懂了他的原理后，我们还会去读一下Node.js的`EventEmitter`源码，这也是一个典型的发布订阅模式。
 
+本文所有例子已经上传到GitHub，同一个repo下面还有我所有博文和例子，欢迎star：
+
+[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DesignPatterns/PubSub](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DesignPatterns/PubSub)
+
 ## 为什么要用发布订阅模式
 
 在没有`Promise`之前，我们使用异步API的时候经常会使用回调，但是如果有几个互相依赖的异步API调用时，回调层级太多可能就会陷入“回调地狱”。下面代码演示了假如我们三个网络请求，第二个必须等第一个结束才能发出，第三个必须等第二个结束才能发起，如果我们使用回调就会变成这样：
