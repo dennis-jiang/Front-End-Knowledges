@@ -375,6 +375,8 @@ process.nextTick(()=>{
 
 ## 总结
 
+本文从异步基本概念出发一直讲到了浏览器和Node.js的Event Loop，现在我们再来总结一下：
+
 1. JS所谓的“单线程”只是指主线程只有一个，并不是整个运行环境都是单线程
 2. JS的异步靠底层的多线程实现
 3. 不同的异步API对应不同的实现线程
@@ -387,3 +389,9 @@ process.nextTick(()=>{
 10. Node.js的Event Loop跟浏览器的Event Loop不一样，他是分阶段的
 11. `setImmediate`和`setTimeout(fn, 0)`哪个回调先执行，需要看他们本身在哪个阶段注册的，如果在定时器回调或者I/O回调里面，`setImmediate`肯定先执行。如果在最外层或者`setImmediate`回调里面，哪个先执行取决于当时机器状况。
 12. `process.nextTick`不在Event Loop的任何阶段，他是一个特殊API，他会立即执行，然后才会继续执行Event Loop
+
+**文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
+
+**作者博文GitHub项目地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
+
+**作者掘金文章汇总：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
