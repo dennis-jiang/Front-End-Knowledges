@@ -1,6 +1,6 @@
 前面一篇文章[setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop](https://juejin.im/post/5e782486518825490455fb17)详细讲解了浏览器和Node.js的异步API及其底层原理Event Loop。本文会讲一下不用原生API怎么达到异步的效果，也就是发布订阅模式。发布订阅模式在面试中也是高频考点，本文会自己实现一个发布订阅模式，弄懂了他的原理后，我们就可以去读Node.js的`EventEmitter`源码，这也是一个典型的发布订阅模式。
 
-本文所有例子已经上传到GitHub，同一个repo下面还有我所有博文和例子，欢迎star：
+本文所有例子已经上传到GitHub，同一个repo下面还有我所有博文和例子：
 
 [https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DesignPatterns/PubSub](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DesignPatterns/PubSub)
 
