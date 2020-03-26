@@ -26,3 +26,4 @@ promise2.then(function(value) {
 }, function(reason) {
   console.log(reason);
 });
+
