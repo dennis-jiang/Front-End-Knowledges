@@ -145,11 +145,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
   var realOnRejected = onRejected;
   if(typeof realOnRejected !== 'function') {
     realOnRejected = function (reason) {
-      if(reason instanceof Error) {
-        throw reason;
-      } else {
-        throw new Error(reason)
-      }
+      throw reason;
     }
   }
 

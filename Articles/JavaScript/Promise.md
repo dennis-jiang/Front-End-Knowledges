@@ -605,6 +605,56 @@ function resolvePromise(promise, x, resolve, reject) {
   }
 ```
 
+### `onFulfilled` 和 `onRejected` 的执行时机
+
+在规范中还有一条：`onFulfilled` 和 `onRejected` 只有在执行环境堆栈仅包含**平台代码**时才可被调用。这一条的意思是实践中要确保 `onFulfilled` 和 `onRejected` 方法异步执行，且应该在 `then` 方法被调用的那一轮事件循环之后的新执行栈中执行。关于这条规范我们分两种情况来看：
+
+1. 执行then的时候，promise本身处于`PENDING`状态。这时候`onFulfilled` 和 `onRejected` 会被添加到待处理队列里面去，这个队列会在resolve或者reject的时候执行，因为resolve和reject我们已经加了`setTimeout`了，所以这两个回调肯定在then后面的时间循环了，满足规范要求。
+2. 执行then的时候，promise本身已经是`FULFILLED`或者`REJECTED`状态了，里面的`onFulfilled` 和 `onRejected`回调会立即执行，这样就和then在同一个事件循环了，不满足规范要求，所以我们应该在这两种情况时加上`setTimeout`，将这两个回调放到下次循环去:
+
+```javascript
+// 这块代码在then里面
+if(this.status === FULFILLED) {
+  var promise2 = new MyPromise(function(resolve, reject) {
+    // 这里加setTimeout
+    setTimeout(function() {
+      try {
+        if (typeof onFulfilled !== 'function') {
+          resolve(that.value);
+        } else {
+          var x = realOnFulfilled(that.value);
+          resolvePromise(promise2, x, resolve, reject);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    }, 0);
+  });
+
+  return promise2;
+}
+
+if(this.status === REJECTED) {
+  var promise2 = new MyPromise(function(resolve, reject) {
+    // 这里加setTimeout
+    setTimeout(function() {
+      try {
+        if(typeof onRejected !== 'function') {
+          reject(that.reason);
+        } else {
+          var x = realOnRejected(that.reason);
+          resolvePromise(promise2, x, resolve, reject);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    }, 0);
+  });
+
+  return promise2;
+}
+```
+
 ### 测试我们的Promise
 
 我们使用Promise/A+官方的测试工具[promises-aplus-tests](https://github.com/promises-aplus/promises-tests)来对我们的`MyPromise`进行测试，要使用这个工具我们必须实现一个静态方法`deferred`，官方对这个方法的定义如下:
