@@ -10,6 +10,8 @@
 
 `Promise/A+`测试工具: [https://github.com/promises-aplus/promises-tests](https://github.com/promises-aplus/promises-tests)
 
+本文的完整代码托管在GitHub上: [https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/JavaScript/Promise/MyPromise.js](https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/JavaScript/Promise/MyPromise.js)
+
 ## Promise用法
 
 Promise的基本用法，网上有很多，我这里简单提一下，我还是用三个相互依赖的网络请求做例子，假如我们有三个网络请求，请求2必须依赖请求1的结果，请求3必须依赖请求2的结果，如果用回调的话会有三层，会陷入“回调地狱”，用Promise就清晰多了:
@@ -217,7 +219,11 @@ function MyPromise(fn) {
 function MyPromise(fn) {
   // ...省略前面代码...
   
-  fn(resolve, reject);
+  try {
+    fn(resolve, reject);
+  } catch (error) {
+    reject(error);
+  }
 }
 ```
 
@@ -234,7 +240,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {}
 ```javascript
 MyPromise.prototype.then = function(onFulfilled, onRejected) {
   // 如果onFulfilled不是函数，给一个默认函数，返回value
-  let realOnFulfilled = onFulfilled;
+  var realOnFulfilled = onFulfilled;
   if(typeof realOnFulfilled !== 'function') {
     realOnFulfilled = function (value) {
       return value;
@@ -242,7 +248,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
   }
 
   // 如果onRejected不是函数，给一个默认函数，返回reason的Error
-  let realOnRejected = onRejected;
+  var realOnRejected = onRejected;
   if(typeof realOnRejected !== 'function') {
     realOnRejected = function (reason) {
       if(reason instanceof Error) {
@@ -983,6 +989,7 @@ function resolvePromise(promise, x, resolve, reject) {
 
 MyPromise.prototype.then = function(onFulfilled, onRejected) {
   // 如果onFulfilled不是函数，给一个默认函数，返回value
+  // 后面返回新promise的时候也做了onFulfilled的参数检查，这里可以删除，暂时保留是为了跟规范一一对应，看得更直观
   var realOnFulfilled = onFulfilled;
   if(typeof realOnFulfilled !== 'function') {
     realOnFulfilled = function (value) {
@@ -991,6 +998,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
   }
 
   // 如果onRejected不是函数，给一个默认函数，返回reason的Error
+  // 后面返回新promise的时候也做了onRejected的参数检查，这里可以删除，暂时保留是为了跟规范一一对应，看得更直观
   var realOnRejected = onRejected;
   if(typeof realOnRejected !== 'function') {
     realOnRejected = function (reason) {

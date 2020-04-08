@@ -132,6 +132,7 @@ function resolvePromise(promise, x, resolve, reject) {
 
 MyPromise.prototype.then = function(onFulfilled, onRejected) {
   // 如果onFulfilled不是函数，给一个默认函数，返回value
+  // 后面返回新promise的时候也做了onFulfilled的参数检查，这里可以删除，暂时保留是为了跟规范一一对应，看得更直观
   var realOnFulfilled = onFulfilled;
   if(typeof realOnFulfilled !== 'function') {
     realOnFulfilled = function (value) {
@@ -140,6 +141,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
   }
 
   // 如果onRejected不是函数，给一个默认函数，返回reason的Error
+  // 后面返回新promise的时候也做了onRejected的参数检查，这里可以删除，暂时保留是为了跟规范一一对应，看得更直观
   var realOnRejected = onRejected;
   if(typeof realOnRejected !== 'function') {
     realOnRejected = function (reason) {
