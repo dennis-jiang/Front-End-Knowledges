@@ -16,7 +16,7 @@ function MyPromise(fn) {
   var that = this;
   // resolve方法参数是value
   function resolve(value) {
-    setTimeout(function() {
+    // setTimeout(function() {
       if(that.status === PENDING) {
         that.status = FULFILLED;
         that.value = value;
@@ -26,7 +26,7 @@ function MyPromise(fn) {
           callback(that.value);
         });
       }
-    }, 0);
+    // }, 0);
   }
   
   // reject方法参数是reason
@@ -145,11 +145,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
   var realOnRejected = onRejected;
   if(typeof realOnRejected !== 'function') {
     realOnRejected = function (reason) {
-      if(reason instanceof Error) {
-        throw reason;
-      } else {
-        throw new Error(reason)
-      }
+      throw reason;
     }
   }
 
