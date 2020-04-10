@@ -6,6 +6,7 @@
     "promises-aplus-tests": "^2.1.2"
   },
   "scripts": {
-    "test": "promises-aplus-tests MyPromise"
+    "test": "promises-aplus-tests MyPromise",
+    "test2": "promises-aplus-tests YourPromise"
   }
 }
