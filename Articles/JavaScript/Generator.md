@@ -6,7 +6,9 @@
 
 [手写一个Promise/A+,完美通过官方872个测试用例](https://juejin.im/post/5e8bec156fb9a03c4d40f4bc)
 
-本文主要会讲Generator的运用和实现原理，在理解了原理后我们会去读一下co模块的源码。
+本文主要会讲Generator的运用和实现原理，在理解了原理后我们会去读一下co模块的源码，最后还会提一下async/await。
+
+本文全部例子都在GitHub上：https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/JavaScript/Generator
 
 ## Generator
 
