@@ -8,7 +8,7 @@
 
 本文主要会讲Generator的运用和实现原理，然后我们会去读一下co模块的源码，最后还会提一下async/await。
 
-本文全部例子都在GitHub上：https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/JavaScript/Generator
+本文全部例子都在GitHub上：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/JavaScript/Generator](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/JavaScript/Generator)
 
 ## Generator
 
@@ -343,6 +343,8 @@ Thunk函数就是这样一种可以自动执行Generator的函数，因为Thunk�
 
 co模块是一个很受欢迎的模块，他也可以自动执行Generator，他的yield后面支持thunk和Promise，我们先来看看他的基本使用，然后再去分析下他的源码。
 
+官方GitHub：[https://github.com/tj/co](https://github.com/tj/co)
+
 ### 基本使用
 
 #### 支持thunk
@@ -416,7 +418,7 @@ co(function* () {
 
 ### 源码分析
 
-本文的源码分析基于co模块4.6.0版本，源码：https://github.com/tj/co/blob/master/index.js
+本文的源码分析基于co模块4.6.0版本，源码：[https://github.com/tj/co/blob/master/index.js](https://github.com/tj/co/blob/master/index.js)
 
 仔细看源码会发现他代码并不多，总共两百多行，一半都是在进行yield后面的参数检测和处理，检测他是不是Promise，如果不是就转换为Promise，所以即使你yield后面传的thunk，他还是会转换成Promise处理。转换Promise的代码相对比较独立和简单，我这里不详细展开了，这里主要还是讲一讲核心方法`co(gen)`。下面是我复制的去掉了注释的简化代码:
 
