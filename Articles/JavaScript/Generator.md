@@ -2,7 +2,7 @@
 
 [setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop](https://juejin.im/post/5e782486518825490455fb17)
 
-[从发布订阅模式入手读懂Node.js的EventEmitter源码](https://juejin.im/post/5e7978485188255e237c2a29#comment)
+[从发布订阅模式入手读懂Node.js的EventEmitter源码](https://juejin.im/post/5e7978485188255e237c2a29)
 
 [手写一个Promise/A+,完美通过官方872个测试用例](https://juejin.im/post/5e8bec156fb9a03c4d40f4bc)
 
@@ -138,23 +138,33 @@ let itor = gen2();
 ```javascript
 const request = require("request");
 
-request('https://www.baidu.com', function (error, response) {
-  if (!error && response.statusCode == 200) {
-    console.log('get times 1');
-
-    request('https://www.baidu.com', function(error, response) {
+function* requestGen() {
+  function sendRequest(url) {
+    request(url, function (error, response) {
       if (!error && response.statusCode == 200) {
-        console.log('get times 2');
+        console.log(response.body);
 
-        request('https://www.baidu.com', function(error, response) {
-          if (!error && response.statusCode == 200) {
-            console.log('get times 3');
-          }
-        })
+        // 注意这里，引用了外部的迭代器itor
+        itor.next(response.body);
       }
     })
   }
-});
+
+  const url = 'https://www.baidu.com';
+
+  // 使用yield发起三个请求，每个请求成功后再继续调next
+  const r1 = yield sendRequest(url);
+  console.log('r1', r1);
+  const r2 = yield sendRequest(url);
+  console.log('r2', r2);
+  const r3 = yield sendRequest(url);
+  console.log('r3', r3);
+}
+
+const itor = requestGen();
+
+// 手动调第一个next
+itor.next();
 ```
 
 我们这次使用Generator来解决“回调地狱”：
