@@ -6,7 +6,7 @@
 
 [手写一个Promise/A+,完美通过官方872个测试用例](https://juejin.im/post/5e8bec156fb9a03c4d40f4bc)
 
-本文主要会讲Generator的运用和实现原理，在理解了原理后我们会去读一下co模块的源码，最后还会提一下async/await。
+本文主要会讲Generator的运用和实现原理，然后我们会去读一下co模块的源码，最后还会提一下async/await。
 
 本文全部例子都在GitHub上：https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/JavaScript/Generator
 
@@ -31,7 +31,7 @@ let itor = gen();   // 生成器函数运行后会返回一个迭代器对象，
 
 #### next
 
-[ES6规范中规定]([https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8D%8F%E8%AE%AE](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#迭代器协议))迭代器必须有一个`next`方法，这个方法会返回一个对象，这个对象具有`done`和`value`两个属性，`done`表示当前迭代器内容是否已经执行完，执行完为`true`，否则为`false`，`value`表示当前步骤返回的值。在`generator`具体运用中，每次遇到`yield`关键字都会暂停执行，当调用迭代器的`next`时，会将`yield`后面表达式的值作为返回对象的`value`，比如上面生成器的执行结果如下:
+[ES6规范中规定](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#迭代器协议)迭代器必须有一个`next`方法，这个方法会返回一个对象，这个对象具有`done`和`value`两个属性，`done`表示当前迭代器内容是否已经执行完，执行完为`true`，否则为`false`，`value`表示当前步骤返回的值。在`generator`具体运用中，每次遇到`yield`关键字都会暂停执行，当调用迭代器的`next`时，会将`yield`后面表达式的值作为返回对象的`value`，比如上面生成器的执行结果如下:
 
 ![image-20200419153257750](../../images/JavaScript/Generator/image-20200419153257750.png)
 
@@ -39,7 +39,7 @@ let itor = gen();   // 生成器函数运行后会返回一个迭代器对象，
 
 ![image-20200419154159553](../../images/JavaScript/Generator/image-20200419154159553.png)
 
-可以看到第二个`yield`后面的表达式`a + 2`的值是6，这是因为我们传进去的4被作为上一个`yield`的的返回值了，然后计算`a + 2`自然就是6了。
+可以看到第二个`yield`后面的表达式`a + 2`的值是6，这是因为我们传进去的4被作为上一个`yield`的返回值了，然后计算`a + 2`自然就是6了。
 
 我们继续`next`，把这个迭代器走完：
 
@@ -314,16 +314,18 @@ run(requestGen);
 2. `run`函数的参数是生成器，我们看看他到底干了啥:
 
    > 1. run里面先调用生成器，拿到迭代器`gen`，然后自定义了一个`next`方法，并调用这个`next`方法，为了便于区分，我这里称这个自定义的`next`为局部`next`
+   >
    > 2. 局部`next`会调用生成器的`next`，生成器的`next`其实就是`yield requestThunk(url)`，参数是我们传进去的`url`，这就调到我们前面的那个方法，这个`yield`返回的`value`其实是：
    >
-   > ```javascript
-   > function(callback) {
-   >   return request.call(this, url, callback);   
-   > }
-   > ```
+   >    ```javascript
+   >    function(callback) {
+   >      return request.call(this, url, callback);   
+   >    }
+   >    ```
    >
    > 3. 检测迭代器是否已经迭代完毕，如果没有，就继续调用第二步的这个函数，这个函数其实才真正的去`request`，这时候传进去的参数是局部`next`，局部`next`也作为了`request`的回调函数。
-   > 4. 这个回调函数在执行时又会调`gen.next`，这样生成器就可以继续往下执行了，同时`gen.next`的参数是回调函数的`data`，这样，生成器里面的`r1`其实就拿到了请求的`body`。
+   >
+   > 4. 这个回调函数在执行时又会调`gen.next`，这样生成器就可以继续往下执行了，同时`gen.next`的参数是回调函数的`data`，这样，生成器里面的`r1`其实就拿到了请求的返回值。
 
 Thunk函数就是这样一种可以自动执行Generator的函数，因为Thunk函数的包装，我们在Generator里面可以像同步代码那样直接拿到`yield`异步代码的返回值。
 
@@ -452,26 +454,27 @@ function co(gen) {
 ```
 
 1. 从整体结构看，co的参数是一个Generator，返回值是一个Promise，几乎所有逻辑代码都在这个Promise里面，这也是我们使用时用then拿结果的原因。
+
 2. Promise里面先把Generator拿出来执行，得到一个迭代器`gen`
+
 3. 手动调用一次`onFulfilled`，开启迭代
 
-> 1. `onFulfilled`接收一个参数`res`，第一次调用是没有传这个参数，这个参数主要是用来接收后面的then返回的结果。
-> 2. 然后调用`gen.next`，注意这个的返回值ret的形式是{value, done}，然后将这个ret传给局部的next
+   > 1. `onFulfilled`接收一个参数`res`，第一次调用是没有传这个参数，这个参数主要是用来接收后面的then返回的结果。
+   > 2. 然后调用`gen.next`，注意这个的返回值ret的形式是{value, done}，然后将这个ret传给局部的next
 
-4. 该执行局部next了，他接收的参数是yield返回值{value, done}
+4. 然后执行局部next，他接收的参数是yield返回值{value, done}
 
-> 1. 这里先检测迭代是否完成，如果完成了，就直接将整个promise resolve。
-> 2. 这里的value是yield后面表达式的值，可能是thunk，也可能是promise
-> 3. 将value转换成promise
-> 4. 将转换后的promise拿出来执行，成功的回调是前面的`onFulfilled`
+   > 1. 这里先检测迭代是否完成，如果完成了，就直接将整个promise resolve。
+   > 2. 这里的value是yield后面表达式的值，可能是thunk，也可能是promise
+   > 3. 将value转换成promise
+   > 4. 将转换后的promise拿出来执行，成功的回调是前面的`onFulfilled`
 
-5. 我们再来看下`onFulfilled`，这是第二次执行`onFulfilled`了。这次执行的时候传入的参数res是上次异步promise的执行结果，对应我们的fetch就是拿回来的数据，这个数据传给第二个`gen.next`，效果就是我们代码里面的赋值给了第一个`yield`前面的变量`r1`。然后继续局部next，这个next其实就是执行第二个异步Promise了。这个promise的成功回调有继续调用`gen.next`，这样就不断的执行下去，直到`done`变成`true`为止。
-
+5. 我们再来看下`onFulfilled`，这是第二次执行`onFulfilled`了。这次执行的时候传入的参数res是上次异步promise的执行结果，对应我们的fetch就是拿回来的数据，这个数据传给第二个`gen.next`，效果就是我们代码里面的赋值给了第一个`yield`前面的变量`r1`。然后继续局部next，这个next其实就是执行第二个异步Promise了。这个promise的成功回调又继续调用`gen.next`，这样就不断的执行下去，直到`done`变成`true`为止。
 6. 最后看一眼`onRejected`方法，这个方法其实作为了异步promise的错误分支，这个函数里面直接调用了`gen.throw`，这样我们在Generator里面可以直接用`try...catch...`拿到错误。需要注意的是`gen.throw`后面还继续调用了`next(ret)`，这是因为在Generator的`catch`分支里面还可能继续有`yield`，比如错误上报的网络请求，这时候的迭代器并不一定结束了。
 
-## await/async
+## async/await
 
-最后提一下`await/async`，先来看一下用法:
+最后提一下`async/await`，先来看一下用法:
 
 ```javascript
 const fetch = require('node-fetch');
@@ -488,13 +491,13 @@ async function sendRequest () {
   }
 }
 
-// 注意async返回的是一个promise
+// 注意async返回的也是一个promise
 sendRequest().then((res) => {
   console.log('res', res);
 });
 ```
 
-咋一看这个跟前面promise版的co是不是很像，只是Generator换成了一个`async`函数，函数里面的`yield`换成了`await`，而且外层不需要co来包裹也可以自动执行了。其实async函数就是Generator加自动执行器的语法糖，可以理解为从语言层面支持了Generator的自动执行。上面这段代码跟co版的promise其实就是等价的。
+咋一看这个跟前面promise版的co是不是很像，返回值都是一个promise，只是Generator换成了一个`async`函数，函数里面的`yield`换成了`await`，而且外层不需要co来包裹也可以自动执行了。其实async函数就是Generator加自动执行器的语法糖，可以理解为从语言层面支持了Generator的自动执行。上面这段代码跟co版的promise其实就是等价的。
 
 ## 总结
 
@@ -504,7 +507,8 @@ sendRequest().then((res) => {
 4. `next`的返回值是{value, done}，`value`是yield后面表达式的值
 5. `yield`语句本身并没有返回值，下次调`next`的参数会作为上一个`yield`语句的返回值
 6. Generator自己不能自动执行，要自动执行需要引入其他方案，前面讲`thunk`的时候提供了一种方案，`co`模块也是一个很受欢迎的自动执行方案
-7. 这两个方案的思路有点类似，都是先写一个局部的方法，这个方法会去调用`gen.next`，同时这个方法本身又会传到回调函数或者promise的成功分支里面，异步结束后又继续调用这个局部方法，这个局部方法又调用`gen.next`，这样一直迭代，知道迭代器执行完毕。
+7. 这两个方案的思路有点类似，都是先写一个局部的方法，这个方法会去调用`gen.next`，同时这个方法本身又会传到回调函数或者promise的成功分支里面，异步结束后又继续调用这个局部方法，这个局部方法又调用`gen.next`，这样一直迭代，直到迭代器执行完毕。
+8. `async/await`其实是Generator和自动执行器的语法糖，写法和实现原理都类似co模块的promise模式。
 
 **文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
 
