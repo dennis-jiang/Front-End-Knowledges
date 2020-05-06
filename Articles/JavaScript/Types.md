@@ -108,11 +108,11 @@ console.log(!!s);  // true
 
 下面这几张表是一些转换规则，来自于《JS权威指南》:
 
-![image-20200505185955549](../../images/JavaScript/Others/image-20200505185955549.png)
+![image-20200505185955549](../../images/JavaScript/Types/image-20200505185955549.png)
 
-![image-20200505190049837](../../images/JavaScript/Others/image-20200505190049837.png)
+![image-20200505190049837](../../images/JavaScript/Types/image-20200505190049837.png)
 
-![image-20200505190124871](../../images/JavaScript/Others/image-20200505190124871.png)
+![image-20200505190124871](../../images/JavaScript/Types/image-20200505190124871.png)
 
 ### 显式类型转换
 
