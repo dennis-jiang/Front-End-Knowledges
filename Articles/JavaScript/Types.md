@@ -320,7 +320,7 @@ Object.prototype.toString.call(new Array());   // [object Array]
 Object.prototype.toString.call(new Date());    // [object Date]
 ```
 
-这个方法返回的是`[object XXX]`，这种这个XXX是对应的构造函数名字。但是他只能检测原生对象，对于自定义类型是没有用的:
+这个方法返回的是`[object XXX]`，这个XXX是对应的构造函数名字。但是他只能检测原生对象，对于自定义类型是没有用的:
 
 ```javascript
 function a() {}
