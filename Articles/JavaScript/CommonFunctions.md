@@ -174,7 +174,7 @@ const debounse = (fn, waitTime) => {
     if(timer){
       clearTimeout(timer);
     } else {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         fn.apply(self, args);
       }, waitTime);
     }
