@@ -407,7 +407,7 @@ moveDiv.prototype.forward = function() {
 }
 
 // 后退方法是类似的
-moveDiv.prototype.forward = function() {
+moveDiv.prototype.back = function() {
   // 如果当前不是第一个状态
   if(this.currentState > 0) {
     // 取出后退的状态
