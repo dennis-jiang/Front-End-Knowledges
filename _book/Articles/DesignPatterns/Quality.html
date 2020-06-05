@@ -1,0 +1,1293 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录 · 前端进阶</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Dennis Jiang">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../Architecture/Architecture.html" />
+    
+    
+    <link rel="prev" href="Extendability.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
+            
+                <a href="../Layout/Layout.html">
+            
+                    
+                    页面布局
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Layout/MultiColumns.html">
+            
+                <a href="../Layout/MultiColumns.html">
+            
+                    
+                    多列布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../JavaScript/JavaScript.html">
+            
+                <a href="../JavaScript/JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../JavaScript/MemoryManagement.html">
+            
+                <a href="../JavaScript/MemoryManagement.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../JavaScript/FunctionalProgramming.html">
+            
+                <a href="../JavaScript/FunctionalProgramming.html">
+            
+                    
+                    函数式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../JavaScript/ComposePipe.html">
+            
+                <a href="../JavaScript/ComposePipe.html">
+            
+                    
+                    compose函数和pipe函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../JavaScript/CommonFunctions.html">
+            
+                <a href="../JavaScript/CommonFunctions.html">
+            
+                    
+                    一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../JavaScript/Copy.html">
+            
+                <a href="../JavaScript/Copy.html">
+            
+                    
+                    浅拷贝和深拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../JavaScript/UnitTest.html">
+            
+                <a href="../JavaScript/UnitTest.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../JavaScript/myPrototype.html">
+            
+                <a href="../JavaScript/myPrototype.html">
+            
+                    
+                    JS中的面向对象：prototype、__proto__与constructor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../JavaScript/this.html">
+            
+                <a href="../JavaScript/this.html">
+            
+                    
+                    this指向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="../JavaScript/AsyncAndEventLoop.html">
+            
+                <a href="../JavaScript/AsyncAndEventLoop.html">
+            
+                    
+                    异步和EventLoop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="../JavaScript/Promise.html">
+            
+                <a href="../JavaScript/Promise.html">
+            
+                    
+                    手写Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="../JavaScript/Generator.html">
+            
+                <a href="../JavaScript/Generator.html">
+            
+                    
+                    Generator和async/await还有co源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="../JavaScript/Types.html">
+            
+                <a href="../JavaScript/Types.html">
+            
+                    
+                    数据类型转换和检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="../JavaScript/Scope.html">
+            
+                <a href="../JavaScript/Scope.html">
+            
+                    
+                    JS作用域
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network/Network.html">
+            
+                <a href="../Network/Network.html">
+            
+                    
+                    计算机网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../DataStructureAndAlgorithm/RSA.html">
+            
+                <a href="../DataStructureAndAlgorithm/RSA.html">
+            
+                    
+                    HTTPS和RSA
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
+            
+                <a href="../Vue/Vue.html">
+            
+                    
+                    Vue.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Vue/vueRouter.html">
+            
+                <a href="../Vue/vueRouter.html">
+            
+                    
+                    Vue-Router原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    React.js
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    Node.js
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="DesignPatterns.html">
+            
+                <a href="DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="PubSub.html">
+            
+                <a href="PubSub.html">
+            
+                    
+                    从发布订阅模式入手读懂Node.js的EventEmitter源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="Encapsulate.html">
+            
+                <a href="Encapsulate.html">
+            
+                    
+                    封装代码的设计模式：工厂，建造者，单例，原型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="Reusability.html">
+            
+                <a href="Reusability.html">
+            
+                    
+                    提高复用性的设计模式：桥接，享元，模板方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="Extendability.html">
+            
+                <a href="Extendability.html">
+            
+                    
+                    提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8.5" data-path="Quality.html">
+            
+                <a href="Quality.html">
+            
+                    
+                    提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Architecture/Architecture.html">
+            
+                <a href="../Architecture/Architecture.html">
+            
+                    
+                    架构和源码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../Architecture/readSourceCode.html">
+            
+                <a href="../Architecture/readSourceCode.html">
+            
+                    
+                    从架构入手读源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../Architecture/Undersocre.html">
+            
+                <a href="../Architecture/Undersocre.html">
+            
+                    
+                    Underscore源码架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Engineering/Engineering.html">
+            
+                <a href="../Engineering/Engineering.html">
+            
+                    
+                    工程化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../Engineering/leader.html">
+            
+                <a href="../Engineering/leader.html">
+            
+                    
+                    前端负责人/架构师职责
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                <a href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                    
+                    数据结构和算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../DataStructureAndAlgorithm/Sorting.html">
+            
+                <a href="../DataStructureAndAlgorithm/Sorting.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                <a href="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                    
+                    链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../DataStructureAndAlgorithm/Greedy.html">
+            
+                <a href="../DataStructureAndAlgorithm/Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../DataStructureAndAlgorithm/DP.html">
+            
+                <a href="../DataStructureAndAlgorithm/DP.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../DataStructureAndAlgorithm/RSA.html">
+            
+                <a href="../DataStructureAndAlgorithm/RSA.html">
+            
+                    
+                    HTTPS和RSA
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Projects/Projects.html">
+            
+                <a href="../Projects/Projects.html">
+            
+                    
+                    实战项目
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../Projects/FractionCalcualator.html">
+            
+                <a href="../Projects/FractionCalcualator.html">
+            
+                    
+                    分数计算器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+
+    
+    <li>
+        
+        
+        
+            
+        
+        
+            <a href="http://www.beian.miit.gov.cn/" target="blank" class="gitbook-link">
+                苏ICP备16008535号
+            </a>
+        
+    </li>
+    
+</ul>
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x76EE;&#x7684;"><b></b>&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x76EE;&#x7684;</a></li><li><span class="title-icon "></span><a href="#&#x4EC0;&#x4E48;&#x4EE3;&#x7801;&#x7B97;&#x597D;&#x7684;&#x8D28;&#x91CF;"><b></b>&#x4EC0;&#x4E48;&#x4EE3;&#x7801;&#x7B97;&#x597D;&#x7684;&#x8D28;&#x91CF;</a></li><li><span class="title-icon "></span><a href="#&#x7B56;&#x7565;&#x72B6;&#x6001;&#x6A21;&#x5F0F;"><b></b>&#x7B56;&#x7565;/&#x72B6;&#x6001;&#x6A21;&#x5F0F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;"><b></b>&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;"><b></b>&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x8BBF;&#x95EE;&#x6743;&#x9650;"><b></b>&#x5B9E;&#x4F8B;&#xFF1A;&#x8BBF;&#x95EE;&#x6743;&#x9650;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x590D;&#x5408;&#x8FD0;&#x52A8;"><b></b>&#x5B9E;&#x4F8B;&#xFF1A;&#x590D;&#x5408;&#x8FD0;&#x52A8;</a></li></ul><li><span class="title-icon "></span><a href="#&#x5916;&#x89C2;&#x6A21;&#x5F0F;"><b></b>&#x5916;&#x89C2;&#x6A21;&#x5F0F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x672C;&#x7ED3;&#x6784;"><b></b>&#x57FA;&#x672C;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x5E38;&#x89C1;&#x7684;&#x63A5;&#x53E3;&#x5C01;&#x88C5;"><b></b>&#x5B9E;&#x4F8B;&#xFF1A;&#x5E38;&#x89C1;&#x7684;&#x63A5;&#x53E3;&#x5C01;&#x88C5;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x65B9;&#x6CD5;&#x7684;&#x5C01;&#x88C5;"><b></b>&#x5B9E;&#x4F8B;&#xFF1A;&#x65B9;&#x6CD5;&#x7684;&#x5C01;&#x88C5;</a></li></ul><li><span class="title-icon "></span><a href="#&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;"><b></b>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x672C;&#x7ED3;&#x6784;_1"><b></b>&#x57FA;&#x672C;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x6570;&#x636E;&#x8FED;&#x4EE3;&#x5668;"><b></b>&#x5B9E;&#x4F8B;&#xFF1A;&#x6570;&#x636E;&#x8FED;&#x4EE3;&#x5668;</a></li></ul><li><span class="title-icon "></span><a href="#&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;"><b></b>&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x672C;&#x7ED3;&#x6784;_2"><b></b>&#x57FA;&#x672C;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x6587;&#x7AE0;&#x7F13;&#x5B58;"><b></b>&#x5B9E;&#x4F8B;&#xFF1A;&#x6587;&#x7AE0;&#x7F13;&#x5B58;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x529F;&#x80FD;"><b></b>&#x5B9E;&#x4F8B;&#xFF1A;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x529F;&#x80FD;</a></li></ul><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b></b>&#x603B;&#x7ED3;</a></li></ul></ul></div><h2 id="&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x76EE;&#x7684;"><a name="&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x76EE;&#x7684;" class="anchor-navigation-ex-anchor" href="#&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x76EE;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&#x76EE;&#x7684;</h2>
+<p>&#x7A0B;&#x5E8F;&#x733F;&#x7684;&#x672C;&#x804C;&#x5DE5;&#x4F5C;&#x5C31;&#x662F;&#x5199;&#x4EE3;&#x7801;&#xFF0C;&#x5199;&#x51FA;&#x9AD8;&#x8D28;&#x91CF;&#x7684;&#x4EE3;&#x7801;&#x5E94;&#x8BE5;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x8FFD;&#x6C42;&#x548C;&#x5BF9;&#x81EA;&#x5DF1;&#x7684;&#x8981;&#x6C42;&#xFF0C;&#x56E0;&#x4E3A;&#xFF1A;</p>
+<blockquote>
+<ol>
+<li>&#x9AD8;&#x8D28;&#x91CF;&#x7684;&#x4EE3;&#x7801;&#x5F80;&#x5F80;&#x610F;&#x5473;&#x7740;&#x66F4;&#x5C11;&#x7684;BUG&#xFF0C;&#x66F4;&#x597D;&#x7684;&#x6A21;&#x5757;&#x5316;&#xFF0C;&#x662F;&#x6211;&#x4EEC;&#x6269;&#x5C55;&#x6027;&#xFF0C;&#x590D;&#x7528;&#x6027;&#x7684;&#x57FA;&#x7840;</li>
+<li>&#x9AD8;&#x8D28;&#x91CF;&#x7684;&#x4EE3;&#x7801;&#x4E5F;&#x610F;&#x5473;&#x7740;&#x66F4;&#x597D;&#x7684;&#x4E66;&#x5199;&#xFF0C;&#x66F4;&#x597D;&#x7684;&#x547D;&#x540D;&#xFF0C;&#x6709;&#x5229;&#x4E8E;&#x6211;&#x4EEC;&#x7684;&#x7EF4;&#x62A4;</li>
+</ol>
+</blockquote>
+<h2 id="&#x4EC0;&#x4E48;&#x4EE3;&#x7801;&#x7B97;&#x597D;&#x7684;&#x8D28;&#x91CF;"><a name="&#x4EC0;&#x4E48;&#x4EE3;&#x7801;&#x7B97;&#x597D;&#x7684;&#x8D28;&#x91CF;" class="anchor-navigation-ex-anchor" href="#&#x4EC0;&#x4E48;&#x4EE3;&#x7801;&#x7B97;&#x597D;&#x7684;&#x8D28;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4EC0;&#x4E48;&#x4EE3;&#x7801;&#x7B97;&#x597D;&#x7684;&#x8D28;&#x91CF;</h2>
+<p>&#x600E;&#x6837;&#x6765;&#x5B9A;&#x4E49;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x7684;&quot;&#x597D;&quot;&#xFF0C;&#x4E1A;&#x754C;&#x6709;&#x5F88;&#x591A;&#x6807;&#x51C6;&#xFF0C;&#x672C;&#x6587;&#x8BA4;&#x4E3A;&#x597D;&#x7684;&#x4EE3;&#x7801;&#x5E94;&#x8BE5;&#x6709;&#x4EE5;&#x4E0B;&#x7279;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<ol>
+<li>&#x4EE3;&#x7801;&#x6574;&#x6D01;&#xFF0C;&#x6BD4;&#x5982;&#x7F29;&#x8FDB;&#x4E4B;&#x7C7B;&#x7684;&#xFF0C;&#x73B0;&#x5728;&#x6709;&#x5F88;&#x591A;&#x5DE5;&#x5177;&#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x6BD4;&#x5982;eslint&#x3002;</li>
+<li>&#x7ED3;&#x6784;&#x89C4;&#x6574;&#xFF0C;&#x6CA1;&#x6709;&#x6F2B;&#x957F;&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x51FD;&#x6570;&#x62C6;&#x5206;&#x5408;&#x7406;&#xFF0C;&#x4E0D;&#x4F1A;&#x6765;&#x4E00;&#x4E2A;&#x51E0;&#x5343;&#x884C;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x6709;&#x51E0;&#x5341;&#x4E2A;<code>if...else</code>&#x3002;&#x8FD9;&#x8981;&#x6C42;&#x5199;&#x4EE3;&#x7801;&#x7684;&#x4EBA;&#x6709;&#x4E00;&#x4E9B;&#x4F18;&#x5316;&#x7684;&#x7ECF;&#x9A8C;&#xFF0C;&#x672C;&#x6587;&#x4F1A;&#x4ECB;&#x7ECD;&#x51E0;&#x79CD;&#x6A21;&#x5F0F;&#x6765;&#x4F18;&#x5316;&#x8FD9;&#x4E9B;&#x60C5;&#x51B5;&#x3002;</li>
+<li>&#x9605;&#x8BFB;&#x8D77;&#x6765;&#x597D;&#x7406;&#x89E3;&#xFF0C;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x5806;<code>a,b,c</code>&#x8FD9;&#x79CD;&#x547D;&#x540D;&#xFF0C;&#x800C;&#x662F;&#x5E94;&#x8BE5;&#x5C3D;&#x91CF;&#x8BED;&#x4E49;&#x5316;&#xFF0C;&#x53D8;&#x91CF;&#x540D;&#x548C;&#x51FD;&#x6570;&#x540D;&#x90FD;&#x5C3D;&#x91CF;&#x6709;&#x610F;&#x4E49;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x4EE3;&#x7801;&#x5373;&#x6CE8;&#x91CA;&#xFF0C;&#x8BA9;&#x522B;&#x4EBA;&#x770B;&#x4F60;&#x7684;&#x4EE3;&#x7801;&#x5C31;&#x77E5;&#x9053;&#x4F60;&#x5728;&#x5E72;&#x561B;&#x3002;</li>
+</ol>
+</blockquote>
+<p>&#x672C;&#x6587;&#x4ECB;&#x7ECD;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E3B;&#x8981;&#x6709;<code>&#x7B56;&#x7565;/&#x72B6;&#x6001;&#x6A21;&#x5F0F;</code>&#xFF0C;<code>&#x5916;&#x89C2;&#x6A21;&#x5F0F;</code>&#xFF0C;<code>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;</code>&#xFF0C;<code>&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;</code>&#x3002;</p>
+<h2 id="&#x7B56;&#x7565;&#x72B6;&#x6001;&#x6A21;&#x5F0F;"><a name="&#x7B56;&#x7565;&#x72B6;&#x6001;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x7B56;&#x7565;&#x72B6;&#x6001;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7B56;&#x7565;/&#x72B6;&#x6001;&#x6A21;&#x5F0F;</h2>
+<h3 id="&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;"><a name="&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;</h3>
+<p>&#x5047;&#x5982;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x4E00;&#x4E2A;&#x8BA1;&#x7B97;&#x5668;&#xFF0C;&#x9700;&#x8981;&#x652F;&#x6301;&#x52A0;&#x51CF;&#x4E58;&#x9664;&#xFF0C;&#x4E3A;&#x4E86;&#x5224;&#x65AD;&#x7528;&#x6237;&#x5177;&#x4F53;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x54EA;&#x4E2A;&#x64CD;&#x4F5C;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;4&#x4E2A;<code>if...else</code>&#x6765;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#xFF0C;&#x5982;&#x679C;&#x652F;&#x6301;&#x66F4;&#x591A;&#x64CD;&#x4F5C;&#xFF0C;&#x90A3;<code>if...else</code>&#x4F1A;&#x66F4;&#x957F;&#xFF0C;&#x4E0D;&#x5229;&#x4E8E;&#x9605;&#x8BFB;&#xFF0C;&#x770B;&#x7740;&#x4E5F;&#x4E0D;&#x4F18;&#x96C5;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x4F18;&#x5316;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculator</span>(<span class="hljs-params">type, a, b</span>) </span>{
+  <span class="hljs-keyword">const</span> strategy = {
+    <span class="hljs-attr">add</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+      <span class="hljs-keyword">return</span> a + b;
+    },
+    <span class="hljs-attr">minus</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+      <span class="hljs-keyword">return</span> a - b;
+    },
+    <span class="hljs-attr">division</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+      <span class="hljs-keyword">return</span> a / b;
+    },
+    <span class="hljs-attr">times</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+      <span class="hljs-keyword">return</span> a * b;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> strategy[type](a, b);
+}
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;&#x65F6;</span>
+calculator(<span class="hljs-string">&apos;add&apos;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x7528;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x53D6;&#x4EE3;&#x4E86;&#x591A;&#x4E2A;<code>if...else</code>&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x5BF9;&#x5E94;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x91CC;&#x9762;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x540D;&#x5B57;&#x5BF9;&#x5E94;&#x6211;&#x4EEC;&#x4F20;&#x5165;&#x7684;<code>type</code>&#xFF0C;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x7528;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x540D;&#x5B57;&#x5C31;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<h3 id="&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;"><a name="&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x57FA;&#x672C;&#x7ED3;&#x6784;</h3>
+<p>&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x548C;&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x5F88;&#x50CF;&#xFF0C;&#x4E5F;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5B58;&#x50A8;&#x4E00;&#x4E9B;&#x7B56;&#x7565;&#xFF0C;&#x4F46;&#x662F;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x6765;&#x5B58;&#x50A8;&#x5F53;&#x524D;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x6211;&#x4EEC;&#x6839;&#x636E;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x6765;&#x83B7;&#x53D6;&#x5177;&#x4F53;&#x7684;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stateFactor</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">const</span> stateObj = {
+    <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;&apos;</span>,
+    <span class="hljs-attr">state</span>: {
+      <span class="hljs-attr">state1</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{},
+      <span class="hljs-attr">state2</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{},
+    },
+    <span class="hljs-attr">run</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.state[<span class="hljs-keyword">this</span>.status];
+    }
+  }
+
+  stateObj.status = state;
+  <span class="hljs-keyword">return</span> stateObj;
+}
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;&#x65F6;</span>
+stateFactor(<span class="hljs-string">&apos;state1&apos;</span>).run();
+</code></pre>
+<p><code>if...else</code>&#x5176;&#x5B9E;&#x662F;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x6761;&#x4EF6;&#x6765;&#x6539;&#x53D8;&#x4EE3;&#x7801;&#x7684;&#x884C;&#x4E3A;&#xFF0C;&#x800C;&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x548C;&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x90FD;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x4F20;&#x5165;&#x7684;&#x7B56;&#x7565;&#x6216;&#x8005;&#x72B6;&#x6001;&#x7684;&#x4E0D;&#x540C;&#x6765;&#x6539;&#x53D8;&#x884C;&#x4E3A;&#xFF0C;&#x6240;&#x6709;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x8FD9;&#x4E24;&#x79CD;&#x6A21;&#x5F0F;&#x6765;&#x66FF;&#x4EE3;<code>if...else</code>&#x3002;</p>
+<h3 id="&#x5B9E;&#x4F8B;&#xFF1A;&#x8BBF;&#x95EE;&#x6743;&#x9650;"><a name="&#x5B9E;&#x4F8B;&#xFF1A;&#x8BBF;&#x95EE;&#x6743;&#x9650;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x8BBF;&#x95EE;&#x6743;&#x9650;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9E;&#x4F8B;&#xFF1A;&#x8BBF;&#x95EE;&#x6743;&#x9650;</h3>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x7684;&#x9700;&#x6C42;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x9875;&#x9762;&#x9700;&#x8981;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x89D2;&#x8272;&#x6765;&#x6E32;&#x67D3;&#x4E0D;&#x540C;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x7528;<code>if...else</code>&#x5199;&#x5C31;&#x662F;&#x8FD9;&#x6837;:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x6709;&#x4E09;&#x4E2A;&#x6A21;&#x5757;&#x9700;&#x8981;&#x663E;&#x793A;&#xFF0C;&#x4E0D;&#x540C;&#x89D2;&#x8272;&#x770B;&#x5230;&#x7684;&#x6A21;&#x5757;&#x5E94;&#x8BE5;&#x4E0D;&#x540C;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showPart1</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showPart2</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showPart3</span>(<span class="hljs-params"></span>) </span>{}
+
+<span class="hljs-comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684;&#x89D2;&#x8272;&#xFF0C;&#x7136;&#x540E;&#x51B3;&#x5B9A;&#x663E;&#x793A;&#x54EA;&#x4E9B;&#x90E8;&#x5206;</span>
+axios.get(<span class="hljs-string">&apos;xxx&apos;</span>).then(<span class="hljs-function">(<span class="hljs-params">role</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span>(role === <span class="hljs-string">&apos;boss&apos;</span>){
+    showPart1();
+    showPart2();
+    showPart3();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(role === <span class="hljs-string">&apos;manager&apos;</span>) {
+    showPart1();
+    showPart2();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(role === <span class="hljs-string">&apos;staff&apos;</span>) {
+    showPart3();
+  }
+});
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x4E2D;&#x6211;&#x4EEC;&#x901A;&#x8FC7;API&#x8BF7;&#x6C42;&#x83B7;&#x5F97;&#x4E86;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684;&#x89D2;&#x8272;&#xFF0C;&#x7136;&#x540E;&#x4E00;&#x5806;<code>if...else</code>&#x53BB;&#x5224;&#x65AD;&#x5E94;&#x8BE5;&#x663E;&#x793A;&#x54EA;&#x4E9B;&#x6A21;&#x5757;&#xFF0C;&#x5982;&#x679C;&#x89D2;&#x8272;&#x5F88;&#x591A;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;<code>if...else</code>&#x5C31;&#x53EF;&#x80FD;&#x5F88;&#x957F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x7528;&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x4F18;&#x5316;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5148;&#x628A;&#x5404;&#x79CD;&#x89D2;&#x8272;&#x90FD;&#x5305;&#x88C5;&#x5230;&#x4E00;&#x4E2A;ShowController&#x7C7B;&#x91CC;&#x9762;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ShowController</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.role = <span class="hljs-string">&apos;&apos;</span>;
+  <span class="hljs-keyword">this</span>.roleMap = {
+    <span class="hljs-attr">boss</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      showPart1();
+      showPart2();
+      showPart3();
+    },
+    <span class="hljs-attr">manager</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      showPart1();
+        showPart2();
+    },
+    <span class="hljs-attr">staff</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      showPart3();
+    }
+  }
+}
+
+<span class="hljs-comment">// ShowController&#x4E0A;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;show&#xFF0C;&#x7528;&#x6765;&#x6839;&#x636E;&#x89D2;&#x8272;&#x5C55;&#x793A;&#x4E0D;&#x540C;&#x7684;&#x5185;&#x5BB9;</span>
+ShowController.prototype.show = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  axios.get(<span class="hljs-string">&apos;xxx&apos;</span>).then(<span class="hljs-function">(<span class="hljs-params">role</span>) =&gt;</span> {
+    <span class="hljs-keyword">this</span>.role = role;
+    <span class="hljs-keyword">this</span>.roleMap[<span class="hljs-keyword">this</span>.role]();
+  });
+}
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;&#x65F6;</span>
+<span class="hljs-keyword">new</span> ShowController().show();
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x72B6;&#x6001;&#x6A21;&#x5F0F;&#x6539;&#x5199;&#x4E86;&#x8BBF;&#x95EE;&#x6743;&#x9650;&#x6A21;&#x5757;&#xFF0C;&#x53BB;&#x6389;&#x4E86;<code>if...else</code>&#xFF0C;&#x800C;&#x4E14;&#x4E0D;&#x540C;&#x89D2;&#x8272;&#x7684;&#x5C55;&#x793A;&#x90FD;&#x5C01;&#x88C5;&#x5230;&#x4E86;<code>roleMap</code>&#x91CC;&#x9762;&#xFF0C;&#x540E;&#x9762;&#x8981;&#x589E;&#x52A0;&#x6216;&#x8005;&#x51CF;&#x5C11;&#x90FD;&#x4F1A;&#x65B9;&#x4FBF;&#x5F88;&#x591A;&#x3002;</p>
+<h3 id="&#x5B9E;&#x4F8B;&#xFF1A;&#x590D;&#x5408;&#x8FD0;&#x52A8;"><a name="&#x5B9E;&#x4F8B;&#xFF1A;&#x590D;&#x5408;&#x8FD0;&#x52A8;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x590D;&#x5408;&#x8FD0;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9E;&#x4F8B;&#xFF1A;&#x590D;&#x5408;&#x8FD0;&#x52A8;</h3>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x7684;&#x9700;&#x6C42;&#x662F;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x7403;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x63A7;&#x5236;&#x4ED6;&#x79FB;&#x52A8;&#xFF0C;&#x4ED6;&#x79FB;&#x52A8;&#x7684;&#x65B9;&#x5411;&#x53EF;&#x4EE5;&#x662F;&#x4E0A;&#x4E0B;&#x5DE6;&#x53F3;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x662F;&#x5DE6;&#x4E0A;&#xFF0C;&#x53F3;&#x4E0B;&#x4E4B;&#x7C7B;&#x7684;&#x590D;&#x5408;&#x8FD0;&#x52A8;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x4E5F;&#x7528;<code>if...else</code>&#x6765;&#x5199;&#xFF0C;&#x8FD9;&#x5934;&#x90FD;&#x4F1A;&#x5199;&#x5927;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5148;&#x6765;&#x56DB;&#x4E2A;&#x65B9;&#x5411;&#x7684;&#x57FA;&#x672C;&#x8FD0;&#x52A8;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveUp</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveDown</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveLeft</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveRight</span>(<span class="hljs-params"></span>) </span>{}
+
+<span class="hljs-comment">// &#x5177;&#x4F53;&#x79FB;&#x52A8;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x6216;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x4E00;&#x4E2A;&#x5C31;&#x662F;&#x57FA;&#x672C;&#x64CD;&#x4F5C;&#xFF0C;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x5C31;&#x662F;&#x5DE6;&#x4E0A;&#xFF0C;&#x53F3;&#x4E0B;&#x8FD9;&#x7C7B;&#x64CD;&#x4F5C;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">...args</span>) </span>{
+  <span class="hljs-keyword">if</span>(args.length === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">if</span>(args[<span class="hljs-number">0</span>] === <span class="hljs-string">&apos;up&apos;</span>) {
+      moveUp();
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(args[<span class="hljs-number">0</span>] === <span class="hljs-string">&apos;down&apos;</span>) {
+      moveDown();        
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(args[<span class="hljs-number">0</span>] === <span class="hljs-string">&apos;left&apos;</span>) {
+      moveLeft();        
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(args[<span class="hljs-number">0</span>] === <span class="hljs-string">&apos;right&apos;</span>) {
+      moveRight();        
+    }
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">if</span>(args[<span class="hljs-number">0</span>] === <span class="hljs-string">&apos;left&apos;</span> &amp;&amp; args[<span class="hljs-number">1</span>] === <span class="hljs-string">&apos;up&apos;</span>) {
+      moveLeft();
+      moveUp();
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(args[<span class="hljs-number">0</span>] === <span class="hljs-string">&apos;right&apos;</span> &amp;&amp; args[<span class="hljs-number">1</span>] === <span class="hljs-string">&apos;down&apos;</span>) {
+      moveRight();
+      moveDown();
+    }
+    <span class="hljs-comment">// &#x540E;&#x9762;&#x8FD8;&#x6709;&#x5F88;&#x591A;if...</span>
+  }
+}
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD9;&#x91CC;<code>if...else</code>&#x770B;&#x5F97;&#x6211;&#x4EEC;&#x5934;&#x90FD;&#x5927;&#x4E86;&#xFF0C;&#x8FD8;&#x662F;&#x7528;&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#x6765;&#x4F18;&#x5316;&#x4E0B;&#x5427;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5EFA;&#x4E00;&#x4E2A;&#x79FB;&#x52A8;&#x63A7;&#x5236;&#x7C7B;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MoveController</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.status = [];
+  <span class="hljs-keyword">this</span>.moveHanders = {
+    <span class="hljs-comment">// &#x5199;&#x4E0A;&#x6BCF;&#x4E2A;&#x6307;&#x4EE4;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;</span>
+    up: moveUp,
+    <span class="hljs-attr">dowm</span>: moveDown,
+    <span class="hljs-attr">left</span>: moveLeft,
+    <span class="hljs-attr">right</span>: moveRight
+  }
+}
+
+<span class="hljs-comment">// MoveController&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x6765;&#x89E6;&#x53D1;&#x8FD0;&#x52A8;</span>
+MoveController.prototype.run = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">...args</span>) </span>{
+  <span class="hljs-keyword">this</span>.status = args;
+  <span class="hljs-keyword">this</span>.status.forEach(<span class="hljs-function">(<span class="hljs-params">move</span>) =&gt;</span> {
+    <span class="hljs-keyword">this</span>.moveHanders[move]();
+  });
+}
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;&#x65F6;</span>
+<span class="hljs-keyword">new</span> MoveController().run(<span class="hljs-string">&apos;left&apos;</span>, <span class="hljs-string">&apos;up&apos;</span>)
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x4E5F;&#x662F;&#x5C06;&#x6240;&#x6709;&#x7684;&#x7B56;&#x7565;&#x90FD;&#x5C01;&#x88C5;&#x5230;&#x4E86;<code>moveHanders</code>&#x91CC;&#x9762;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;<code>run</code>&#x4F20;&#x5165;&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x6267;&#x884C;&#x5177;&#x4F53;&#x7684;&#x7B56;&#x7565;&#x3002;</p>
+<h2 id="&#x5916;&#x89C2;&#x6A21;&#x5F0F;"><a name="&#x5916;&#x89C2;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x5916;&#x89C2;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5916;&#x89C2;&#x6A21;&#x5F0F;</h2>
+<h3 id="&#x57FA;&#x672C;&#x7ED3;&#x6784;"><a name="&#x57FA;&#x672C;&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x672C;&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x57FA;&#x672C;&#x7ED3;&#x6784;</h3>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x65F6;&#xFF0C;&#x91CC;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x4F1A;&#x8BBE;&#x8BA1;&#x5F97;&#x6BD4;&#x8F83;&#x7EC6;&#xFF0C;&#x4F46;&#x662F;&#x66B4;&#x9732;&#x7ED9;&#x5916;&#x9762;&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E0D;&#x4E00;&#x5B9A;&#x975E;&#x5F97;&#x76F4;&#x63A5;&#x66B4;&#x9732;&#x8FD9;&#x4E9B;&#x7EC6;&#x5C0F;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x5916;&#x90E8;&#x4F7F;&#x7528;&#x8005;&#x9700;&#x8981;&#x7684;&#x53EF;&#x80FD;&#x662F;&#x7EC4;&#x5408;&#x90E8;&#x5206;&#x63A5;&#x53E3;&#x6765;&#x5B9E;&#x73B0;&#x67D0;&#x4E2A;&#x529F;&#x80FD;&#xFF0C;&#x6211;&#x4EEC;&#x66B4;&#x9732;&#x7684;&#x65F6;&#x5019;&#x5176;&#x5B9E;&#x5C31;&#x53EF;&#x4EE5;&#x5C06;&#x8FD9;&#x4E2A;&#x7EC4;&#x7EC7;&#x597D;&#x3002;&#x8FD9;&#x5C31;&#x50CF;&#x9910;&#x5385;&#x91CC;&#x9762;&#x7684;&#x83DC;&#x5355;&#xFF0C;&#x6709;&#x5F88;&#x591A;&#x83DC;&#xFF0C;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x83DC;&#x53BB;&#x70B9;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x70B9;&#x4E00;&#x4E2A;&#x5957;&#x9910;&#xFF0C;&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#x63D0;&#x4F9B;&#x7684;&#x5C31;&#x7C7B;&#x4F3C;&#x4E8E;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x7EC4;&#x7EC7;&#x597D;&#x7684;&#x5957;&#x9910;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">model1</span>(<span class="hljs-params"></span>) </span>{}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">model2</span>(<span class="hljs-params"></span>) </span>{}
+
+<span class="hljs-comment">// &#x53EF;&#x4EE5;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x66F4;&#x9AD8;&#x9636;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x7EC4;&#x5408;&#x597D;&#x4E86;model1&#x548C;model2&#x7ED9;&#x5916;&#x90E8;&#x4F7F;&#x7528;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">use</span>(<span class="hljs-params"></span>) </span>{
+  model2(model1());
+}
+</code></pre>
+<h3 id="&#x5B9E;&#x4F8B;&#xFF1A;&#x5E38;&#x89C1;&#x7684;&#x63A5;&#x53E3;&#x5C01;&#x88C5;"><a name="&#x5B9E;&#x4F8B;&#xFF1A;&#x5E38;&#x89C1;&#x7684;&#x63A5;&#x53E3;&#x5C01;&#x88C5;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x5E38;&#x89C1;&#x7684;&#x63A5;&#x53E3;&#x5C01;&#x88C5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9E;&#x4F8B;&#xFF1A;&#x5E38;&#x89C1;&#x7684;&#x63A5;&#x53E3;&#x5C01;&#x88C5;</h3>
+<p>&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#x8BF4;&#x8D77;&#x6765;&#x5176;&#x5B9E;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#xFF0C;&#x5F88;&#x591A;&#x6A21;&#x5757;&#x5185;&#x90E8;&#x90FD;&#x5F88;&#x590D;&#x6742;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x5916;&#x7684;&#x63A5;&#x53E3;&#x53EF;&#x80FD;&#x90FD;&#x662F;&#x4E00;&#x4E24;&#x4E2A;&#xFF0C;&#x6211;&#x4EEC;&#x65E0;&#x9700;&#x77E5;&#x9053;&#x590D;&#x6742;&#x7684;&#x5185;&#x90E8;&#x7EC6;&#x8282;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x8C03;&#x7528;&#x7EDF;&#x4E00;&#x7684;&#x9AD8;&#x7EA7;&#x63A5;&#x53E3;&#x5C31;&#x884C;&#xFF0C;&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x9009;&#x9879;&#x5361;&#x6A21;&#x5757;:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x4E00;&#x4E2A;&#x9009;&#x9879;&#x5361;&#x7C7B;&#xFF0C;&#x4ED6;&#x5185;&#x90E8;&#x53EF;&#x80FD;&#x6709;&#x591A;&#x4E2A;&#x5B50;&#x6A21;&#x5757;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tab</span>(<span class="hljs-params"></span>) </span>{}
+
+Tab.prototype.renderHTML = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}    <span class="hljs-comment">// &#x6E32;&#x67D3;&#x9875;&#x9762;&#x7684;&#x5B50;&#x6A21;&#x5757;</span>
+Tab.prototype.bindEvent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}    <span class="hljs-comment">// &#x7ED1;&#x5B9A;&#x4E8B;&#x4EF6;&#x7684;&#x5B50;&#x6A21;&#x5757;</span>
+Tab.prototype.loadCss = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}    <span class="hljs-comment">// &#x52A0;&#x8F7D;&#x6837;&#x5F0F;&#x7684;&#x5B50;&#x6A21;&#x5757;</span>
+
+<span class="hljs-comment">// &#x5BF9;&#x5916;&#x4E0D;&#x9700;&#x8981;&#x66B4;&#x9732;&#x4E0A;&#x9762;&#x90A3;&#x4E9B;&#x5177;&#x4F53;&#x7684;&#x5B50;&#x6A21;&#x5757;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x9AD8;&#x7EA7;&#x63A5;&#x53E3;&#x5C31;&#x884C;</span>
+Tab.prototype.init = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-keyword">this</span>.loadCss();
+  <span class="hljs-keyword">this</span>.renderHTML();
+  <span class="hljs-keyword">this</span>.bindEvent();
+}
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x8FD9;&#x79CD;&#x5C01;&#x88C5;&#x6A21;&#x5F0F;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#xFF0C;&#x5176;&#x5B9E;&#x4E5F;&#x662F;&#x7528;&#x5230;&#x4E86;&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#xFF0C;&#x4ED6;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x66B4;&#x9732;&#x5177;&#x4F53;&#x7684;<code>renderHTML</code>&#xFF0C;<code>bindEvent</code>&#xFF0C;<code>loadCss</code>&#x8FD9;&#x4E9B;&#x5B50;&#x6A21;&#x5757;&#xFF0C;&#x4F46;&#x662F;&#x5916;&#x90E8;&#x4F7F;&#x7528;&#x8005;&#x53EF;&#x80FD;&#x5E76;&#x4E0D;&#x5173;&#x5FC3;&#x8FD9;&#x4E9B;&#x7EC6;&#x8282;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x7ED9;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;&#x9AD8;&#x7EA7;&#x63A5;&#x53E3;&#x5C31;&#x884C;&#xFF0C;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x6539;&#x53D8;&#x4E86;&#x5916;&#x89C2;&#x66B4;&#x9732;&#x51FA;&#x6765;&#xFF0C;&#x6240;&#x4EE5;&#x53EB;<code>&#x5916;&#x89C2;&#x6A21;&#x5F0F;</code>&#x3002;</p>
+<h3 id="&#x5B9E;&#x4F8B;&#xFF1A;&#x65B9;&#x6CD5;&#x7684;&#x5C01;&#x88C5;"><a name="&#x5B9E;&#x4F8B;&#xFF1A;&#x65B9;&#x6CD5;&#x7684;&#x5C01;&#x88C5;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x65B9;&#x6CD5;&#x7684;&#x5C01;&#x88C5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9E;&#x4F8B;&#xFF1A;&#x65B9;&#x6CD5;&#x7684;&#x5C01;&#x88C5;</h3>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E5F;&#x5F88;&#x5E38;&#x89C1;&#xFF0C;&#x5C31;&#x662F;&#x628A;&#x4E00;&#x4E9B;&#x7C7B;&#x4F3C;&#x7684;&#x529F;&#x80FD;&#x5C01;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6BCF;&#x4E2A;&#x5730;&#x65B9;&#x53BB;&#x5199;&#x4E00;&#x904D;&#x3002;&#x5728;&#x4EE5;&#x524D;&#x8FD8;&#x662F;IE&#x4E3B;&#x5BFC;&#x5929;&#x4E0B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x5F88;&#x591A;&#x517C;&#x5BB9;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x4EC5;&#x4EC5;&#x662F;&#x4E00;&#x4E2A;&#x7ED1;&#x5B9A;&#x4E8B;&#x4EF6;&#x5C31;&#x6709;<code>addEventListener</code>&#xFF0C;<code>attachEvent</code>,<code>onclick</code>&#x7B49;&#xFF0C;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x6BCF;&#x6B21;&#x90FD;&#x8FDB;&#x884C;&#x8FD9;&#x4E9B;&#x68C0;&#x6D4B;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x4ED6;&#x4EEC;&#x5C01;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addEvent</span>(<span class="hljs-params">dom, type, fn</span>) </span>{
+  <span class="hljs-keyword">if</span>(dom.addEventListener) {
+    <span class="hljs-keyword">return</span> dom.addEventListener(type, fn, <span class="hljs-literal">false</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(dom.attachEvent) {
+    <span class="hljs-keyword">return</span> dom.attachEvent(<span class="hljs-string">&quot;on&quot;</span> + type, fn);
+  } <span class="hljs-keyword">else</span> {
+    dom[<span class="hljs-string">&quot;on&quot;</span> + type] = fn;
+  }
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#x5C06;<code>addEvent</code>&#x66B4;&#x9732;&#x51FA;&#x53BB;&#x7ED9;&#x5916;&#x9762;&#x4F7F;&#x7528;&#xFF0C;&#x5176;&#x5B9E;&#x6211;&#x4EEC;&#x5728;&#x5B9E;&#x9645;&#x7F16;&#x7801;&#x65F6;&#x7ECF;&#x5E38;&#x8FD9;&#x6837;&#x5C01;&#x88C5;&#x65B9;&#x6CD5;&#xFF0C;&#x53EA;&#x662F;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x53EF;&#x80FD;&#x6CA1;&#x610F;&#x8BC6;&#x5230;&#x8FD9;&#x4E2A;&#x662F;&#x5916;&#x89C2;&#x6A21;&#x5F0F;&#x3002;</p>
+<h2 id="&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;"><a name="&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;</h2>
+<h3 id="&#x57FA;&#x672C;&#x7ED3;&#x6784;_1"><a name="&#x57FA;&#x672C;&#x7ED3;&#x6784;_1" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x672C;&#x7ED3;&#x6784;_1"><i class="fa fa-link" aria-hidden="true"></i></a>&#x57FA;&#x672C;&#x7ED3;&#x6784;</h3>
+<p>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;&#x6A21;&#x5F0F;&#x5728;JS&#x91CC;&#x9762;&#x5F88;&#x5E38;&#x89C1;&#x4E86;&#xFF0C;&#x6570;&#x7EC4;&#x81EA;&#x5E26;&#x7684;<code>forEach</code>&#x5C31;&#x662F;&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;&#x7684;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x7684;&#x529F;&#x80FD;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Iterator</span>(<span class="hljs-params">items</span>) </span>{
+  <span class="hljs-keyword">this</span>.items = items;
+}
+
+Iterator.prototype.dealEach = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.items.length; i++) {
+    fn(<span class="hljs-keyword">this</span>.items[i], i);
+  }
+}
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x65B0;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x8FED;&#x4EE3;&#x5668;&#x7C7B;&#xFF0C;&#x6784;&#x9020;&#x51FD;&#x6570;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;<code>dealEach</code>&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#xFF0C;&#x5BF9;&#x5B9E;&#x4F8B;&#x4E0A;&#x7684;<code>items</code>&#x6BCF;&#x4E00;&#x9879;&#x90FD;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x56DE;&#x8C03;&#x3002;</p>
+<h3 id="&#x5B9E;&#x4F8B;&#xFF1A;&#x6570;&#x636E;&#x8FED;&#x4EE3;&#x5668;"><a name="&#x5B9E;&#x4F8B;&#xFF1A;&#x6570;&#x636E;&#x8FED;&#x4EE3;&#x5668;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x6570;&#x636E;&#x8FED;&#x4EE3;&#x5668;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9E;&#x4F8B;&#xFF1A;&#x6570;&#x636E;&#x8FED;&#x4EE3;&#x5668;</h3>
+<p>&#x5176;&#x5B9E;JS&#x6570;&#x7EC4;&#x5F88;&#x591A;&#x539F;&#x751F;&#x65B9;&#x6CD5;&#x90FD;&#x7528;&#x4E86;&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;&#xFF0C;&#x6BD4;&#x5982;<code>find</code>&#xFF0C;<code>find</code>&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x6D4B;&#x8BD5;&#x51FD;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;&#x7B26;&#x5408;&#x8FD9;&#x4E2A;&#x6D4B;&#x8BD5;&#x51FD;&#x6570;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x3002;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x8981;&#x505A;&#x7684;&#x662F;&#x6269;&#x5C55;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#xFF0C;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7B26;&#x5408;&#x8FD9;&#x4E2A;&#x6D4B;&#x8BD5;&#x51FD;&#x6570;&#x7684;&#x6570;&#x636E;&#x9879;&#xFF0C;&#x800C;&#x4E14;&#x4E5F;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x5C5E;&#x6027;&#x540D;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x503C;&#xFF0C;&#x540C;&#x6837;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x8BE5;&#x5C5E;&#x6027;&#x4E0E;&#x503C;&#x5339;&#x914D;&#x7684;&#x9879;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5916;&#x5C42;&#x7528;&#x4E00;&#x4E2A;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x5C01;&#x88C5;&#x4E0B;&#xFF0C;&#x8C03;&#x7528;&#x65F6;&#x4E0D;&#x7528;&#x5199;new</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">iteratorFactory</span>(<span class="hljs-params">data</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Iterator</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-keyword">this</span>.data = data;
+  }
+
+  Iterator.prototype.findAll = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">handler, value</span>) </span>{
+    <span class="hljs-keyword">const</span> result = [];
+    <span class="hljs-keyword">let</span> handlerFn;
+    <span class="hljs-comment">// &#x5904;&#x7406;&#x53C2;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x76F4;&#x63A5;&#x62FF;&#x6765;&#x7528;</span>
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5C31;&#x662F;&#x5C5E;&#x6027;&#x540D;&#xFF0C;&#x7ED9;&#x4E00;&#x4E2A;&#x5BF9;&#x6BD4;&#x7684;&#x9ED8;&#x8BA4;&#x51FD;&#x6570;</span>
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> handler === <span class="hljs-string">&apos;function&apos;</span>) {
+      handlerFn = handler;
+    } <span class="hljs-keyword">else</span> {
+      handlerFn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{
+        <span class="hljs-keyword">if</span>(item[handler] === value) {
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+    }
+
+    <span class="hljs-comment">// &#x5FAA;&#x73AF;&#x6570;&#x636E;&#x91CC;&#x9762;&#x7684;&#x6BCF;&#x4E00;&#x9879;&#xFF0C;&#x5C06;&#x7B26;&#x5408;&#x7ED3;&#x679C;&#x7684;&#x585E;&#x5165;&#x7ED3;&#x679C;&#x6570;&#x7EC4;</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.data.length; i++) {
+      <span class="hljs-keyword">const</span> item = <span class="hljs-keyword">this</span>.data[i];
+      <span class="hljs-keyword">const</span> res = handlerFn(item);
+      <span class="hljs-keyword">if</span>(res) {
+        result.push(item)
+      }
+    }
+
+    <span class="hljs-keyword">return</span> result;
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Iterator(data);
+}
+
+<span class="hljs-comment">// &#x5199;&#x4E2A;&#x6570;&#x636E;&#x6D4B;&#x8BD5;&#x4E0B;</span>
+<span class="hljs-keyword">const</span> data = [{<span class="hljs-attr">num</span>: <span class="hljs-number">1</span>}, {<span class="hljs-attr">num</span>: <span class="hljs-number">2</span>}, {<span class="hljs-attr">num</span>: <span class="hljs-number">3</span>}];
+iteratorFactory(data).findAll(<span class="hljs-string">&apos;num&apos;</span>, <span class="hljs-number">2</span>);    <span class="hljs-comment">// [{num: 2}]</span>
+iteratorFactory(data).findAll(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.num &gt;= <span class="hljs-number">2</span>); <span class="hljs-comment">// [{num: 2}, {num: 3}]</span>
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x5C01;&#x88C5;&#x4E86;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x6570;&#x7EC4;<code>find</code>&#x7684;&#x8FED;&#x4EE3;&#x5668;&#xFF0C;&#x6269;&#x5C55;&#x4E86;&#x4ED6;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x8FD9;&#x79CD;&#x8FED;&#x4EE3;&#x5668;&#x975E;&#x5E38;&#x9002;&#x5408;&#x7528;&#x6765;&#x5904;&#x7406;API&#x8FD4;&#x56DE;&#x7684;&#x5927;&#x91CF;&#x7ED3;&#x6784;&#x76F8;&#x4F3C;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<h2 id="&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;"><a name="&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;</h2>
+<h3 id="&#x57FA;&#x672C;&#x7ED3;&#x6784;_2"><a name="&#x57FA;&#x672C;&#x7ED3;&#x6784;_2" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x672C;&#x7ED3;&#x6784;_2"><i class="fa fa-link" aria-hidden="true"></i></a>&#x57FA;&#x672C;&#x7ED3;&#x6784;</h3>
+<p>&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;&#x7C7B;&#x4F3C;&#x4E8E;JS&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#x7F13;&#x5B58;&#x51FD;&#x6570;&#xFF0C;&#x5185;&#x90E8;&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;&#x72B6;&#x6001;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x7F13;&#x5B58;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x518D;&#x6B21;&#x8BBF;&#x95EE;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x62FF;&#x7F13;&#x5B58;&#x6570;&#x636E;:</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">memo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> cache = {};
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>) </span>{
+    <span class="hljs-keyword">if</span>(cache[arg]) {
+      <span class="hljs-keyword">return</span> cache[arg];
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// &#x6CA1;&#x7F13;&#x5B58;&#x7684;&#x65F6;&#x5019;&#x5148;&#x6267;&#x884C;&#x65B9;&#x6CD5;&#xFF0C;&#x5F97;&#x5230;&#x7ED3;&#x679C;res</span>
+      <span class="hljs-comment">// &#x7136;&#x540E;&#x5C06;res&#x5199;&#x5165;&#x7F13;&#x5B58;</span>
+      cache[arg] = res;
+      <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<h3 id="&#x5B9E;&#x4F8B;&#xFF1A;&#x6587;&#x7AE0;&#x7F13;&#x5B58;"><a name="&#x5B9E;&#x4F8B;&#xFF1A;&#x6587;&#x7AE0;&#x7F13;&#x5B58;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x6587;&#x7AE0;&#x7F13;&#x5B58;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9E;&#x4F8B;&#xFF1A;&#x6587;&#x7AE0;&#x7F13;&#x5B58;</h3>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x5728;&#x5B9E;&#x9645;&#x9879;&#x76EE;&#x4E2D;&#x4E5F;&#x6BD4;&#x8F83;&#x5E38;&#x89C1;&#xFF0C;&#x7528;&#x6237;&#x6BCF;&#x6B21;&#x70B9;&#x8FDB;&#x4E00;&#x4E2A;&#x65B0;&#x6587;&#x7AE0;&#x90FD;&#x9700;&#x8981;&#x4ECE;API&#x8BF7;&#x6C42;&#x6570;&#x636E;&#xFF0C;&#x5982;&#x679C;&#x4ED6;&#x4E0B;&#x6B21;&#x518D;&#x70B9;&#x8FDB;&#x540C;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x5E0C;&#x671B;&#x76F4;&#x63A5;&#x7528;&#x4E0A;&#x6B21;&#x8BF7;&#x6C42;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x4E0D;&#x518D;&#x6B21;&#x8BF7;&#x6C42;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x5230;&#x6211;&#x4EEC;&#x7684;&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;&#x4E86;&#xFF0C;&#x76F4;&#x63A5;&#x62FF;&#x4E0A;&#x9762;&#x7684;&#x7ED3;&#x6784;&#x6765;&#x7528;&#x5C31;&#x884C;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pageCache</span>(<span class="hljs-params">pageId</span>) </span>{
+  <span class="hljs-keyword">const</span> cache = {};
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pageId</span>) </span>{
+    <span class="hljs-comment">// &#x4E3A;&#x4E86;&#x4FDD;&#x6301;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x4E00;&#x81F4;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Promise</span>
+    <span class="hljs-keyword">if</span>(cache[pageId]) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.solve(cache[pageId]);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> axios.get(pageId).then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
+        cache[pageId] = data;
+        <span class="hljs-keyword">return</span> data;
+      })
+    }
+  }
+}
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x7528;&#x4E86;&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;&#x6765;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x4EE3;&#x7801;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x5B9E;&#x9645;&#x9879;&#x76EE;&#x4E2D;&#x53EF;&#x80FD;&#x9700;&#x6C42;&#x4F1A;&#x66F4;&#x52A0;&#x590D;&#x6742;&#x4E00;&#x4E9B;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x4E2A;&#x601D;&#x8DEF;&#x8FD8;&#x662F;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x7684;&#x3002;</p>
+<h3 id="&#x5B9E;&#x4F8B;&#xFF1A;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x529F;&#x80FD;"><a name="&#x5B9E;&#x4F8B;&#xFF1A;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x529F;&#x80FD;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;&#xFF1A;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x529F;&#x80FD;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9E;&#x4F8B;&#xFF1A;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x529F;&#x80FD;</h3>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x7684;&#x9700;&#x6C42;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x79FB;&#x52A8;&#x7684;DIV&#xFF0C;&#x7528;&#x6237;&#x628A;&#x8FD9;&#x4E2A;DIV&#x968F;&#x610F;&#x79FB;&#x52A8;&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x6709;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x8BEF;&#x64CD;&#x4F5C;&#x6216;&#x8005;&#x53CD;&#x6094;&#x4E86;&#xFF0C;&#x60F3;&#x628A;&#x8FD9;&#x4E2A;DIV&#x79FB;&#x52A8;&#x56DE;&#x53BB;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5C06;&#x72B6;&#x6001;&#x56DE;&#x9000;&#x5230;&#x4E0A;&#x4E00;&#x6B21;&#xFF0C;&#x6709;&#x4E86;&#x56DE;&#x9000;&#x72B6;&#x6001;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x5F53;&#x7136;&#x8FD8;&#x6709;&#x914D;&#x5BF9;&#x7684;&#x524D;&#x8FDB;&#x72B6;&#x6001;&#x7684;&#x9700;&#x6C42;&#x3002;&#x8FD9;&#x79CD;&#x7C7B;&#x4F3C;&#x7684;&#x9700;&#x6C42;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;&#x5B9E;&#x73B0;:</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveDiv</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.states = [];       <span class="hljs-comment">// &#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x8BB0;&#x5F55;&#x6240;&#x6709;&#x72B6;&#x6001;</span>
+  <span class="hljs-keyword">this</span>.currentState = <span class="hljs-number">0</span>;  <span class="hljs-comment">// &#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x4F4D;&#x7F6E;</span>
+}
+
+<span class="hljs-comment">// &#x79FB;&#x52A8;&#x65B9;&#x6CD5;&#xFF0C;&#x6BCF;&#x6B21;&#x79FB;&#x52A8;&#x8BB0;&#x5F55;&#x72B6;&#x6001;</span>
+moveDiv.prototype.move = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">type, num</span>) </span>{
+  changeDiv(type, num);       <span class="hljs-comment">// &#x4F2A;&#x4EE3;&#x7801;&#xFF0C;&#x79FB;&#x52A8;DIV&#x7684;&#x5177;&#x4F53;&#x64CD;&#x4F5C;&#xFF0C;&#x8FD9;&#x91CC;&#x5E76;&#x672A;&#x5B9E;&#x73B0;</span>
+
+  <span class="hljs-comment">// &#x8BB0;&#x5F55;&#x672C;&#x6B21;&#x64CD;&#x4F5C;&#x5230;states&#x91CC;&#x9762;&#x53BB;</span>
+  <span class="hljs-keyword">this</span>.states.push({type,num});
+  <span class="hljs-keyword">this</span>.currentState = <span class="hljs-keyword">this</span>.states.length - <span class="hljs-number">1</span>;   <span class="hljs-comment">// &#x6539;&#x53D8;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x6307;&#x9488;</span>
+}
+
+<span class="hljs-comment">// &#x524D;&#x8FDB;&#x65B9;&#x6CD5;&#xFF0C;&#x53D6;&#x51FA;&#x72B6;&#x6001;&#x6267;&#x884C;</span>
+moveDiv.prototype.forward = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// &#x5982;&#x679C;&#x5F53;&#x524D;&#x4E0D;&#x662F;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x72B6;&#x6001;</span>
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.currentState &lt; <span class="hljs-keyword">this</span>.states.length - <span class="hljs-number">1</span>) {
+    <span class="hljs-comment">// &#x53D6;&#x51FA;&#x524D;&#x8FDB;&#x7684;&#x72B6;&#x6001;</span>
+    <span class="hljs-keyword">this</span>.currentState++;
+    <span class="hljs-keyword">const</span> state = <span class="hljs-keyword">this</span>.states[<span class="hljs-keyword">this</span>.currentState];
+
+    <span class="hljs-comment">// &#x6267;&#x884C;&#x8BE5;&#x72B6;&#x6001;&#x4F4D;&#x7F6E;</span>
+    changeDiv(state.type, state.num);
+  }
+}
+
+<span class="hljs-comment">// &#x540E;&#x9000;&#x65B9;&#x6CD5;&#x662F;&#x7C7B;&#x4F3C;&#x7684;</span>
+moveDiv.prototype.forward = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// &#x5982;&#x679C;&#x5F53;&#x524D;&#x4E0D;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x72B6;&#x6001;</span>
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.currentState &gt; <span class="hljs-number">0</span>) {
+    <span class="hljs-comment">// &#x53D6;&#x51FA;&#x540E;&#x9000;&#x7684;&#x72B6;&#x6001;</span>
+    <span class="hljs-keyword">this</span>.currentState--;
+    <span class="hljs-keyword">const</span> state = <span class="hljs-keyword">this</span>.states[<span class="hljs-keyword">this</span>.currentState];
+
+    <span class="hljs-comment">// &#x6267;&#x884C;&#x8BE5;&#x72B6;&#x6001;&#x4F4D;&#x7F6E;</span>
+    changeDiv(state.type, state.num);
+  }
+}
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x5C06;&#x7528;&#x6237;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x8FC7;&#x7684;&#x72B6;&#x6001;&#x90FD;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#x4E86;&#xFF0C;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x968F;&#x65F6;&#x5728;&#x72B6;&#x6001;&#x95F4;&#x8FDB;&#x884C;&#x524D;&#x8FDB;&#x548C;&#x540E;&#x9000;&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x603B;&#x7ED3;</h2>
+<p>&#x672C;&#x6587;&#x8BB2;&#x7684;&#x8FD9;&#x51E0;&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;<code>&#x7B56;&#x7565;/&#x72B6;&#x6001;&#x6A21;&#x5F0F;</code>&#xFF0C;<code>&#x5916;&#x89C2;&#x6A21;&#x5F0F;</code>&#xFF0C;<code>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;</code>&#xFF0C;<code>&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;</code>&#x90FD;&#x5F88;&#x597D;&#x7406;&#x89E3;&#xFF0C;&#x800C;&#x4E14;&#x5728;&#x5B9E;&#x9645;&#x5DE5;&#x4F5C;&#x4E2D;&#x4E5F;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#xFF0C;&#x719F;&#x7EC3;&#x4F7F;&#x7528;&#x4ED6;&#x4EEC;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x51CF;&#x5C11;&#x5197;&#x4F59;&#x4EE3;&#x7801;&#xFF0C;&#x63D0;&#x9AD8;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x3002;</p>
+<ol>
+<li><code>&#x7B56;&#x7565;&#x6A21;&#x5F0F;</code>&#x901A;&#x8FC7;&#x5C06;&#x6211;&#x4EEC;&#x7684;<code>if</code>&#x6761;&#x4EF6;&#x6539;&#x5199;&#x4E3A;&#x4E00;&#x6761;&#x6761;&#x7684;&#x7B56;&#x7565;&#x51CF;&#x5C11;&#x4E86;<code>if...else</code>&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x770B;&#x8D77;&#x6765;&#x66F4;&#x6E05;&#x723D;&#xFF0C;&#x6269;&#x5C55;&#x8D77;&#x6765;&#x4E5F;&#x66F4;&#x65B9;&#x4FBF;&#x3002;<code>&#x72B6;&#x6001;&#x6A21;&#x5F0F;</code>&#x8DDF;<code>&#x7B56;&#x7565;&#x6A21;&#x5F0F;</code>&#x5F88;&#x50CF;&#xFF0C;&#x53EA;&#x662F;&#x8FD8;&#x591A;&#x4E86;&#x4E00;&#x4E2A;&#x72B6;&#x6001;&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x6765;&#x9009;&#x53D6;&#x5177;&#x4F53;&#x7684;&#x7B56;&#x7565;&#x3002;</li>
+<li><code>&#x5916;&#x89C2;&#x6A21;&#x5F0F;</code>&#x53EF;&#x80FD;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5728;&#x65E0;&#x610F;&#x95F4;&#x4F7F;&#x7528;&#x4E86;&#xFF0C;&#x5C31;&#x662F;&#x5C06;&#x6A21;&#x5757;&#x4E00;&#x4E9B;&#x5185;&#x90E8;&#x903B;&#x8F91;&#x5C01;&#x88C5;&#x5728;&#x4E00;&#x4E2A;&#x66F4;&#x9AD8;&#x7EA7;&#x7684;&#x63A5;&#x53E3;&#x5185;&#x90E8;&#xFF0C;&#x6216;&#x8005;&#x5C06;&#x4E00;&#x4E9B;&#x7C7B;&#x4F3C;&#x64CD;&#x4F5C;&#x5C01;&#x88C5;&#x5728;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x5185;&#x90E8;&#xFF0C;&#x4ECE;&#x800C;&#x8BA9;&#x5916;&#x90E8;&#x8C03;&#x7528;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#x3002;</li>
+<li><code>&#x8FED;&#x4EE3;&#x5668;&#x6A21;&#x5F0F;</code>&#x5728;JS&#x6570;&#x7EC4;&#x4E0A;&#x6709;&#x5F88;&#x591A;&#x5B9E;&#x73B0;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x6A21;&#x4EFF;&#x4ED6;&#x4EEC;&#x505A;&#x4E00;&#x4E0B;&#x6570;&#x636E;&#x5904;&#x7406;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x7279;&#x522B;&#x9002;&#x5408;&#x5904;&#x7406;&#x4ECE;API&#x62FF;&#x6765;&#x7684;&#x5927;&#x91CF;&#x7ED3;&#x6784;&#x76F8;&#x4F3C;&#x7684;&#x6570;&#x636E;&#x3002;</li>
+<li><code>&#x5907;&#x5FD8;&#x5F55;&#x6A21;&#x5F0F;</code>&#x5C31;&#x662F;&#x52A0;&#x4E00;&#x4E2A;&#x7F13;&#x5B58;&#x5BF9;&#x8C61;&#xFF0C;&#x7528;&#x6765;&#x8BB0;&#x5F55;&#x4E4B;&#x524D;&#x83B7;&#x53D6;&#x8FC7;&#x7684;&#x6570;&#x636E;&#x6216;&#x8005;&#x64CD;&#x4F5C;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x540E;&#x9762;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x52A0;&#x5FEB;&#x8BBF;&#x95EE;&#x901F;&#x5EA6;&#x6216;&#x8005;&#x8FDB;&#x884C;&#x72B6;&#x6001;&#x56DE;&#x6EDA;&#x3002;</li>
+<li>&#x8FD8;&#x662F;&#x90A3;&#x53E5;&#x8BDD;&#xFF0C;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x91CD;&#x70B9;&#x5728;&#x4E8E;&#x7406;&#x89E3;&#x601D;&#x60F3;&#xFF0C;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x591A;&#x79CD;&#x591A;&#x6837;&#x3002;</li>
+</ol>
+<p>&#x672C;&#x6587;&#x662F;&#x8BB2;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x6700;&#x540E;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#xFF0C;&#x524D;&#x9762;&#x4E09;&#x7BC7;&#x662F;:</p>
+<p><a href="https://juejin.im/post/5ec737b36fb9a04799583002" target="_blank">&#xFF08;500+&#x8D5E;&#xFF01;&#xFF09;&#x4E0D;&#x77E5;&#x9053;&#x600E;&#x4E48;&#x5C01;&#x88C5;&#x4EE3;&#x7801;&#xFF1F;&#x770B;&#x770B;&#x8FD9;&#x51E0;&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x5427;&#xFF01;</a></p>
+<p><a href="https://juejin.im/post/5ed0a2286fb9a047e02ef121" target="_blank">&#xFF08;100+&#x8D5E;&#xFF01;)&#x6846;&#x67B6;&#x6E90;&#x7801;&#x4E2D;&#x7528;&#x6765;&#x63D0;&#x9AD8;&#x6269;&#x5C55;&#x6027;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;</a></p>
+<p><a href="https://juejin.im/post/5ecb67846fb9a047b534a346" target="_blank">&#x4E0D;&#x77E5;&#x9053;&#x600E;&#x4E48;&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x590D;&#x7528;&#x6027;&#xFF1F;&#x770B;&#x770B;&#x8FD9;&#x51E0;&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x5427;</a></p>
+<p><strong>&#x6587;&#x7AE0;&#x7684;&#x6700;&#x540E;&#xFF0C;&#x611F;&#x8C22;&#x4F60;&#x82B1;&#x8D39;&#x5B9D;&#x8D35;&#x7684;&#x65F6;&#x95F4;&#x9605;&#x8BFB;&#x672C;&#x6587;&#xFF0C;&#x5982;&#x679C;&#x672C;&#x6587;&#x7ED9;&#x4E86;&#x4F60;&#x4E00;&#x70B9;&#x70B9;&#x5E2E;&#x52A9;&#x6216;&#x8005;&#x542F;&#x53D1;&#xFF0C;&#x8BF7;&#x4E0D;&#x8981;&#x541D;&#x556C;&#x4F60;&#x7684;&#x8D5E;&#x548C;GitHub&#x5C0F;&#x661F;&#x661F;&#xFF0C;&#x4F60;&#x7684;&#x652F;&#x6301;&#x662F;&#x4F5C;&#x8005;&#x6301;&#x7EED;&#x521B;&#x4F5C;&#x7684;&#x52A8;&#x529B;&#x3002;</strong></p>
+<p><strong>&#x672C;&#x6587;&#x7D20;&#x6750;&#x6765;&#x81EA;&#x4E8E;<a href="https://mooc.study.163.com/smartSpec/detail/1202851605.htm" target="_blank">&#x7F51;&#x6613;&#x9AD8;&#x7EA7;&#x524D;&#x7AEF;&#x5F00;&#x53D1;&#x5DE5;&#x7A0B;&#x5E08;&#x5FAE;&#x4E13;&#x4E1A;</a>&#x5510;&#x78CA;&#x8001;&#x5E08;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x8BFE;&#x7A0B;&#x3002;</strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x535A;&#x6587;GitHub&#x9879;&#x76EE;&#x5730;&#x5740;&#xFF1A; <a href="https://github.com/dennis-jiang/Front-End-Knowledges" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges</a></strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x6398;&#x91D1;&#x6587;&#x7AE0;&#x6C47;&#x603B;&#xFF1A;<a href="https://juejin.im/post/5e3ffc85518825494e2772fd" target="_blank">https://juejin.im/post/5e3ffc85518825494e2772fd</a></strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Extendability.html" class="navigation navigation-prev " aria-label="Previous page: 提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../Architecture/Architecture.html" class="navigation navigation-next " aria-label="Next page: 架构和源码">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录","level":"1.8.5","depth":2,"next":{"title":"架构和源码","level":"1.9","depth":1,"path":"Articles/Architecture/Architecture.md","ref":"Articles/Architecture/Architecture.md","articles":[{"title":"从架构入手读源码","level":"1.9.1","depth":2,"path":"Articles/Architecture/readSourceCode.md","ref":"Articles/Architecture/readSourceCode.md","articles":[]},{"title":"Underscore源码架构","level":"1.9.2","depth":2,"path":"Articles/Architecture/Undersocre.md","ref":"Articles/Architecture/Undersocre.md","articles":[]}]},"previous":{"title":"提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者","level":"1.8.4","depth":2,"path":"Articles/DesignPatterns/Extendability.md","ref":"Articles/DesignPatterns/Extendability.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/DesignPatterns/Quality.md","mtime":"2020-06-05T08:05:04.646Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-05T08:48:31.981Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
