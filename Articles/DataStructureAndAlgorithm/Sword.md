@@ -587,3 +587,153 @@ var numWays = function(n) {
 };
 ```
 
+## [ 旋转数组的最小数字(简单)](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
+
+### 题目
+
+> 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  
+>
+
+**示例 1：**
+
+```
+输入：[3,4,5,1,2]
+输出：1
+```
+
+**示例 2：**
+
+```
+输入：[2,2,2,0,1]
+输出：0
+```
+
+### 解题思路
+
+> 1. 本题难度为简单，可以线性查找，也可以二分查找
+> 2. 输入是一个旋转了的递增序列，所以他总体上是有序的，被旋转点分成了左右两部分
+> 3. 比如`[3,4,5,1,2]`，旋转点为`1`，分成了左边序列`[3,4,5]`和右边序列`[1,2]`。所以第一个元素肯定是左边序列的最小值，旋转点为右边序列的最小值，而且如果第一个元素不是旋转点，则他肯定比旋转点大，因为它旋转过去后会排在数组最后面。
+> 4. 所以思路转换为从前往后遍历，找到第一个比`arr[0]`小的值就行，如果没有，就返回`arr[0]`，这是线性查找，最差时间复杂度为`O(n)`。
+> 5. 另外一个思路是二分查找，对于一个有序数列的查找，都可以考虑二分查找。
+> 6. 假设旋转位置是`x`，我们用一个指针`i`指向数组头部，另一个指针指向尾部`j`，一个指针指向中部`m`，`m = Math.floor((i + j) / 2)`。
+>    1. 如果`arr[m] > arr[j]`，说明`x`位于`m`右边，所以`i = m + 1`；
+>    2. 如果`arr[m] < arr[j]`，说明`x`位于m左边，所以`j = m`；
+>    3. 如果`arr[m] = arr[j]`，不能确定`x`位于`m`哪边，所以`j--`缩小搜索范围。
+>    4. 当`i=j`时就找到最小值了，返回`arr[i]`。
+
+### 代码：
+
+```javascript
+// 线性查找
+/**
+ * @param {number[]} numbers
+ * @return {number}
+ */
+var minArray = function(numbers) {
+    let minNum = numbers[0];
+    const length = numbers.length;
+
+    for(let i = 0; i < length; i++) {
+        if(numbers[i] < minNum) {
+            minNum = numbers[i];
+        }
+    }
+
+    return minNum;
+};
+```
+
+```javascript
+// 二分查找, 时间复杂度为O(lgn)；
+/**
+ * @param {number[]} numbers
+ * @return {number}
+ */
+var minArray = function(numbers) {
+    const length = numbers.length;
+    let i = 0;
+    let j = length - 1;
+
+    while(i !== j) {
+        let m = Math.floor((i + j) / 2);
+        if(numbers[m] > numbers[j]) {
+            i = m + 1;
+        } else if(numbers[m] < numbers[j]) {
+            j = m;
+        } else {
+            j--;
+        }
+    }
+
+    return numbers[i];
+};
+```
+
+## [矩阵中的路径(中等)](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/)
+
+### 题目
+
+> 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）。
+>
+> [["a","b","c","e"],
+> ["s","f","c","s"],
+> ["a","d","e","e"]]
+>
+> 但矩阵中不包含字符串“abfb”的路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入这个格子。
+>
+
+示例 1：
+
+```
+输入：board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+输出：true
+```
+
+示例 2：
+
+```
+输入：board = [["a","b"],["c","d"]], word = "abcd"
+输出：false
+```
+
+### 解题思路
+
+> 1. 本题难度为中等，这个题目需要采用深度优先搜索(DFS)
+> 2. DFS的思想就是先往一个方向搜索，一直搜到底，如果不匹配再往其他方向搜索
+> 3. 搜索过的元素可以置为"/"，这样他肯定不等于任何目标，就不会重复搜索了
+> 4. 如果搜索越界了，返回false，如果当前字符不等于目标字符也返回false
+> 5. 当最后一个字符都等于目标字符了，返回true
+> 6. [DFS算法图解可以看LeetCode](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/solution/mian-shi-ti-12-ju-zhen-zhong-de-lu-jing-shen-du-yo/)
+
+### 代码：
+
+```javascript
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+var exist = function(board, word) {
+    function dfs(i, j, k) {
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] !== word[k]) return false;
+        if(k === (word.length - 1)) return true;
+        let temp = board[i][j];
+        board[i][j] = '/';
+        const res = dfs(i, j+1, k+1) || dfs(i, j-1, k+1) || dfs(i+1, j, k+1) || dfs(i-1, j, k+1)
+        board[i][j] = temp;
+
+        return res;
+    }
+
+    let k = 0;
+    for(let i = 0; i < board.length; i++){
+        for(let j = 0; j < board[0].length; j++){
+            if(dfs(i, j, k)) return true;
+        }
+    }
+    return false;
+};
+```
+
+上述代码时间复杂度为$$O(3^kMN)$$，空间复杂度为$$O(K)$$，其中M，N为矩阵行列数，K为目标字符串长度。
+

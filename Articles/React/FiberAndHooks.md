@@ -178,31 +178,28 @@ Window.cancelIdleCallback(handle)
 `requestIdleCallback`接收一个回调，这个回调会在浏览器空闲时调用，每次调用会传入一个`IdleDeadline`，可以拿到当前还空余多久，`options`可以传入参数最多等多久，等到了时间浏览器还不空就强制执行了。使用这个API可以解决任务调度的问题，让浏览器在空闲时才计算diff并渲染。[更多关于requestIdleCallback的使用可以查看MDN的文档。](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback)但是这个API还在实验中，兼容性不好，[React官方自己实现了一套](https://github.com/facebook/react/blob/master/packages/scheduler/src/forks/SchedulerHostConfig.default.js)。本文会继续使用`requestIdleCallback`来进行任务调度，我们进行任务调度的思想是讲任务拆分成多个小任务，`requestIdleCallback`里面不断的把小任务拿出来执行，当所有任务都执行完或者超时了就结束本次执行，同时要注册下次执行，代码架子就是这样：
 
 ```javascript
-// 任务调度
-let currentTask = null;
-// workLoop用来调度任务
 function workLoop(deadline) {
   while(currentTask && deadline.timeRemaining() > 1) {
     // 这个while循环会在任务执行完或者时间到了的时候结束
-    currentTask = peekTask(currentTask);
+    currentTask = performUnitOfWork(currentTask);
   }
 
   // 如果任务还没完，但是时间到了，我们需要继续注册requestIdleCallback
   requestIdleCallback(workLoop);
 }
 
-// peekTask用来获取下个任务，参数是我们的fiber
-function peekTask(fiber) {
-
+// performUnitOfWork用来执行任务，参数是我们的当前fiber任务，返回值是下一个任务
+function performUnitOfWork(fiber) {
+  
 }
 requestIdleCallback(workLoop);
 ```
 
-[上述代码对应React源码看这里。](https://github.com/facebook/react/blob/master/packages/scheduler/src/Scheduler.js#L164)
+[上述`workLoop`对应React源码看这里。](https://github.com/facebook/react/blob/4c7036e807fa18a3e21a5182983c7c0f05c5936e/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L1481)
 
 ### Fiber可中断数据结构
 
-上面我们的`peekTask`并没有实现，但是从上面的结构可以看出来，他接收的参数是一个小任务，同时通过这个小任务还可以找到他的下一个小任务，Fiber构建的就是这样一个数据结构。之前的数据结构是一棵树，父节点的`children`指向了子节点，但是只有这一个指针是不能实现中断继续的。比如我现在有一个父节点A，A有三个子节点B,C,D，当我遍历到C的时候中断了，重新开始的时候，其实我是不知道C下面该执行哪个的，因为只知道C，并没有指针指向他的父节点，也没有指针指向他的兄弟。Fiber就是改造了这样一个结构，加上了指向父节点和兄弟节点的指针：
+上面我们的`performTask`并没有实现，但是从上面的结构可以看出来，他接收的参数是一个小任务，同时通过这个小任务还可以找到他的下一个小任务，Fiber构建的就是这样一个数据结构。之前的数据结构是一棵树，父节点的`children`指向了子节点，但是只有这一个指针是不能实现中断继续的。比如我现在有一个父节点A，A有三个子节点B,C,D，当我遍历到C的时候中断了，重新开始的时候，其实我是不知道C下面该执行哪个的，因为只知道C，并没有指针指向他的父节点，也没有指针指向他的兄弟。Fiber就是改造了这样一个结构，加上了指向父节点和兄弟节点的指针：
 
 ![image-20200609173312276](../../images/React/FiberAndHooks/image-20200609173312276.png)
 
@@ -212,7 +209,204 @@ requestIdleCallback(workLoop);
 > 2. **sibling**：从第一个子元素往后，指向下一个兄弟元素。
 > 3. **return**：所有子元素都有的指向父元素的指针。
 
-有了这几个指针后，我们可以在任意一个元素中断遍历并恢复，比如在`List`处中断了，恢复的时候可以通过`child`找到他的子元素，也可以通过`return`找到他的父元素，如果他还有兄弟节点也可以用`sibling`找到。
+有了这几个指针后，我们可以在任意一个元素中断遍历并恢复，比如在`List`处中断了，恢复的时候可以通过`child`找到他的子元素，也可以通过`return`找到他的父元素，如果他还有兄弟节点也可以用`sibling`找到。Fiber这个结构外形看着还是棵树，但是没有了指向所有子元素的指针，父节点只指向第一个子节点，然后子节点有指向其他子节点的指针，这其实是个链表。
+
+## 实现Fiber
+
+现在我们可以自己来实现一下Fiber了，我们需要将之前的vDom结构转换为Fiber的数据结构，同时需要能够通过其中任意一个节点返回下一个节点，其实就是遍历这个链表。遍历的时候从根节点出发，先找子元素，如果子元素存在，直接返回，如果没有子元素了就找兄弟元素，找完所有的兄弟元素后再返回父元素，然后再找这个父元素的兄弟元素。整个遍历过程其实是个深度优先遍历，从上到下，然后最后一行开始从左到右遍历。比如下图从`div1`开始遍历的话，遍历的顺序就应该是`div1 -> div2 -> h1 -> a -> div2 -> p -> div1`。可以看到这个序列中，当我们`return`父节点时，这些父节点会被第二次遍历，所以我们写代码时，`return`的父节点不会作为下一个任务返回，只有`sibling`和`child`才会作为下一个任务返回。
+
+![image-20200610162336915](../../images/React/FiberAndHooks/image-20200610162336915.png)
+
+```javascript
+// performUnitOfWork用来执行任务，参数是我们的当前fiber任务，返回值是下一个任务
+function performUnitOfWork(fiber) {
+  // 根节点的dom就是container，如果没有这个属性，说明当前fiber不是根节点
+  if(!fiber.dom) {
+    fiber.dom = createDom(fiber);   // 创建一个DOM挂载上去
+  } 
+
+  // 如果有父节点，将当前节点挂载到父节点上
+  if(fiber.return) {
+    fiber.return.dom.appendChild(fiber.dom);
+  }
+
+  // 将我们前面的vDom结构转换为fiber结构
+  const elements = fiber.children;
+  let prevSibling = null;
+  if(elements && elements.length) {
+    for(let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      const newFiber = {
+        type: element.type,
+        props: element.props,
+        return: fiber,
+        dom: null
+      }
+
+      // 父级的child指向第一个子元素
+      if(i === 0) {
+        fiber.child = newFiber;
+      } else {
+        // 每个子元素拥有指向下一个子元素的指针
+        prevSibling.sibling = newFiber;
+      }
+
+      prevSibling = fiber;
+    }
+  }
+
+  // 这个函数的返回值是下一个任务，这其实是一个深度优先遍历
+  // 先找子元素，没有子元素了就找兄弟元素
+  // 兄弟元素也没有了就返回父元素
+  // 然后再找这个父元素的兄弟元素
+  // 最后到根节点结束
+  // 这个遍历的顺序其实就是从上到下，从左到右
+  if(fiber.child) {
+    return fiber.child;
+  }
+
+  let nextFiber = fiber;
+  while(nextFiber) {
+    if(nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+
+    nextFiber = nextFiber.return;
+  }
+}
+```
+
+[React源码中的`performUnitOfWork`看这里，当然比我们这个复杂很多。](https://github.com/facebook/react/blob/4c7036e807fa18a3e21a5182983c7c0f05c5936e/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L1541)
+
+## 统一commit DOM操作
+
+上面我们的`performUnitOfWork`一边构建Fiber结构一边操作DOM`appendChild`，这样如果某次更新好几个节点，操作了第一个节点之后就中断了，那我们可能只看到第一个节点渲染到了页面，后续几个节点等浏览器空了才陆续渲染。为了避免这种情况，我们应该将DOM操作都搜集起来，最后统一执行，这就是`commit`。为了能够记录位置，我们还需要一个全局变量`workInProgressRoot`来记录根节点，然后在`workLoop`检测如果任务执行完了，就`commit`:
+
+```javascript
+function workLoop(deadline) {
+  while(nextUnitOfWork && deadline.timeRemaining() > 1) {
+    // 这个while循环会在任务执行完或者时间到了的时候结束
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+  }
+
+  // 任务做完后统一渲染
+  if(!nextUnitOfWork && workInProgressRoot) {
+    commitRoot();
+  }
+
+  // 如果任务还没完，但是时间到了，我们需要继续注册requestIdleCallback
+  requestIdleCallback(workLoop);
+}
+```
+
+因为我们是在Fiber树完全构建后再执行的`commit`，而且有一个变量`workInProgressRoot`指向了Fiber的根节点，所以我们可以直接把`workInProgressRoot`拿过来递归渲染就行了：
+
+```javascript
+// 统一操作DOM
+function commitRoot() {
+  commitRootImpl(workInProgressRoot.child);    // 开启递归
+  workInProgressRoot = null;     // 操作完后将workInProgressRoot重置
+}
+
+function commitRootImpl(fiber) {
+  if(!fiber) {
+    return;
+  }
+
+  const parentDom = fiber.return.dom;
+  parentDom.appendChild(fiber.dom);
+
+  // 递归操作子元素和兄弟元素
+  commitRootImpl(fiber.child);
+  commitRootImpl(fiber.sibling);
+}
+```
+
+## reconcile调和
+
+reconcile其实就是虚拟DOM树的diff操作，需要删除不需要的节点，更新修改过的节点，添加新的节点。为了在中断后能回到工作位置，我们还需要一个变量`currentRoot`，然后在`fiber`节点里面添加一个属性`alternate`，这个属性指向上一次运行的根节点，也就是`currentRoot`。`currentRoot`会在第一次`render`后的`commit`阶段赋值，也就是每次计算完后都会把当次状态记录在`alternate`上，后面更新了就可以把`alternate`拿出来跟新的状态做diff。然后`performUnitOfWork`里面需要添加调和子元素的代码，可以新增一个函数`reconcileChildren`。这个函数里面不能简单的创建新节点了，而是要将老节点跟新节点拿来对比，对比逻辑如下:
+
+1. 如果新老节点类型一样，复用老节点DOM，更新props
+2. 如果类型不一样，而且新的节点存在，创建新节点替换老节点
+3. 如果类型不一样，没有新节点，有老节点，删除节点
+
+注意删除老节点的操作是直接将`oldFiber`加上一个删除标记就行，同时用一个全局变量`deletions`记录所有需要删除的节点：
+
+```javascript
+      // 对比oldFiber和当前element
+      const sameType = oldFiber && element && oldFiber.type === element.type;  //检测类型是不是一样
+      // 先比较元素类型
+      if(sameType) {
+        // 如果类型一样，复用节点，更新props
+        newFiber = {
+          type: oldFiber.type,
+          props: element.props,
+          dom: oldFiber.dom,
+          return: workInProgressFiber,
+          alternate: oldFiber,          // 记录下上次状态
+          effectTag: 'UPDATE'           // 添加一个操作标记
+        }
+      } else if(!sameType && element) {
+        // 如果类型不一样，有新的节点，创建新节点替换老节点
+        newFiber = {
+          type: element.type,
+          props: element.props,
+          dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
+          return: workInProgressFiber,
+          alternate: null,              // 新增的没有老状态
+          effectTag: 'REPLACEMENT'      // 添加一个操作标记
+        }
+      } else if(!sameType && oldFiber) {
+        // 如果类型不一样，没有新节点，有老节点，删除老节点
+        oldFiber.effectTag = 'DELETION';   // 添加删除标记
+        deletions.push(oldFiber);          // 一个数组收集所有需要删除的节点
+      }
+```
+
+然后就是在`commit`阶段处理真正的DOM操作，具体的操作是根绝我们的`effectTag`来判断的:
+
+```javascript
+function commitRootImpl(fiber) {
+  if(!fiber) {
+    return;
+  }
+
+  const parentDom = fiber.return.dom;
+  if(fiber.effectTag === 'REPLACEMENT' && fiber.dom) {
+    parentDom.appendChild(fiber.dom);
+  } else if(fiber.effectTag === 'DELETION') {
+    parentDom.removeChild(fiber.dom);
+  } else if(fiber.effectTag === 'UPDATE') {
+    // 更新DOM属性
+    updateDom(fiber.dom, fiber.alternate.props, fiber.props);
+  }
+
+  // 递归操作子元素和兄弟元素
+  commitRootImpl(fiber.child);
+  commitRootImpl(fiber.sibling);
+}
+```
+
+替换和删除的DOM操作都比较简单，更新属性的会稍微麻烦点，需要再写一个辅助函数`updateDom`来实现:
+
+```javascript
+// 更新DOM的操作
+function updateDom(dom, prevProps, nextProps) {
+  // 1. 过滤children属性
+  // 2. 老的存在，新的没了，取消
+  // 3. 新的存在，老的没有，新增
+  Object.keys(prevProps)
+    .filter(name => name !== 'children')
+    .filter(name => !(name in nextProps))
+    .forEach(name => dom[name] = '');
+  
+  Object.keys(nextProps)
+    .filter(name => name !== 'children')
+    .forEach(name => dom[name] = nextProps[name]);  
+}
+```
+
+`updateDom`的代码写的比较简单，也没有处理事件和兼容性，`prevProps`和`nextProps`可能会遍历到相同的属性，有重复赋值，但是总体原理还是没错的。要想把这个处理写全，代码量还是不少的。
 
 ## 参考资料
 
@@ -225,4 +419,6 @@ requestIdleCallback(workLoop);
 [这可能是最通俗的 React Fiber(时间分片) 打开方式](https://juejin.im/post/5dadc6045188255a270a0f85)
 
 [浅析 React Fiber](https://juejin.im/post/5be969656fb9a049ad76931f)
+
+[React Fiber架构](https://zhuanlan.zhihu.com/p/37095662)
 
