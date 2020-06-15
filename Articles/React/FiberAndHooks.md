@@ -408,13 +408,91 @@ function updateDom(dom, prevProps, nextProps) {
 
 `updateDom`的代码写的比较简单，也没有处理事件和兼容性，`prevProps`和`nextProps`可能会遍历到相同的属性，有重复赋值，但是总体原理还是没错的。要想把这个处理写全，代码量还是不少的。
 
+## 函数组件
+
+函数组件是React里面很常见的一种组件，我们前面的React架构其实已经写好了，我们这里来支持下函数组件。我们之前的`fiber`节点上的`type`都是DOM节点的类型，比如`h1`什么的，但是函数组件的节点`type`其实就是一个函数了，我们需要对这种节点进行单独处理。
+
+首先需要在更新的时候检测当前节点是不是函数组件，如果是，`children`的处理逻辑会稍微不一样:
+
+```javascript
+// performUnitOfWork里面
+// 检测函数组件
+function performUnitOfWork(fiber) {
+  const isFunctionComponent = fiber.type instanceof Function;
+  if(isFunctionComponent) {
+    updateFunctionComponent(fiber);
+  } else {
+    updateHostComponent(fiber);
+  }
+  
+  // ...下面省略n行代码...
+}
+
+function updateFunctionComponent(fiber) {
+  // 函数组件的type就是个函数，直接拿来执行可以获得DOM元素
+  const children = [fiber.type(fiber.props)];
+
+  reconcileChildren(fiber, elements);
+}
+
+// updateHostComponent就是之前的操作，只是单独抽取了一个方法
+function updateHostComponent(fiber) {
+  if(!fiber.dom) {
+    fiber.dom = createDom(fiber);   // 创建一个DOM挂载上去
+  } 
+
+  // 将我们前面的vDom结构转换为fiber结构
+  const elements = fiber.props.children;
+
+  // 调和子元素
+  reconcileChildren(fiber, elements);
+}
+```
+
+然后在我们提交DOM操作的时候因为函数组件没有DOM元素，所以需要注意两点：
+
+1. 获取父级DOM元素的时候需要递归网上找真正的DOM
+2. 删除节点的时候需要递归往下找真正的节点
+
+我们来修改下`commitRootImpl`:
+
+```javascript
+function commitRootImpl() {
+  // const parentDom = fiber.return.dom;
+  // 向上查找真正的DOM
+  let parentFiber = fiber.return;
+  while(!parentFiber.dom) {
+    parentFiber = fiber.return;
+  }
+  const parentDom = parentFiber.dom;
+  
+  // ...这里省略n行代码...
+  
+  if{fiber.effectTag === 'DELETION'} {
+    commitDeletion(fiber, parentDom);
+  }
+}
+
+function commitDeletion(fiber, domParent) {
+  if(fiber.dom) {
+    // dom存在，是普通节点
+    domParent.removeChild(fiber.dom);
+  } else {
+    // dom不存在，是函数组件,向下递归查找真实DOM
+    commitDeletion(fiber.child, domParent);
+  }
+}
+```
+
+
+
 ## 参考资料
 
 [A Cartoon Intro to Fiber](http://conf2017.reactjs.org/speakers/lin)
 
-[React Fiber](https://juejin.im/post/5ab7b3a2f265da2378403e57)
-
 [妙味课堂](https://study.miaov.com/v_show/4227)
+
+[React Fiber](https://juejin.im/post/5ab7b3a2f265da2378403e57)
 
 [这可能是最通俗的 React Fiber(时间分片) 打开方式](https://juejin.im/post/5dadc6045188255a270a0f85)
 

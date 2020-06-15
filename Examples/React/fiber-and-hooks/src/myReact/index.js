@@ -55,16 +55,34 @@ function commitRoot() {
   workInProgressRoot = null;     // 操作完后将workInProgressRoot重置
 }
 
+function commitDeletion(fiber, domParent) {
+  if(fiber.dom) {
+    // dom存在，是普通节点
+    domParent.removeChild(fiber.dom);
+  } else {
+    // dom不存在，是函数组件,向下递归查找真实DOM
+    commitDeletion(fiber.child, domParent);
+  }
+}
+
 function commitRootImpl(fiber) {
   if(!fiber) {
     return;
   }
 
-  const parentDom = fiber.return.dom;
+  // const parentDom = fiber.return.dom;
+  // 向上查找真正的DOM
+  let parentFiber = fiber.return;
+  while(!parentFiber.dom) {
+    parentFiber = fiber.return;
+  }
+  const parentDom = parentFiber.dom;
+
   if(fiber.effectTag === 'REPLACEMENT' && fiber.dom) {
     parentDom.appendChild(fiber.dom);
   } else if(fiber.effectTag === 'DELETION') {
-    parentDom.removeChild(fiber.dom);
+    // parentDom.removeChild(fiber.dom);
+    commitDeletion(fiber, parentDom);
   } else if(fiber.effectTag === 'UPDATE') {
     // 更新DOM属性
     updateDom(fiber.dom, fiber.alternate.props, fiber.props);
@@ -174,12 +192,41 @@ function reconcileChildren(workInProgressFiber, elements) {
 
 }
 
-// performUnitOfWork用来执行任务，参数是我们的当前fiber任务，返回值是下一个任务
-function performUnitOfWork(fiber) {
-  // 根节点的dom就是container，如果没有这个属性，说明当前fiber不是根节点
+function updateFunctionComponent(fiber) {
+  // 函数组件的type就是个函数，直接拿来执行可以获得DOM元素
+  const children = [fiber.type(fiber.props)];
+
+  reconcileChildren(fiber, elements);
+}
+
+// updateHostComponent就是之前的操作，只是单独抽取了一个方法
+function updateHostComponent(fiber) {
   if(!fiber.dom) {
     fiber.dom = createDom(fiber);   // 创建一个DOM挂载上去
   } 
+
+  // 将我们前面的vDom结构转换为fiber结构
+  const elements = fiber.props.children;
+
+  // 调和子元素
+  reconcileChildren(fiber, elements);
+}
+
+// performUnitOfWork用来执行任务，参数是我们的当前fiber任务，返回值是下一个任务
+function performUnitOfWork(fiber) {
+  // 检测函数组件
+  const isFunctionComponent = fiber.type instanceof Function;
+  if(isFunctionComponent) {
+    updateFunctionComponent(fiber);
+  } else {
+    updateHostComponent(fiber);
+  }
+
+
+  // 根节点的dom就是container，如果没有这个属性，说明当前fiber不是根节点
+  // if(!fiber.dom) {
+  //   fiber.dom = createDom(fiber);   // 创建一个DOM挂载上去
+  // } 
 
   // 如果有父节点，将当前节点挂载到父节点上
   // if(fiber.return) {
