@@ -3,20 +3,21 @@
 import React from './myReact';
 const ReactDOM = React;
 
-const App =
-(
-  <div>
-    <h1 id="title">Title</h1>
-    <a href="xxx">Jump</a>
-    <section>
-      <p>
-        Article
-      </p>
-    </section>
-  </div>
-);
+function App(props) {
+  return (
+    <div>
+      <h1 id="title">{props.title}</h1>
+      <a href="xxx">Jump</a>
+      <section>
+        <p>
+          Article
+        </p>
+      </section>
+    </div>
+  );
+}
 
 ReactDOM.render(
-  App,
+  <App title="Fiber"/>,
   document.getElementById('root')
 );

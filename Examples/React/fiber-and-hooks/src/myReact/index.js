@@ -14,19 +14,19 @@ function createElement(type, props, ...children) {
 function createDom(vDom) {
   let dom;
   // 检查当前节点是文本还是对象
-  if(typeof vDom === 'string') {
-    dom = document.createTextNode(vDom)
+  if(vDom.type === 'TEXT') {
+    dom = document.createTextNode(vDom.props);
   } else {
     dom = document.createElement(vDom.type);
-  }
 
-  // 将vDom上除了children外的属性都挂载到真正的DOM上去
-  if(vDom.props) {
-    Object.keys(vDom.props)
-      .filter(key => key !== 'children')
-      .forEach(item => {
-        dom[item] = vDom.props[item];
-      })
+    // 将vDom上除了children外的属性都挂载到真正的DOM上去
+    if(vDom.props) {
+      Object.keys(vDom.props)
+        .filter(key => key !== 'children')
+        .forEach(item => {
+          dom[item] = vDom.props[item];
+        })
+    }
   }
 
   return dom;
@@ -74,7 +74,7 @@ function commitRootImpl(fiber) {
   // 向上查找真正的DOM
   let parentFiber = fiber.return;
   while(!parentFiber.dom) {
-    parentFiber = fiber.return;
+    parentFiber = parentFiber.return;
   }
   const parentDom = parentFiber.dom;
 
@@ -115,6 +115,28 @@ function workLoop(deadline) {
 }
 
 // 
+function buildNewFiber(fiber, workInProgressFiber) {
+  if(typeof fiber === 'string') {
+    return {
+      type: 'TEXT',
+      props: fiber,                 // 文本节点的props存的就是文本
+      dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
+      return: workInProgressFiber,
+      alternate: null,              // 新增的没有老状态
+      effectTag: 'REPLACEMENT'      // 添加一个操作标记
+    }
+  } else {
+    return {
+      type: fiber.type,
+      props: fiber.props,
+      dom: null,                    
+      return: workInProgressFiber,
+      alternate: null,              
+      effectTag: 'REPLACEMENT'      
+    }
+  }
+}
+
 function reconcileChildren(workInProgressFiber, elements) {
   // 构建fiber结构
   let oldFiber = workInProgressFiber.alternate && workInProgressFiber.alternate.child;  // 获取上次的fiber树
@@ -141,6 +163,32 @@ function reconcileChildren(workInProgressFiber, elements) {
     //   prevSibling = newFiber;
     // }
 
+    // 第一次没有oldFiber，而且全部是REPLACEMENT
+    if(!oldFiber) {
+      for(let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        const newFiber = buildNewFiber(element, workInProgressFiber);
+        // {
+        //   type: element.type,
+        //   props: element.props,
+        //   dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
+        //   return: workInProgressFiber,
+        //   alternate: null,              // 新增的没有老状态
+        //   effectTag: 'REPLACEMENT'      // 添加一个操作标记
+        // }
+
+        // 父级的child指向第一个子元素
+        if(i === 0) {
+          workInProgressFiber.child = newFiber;
+        } else {
+          // 每个子元素拥有指向下一个子元素的指针
+          prevSibling.sibling = newFiber;
+        }
+
+        prevSibling = newFiber;
+      }
+    }
+
     while(index < elements.length && oldFiber) {
       let element = elements[index];
       let newFiber = null;
@@ -160,14 +208,15 @@ function reconcileChildren(workInProgressFiber, elements) {
         }
       } else if(!sameType && element) {
         // 如果类型不一样，有新的节点，创建新节点替换老节点
-        newFiber = {
-          type: element.type,
-          props: element.props,
-          dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
-          return: workInProgressFiber,
-          alternate: null,              // 新增的没有老状态
-          effectTag: 'REPLACEMENT'      // 添加一个操作标记
-        }
+        newFiber = buildNewFiber(element, workInProgressFiber)
+        // newFiber = {
+        //   type: element.type,
+        //   props: element.props,
+        //   dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
+        //   return: workInProgressFiber,
+        //   alternate: null,              // 新增的没有老状态
+        //   effectTag: 'REPLACEMENT'      // 添加一个操作标记
+        // }
       } else if(!sameType && oldFiber) {
         // 如果类型不一样，没有新节点，有老节点，删除老节点
         oldFiber.effectTag = 'DELETION';   // 添加删除标记
@@ -196,7 +245,7 @@ function updateFunctionComponent(fiber) {
   // 函数组件的type就是个函数，直接拿来执行可以获得DOM元素
   const children = [fiber.type(fiber.props)];
 
-  reconcileChildren(fiber, elements);
+  reconcileChildren(fiber, children);
 }
 
 // updateHostComponent就是之前的操作，只是单独抽取了一个方法
@@ -206,7 +255,7 @@ function updateHostComponent(fiber) {
   } 
 
   // 将我们前面的vDom结构转换为fiber结构
-  const elements = fiber.props.children;
+  const elements = fiber.props && fiber.props.children;
 
   // 调和子元素
   reconcileChildren(fiber, elements);
@@ -234,10 +283,10 @@ function performUnitOfWork(fiber) {
   // }
 
   // 将我们前面的vDom结构转换为fiber结构
-  const elements = fiber.props.children;
+  // const elements = fiber.props && fiber.props.children;
 
-  // 调和子元素
-  reconcileChildren(fiber, elements);
+  // // 调和子元素
+  // reconcileChildren(fiber, elements);
 
   // 这个函数的返回值是下一个任务，这其实是一个深度优先遍历
   // 先找子元素，没有子元素了就找兄弟元素
