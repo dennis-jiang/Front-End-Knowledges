@@ -1,3 +1,13 @@
+function createTextVDom(text) {
+  return {
+    type: 'TEXT',
+    props: {
+      nodeValue: text,
+      children: []
+    }
+  }
+}
+
 function createElement(type, props, ...children) {
   // 核心逻辑不复杂，将参数都塞到一个对象上返回就行
   // children也要放到props里面去，这样我们在组件里面就能通过this.props.children拿到子元素
@@ -5,7 +15,9 @@ function createElement(type, props, ...children) {
     type,
     props: {
       ...props,
-      children
+      children: children.map(child => {
+        return typeof child === 'object' ? child: createTextVDom(child)
+      })
     }
   }
 }
@@ -15,7 +27,7 @@ function createDom(vDom) {
   let dom;
   // 检查当前节点是文本还是对象
   if(vDom.type === 'TEXT') {
-    dom = document.createTextNode(vDom.props);
+    dom = document.createTextNode(vDom.props.nodeValue);
   } else {
     dom = document.createElement(vDom.type);
 
@@ -24,7 +36,11 @@ function createDom(vDom) {
       Object.keys(vDom.props)
         .filter(key => key !== 'children')
         .forEach(item => {
-          dom[item] = vDom.props[item];
+          if(item.indexOf('on') === 0) {
+            dom.addEventListener(item.substr(2).toLowerCase(), vDom.props[item], false);
+          } else {
+            dom[item] = vDom.props[item];
+          }
         })
     }
   }
@@ -40,11 +56,23 @@ function updateDom(dom, prevProps, nextProps) {
   Object.keys(prevProps)
     .filter(name => name !== 'children')
     .filter(name => !(name in nextProps))
-    .forEach(name => dom[name] = '');
-  
+    .forEach(name => {
+      if(name.indexOf('on') === 0) {
+        dom.removeEventListener(name.substr(2).toLowerCase(), prevProps[name], false);
+      } else {
+        dom[name] = '';
+      }
+    });
+
   Object.keys(nextProps)
     .filter(name => name !== 'children')
-    .forEach(name => dom[name] = nextProps[name]);  
+    .forEach(name => {
+      if(name.indexOf('on') === 0) {
+        dom.addEventListener(name.substr(2).toLowerCase(), nextProps[name], false);
+      } else {
+        dom[name] = nextProps[name];
+      }
+    });
 }
 
 // 统一操作DOM
@@ -83,7 +111,7 @@ function commitRootImpl(fiber) {
   } else if(fiber.effectTag === 'DELETION') {
     // parentDom.removeChild(fiber.dom);
     commitDeletion(fiber, parentDom);
-  } else if(fiber.effectTag === 'UPDATE') {
+  } else if(fiber.effectTag === 'UPDATE' && fiber.dom) {
     // 更新DOM属性
     updateDom(fiber.dom, fiber.alternate.props, fiber.props);
   }
@@ -114,26 +142,14 @@ function workLoop(deadline) {
   requestIdleCallback(workLoop);
 }
 
-// 
 function buildNewFiber(fiber, workInProgressFiber) {
-  if(typeof fiber === 'string') {
-    return {
-      type: 'TEXT',
-      props: fiber,                 // 文本节点的props存的就是文本
-      dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
-      return: workInProgressFiber,
-      alternate: null,              // 新增的没有老状态
-      effectTag: 'REPLACEMENT'      // 添加一个操作标记
-    }
-  } else {
-    return {
-      type: fiber.type,
-      props: fiber.props,
-      dom: null,                    
-      return: workInProgressFiber,
-      alternate: null,              
-      effectTag: 'REPLACEMENT'      
-    }
+  return {
+    type: fiber.type,
+    props: fiber.props,
+    dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom  
+    return: workInProgressFiber,
+    alternate: null,              // 新增的没有老状态
+    effectTag: 'REPLACEMENT'      // 添加一个操作标记
   }
 }
 
@@ -143,39 +159,11 @@ function reconcileChildren(workInProgressFiber, elements) {
   let prevSibling = null;
   let index = 0;
   if(elements && elements.length) {
-    // for(let i = 0; i < elements.length; i++) {
-    //   const element = elements[i];
-    //   const newFiber = {
-    //     type: element.type,
-    //     props: element.props,
-    //     return: workInProgressFiber,
-    //     dom: null
-    //   }
-
-    //   // 父级的child指向第一个子元素
-    //   if(i === 0) {
-    //     workInProgressFiber.child = newFiber;
-    //   } else {
-    //     // 每个子元素拥有指向下一个子元素的指针
-    //     prevSibling.sibling = newFiber;
-    //   }
-
-    //   prevSibling = newFiber;
-    // }
-
-    // 第一次没有oldFiber，而且全部是REPLACEMENT
+    // 第一次没有oldFiber，那全部是REPLACEMENT
     if(!oldFiber) {
       for(let i = 0; i < elements.length; i++) {
         const element = elements[i];
         const newFiber = buildNewFiber(element, workInProgressFiber);
-        // {
-        //   type: element.type,
-        //   props: element.props,
-        //   dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
-        //   return: workInProgressFiber,
-        //   alternate: null,              // 新增的没有老状态
-        //   effectTag: 'REPLACEMENT'      // 添加一个操作标记
-        // }
 
         // 父级的child指向第一个子元素
         if(i === 0) {
@@ -209,14 +197,6 @@ function reconcileChildren(workInProgressFiber, elements) {
       } else if(!sameType && element) {
         // 如果类型不一样，有新的节点，创建新节点替换老节点
         newFiber = buildNewFiber(element, workInProgressFiber)
-        // newFiber = {
-        //   type: element.type,
-        //   props: element.props,
-        //   dom: null,                    // 构建fiber时没有dom，下次perform这个节点是才创建dom
-        //   return: workInProgressFiber,
-        //   alternate: null,              // 新增的没有老状态
-        //   effectTag: 'REPLACEMENT'      // 添加一个操作标记
-        // }
       } else if(!sameType && oldFiber) {
         // 如果类型不一样，没有新节点，有老节点，删除老节点
         oldFiber.effectTag = 'DELETION';   // 添加删除标记
@@ -235,13 +215,43 @@ function reconcileChildren(workInProgressFiber, elements) {
       }
 
       prevSibling = newFiber;
+      index++;
     }
   }
+}
 
+let wipFiber = null;
+let hookIndex = null;
+let state = null;
+function useState(init) {
 
+  state = state === null ? init : state;
+
+  // 修改state的方法
+  const setState = value => {
+    state = value;
+    // 只要修改了，我们就需要重新处理这个节点
+    workInProgressRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot
+    }
+
+    // 修改nextUnitOfWork指向workInProgressRoot，这样下次就会处理这个节点了
+    nextUnitOfWork = workInProgressRoot;
+    deletions = [];
+  }
+
+  // return [hook.state, setState]
+  return [state, setState]
 }
 
 function updateFunctionComponent(fiber) {
+  // 支持useState
+  wipFiber = fiber;
+  hookIndex = 0;
+  wipFiber.hooks = [];
+
   // 函数组件的type就是个函数，直接拿来执行可以获得DOM元素
   const children = [fiber.type(fiber.props)];
 
@@ -271,23 +281,6 @@ function performUnitOfWork(fiber) {
     updateHostComponent(fiber);
   }
 
-
-  // 根节点的dom就是container，如果没有这个属性，说明当前fiber不是根节点
-  // if(!fiber.dom) {
-  //   fiber.dom = createDom(fiber);   // 创建一个DOM挂载上去
-  // } 
-
-  // 如果有父节点，将当前节点挂载到父节点上
-  // if(fiber.return) {
-  //   fiber.return.dom.appendChild(fiber.dom);
-  // }
-
-  // 将我们前面的vDom结构转换为fiber结构
-  // const elements = fiber.props && fiber.props.children;
-
-  // // 调和子元素
-  // reconcileChildren(fiber, elements);
-
   // 这个函数的返回值是下一个任务，这其实是一个深度优先遍历
   // 先找子元素，没有子元素了就找兄弟元素
   // 兄弟元素也没有了就返回父元素
@@ -311,30 +304,6 @@ function performUnitOfWork(fiber) {
 requestIdleCallback(workLoop);
 
 function render(vDom, container) {
-  // let dom;
-  // // 检查当前节点是文本还是对象
-  // if(typeof vDom === 'string') {
-  //   dom = document.createTextNode(vDom)
-  // } else {
-  //   dom = document.createElement(vDom.type);
-  // }
-
-  // // 将vDom上除了children外的属性都挂载到真正的DOM上去
-  // if(vDom.props) {
-  //   Object.keys(vDom.props)
-  //     .filter(key => key != 'children')
-  //     .forEach(item => {
-  //       dom[item] = vDom.props[item];
-  //     })
-  // }
-  
-  // // 如果还有子元素，递归调用
-  // if(vDom.props && vDom.props.children && vDom.props.children.length) {
-  //   vDom.props.children.forEach(child => render(child, dom));
-  // }
-
-  // container.appendChild(dom);
-
   workInProgressRoot = {
     dom: container,
     props: {
@@ -351,5 +320,6 @@ function render(vDom, container) {
 
 export default {
   createElement,
-  render
+  render,
+  useState
 }

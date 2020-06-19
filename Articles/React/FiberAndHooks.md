@@ -26,7 +26,7 @@ const App =
 上面的截图可以看出我们写的HTML被转换成了`React.createElement`，我们将上面代码稍微格式化来看下：
 
 ```javascript
-const App = React.createElement(
+var App = React.createElement(
   'div',
   null,
   React.createElement(
@@ -101,9 +101,9 @@ function createElement(type, props, ...children) {
 
 ### 手写render
 
-上述代码我们用`createElement`将JSX代码转换成了虚拟DOM，那真正将它渲染到页面的函数时`render`，所以我们还需要实现下这个方法，通过我们一般的用法`ReactDOM.render( <App />,document.getElementById('root'));`可以知道他接收两个参数：
+上述代码我们用`createElement`将JSX代码转换成了虚拟DOM，那真正将它渲染到页面的函数是`render`，所以我们还需要实现下这个方法，通过我们一般的用法`ReactDOM.render( <App />,document.getElementById('root'));`可以知道他接收两个参数：
 
-> 1. 跟组件，其实是一个JSX组件，也就是一个`createElement`返回的虚拟DOM
+> 1. 根组件，其实是一个JSX组件，也就是一个`createElement`返回的虚拟DOM
 > 2. 父节点，也就是我们要将这个虚拟DOM渲染的位置
 
 有了这两个参数，我们来实现下`render`方法：
@@ -112,7 +112,7 @@ function createElement(type, props, ...children) {
 function render(vDom, container) {
   let dom;
   // 检查当前节点是文本还是对象
-  if(typeof vDom === 'string') {
+  if(typeof vDom !== 'object') {
     dom = document.createTextNode(vDom)
   } else {
     dom = document.createElement(vDom.type);
@@ -148,7 +148,7 @@ function render(vDom, container) {
 
 ## 为什么需要Fiber
 
-上面我们简单的实现了虚拟DOM渲染到页面上的代码，这部分工作被React官方称为renderer，renderer是第三方可以自己实现的一个模块，还有个核心模块叫做reconsiler，reconsiler的一大功能就是大家熟知的diff，他会计算出应该更新那些页面节点，然后将需要更新的节点虚拟DON传递给renderer，renderer负责将这些节点渲染到页面上。但是这个流程有个问题，虽然React的diff算法是经过优化的，但是他却是同步的，renderer负责操作DOM的`appendChild`等API也是同步的，也就是说如果有大量节点需要更新，JS线程的计算和渲染时间可能会比较长，在这段时间浏览器是不会响应其他事件的，因为JS线程和GUI线程是互斥的，JS运行时页面就不会响应，这个时间太长了，用户就可能看到卡顿，特别是动画的卡顿会很明显。在[React的官方演讲](http://conf2017.reactjs.org/speakers/lin)中有个例子，可以很明显的看到这种同步计算造成的卡顿：
+上面我们简单的实现了虚拟DOM渲染到页面上的代码，这部分工作被React官方称为renderer，renderer是第三方可以自己实现的一个模块，还有个核心模块叫做reconsiler，reconsiler的一大功能就是大家熟知的diff，他会计算出应该更新哪些页面节点，然后将需要更新的节点虚拟DON传递给renderer，renderer负责将这些节点渲染到页面上。但是这个流程有个问题，虽然React的diff算法是经过优化的，但是他却是同步的，renderer负责操作DOM的`appendChild`等API也是同步的，也就是说如果有大量节点需要更新，JS线程的计算和渲染时间可能会比较长，在这段时间浏览器是不会响应其他事件的，因为JS线程和GUI线程是互斥的，JS运行时页面就不会响应，这个时间太长了，用户就可能看到卡顿，特别是动画的卡顿会很明显。在[React的官方演讲](http://conf2017.reactjs.org/speakers/lin)中有个例子，可以很明显的看到这种同步计算造成的卡顿：
 
 ![1625d95bc100c7fe](../../images/React/FiberAndHooks/1625d95bc100c7fe.gif)
 
@@ -158,7 +158,7 @@ function render(vDom, container) {
 
 ## 怎么来拆分
 
-上面我们自己实现的`render`方法直接递归遍历了整个vDom树，如果我们在中途某一步停下来，下次再调用时其实并不知道上次在哪里停下来的，不知道从哪里开始，所以vDom的树形结构并不满足中途暂停，下次继续的需求，需要改造数据结构。另一个需要解决的问题是，拆分下来的小任务什么时候执行？我们的目的是让用户有更流畅的体验，所以我们最好不要阻塞高优先级的任务，比如输入，动画之类，等他们执行完了我们再计算。那我怎么知道现在有没有高优先级任务，浏览器是不是空闲呢？总结下来，Fiber要想达到目的，需要解决两个问题：
+上面我们自己实现的`render`方法直接递归遍历了整个vDom树，如果我们在中途某一步停下来，下次再调用时其实并不知道上次在哪里停下来的，不知道从哪里开始，所以vDom的树形结构并不满足中途暂停，下次继续的需求，需要改造数据结构。另一个需要解决的问题是，拆分下来的小任务什么时候执行？我们的目的是让用户有更流畅的体验，所以我们最好不要阻塞高优先级的任务，比如用户输入，动画之类，等他们执行完了我们再计算。那我怎么知道现在有没有高优先级任务，浏览器是不是空闲呢？总结下来，Fiber要想达到目的，需要解决两个问题：
 
 > 1. 新的任务调度，有高优先级任务的时候将浏览器让出来，等浏览器空了再继续执行
 > 2. 新的数据结构，可以随时中断，下次进来可以接着执行
@@ -462,7 +462,7 @@ function commitRootImpl() {
   // 向上查找真正的DOM
   let parentFiber = fiber.return;
   while(!parentFiber.dom) {
-    parentFiber = fiber.return;
+    parentFiber = parentFiber.return;
   }
   const parentDom = parentFiber.dom;
   
@@ -481,6 +481,90 @@ function commitDeletion(fiber, domParent) {
     // dom不存在，是函数组件,向下递归查找真实DOM
     commitDeletion(fiber.child, domParent);
   }
+}
+```
+
+现在我们可以传入函数组件了:
+
+```javascript
+import React from './myReact';
+const ReactDOM = React;
+
+function App(props) {
+  return (
+    <div>
+      <h1 id="title">{props.title}</h1>
+      <a href="xxx">Jump</a>
+      <section>
+        <p>
+          Article
+        </p>
+      </section>
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <App title="Fiber"/>,
+  document.getElementById('root')
+);
+```
+
+## 实现useState 
+
+`useState`是React Hooks里面的一个API，相当于之前`Class Component`里面的`state`，用来管理组件内部状态，我们也在我们的`Fiber`里面来实现一下。为了实现这个API，我们需要添加两个全局变量，`wipFiber`和`hookIndex`，`wipFiber`用来存储当前工作的fiber，`hookIndex`指向当前的`hooks`状态，我们这里的`hooks`是一个数组，`hookIndex`就是对应的数组下标。因为`useState`只在函数组件里面有用，所以这两个变量的赋值需要在函数组件的处理函数`updateFunctionComponent`里面进行。
+
+```javascript
+function updateFunctionComponent(fiber) {
+  // 支持useState
+  wipFiber = fiber;
+  hookIndex = 0;
+  wipFiber.hooks = [];
+
+  // 函数组件的type就是个函数，直接拿来执行可以获得DOM元素
+  const children = [fiber.type(fiber.props)];
+
+  reconcileChildren(fiber, children);
+}
+```
+
+然后就是实现我们的`useState`方法，这个方法的返回值大家都知道了，返回一个数组，数组第一项是`state`对应的变量，第二项是对应的修改方法：
+
+```javascript
+function useState(init) {
+  // 拿出以前的hook值
+  const oldHook = wipFiber.return && wipFiber.return.hooks && wipFiber.return.hooks[hookIndex];
+  
+  // 构建hook结构
+  const hook = {
+    state: oldHook ? oldHook.state : init,    // hook的值
+    modifyQueue: []              // 修改队列
+  }
+
+  const values = oldHook ? oldHook.modifyQueue : [];
+  values.forEach(value => hook.state = value);
+
+  // 往fiber里面添加新的hook数据
+  wipFiber.hooks.push(hook);
+  hookIndex++;
+
+  // 修改state的方法
+  const setState = value => {
+    hook.modifyQueue.push(value);
+
+    // 只要修改了，我们就需要重新处理这个节点
+    workInProgressRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      return: currentRoot
+    }
+
+    // 修改nextUnitOfWork指向workInProgressRoot，这样下次就会处理这个节点了
+    nextUnitOfWork = workInProgressRoot;
+    deletions = [];
+  }
+
+  return [hook.state, setState]
 }
 ```
 
