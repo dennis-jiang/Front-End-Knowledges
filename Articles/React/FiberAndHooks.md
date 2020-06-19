@@ -512,54 +512,156 @@ ReactDOM.render(
 
 ## 实现useState 
 
-`useState`是React Hooks里面的一个API，相当于之前`Class Component`里面的`state`，用来管理组件内部状态，我们也在我们的`Fiber`里面来实现一下。为了实现这个API，我们需要添加两个全局变量，`wipFiber`和`hookIndex`，`wipFiber`用来存储当前工作的fiber，`hookIndex`指向当前的`hooks`状态，我们这里的`hooks`是一个数组，`hookIndex`就是对应的数组下标。因为`useState`只在函数组件里面有用，所以这两个变量的赋值需要在函数组件的处理函数`updateFunctionComponent`里面进行。
+`useState`是React Hooks里面的一个API，相当于之前`Class Component`里面的`state`，用来管理组件内部状态，现在我们已经有一个简化版的`React`了，我们也可以尝试下来实现这个API。
+
+### 简单版
+
+我们还是从用法入手来实现最简单的功能，我们一般使用`useState`是这样的：
 
 ```javascript
-function updateFunctionComponent(fiber) {
-  // 支持useState
-  wipFiber = fiber;
-  hookIndex = 0;
-  wipFiber.hooks = [];
+function App(props) {
+  const [count, setCount] = React.useState(1);
+  const onClickHandler = () => {
+    setCount(count + 1);
+  }
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={onClickHandler}>Count+1</button>
+    </div>
+  );
+}
 
-  // 函数组件的type就是个函数，直接拿来执行可以获得DOM元素
-  const children = [fiber.type(fiber.props)];
+ReactDOM.render(
+  <App title="Fiber"/>,
+  document.getElementById('root')
+);
+```
 
-  reconcileChildren(fiber, children);
+上述代码可以看出，我们的`useState`接收一个初始值，返回一个数组，里面有这个`state`的当前值和改变`state`的方法，需要注意的是`App`作为一个函数组件，每次`render`的时候都会运行，也就是说里面的局部变量每次`render`的时候都会重置，那我们的`state`就不能作为一个局部变量，而是应该作为一个全部变量存储：
+
+```javascript
+let state = null;
+function useState(init) {
+
+  state = state === null ? init : state;
+
+  // 修改state的方法
+  const setState = value => {
+    state = value;
+
+    // 只要修改了state，我们就需要重新处理这个节点
+    workInProgressRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot
+    }
+
+    // 修改nextUnitOfWork指向workInProgressRoot，这样下次就会处理这个节点了
+    nextUnitOfWork = workInProgressRoot;
+    deletions = [];
+  }
+
+  return [state, setState]
 }
 ```
 
-然后就是实现我们的`useState`方法，这个方法的返回值大家都知道了，返回一个数组，数组第一项是`state`对应的变量，第二项是对应的修改方法：
+这样其实我们就可以使用了：
+
+![Jun-19-2020 15-16-04](../../images/React/FiberAndHooks/Jun-19-2020 15-16-04.gif)
+
+### 支持多个state
+
+上面的代码只有一个`state`变量，如果我们有多个`useState`怎么办呢？为了能支持多个`useState`，我们的`state`就不能是一个简单的值了，我们可以考虑把他改成一个数组，多个`useState`按照调用顺序放进这个数组里面，访问的时候通过下标来访问:
+
+```javascript
+let state = [];
+let hookIndex = 0;
+function useState(init) {
+  const currentIndex = hookIndex;
+  state[currentIndex] = state[currentIndex] === undefined ? init : state[currentIndex];
+
+  console.log(init, currentIndex, state[currentIndex]);
+
+  // 修改state的方法
+  const setState = value => {
+    state[currentIndex] = value;
+
+    // 只要修改了state，我们就需要重新处理这个节点
+    workInProgressRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot
+    }
+
+    // 修改nextUnitOfWork指向workInProgressRoot，这样下次就会处理这个节点了
+    nextUnitOfWork = workInProgressRoot;
+    deletions = [];
+  }
+
+  hookIndex++;
+
+  return [state[currentIndex], setState]
+}
+```
+
+来看看多个`useState`的效果：
+
+![Jun-19-2020 15-28-59](../../images/React/FiberAndHooks/Jun-19-2020 15-28-59.gif)
+
+### 支持多个组件
+
+上面的代码虽然我们支持了多个`useState`，但是仍然只有一套全局变量，如果有多个函数组件，每个组件都来操作这个全局变量，那相互之间不就是污染了数据了吗？所以我们数据还不能都存在全局变量上面，而是应该存在每个`fiber`节点上，处理这个节点的时候再将状态放到全局变量用来通讯:
+
+```javascript
+// 申明两个全局变量，用来处理useState
+// wipFiber是当前的函数组件fiber节点
+// hookIndex是当前函数组件内部useState状态计数
+let wipFiber = null;
+let hookIndex = null;
+```
+
+因为`useState`只在函数组件里面可以用，所以我们之前的`updateFunctionComponent`里面需要初始化处理`useState`变量:
+
+```javascript
+function updateFunctionComponent(fiber) {
+  // 支持useState，初始化变量
+  wipFiber = fiber;
+  hookIndex = 0;
+  wipFiber.hooks = [];        // hooks用来存储具体的state序列
+  
+  // ......下面代码省略......
+}
+```
+
+因为`hooks`队列放到`fiber`节点上去了，所以我们在`useState`取之前的值时需要从`fiber.alternate`上取，完整代码如下：
 
 ```javascript
 function useState(init) {
-  // 拿出以前的hook值
-  const oldHook = wipFiber.return && wipFiber.return.hooks && wipFiber.return.hooks[hookIndex];
-  
-  // 构建hook结构
+  // 取出上次的Hook
+  const oldHook = wipFiber.alternate && wipFiber.alternate.hooks && wipFiber.alternate.hooks[hookIndex];
+
+  // hook数据结构
   const hook = {
-    state: oldHook ? oldHook.state : init,    // hook的值
-    modifyQueue: []              // 修改队列
+    state: oldHook ? oldHook.state : init      // state是每个具体的值
   }
 
-  const values = oldHook ? oldHook.modifyQueue : [];
-  values.forEach(value => hook.state = value);
-
-  // 往fiber里面添加新的hook数据
+  // 将所有useState调用按照顺序存到fiber节点上
   wipFiber.hooks.push(hook);
   hookIndex++;
 
   // 修改state的方法
   const setState = value => {
-    hook.modifyQueue.push(value);
+    hook.state = value;
 
-    // 只要修改了，我们就需要重新处理这个节点
+    // 只要修改了state，我们就需要重新处理这个节点
     workInProgressRoot = {
       dom: currentRoot.dom,
       props: currentRoot.props,
-      return: currentRoot
+      alternate: currentRoot
     }
 
-    // 修改nextUnitOfWork指向workInProgressRoot，这样下次就会处理这个节点了
+    // 修改nextUnitOfWork指向workInProgressRoot，这样下次requestIdleCallback就会处理这个节点了
     nextUnitOfWork = workInProgressRoot;
     deletions = [];
   }
@@ -568,13 +670,25 @@ function useState(init) {
 }
 ```
 
+上面代码可以看出我们在将`useState`和存储的`state`进行匹配的时候是用的`useState`的调用顺序匹配`state`的下标，如果这个下标匹配不上了，`state`就错了，所以`React`里面不能出现这样的代码:
+
+```javascript
+if (something) {
+    const [state, setState] = useState(1);
+}
+```
+
+上述代码不能保证每次`something`都满足，可能导致`useState`这次`render`执行了，下次又没执行，这样新老节点的下标就匹配不上了，对于这种代码，`React`会直接报错：
+
+![image-20200619161005858](../../images/React/FiberAndHooks/image-20200619161005858.png)
+
 
 
 ## 参考资料
 
 [A Cartoon Intro to Fiber](http://conf2017.reactjs.org/speakers/lin)
 
-[妙味课堂](https://study.miaov.com/v_show/4227)
+[妙味课堂大圣：手写react的fiber和hooks架构](https://study.miaov.com/v_show/4227)
 
 [React Fiber](https://juejin.im/post/5ab7b3a2f265da2378403e57)
 

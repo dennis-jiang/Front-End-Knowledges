@@ -220,37 +220,48 @@ function reconcileChildren(workInProgressFiber, elements) {
   }
 }
 
+// 申明两个全局变量，用来处理useState
+// wipFiber是当前的函数组件fiber节点
+// hookIndex是当前函数组件内部useState状态计数
 let wipFiber = null;
 let hookIndex = null;
-let state = null;
 function useState(init) {
+  // 取出上次的Hook
+  const oldHook = wipFiber.alternate && wipFiber.alternate.hooks && wipFiber.alternate.hooks[hookIndex];
 
-  state = state === null ? init : state;
+  // hook数据结构
+  const hook = {
+    state: oldHook ? oldHook.state : init      // state是每个具体的值
+  }
+
+  // 将所有useState调用按照顺序存到fiber节点上
+  wipFiber.hooks.push(hook);
+  hookIndex++;
 
   // 修改state的方法
   const setState = value => {
-    state = value;
-    // 只要修改了，我们就需要重新处理这个节点
+    hook.state = value;
+
+    // 只要修改了state，我们就需要重新处理这个节点
     workInProgressRoot = {
       dom: currentRoot.dom,
       props: currentRoot.props,
       alternate: currentRoot
     }
 
-    // 修改nextUnitOfWork指向workInProgressRoot，这样下次就会处理这个节点了
+    // 修改nextUnitOfWork指向workInProgressRoot，这样下次requestIdleCallback就会处理这个节点了
     nextUnitOfWork = workInProgressRoot;
     deletions = [];
   }
 
-  // return [hook.state, setState]
-  return [state, setState]
+  return [hook.state, setState]
 }
 
 function updateFunctionComponent(fiber) {
-  // 支持useState
+  // 支持useState，初始化变量
   wipFiber = fiber;
   hookIndex = 0;
-  wipFiber.hooks = [];
+  wipFiber.hooks = [];        // hooks用来存储具体的state序列
 
   // 函数组件的type就是个函数，直接拿来执行可以获得DOM元素
   const children = [fiber.type(fiber.props)];
