@@ -77,7 +77,7 @@ var App = React.createElement(
 
 让我们来完整看下这个简单的React页面代码：
 
-![image-20200608180112829](/Users/djiang/Code/Mine/Front-End-Knowledges/images/React/FiberAndHooks/image-20200608180112829.png)
+![image-20200608180112829](../../images/React/FiberAndHooks/image-20200608180112829.png)
 
 渲染在页面上是这样：
 
