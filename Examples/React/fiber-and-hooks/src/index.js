@@ -42,16 +42,6 @@ function Count() {
 }
 
 function App(props) {
-  const [count, setCount] = React.useState(1);
-  const [count2, setCount2] = React.useState(1);
-  
-  const onClickHandler = () => {
-    setCount(count + 1);
-  }
-
-  const onClickHandler2 = () => {
-    setCount2(count2 + 1);
-  }
   return (
     <div>
       <h1 id="title">{props.title}</h1>
