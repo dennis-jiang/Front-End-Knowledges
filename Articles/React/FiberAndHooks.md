@@ -381,7 +381,7 @@ reconcile其实就是虚拟DOM树的diff操作，需要删除不需要的节点�
       }
 ```
 
-然后就是在`commit`阶段处理真正的DOM操作，具体的操作是根绝我们的`effectTag`来判断的:
+然后就是在`commit`阶段处理真正的DOM操作，具体的操作是根据我们的`effectTag`来判断的:
 
 ```javascript
 function commitRootImpl(fiber) {
