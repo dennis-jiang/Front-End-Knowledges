@@ -737,3 +737,79 @@ var exist = function(board, word) {
 
 上述代码时间复杂度为$$O(3^kMN)$$，空间复杂度为$$O(K)$$，其中M，N为矩阵行列数，K为目标字符串长度。
 
+## [机器人的运动范围(中等)](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/)
+
+链接：https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/
+
+### 题目
+
+> 地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？
+>
+
+**示例 1：**
+
+```
+输入：m = 2, n = 3, k = 1
+输出：3
+```
+
+**示例 2：**
+
+```
+输入：m = 3, n = 1, k = 0
+输出：1
+```
+
+### 解题思路
+
+> 1. 本题难度为中等，咋一看跟上面那个`矩阵中的路径`好像，都是在矩阵中查找，所以我们可以用类似的思路来求解
+> 2. 查找从`[0,0]`开始，也就是从左上角开始，可以往上下左右四个方向查找，也就是往`i+1`,`i-1`,`j+1`,`j-1`四个方向递归，结束条件为数组越界或者数位和大于`k`，所以还要一个辅助方法求数位和。
+> 3. 另外还需要一个同样大小的二维数组来记录是否遍历过，如果遍历过直接返回，如果所有条件投通过，计数`+1`。
+> 4. 另外由于查找是从`[0,0]`，也就是左上角，其实只需要往右和下查找就行了，可以节约时间。
+
+### 代码
+
+```javascript
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+var movingCount = function(m, n, k) {
+    function getSum(i) {
+        let sum = 0;
+        let tmp = i;
+        while(tmp > 0) {
+            sum = sum + tmp % 10;
+            tmp = parseInt(tmp / 10);
+        }
+
+        return sum;
+    }
+
+    let count = 0;
+
+    const arr = [];
+    for(let p = 0; p < m; p++){
+        arr.push([]);
+    }
+
+    function dfs(i, j, k) {
+        if(i < 0 || i > m -1 
+            || j < 0 || j > n - 1 
+            || (getSum(i) + getSum(j)) > k
+            || arr[i][j]) return;
+
+        count++;
+        arr[i][j] = true;
+        dfs(i + 1, j, k);
+        dfs(i, j + 1, k);
+    }
+
+    dfs(0, 0, k);
+
+    return count;
+};
+```
+
