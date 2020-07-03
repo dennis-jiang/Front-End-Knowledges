@@ -1,6 +1,6 @@
 Redux可是一个大名鼎鼎的库，很多地方都在用，我也用了几年了，今天这篇文章就是自己来实现一个简单版的Redux，以便于深入理解他的原理。我们还是老套路，从基本的用法入手，然后自己实现一个Redux来替代源码的NPM包，但是功能保持不变。本文只会实现Redux的核心库，跟其他库的配合使用，比如React-Redux准备后面单独写一篇文章来讲。有时候我们过于关注使用，只记住了各种使用方式，反而忽略了他们的核心原理，但是如果我们想真正的提高技术，最好还是一个一个搞清楚，比如Redux和React-Redux看起来很像，但是他们的核心理念和关注点是不同的，Redux其实只是一个单纯状态管理组件，没有任何界面相关的东西，React-Redux关注的是怎么将Redux跟React结合起来，用到了一些React的API。
 
-本文全部代码已经上传到GitHub，大家可以拿下来玩下：
+**本文全部代码已经上传到GitHub，大家可以拿下来玩下：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux)**
 
 ## 基本概念
 
@@ -532,7 +532,7 @@ let store = createStore(reducer, applyMiddleware(logger, logger2));
 
 到这里我们的`applyMiddleware`就写完了，[对应的源码可以看这里，相信看了本文再去看源码就没啥问题了！](https://github.com/reduxjs/redux/blob/master/src/applyMiddleware.ts#L55)
 
-本文所有代码已经传到GitHub，大家可以去拿下来玩一下：
+**本文所有代码已经传到GitHub，大家可以去拿下来玩一下：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux)**
 
 ## 总结
 
