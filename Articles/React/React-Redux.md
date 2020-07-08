@@ -1,5 +1,7 @@
 [上一篇文章我们手写了一个Redux](https://juejin.im/post/5efec81be51d4534942dd589)，但是单纯的Redux只是一个状态机，是没有UI呈现的，所以一般我们使用的时候都会配合一个UI库，比如在React中使用Redux就会用到`React-Redux`这个库。这个库的作用是将Redux的状态机和React的UI呈现绑定在一起，当你`dispatch action`改变`state`的时候，会自动更新页面。本文还是从它的基本使用入手来自己写一个`React-Redux`，然后替换官方的NPM库，并保持功能一致。
 
+**本文全部代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-redux](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-redux)**
+
 ## 基本用法
 
 下面这个简单的例子是一个计数器，跑起来效果如下：
@@ -59,7 +61,7 @@ function reducer(state = initState, action) {
 export default reducer;
 ```
 
-这里的`reduce`会有一个初始`state`，里面的`count`是`0`，同时他还能处理三个`action`，这三个`action`对应的是UI上的三个按钮，可以对`state`里面的计数进行加减和重置。到这里其实我们`React-Redux`的接入和`Redux`数据的组织其实已经完成了，后面如果要用`Redux`里面的数据的话，只需要用`count`API将对应的`state`和方法连接到组件里面就行了，比如我们的计数器组件需要`count`这个状态和加一，减一，重置这三个`action`，我们用`connect`将它连接进去就是这样：
+这里的`reduce`会有一个初始`state`，里面的`count`是`0`，同时他还能处理三个`action`，这三个`action`对应的是UI上的三个按钮，可以对`state`里面的计数进行加减和重置。到这里其实我们`React-Redux`的接入和`Redux`数据的组织其实已经完成了，后面如果要用`Redux`里面的数据的话，只需要用`connect`API将对应的`state`和方法连接到组件里面就行了，比如我们的计数器组件需要`count`这个状态和加一，减一，重置这三个`action`，我们用`connect`将它连接进去就是这样：
 
 ```javascript
 import React from 'react';
@@ -116,9 +118,9 @@ export default connect(
 
 所以`React-Redux`核心其实就两个API，而且两个都是组件，作用还很类似，都是往组件里面注入参数，`Provider`是往根组件注入`store`，`connect`是往需要的组件注入`state`和`dispatch`。
 
-在手写之前我们先来思考下，为什么`React-Redux`要设计这两个API，假如没有这两个API，只用`Redux`可以吗？当然是可以的！其实我们用`Redux`的目的不就是希望用它将整个应用的状态都保存下来，每次操作只用`dispatch action`去更新状态，然后UI就自动更新了吗？那我从根组件开始，每一级都把`store`传下去不就行了吗？每个子组件需要读取状态的时候，直接用`store.getState()`就行了，更新状态的时候就`store.dispatch`，这样其实也能达到目的。但是，如果这样写，子组件如果嵌套层数很多，每一级都需要手动传入`store`，比较丑陋，开发也比较繁琐，而且如果某个新同学忘了传`store`，那后面就是一连串的错误了。所以最好有个东西能够将`store`全局的注入组件树，而不需要一层层作为`props`传递，这个东西就是`Provider`！那`connect`存在的意义是什么呢？这个其实跟`Provider`的实现方式有关系，我们先来看看`Provider`是怎么实现的。
+在手写之前我们先来思考下，为什么`React-Redux`要设计这两个API，假如没有这两个API，只用`Redux`可以吗？当然是可以的！其实我们用`Redux`的目的不就是希望用它将整个应用的状态都保存下来，每次操作只用`dispatch action`去更新状态，然后UI就自动更新了吗？那我从根组件开始，每一级都把`store`传下去不就行了吗？每个子组件需要读取状态的时候，直接用`store.getState()`就行了，更新状态的时候就`store.dispatch`，这样其实也能达到目的。但是，如果这样写，子组件如果嵌套层数很多，每一级都需要手动传入`store`，比较丑陋，开发也比较繁琐，而且如果某个新同学忘了传`store`，那后面就是一连串的错误了。所以最好有个东西能够将`store`全局的注入组件树，而不需要一层层作为`props`传递，这个东西就是`Provider`！而且如果每个组件都独立依赖`Redux`会破坏`React`的数据流向，这个我们后面会讲到。
 
-## React的context api
+## React的Context API
 
 React其实提供了一个全局注入变量的API，这就是context api。假如我现在有一个需求是要给我们所有组件传一个文字颜色的配置，我们的颜色配置在最顶级的组件上，当这个颜色改变的时候，下面所有组件都要自动应用这个颜色。那我们可以使用context api注入这个配置：
 
@@ -202,7 +204,7 @@ return (
 
 
 
-所以我们完全可以用`context api`来传递`redux store`了，现在我们也可以猜测`React-Redux`的`Provider`其实就是包装了`Context.Provider`，而传递的参数就是`redux store`，而`React-Redux`的`connect`HOC其实就是包装的`Context.Consumer`或者`useContext`。我们可以按照这个思路来自己实现下`React-Redux`了。
+所以我们完全可以用`context api`来传递`redux store`，现在我们也可以猜测`React-Redux`的`Provider`其实就是包装了`Context.Provider`，而传递的参数就是`redux store`，而`React-Redux`的`connect`HOC其实就是包装的`Context.Consumer`或者`useContext`。我们可以按照这个思路来自己实现下`React-Redux`了。
 
 ## 手写`Provider`
 
@@ -308,7 +310,7 @@ useLayoutEffect(() => {
 }, []);
 ```
 
-注意`lastChildProps`是在第一次渲染结束后赋值，而且需要使用`useLayoutEffect`来保证渲染后立即同步执行。
+注意`lastChildProps.current`是在第一次渲染结束后赋值，而且需要使用`useLayoutEffect`来保证渲染后立即同步执行。
 
 因为我们检测参数变化是需要重新计算`actualChildProps`，计算的逻辑其实都是一样的，我们将这块计算逻辑抽出来，成为一个单独的方法`childPropsSelector`:
 
@@ -433,7 +435,7 @@ function ConnectFunction(props) {
 
 > 1. `Subscription`负责处理所有的`state`变化的回调
 > 2. 如果当前连接`redux`的组件是第一个连接`redux`的组件，也就是说他是连接`redux`的根组件，他的`state`回调直接注册到`redux store`；同时新建一个`Subscription`实例`subscription`通过`context`传递给子级。
-> 3. 如果当前连接`redux`的组件不是连接`redux`的根组件，也就是说他上面有组件已经注册到`redux store`了，而且他可以拿到上面通过`context`传下来的`subscription`，源码里面这个变量叫`parentSub`，那当前组件的`state`回调就注册到`parentSub`上。同时再新建一个`Subscription`实例，替代`context`上的`subscription`，继续往下传，也就是说他的子组件的回调会注册到当前`subscription`上。
+> 3. 如果当前连接`redux`的组件不是连接`redux`的根组件，也就是说他上面有组件已经注册到`redux store`了，那么他可以拿到上面通过`context`传下来的`subscription`，源码里面这个变量叫`parentSub`，那当前组件的更新回调就注册到`parentSub`上。同时再新建一个`Subscription`实例，替代`context`上的`subscription`，继续往下传，也就是说他的子组件的回调会注册到当前`subscription`上。
 > 4. 当`state`变化了，根组件注册到`redux store`上的回调会执行更新根组件，同时根组件需要手动执行子组件的回调，子组件回调执行会触发子组件更新，然后子组件再执行自己`subscription`上注册的回调，触发孙子组件更新，孙子组件再调用注册到自己`subscription`上的回调。。。这样就实现了从根组件开始，一层一层更新子组件的目的，保证了`父->子`这样的更新顺序。
 
 ### `Subscription`类
@@ -500,6 +502,7 @@ function Provider(props) {
   // 里面放入store和subscription实例
   const contextValue = useMemo(() => {
     const subscription = new Subscription(store)
+    // 注册回调为通知子组件，这样就可以开始层级通知了
     subscription.onStateChange = subscription.notifyNestedSubs
     return {
       store,
@@ -512,7 +515,6 @@ function Provider(props) {
 
   // 每次contextValue或者previousState变化的时候
   // 用notifyNestedSubs通知子组件
-  // 这是层级通知的开始
   useEffect(() => {
     const { subscription } = contextValue;
     subscription.trySubscribe()
@@ -548,7 +550,6 @@ function storeStateUpdatesReducer(count) {
   return count + 1;
 }
 
-// 第一层函数接收mapStateToProps和mapDispatchToProps
 function connect(
   mapStateToProps = () => {}, 
   mapDispatchToProps = () => {}
@@ -563,31 +564,21 @@ function connect(
     return Object.assign({}, stateProps, dispatchProps, wrapperProps);
   }
 
-  // 第二层函数是个高阶组件，里面获取context
-  // 然后执行mapStateToProps和mapDispatchToProps
-  // 再将这个结果组合用户的参数作为最终参数渲染WrappedComponent
-  // WrappedComponent就是我们使用connext包裹的自己的组件
   return function connectHOC(WrappedComponent) {
     function ConnectFunction(props) {
-      // 复制一份props到wrapperProps
       const { ...wrapperProps } = props;
 
-      // 获取context的值
       const contextValue = useContext(ReactReduxContext);
 
       const { store, subscription: parentSub } = contextValue;  // 解构出store和parentSub
       
-      // 组装最终的props
       const actualChildProps = childPropsSelector(store, wrapperProps);
 
-      // 记录上次渲染参数
       const lastChildProps = useRef();
-      // 使用useLayoutEffect保证同步执行
       useLayoutEffect(() => {
         lastChildProps.current = actualChildProps;
       }, [actualChildProps]);
 
-      // 使用useReducer触发强制更新
       const [
         ,
         forceComponentUpdateDispatch
@@ -639,7 +630,7 @@ function connect(
 export default connect;
 ```
 
-到这里我们的`React-Redux`就完成了，跑起来的效果跟官方的效果一样，完整代码已经上传GitHub了：
+到这里我们的`React-Redux`就完成了，跑起来的效果跟官方的效果一样，完整代码已经上传GitHub了：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-redux](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-redux)
 
 下面我们再来总结下`React-Redux`的核心原理。
 
@@ -651,6 +642,6 @@ export default connect;
 4. `connect`的作用是从`Redux store`中选取需要的属性传递给包裹的组件。
 5. `connect`会自己判断是否需要更新，判断的依据是需要的`state`是否已经变化了。
 6. `connect`在判断是否变化的时候使用的是浅比较，也就是只比较一层，所以在`mapStateToProps`和`mapDispatchToProps`中不要反回多层嵌套的对象。
-7. 为了解决父组件和子组件各自独立依赖`Redux`，破坏了`React`的`父级->子级`的更新流程，`React-Redux`使用`Subscription`类子级管理了一套通知流程。
+7. 为了解决父组件和子组件各自独立依赖`Redux`，破坏了`React`的`父级->子级`的更新流程，`React-Redux`使用`Subscription`类自己管理了一套通知流程。
 8. 只有连接到`Redux`最顶级的组件才会直接注册到`Redux store`，其他子组件都会注册到最近父组件的`subscription`实例上。
 9. 通知的时候从根组件开始依次通知自己的子组件，子组件接收到通知的时候，先更新自己再通知自己的子组件。
