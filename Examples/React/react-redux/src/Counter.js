@@ -1,6 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useContext } from 'react';
+// import { connect } from 'react-redux';
+import { connect } from './my-react-redux';
 import { increment, decrement, reset } from './actions';
+import TestContext from './TestContext';
+import SubCounter from './SubCounter';
 
 function Counter(props) {
   const { 
@@ -10,12 +13,27 @@ function Counter(props) {
     resetHandler
    } = props;
 
+  // return (
+  //   <TestContext.Consumer>
+  //     {context => 
+  //       <>
+  //         <h3 style={{color:context.color}}>Count: {count}</h3>
+  //         <button onClick={incrementHandler}>计数+1</button>&nbsp;&nbsp;
+  //         <button onClick={decrementHandler}>计数-1</button>&nbsp;&nbsp;
+  //         <button onClick={resetHandler}>重置</button>
+  //       </>
+  //     }
+  //   </TestContext.Consumer>
+  // );
+
+  const context = useContext(TestContext);
   return (
     <>
-      <h3>Count: {count}</h3>
+      <h3 style={{color:context.color}}>Count: {count}</h3>
       <button onClick={incrementHandler}>计数+1</button>&nbsp;&nbsp;
       <button onClick={decrementHandler}>计数-1</button>&nbsp;&nbsp;
       <button onClick={resetHandler}>重置</button>
+      <SubCounter></SubCounter>
     </>
   );
 }
