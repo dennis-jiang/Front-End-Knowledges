@@ -1,5 +1,7 @@
 `React-Router`是React生态里面很重要的一环，现在React的单页应用的路由基本都是前端自己管理的，而不像以前是后端路由，React管理路由的库常用的就是就是`React-Router`。本文想写一下`React-Router`的使用，但是光介绍API又太平淡了，[而且官方文档已经写得很好了](https://reactrouter.com/web/guides/quick-start)，我这里就用一个常见的开发场景来看看`React-Router`是怎么用的吧。而我们一般的系统都会有用户访问权限的限制，某些页面可能需要用户具有一定的权限才能访问。本文就是用`React-Router`来实现一个前端鉴权模型。
 
+本文全部代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-usage](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-usage)
+
 ## 应用示例
 
 本文要实现的功能是大家经常遇到的场景，就是要控制不同的用户角色来访问不同的页面，这里总共有四个页面：
@@ -287,7 +289,7 @@ export default Login;
 3. 对于需要不同权限的路由，我们可以将他们拎出来分好类，单独建成一个文件，如果路由不多，放在一个文件导出多个数组也行。
 4. 对于需要鉴权的路由，我们可以用一个高级组件将权限校验的逻辑封装在里面，其他页面只需要加好配置，完全不用关心鉴权的问题。
 
-本文内容偏简单，作为熟悉`React-Router`的用法还不错，但是我们不能只会用，还要知道他的原理。下篇文章我们就来看看`React-Router`的源码里面蕴藏了什么奥秘，大家可以点个关注不迷路，哈哈~
+**本文内容偏简单，作为熟悉`React-Router`的用法还不错，但是我们不能只会用，还要知道他的原理。下篇文章我们就来看看`React-Router`的源码里面蕴藏了什么奥秘，大家可以点个关注不迷路，哈哈~**
 
 ## 参考资料
 
