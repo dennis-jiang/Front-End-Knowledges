@@ -645,3 +645,15 @@ export default connect;
 7. 为了解决父组件和子组件各自独立依赖`Redux`，破坏了`React`的`父级->子级`的更新流程，`React-Redux`使用`Subscription`类自己管理了一套通知流程。
 8. 只有连接到`Redux`最顶级的组件才会直接注册到`Redux store`，其他子组件都会注册到最近父组件的`subscription`实例上。
 9. 通知的时候从根组件开始依次通知自己的子组件，子组件接收到通知的时候，先更新自己再通知自己的子组件。
+
+## 参考资料
+
+官方文档：[https://react-redux.js.org/](https://react-redux.js.org/)
+
+GitHub源码：[https://github.com/reduxjs/react-redux/](https://github.com/reduxjs/react-redux/)
+
+**文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
+
+**作者博文GitHub项目地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
+
+**作者掘金文章汇总：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
