@@ -813,3 +813,85 @@ var movingCount = function(m, n, k) {
 };
 ```
 
+## [剪绳子](https://leetcode-cn.com/problems/jian-sheng-zi-lcof/)
+
+链接：[https://leetcode-cn.com/problems/jian-sheng-zi-lcof/](https://leetcode-cn.com/problems/jian-sheng-zi-lcof/)
+
+### 题目
+
+> 给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），每段绳子的长度记为 k[0],k[1]...k[m-1] 。请问 k[0]*k[1]*...*k[m-1] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+>
+
+示例 1：
+
+```
+输入: 2
+输出: 1
+解释: 2 = 1 + 1, 1 × 1 = 1
+```
+
+
+示例 2:
+
+```
+输入: 10
+输出: 36
+解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
+```
+
+### 解题思路
+
+> 1. 此题难度为中等，看题目描述直觉是一个动态规划的题目，所以关键是找出递推式
+>
+> 2. 假设长度为n的绳子的最大乘积是`F(n)`，最后一段长度是`i`，那剩下长度即为`n-i`，如果剩下一段不剪了，则：
+>
+>    `F(n) = i * (n - i)`
+>
+>    如果剩下一段继续剪，则：
+>
+>    `F(n) = i * F(n - i)`
+>
+>    至于剪还是不剪，就看哪个大了，所以最终为：
+>
+>    `F(n) = max(i * (n - i),  i * F(n - i))`
+>
+> 3. 然后我们对i进行循环，范围是1 -- n，找出最大的就行了。
+>
+> 4. 按照惯例，有了递推式可以写出递归代码和动态规划代码
+
+### 代码
+
+递归版：
+
+```javascript
+ var cuttingRope = function(n) {
+     if(n === 2) return 1;
+
+     let res = 0;
+
+     for(let i = 1; i <= n; i++) {
+         res = Math.max(res, i * (n - i), i * cuttingRope(n - i));
+     }
+
+     return res;
+ };
+```
+
+动态规划版：
+
+```javascript
+var cuttingRope = function(n) {
+    const DP = [0, 0, 1];
+
+    for(let i = 3; i <= n; i++) {
+        DP[i] = 0;
+
+        for(let j = 1; j <= i; j++) {
+            DP[i] = Math.max(DP[i], j * (i - j), j * DP[i - j]);
+        }
+    }
+
+    return DP[n];
+}
+```
+
