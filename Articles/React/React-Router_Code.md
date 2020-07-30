@@ -1,4 +1,4 @@
-我们讲了`React-Router`的基本用法，并实现了常见的前端路由鉴权。本文会继续深入`React-Router`讲讲他的源码，套路还是一样的，我们先用官方的API实现一个简单的例子，然后自己手写这些API来替换官方的并且保持功能不变。
+[上一篇文章我们讲了`React-Router`的基本用法](https://juejin.im/post/5f1a45f2518825742109ec2b)，并实现了常见的前端路由鉴权。本文会继续深入`React-Router`讲讲他的源码，套路还是一样的，我们先用官方的API实现一个简单的例子，然后自己手写这些API来替换官方的并且保持功能不变。
 
 **本文全部代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-code](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-code)**
 
@@ -59,7 +59,7 @@ export default Login;
 
 这样我们就完成了一个最简单的`React-Router`的应用示例，我们来分析下我们用到了他的哪些API，这些API就是我们今天要手写的目标，仔细一看，我们好像只用到了几个组件，这几个组件都是从`react-router-dom`导出来的：
 
-> **BrowserRouter**: 被我们重命名为了`Router`，他包裹了整个`React-Router`，感觉跟[以前写过的`react-redux`的`Provider`类似](https://juejin.im/post/5f0595f75188252e415f5519)，我猜是用来注入`context`之类的。
+> **BrowserRouter**: 被我们重命名为了`Router`，他包裹了整个`React-Router`应用，感觉跟[以前写过的`react-redux`的`Provider`类似](https://juejin.im/post/5f0595f75188252e415f5519)，我猜是用来注入`context`之类的。
 >
 > **Route**: 这个组件是用来定义具体的路由的，接收路由地址`path`和对应渲染的组件作为参数。
 >
@@ -95,7 +95,7 @@ class BrowserRouter extends React.Component {
 
 <img src="../../images/React/React-Router_Code/image-20200727172427353.png" alt="image-20200727172427353" style="zoom:33%;" />
 
-比如这里的`packages`文件夹下面有四个文件夹，这四个文件夹每个都可以作为一个单独的项目发布。之所以把他们放在一起，是因为他们之前有很强的依赖关系：
+注意这里的`packages`文件夹下面有四个文件夹，这四个文件夹每个都可以作为一个单独的项目发布。之所以把他们放在一起，是因为他们之前有很强的依赖关系：
 
 > **react-router**：是`React-Router`的核心库，处理一些共用的逻辑
 >
@@ -133,7 +133,7 @@ class BrowserRouter extends React.Component {
 > 4. 获取对应的组件
 > 5. render新组件
 
-其实`React-Router`的思路也是类似的，只是`React-Router`将这些功能拆分得更散，监听URL变化独立成了history库，vue-router里面的`current`变量在React里面是用`Context API`实现的，而且放到了核心库`react-router`里面，对于新组件的渲染则放到了对应的平台库`react-router-dom`或者`react-router-native`里面。按照这个思路，我们自己写的`React-Router`文件夹下面也建几个对应的文件夹：
+其实`React-Router`的思路也是类似的，只是`React-Router`将这些功能拆分得更散，监听URL变化独立成了history库，vue-router里面的`current`变量在React里面是用`Context API`实现的，而且放到了核心库`react-router`里面，一些跟平台相关的组件则放到了对应的平台库`react-router-dom`或者`react-router-native`里面。按照这个思路，我们自己写的`React-Router`文件夹下面也建几个对应的文件夹：
 
 ![image-20200728155030839](../../images/React/React-Router_Code/image-20200728155030839.png)
 
@@ -242,13 +242,13 @@ class Router extends React.Component {
 export default Router;
 ```
 
-[上述代码是我精简过的代码，原版代码可以看这里。](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/Router.js)这段代码主要是创建了两个`context`，将路由信息和`history`信息放到了这两个`context`上，其他也没干山了。[关于React的`Context API`我在另外一篇文章详细讲过，这里不再赘述了。](https://juejin.im/post/5f0595f75188252e415f5519#heading-1)
+[上述代码是我精简过的代码，原版代码可以看这里。](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/Router.js)这段代码主要是创建了两个`context`，将路由信息和`history`信息放到了这两个`context`上，其他也没干啥了。[关于React的`Context API`我在另外一篇文章详细讲过，这里不再赘述了。](https://juejin.im/post/5f0595f75188252e415f5519#heading-1)
 
 ### history
 
 前面我们其实用到了history的三个API：
 
-> **createBrowserHistory**: 这个是用在BrowserRouter里面的，用来创建一个history对象，后面的listen和unlisten都是挂载在这个API上面的。
+> **createBrowserHistory**: 这个是用在BrowserRouter里面的，用来创建一个history对象，后面的listen和unlisten都是挂载在这个API的返回对象上面的。
 >
 > **history.listen**：这个是用在Router组件里面的，用来监听路由变化。
 >
@@ -279,13 +279,14 @@ function createBrowserHistory() {
 
   // 路由变化时的回调
   const handlePop = function() {
-    listeners.call();     // 路由变化时执行回调
+    listeners.call();     // 路由变化时执行所有listener
   }
 
   // 监听路由变化，BrowserHistory监听的事件是popstate
   window.addEventListener('popstate', handlePop);
 
   // 返回的history上有个listen方法
+  // 就是往listeners里面push回调就行了
   const history = {
     listen(listener) {
       return listeners.push(listener);
@@ -298,7 +299,7 @@ function createBrowserHistory() {
 export default createBrowserHistory;
 ```
 
-上述`history`代码是超级精简版的代码，官方源码很多，还支持其他功能，我们这里只拎出来核心功能，对官方源码感兴趣的看这里：[https://github.com/ReactTraining/history/blob/master/packages/history/index.ts](https://github.com/ReactTraining/history/blob/master/packages/history/index.ts)
+上述`history`代码是超级精简版的代码，官方源码很多，还支持其他功能，我们这里只拎出来核心功能，对官方源码感兴趣的看这里：[https://github.com/ReactTraining/history/blob/28c89f4091ae9e1b0001341ea60c629674e83627/packages/history/index.ts#L397](https://github.com/ReactTraining/history/blob/28c89f4091ae9e1b0001341ea60c629674e83627/packages/history/index.ts#L397)
 
 ### Route组件
 
@@ -426,7 +427,7 @@ export default Route;
 
 ### Switch组件
 
-我们上面的`Route`组件的功能是只要`path`匹配上当前路由就渲染组件，也就意味着如果多个`Route`的`path`都匹配上了当前路由，这几个组件都会渲染。所以`Switch`组件的功能只有一个，就是即使多个`Route`的`path`都匹配上了当前路由，也只渲染第一个匹配上的组件。要实现这个功能其实也不难，把`Switch`的`children`拿出来循环，找出第一个匹配的`child`，给它添加一个标记属性`computedMatch`，然后修改下`Route`的渲染逻辑，先检测`computedMatch`，如果没有这个再使用`matchPath`自己去匹配：
+我们上面的`Route`组件的功能是只要`path`匹配上当前路由就渲染组件，也就意味着如果多个`Route`的`path`都匹配上了当前路由，这几个组件都会渲染。所以`Switch`组件的功能只有一个，就是即使多个`Route`的`path`都匹配上了当前路由，也只渲染第一个匹配上的组件。要实现这个功能其实也不难，把`Switch`的`children`拿出来循环，找出第一个匹配的`child`，给它添加一个标记属性`computedMatch`，顺便把其他的`child`全部干掉，然后修改下`Route`的渲染逻辑，先检测`computedMatch`，如果没有这个再使用`matchPath`自己去匹配：
 
 ```javascript
 import React from "react";
@@ -457,7 +458,7 @@ class Switch extends React.Component {
             }
           });
 
-          // 最终<Switch>组件的返回值只是匹配上子元素的一个拷贝，其他子元素被忽略了
+          // 最终<Switch>组件的返回值只是匹配子元素的一个拷贝，其他子元素被忽略了
           // match属性会被塞给拷贝元素的computedMatch
           // 如果一个都没匹配上，返回null
           return match
@@ -485,11 +486,11 @@ const match = this.props.computedMatch
 
 ### Link组件
 
-`Link`组件功能也很简单，就是一个跳转，浏览器上要实现一个跳转，可以用`a`标签，但是如果直接使用`a`标签可能会导致页面刷新，所以不能直接使用它，而应该使用`history API`，[具体文档可以看这里](https://developer.mozilla.org/zh-CN/docs/Web/API/History)。我们这里要跳转URL可以直接使用`history.pushState`。使用`history.pushState`需要注意一下几点：
+`Link`组件功能也很简单，就是一个跳转，浏览器上要实现一个跳转，可以用`a`标签，但是如果直接使用`a`标签可能会导致页面刷新，所以不能直接使用它，而应该使用`history API`，[`history API`具体文档可以看这里](https://developer.mozilla.org/zh-CN/docs/Web/API/History)。我们这里要跳转URL可以直接使用`history.pushState`。使用`history.pushState`需要注意一下几点：
 
-> 1. `history.pushState`只会改变`state`状态，不会刷新页面。换句话说就是你用了这个API，你会看到浏览器地址栏的地址变化了，但是页面并没有变化。
-> 2. 当你使用`history.pushState`改变`state`状态的时候，`popstate`事件会触发，我们就是通过监听`popstate`事件来渲染对应的组件的。
-> 3. `history.pushState(state, title[, url])`接收三个参数，第一个参数`state`是往新路由传递的信息，可以为空，官方`React-Router`会往里面加一个随机的`key`和其他信息，我们这里直接为空吧，第二个参数`title`目前大多数浏览器都不支持，可以直接给个空字符串，第三个参数`url`是可选的，但是却是我们这里的关键，这个参数是要跳往的目标地址。
+> 1. `history.pushState`只会改变`history`状态，不会刷新页面。换句话说就是你用了这个API，你会看到浏览器地址栏的地址变化了，但是页面并没有变化。
+> 2. 当你使用`history.pushState`改变`history`状态的时候，`popstate`事件会触发，我们就是通过监听`popstate`事件来渲染对应的组件的。
+> 3. `history.pushState(state, title[, url])`接收三个参数，第一个参数`state`是往新路由传递的信息，可以为空，官方`React-Router`会往里面加一个随机的`key`和其他信息，我们这里直接为空吧，第二个参数`title`目前大多数浏览器都不支持，可以直接给个空字符串，第三个参数`url`是可选的，是我们这里的关键，这个参数是要跳往的目标地址。
 > 4. 由于`history`已经成为了一个独立的库，所以我们应该将`history.pushState`相关处理加到`history`库里面。
 
 我们先在`history`里面新加一个API`push`，这个API会调用`history.pushState`：
@@ -523,7 +524,7 @@ function LinkAnchor({navigate, ...rest}) {
 }
 
 function Link({
-  component = LinkAnchor,
+  component = LinkAnchor,  // component默认是LinkAnchor
   to,
   ...rest
 }) {
@@ -567,11 +568,11 @@ export default Link;
    3. `react-router-native`是`react-native`使用的包，里面包含了`android`和`ios`具体的项目。
 
 2. 浏览器事件监听也单独独立成了一个包`history`，跟`history`相关的处理都放在了这里，比如`push`，`replace`什么的。
-3. 前端路由组件的核心逻辑其实都差不多，包括我[之前写过的`vue-router`](https://juejin.im/post/5e255dd76fb9a0301572944a)也是一个套路：
+3. 前端路由库的核心逻辑其实都差不多，包括我[之前写过的`vue-router`](https://juejin.im/post/5e255dd76fb9a0301572944a)也是一个套路：
    1. 使用不刷新的路由API，比如`history`或者`hash`
    2. 根据不同模式监听对应的事件，`history`模式监听的是`popstate`，`hash`模式监听的是`hashchange`。
    3. 当路由事件触发时，将变化的路由写入到框架的响应式数据上，`vue`里面是通过插件实现的，`react`里面是将这个值写到根`router`的`state`上，然后通过`context`传给子组件。
-   4. 具体渲染时将路由配置的`path`和当前浏览器地址做一个对比，匹配上就渲染。
+   4. 具体渲染时将路由配置的`path`和当前浏览器地址做一个对比，匹配上就渲染对应的组件。
 
 **本文全部代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-code](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-code)**
 
