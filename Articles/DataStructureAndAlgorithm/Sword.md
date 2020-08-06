@@ -895,3 +895,37 @@ var cuttingRope = function(n) {
 }
 ```
 
+## [剪绳子 II](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/)
+
+链接：[https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/)
+
+这个题目跟上面那个剪绳子是一样的，只不过n的最大值变为了1000，上面那个是52，也就意味着不能用递归了，复杂度太高，肯定超时，只能用动态规划。我们再来复习下递推公式：
+
+`F(n) = max(i * (n - i), i * F(n-i))`，然后对i从1到n进行遍历，找出最大的结果。
+
+同时需要注意的是上述递推式中有`i * F(n - i)`，这个在多次迭代后可能导致数字超大从而溢出，解决这个问题我们可以使用[新的数据类型`BigInt`解决](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt)，`BigInt`在运算时应该将各个参与运算的数字都转换为`BigInt`，混合运算会报错。
+
+### 代码
+
+```javascript
+var cuttingRope = function(n) {
+    const DP = [0n, 0n ,1n];
+    for(let j = 3; j <= n; j++) {
+        DP[j] = 0;
+        for(let i = 1; i <= j; i++){
+            if(i * (j - i) > DP[j]) {
+                DP[j] = BigInt(i * (j - i))
+            }
+
+            if(BigInt(i) * BigInt(DP[j - i]) > DP[j]) {
+                DP[j] = BigInt(i) * BigInt(DP[j - i])
+            }
+        }
+    }
+
+    return DP[n] % 1000000007n;
+};
+```
+
+
+
