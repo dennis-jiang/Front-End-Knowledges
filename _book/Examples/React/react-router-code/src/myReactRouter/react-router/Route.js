@@ -11,8 +11,8 @@ class Route extends React.Component {
           // 从RouterContext获取location
           const location = context.location;
           const match = this.props.computedMatch
-                        ? this.props.computedMatch
-                        : matchPath(location.pathname, this.props);  // 调用matchPath检测当前路由是否匹配
+            ? this.props.computedMatch
+            : matchPath(location.pathname, this.props);  // 调用matchPath检测当前路由是否匹配
 
           const props = { ...context, location, match };
 

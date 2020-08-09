@@ -264,7 +264,7 @@ function createEvents() {
   return {
     push(fn) {
       handlers.push(fn);
-      return function() {
+      return function () {
         handlers = handlers.filter(handler => handler !== fn);
       };
     },
@@ -276,21 +276,30 @@ function createEvents() {
 
 function createBrowserHistory() {
   const listeners = createEvents();
+  let location = {
+    pathname: '/',
+  };
 
   // 路由变化时的回调
-  const handlePop = function() {
-    listeners.call();     // 路由变化时执行所有listener
+  const handlePop = function () {
+    const currentLocation = {
+      pathname: window.location.pathname
+    }
+    listeners.call(currentLocation);     // 路由变化时执行回调
   }
 
-  // 监听路由变化，BrowserHistory监听的事件是popstate
+  // 监听popstate事件
+  // 注意pushState和replaceState并不会触发popstate
+  // 但是浏览器的前进后退会触发popstate
+  // 我们这里监听这个事件是为了处理浏览器的前进后退
   window.addEventListener('popstate', handlePop);
 
   // 返回的history上有个listen方法
-  // 就是往listeners里面push回调就行了
   const history = {
     listen(listener) {
       return listeners.push(listener);
-    }
+    },
+    location
   }
 
   return history;
@@ -489,17 +498,23 @@ const match = this.props.computedMatch
 `Link`组件功能也很简单，就是一个跳转，浏览器上要实现一个跳转，可以用`a`标签，但是如果直接使用`a`标签可能会导致页面刷新，所以不能直接使用它，而应该使用`history API`，[`history API`具体文档可以看这里](https://developer.mozilla.org/zh-CN/docs/Web/API/History)。我们这里要跳转URL可以直接使用`history.pushState`。使用`history.pushState`需要注意一下几点：
 
 > 1. `history.pushState`只会改变`history`状态，不会刷新页面。换句话说就是你用了这个API，你会看到浏览器地址栏的地址变化了，但是页面并没有变化。
-> 2. 当你使用`history.pushState`改变`history`状态的时候，`popstate`事件会触发，我们就是通过监听`popstate`事件来渲染对应的组件的。
+> 2. 当你使用`history.pushState`或者`history.replaceState`改变`history`状态的时候，`popstate`事件并不会触发，所以`history`里面的回调不会自动调用，当用户使用`history.push`的时候我们需要手动调用回调函数。
 > 3. `history.pushState(state, title[, url])`接收三个参数，第一个参数`state`是往新路由传递的信息，可以为空，官方`React-Router`会往里面加一个随机的`key`和其他信息，我们这里直接为空吧，第二个参数`title`目前大多数浏览器都不支持，可以直接给个空字符串，第三个参数`url`是可选的，是我们这里的关键，这个参数是要跳往的目标地址。
 > 4. 由于`history`已经成为了一个独立的库，所以我们应该将`history.pushState`相关处理加到`history`库里面。
 
-我们先在`history`里面新加一个API`push`，这个API会调用`history.pushState`：
+我们先在`history`里面新加一个API`push`，这个API会调用`history.pushState`并手动执行回调：
 
 ```javascript
 // ... 省略其他代码 ...
 push(url) {
   const history = window.history;
+  // 这里pushState并不会触发popstate
+  // 但是我们仍然要这样做，是为了保持state栈的一致性
   history.pushState(null, '', url);
+
+  // 由于push并不触发popstate，我们需要手动调用回调函数
+  location = { pathname: url };
+  listeners.call(location);
 }
 ```
 
@@ -568,11 +583,15 @@ export default Link;
    3. `react-router-native`是`react-native`使用的包，里面包含了`android`和`ios`具体的项目。
 
 2. 浏览器事件监听也单独独立成了一个包`history`，跟`history`相关的处理都放在了这里，比如`push`，`replace`什么的。
-3. 前端路由库的核心逻辑其实都差不多，包括我[之前写过的`vue-router`](https://juejin.im/post/5e255dd76fb9a0301572944a)也是一个套路：
+3. `React-Router`实现时核心逻辑如下：
    1. 使用不刷新的路由API，比如`history`或者`hash`
-   2. 根据不同模式监听对应的事件，`history`模式监听的是`popstate`，`hash`模式监听的是`hashchange`。
-   3. 当路由事件触发时，将变化的路由写入到框架的响应式数据上，`vue`里面是通过插件实现的，`react`里面是将这个值写到根`router`的`state`上，然后通过`context`传给子组件。
-   4. 具体渲染时将路由配置的`path`和当前浏览器地址做一个对比，匹配上就渲染对应的组件。
+   2. 提供一个事件处理机制，让`React`组件可以监听路由变化。
+   3. 提供操作路由的接口，当路由变化时，通过事件回调通知`React`。
+   4. 当路由事件触发时，将变化的路由写入到`React`的响应式数据上，也就是将这个值写到根`router`的`state`上，然后通过`context`传给子组件。
+   5. 具体渲染时将路由配置的`path`和当前浏览器地址做一个对比，匹配上就渲染对应的组件。
+4. 在使用`popstate`时需要注意：
+   1. 原生`history.pushState`和`history.replaceState`并不会触发`popstate`，要通知`React`需要我们手动调用回调函数。
+   2. 浏览器的前进后退按钮会触发`popstate`事件，所以我们还是要监听`popstate`，目的是兼容前进后退按钮。
 
 **本文全部代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-code](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/react-router-code)**
 

@@ -1069,7 +1069,7 @@ export default Router;
   <span class="hljs-keyword">return</span> {
     push(fn) {
       handlers.push(fn);
-      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
         handlers = handlers.filter(<span class="hljs-function"><span class="hljs-params">handler</span> =&gt;</span> handler !== fn);
       };
     },
@@ -1081,21 +1081,30 @@ export default Router;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createBrowserHistory</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> listeners = createEvents();
+  <span class="hljs-keyword">let</span> location = {
+    <span class="hljs-attr">pathname</span>: <span class="hljs-string">&apos;/&apos;</span>,
+  };
 
   <span class="hljs-comment">// &#x8DEF;&#x7531;&#x53D8;&#x5316;&#x65F6;&#x7684;&#x56DE;&#x8C03;</span>
-  <span class="hljs-keyword">const</span> handlePop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    listeners.call();     <span class="hljs-comment">// &#x8DEF;&#x7531;&#x53D8;&#x5316;&#x65F6;&#x6267;&#x884C;&#x6240;&#x6709;listener</span>
+  <span class="hljs-keyword">const</span> handlePop = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> currentLocation = {
+      <span class="hljs-attr">pathname</span>: <span class="hljs-built_in">window</span>.location.pathname
+    }
+    listeners.call(currentLocation);     <span class="hljs-comment">// &#x8DEF;&#x7531;&#x53D8;&#x5316;&#x65F6;&#x6267;&#x884C;&#x56DE;&#x8C03;</span>
   }
 
-  <span class="hljs-comment">// &#x76D1;&#x542C;&#x8DEF;&#x7531;&#x53D8;&#x5316;&#xFF0C;BrowserHistory&#x76D1;&#x542C;&#x7684;&#x4E8B;&#x4EF6;&#x662F;popstate</span>
+  <span class="hljs-comment">// &#x76D1;&#x542C;popstate&#x4E8B;&#x4EF6;</span>
+  <span class="hljs-comment">// &#x6CE8;&#x610F;pushState&#x548C;replaceState&#x5E76;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;popstate</span>
+  <span class="hljs-comment">// &#x4F46;&#x662F;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x4F1A;&#x89E6;&#x53D1;popstate</span>
+  <span class="hljs-comment">// &#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x76D1;&#x542C;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x662F;&#x4E3A;&#x4E86;&#x5904;&#x7406;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x524D;&#x8FDB;&#x540E;&#x9000;</span>
   <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&apos;popstate&apos;</span>, handlePop);
 
   <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x7684;history&#x4E0A;&#x6709;&#x4E2A;listen&#x65B9;&#x6CD5;</span>
-  <span class="hljs-comment">// &#x5C31;&#x662F;&#x5F80;listeners&#x91CC;&#x9762;push&#x56DE;&#x8C03;&#x5C31;&#x884C;&#x4E86;</span>
   <span class="hljs-keyword">const</span> history = {
     listen(listener) {
       <span class="hljs-keyword">return</span> listeners.push(listener);
-    }
+    },
+    location
   }
 
   <span class="hljs-keyword">return</span> history;
@@ -1273,16 +1282,22 @@ export default Switch;
 <blockquote>
 <ol>
 <li><code>history.pushState</code>&#x53EA;&#x4F1A;&#x6539;&#x53D8;<code>history</code>&#x72B6;&#x6001;&#xFF0C;&#x4E0D;&#x4F1A;&#x5237;&#x65B0;&#x9875;&#x9762;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#x5C31;&#x662F;&#x4F60;&#x7528;&#x4E86;&#x8FD9;&#x4E2A;API&#xFF0C;&#x4F60;&#x4F1A;&#x770B;&#x5230;&#x6D4F;&#x89C8;&#x5668;&#x5730;&#x5740;&#x680F;&#x7684;&#x5730;&#x5740;&#x53D8;&#x5316;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x9875;&#x9762;&#x5E76;&#x6CA1;&#x6709;&#x53D8;&#x5316;&#x3002;</li>
-<li>&#x5F53;&#x4F60;&#x4F7F;&#x7528;<code>history.pushState</code>&#x6539;&#x53D8;<code>history</code>&#x72B6;&#x6001;&#x7684;&#x65F6;&#x5019;&#xFF0C;<code>popstate</code>&#x4E8B;&#x4EF6;&#x4F1A;&#x89E6;&#x53D1;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x76D1;&#x542C;<code>popstate</code>&#x4E8B;&#x4EF6;&#x6765;&#x6E32;&#x67D3;&#x5BF9;&#x5E94;&#x7684;&#x7EC4;&#x4EF6;&#x7684;&#x3002;</li>
+<li>&#x5F53;&#x4F60;&#x4F7F;&#x7528;<code>history.pushState</code>&#x6216;&#x8005;<code>history.replaceState</code>&#x6539;&#x53D8;<code>history</code>&#x72B6;&#x6001;&#x7684;&#x65F6;&#x5019;&#xFF0C;<code>popstate</code>&#x4E8B;&#x4EF6;&#x5E76;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#xFF0C;&#x6240;&#x4EE5;<code>history</code>&#x91CC;&#x9762;&#x7684;&#x56DE;&#x8C03;&#x4E0D;&#x4F1A;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#xFF0C;&#x5F53;&#x7528;&#x6237;&#x4F7F;&#x7528;<code>history.push</code>&#x7684;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x624B;&#x52A8;&#x8C03;&#x7528;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
 <li><code>history.pushState(state, title[, url])</code>&#x63A5;&#x6536;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;<code>state</code>&#x662F;&#x5F80;&#x65B0;&#x8DEF;&#x7531;&#x4F20;&#x9012;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x4E3A;&#x7A7A;&#xFF0C;&#x5B98;&#x65B9;<code>React-Router</code>&#x4F1A;&#x5F80;&#x91CC;&#x9762;&#x52A0;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;<code>key</code>&#x548C;&#x5176;&#x4ED6;&#x4FE1;&#x606F;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x76F4;&#x63A5;&#x4E3A;&#x7A7A;&#x5427;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;<code>title</code>&#x76EE;&#x524D;&#x5927;&#x591A;&#x6570;&#x6D4F;&#x89C8;&#x5668;&#x90FD;&#x4E0D;&#x652F;&#x6301;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x7ED9;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x7B2C;&#x4E09;&#x4E2A;&#x53C2;&#x6570;<code>url</code>&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x662F;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x7684;&#x5173;&#x952E;&#xFF0C;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x8981;&#x8DF3;&#x5F80;&#x7684;&#x76EE;&#x6807;&#x5730;&#x5740;&#x3002;</li>
 <li>&#x7531;&#x4E8E;<code>history</code>&#x5DF2;&#x7ECF;&#x6210;&#x4E3A;&#x4E86;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x5E93;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5C06;<code>history.pushState</code>&#x76F8;&#x5173;&#x5904;&#x7406;&#x52A0;&#x5230;<code>history</code>&#x5E93;&#x91CC;&#x9762;&#x3002;</li>
 </ol>
 </blockquote>
-<p>&#x6211;&#x4EEC;&#x5148;&#x5728;<code>history</code>&#x91CC;&#x9762;&#x65B0;&#x52A0;&#x4E00;&#x4E2A;API<code>push</code>&#xFF0C;&#x8FD9;&#x4E2A;API&#x4F1A;&#x8C03;&#x7528;<code>history.pushState</code>&#xFF1A;</p>
+<p>&#x6211;&#x4EEC;&#x5148;&#x5728;<code>history</code>&#x91CC;&#x9762;&#x65B0;&#x52A0;&#x4E00;&#x4E2A;API<code>push</code>&#xFF0C;&#x8FD9;&#x4E2A;API&#x4F1A;&#x8C03;&#x7528;<code>history.pushState</code>&#x5E76;&#x624B;&#x52A8;&#x6267;&#x884C;&#x56DE;&#x8C03;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// ... &#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801; ...</span>
 push(url) {
   <span class="hljs-keyword">const</span> history = <span class="hljs-built_in">window</span>.history;
+  <span class="hljs-comment">// &#x8FD9;&#x91CC;pushState&#x5E76;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;popstate</span>
+  <span class="hljs-comment">// &#x4F46;&#x662F;&#x6211;&#x4EEC;&#x4ECD;&#x7136;&#x8981;&#x8FD9;&#x6837;&#x505A;&#xFF0C;&#x662F;&#x4E3A;&#x4E86;&#x4FDD;&#x6301;state&#x6808;&#x7684;&#x4E00;&#x81F4;&#x6027;</span>
   history.pushState(<span class="hljs-literal">null</span>, <span class="hljs-string">&apos;&apos;</span>, url);
+
+  <span class="hljs-comment">// &#x7531;&#x4E8E;push&#x5E76;&#x4E0D;&#x89E6;&#x53D1;popstate&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x624B;&#x52A8;&#x8C03;&#x7528;&#x56DE;&#x8C03;&#x51FD;&#x6570;</span>
+  location = { <span class="hljs-attr">pathname</span>: url };
+  listeners.call(location);
 }
 </code></pre>
 <p>&#x4E0A;&#x9762;&#x8BF4;&#x4E86;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>a</code>&#x6807;&#x7B7E;&#x4F1A;&#x5BFC;&#x81F4;&#x9875;&#x9762;&#x5237;&#x65B0;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x4E0D;&#x4F7F;&#x7528;<code>a</code>&#x6807;&#x7B7E;&#xFF0C;<code>Link</code>&#x7EC4;&#x4EF6;&#x5E94;&#x8BE5;&#x6E32;&#x67D3;&#x4E2A;&#x4EC0;&#x4E48;&#x6807;&#x7B7E;&#x5728;&#x9875;&#x9762;&#x4E0A;&#x5462;&#xFF1F;&#x53EF;&#x4EE5;&#x968F;&#x4FBF;&#x6E32;&#x67D3;&#x4E2A;<code>span</code>&#xFF0C;<code>div</code>&#x4EC0;&#x4E48;&#x7684;&#x90FD;&#x884C;&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x80FD;&#x4F1A;&#x8DDF;&#x5927;&#x5BB6;&#x5E73;&#x65F6;&#x7684;&#x4E60;&#x60EF;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x8FD8;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x4E00;&#x4E9B;&#x6837;&#x5F0F;&#x5931;&#x6548;&#xFF0C;&#x6240;&#x4EE5;&#x5B98;&#x65B9;&#x8FD8;&#x662F;&#x9009;&#x62E9;&#x4E86;&#x6E32;&#x67D3;&#x4E00;&#x4E2A;<code>a</code>&#x6807;&#x7B7E;&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x53EA;&#x662F;&#x4F7F;&#x7528;<code>event.preventDefault</code>&#x7981;&#x6B62;&#x4E86;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#xFF0C;&#x7136;&#x540E;&#x7528;<code>history api</code>&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E86;&#x8DF3;&#x8F6C;&#xFF0C;&#x5F53;&#x7136;&#x4F60;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x4F20;<code>component</code>&#x53C2;&#x6570;&#x8FDB;&#x53BB;&#x6539;&#x53D8;&#x9ED8;&#x8BA4;&#x7684;<code>a</code>&#x6807;&#x7B7E;&#x3002;&#x56E0;&#x4E3A;&#x662F;<code>a</code>&#x6807;&#x7B7E;&#xFF0C;&#x4E0D;&#x80FD;&#x517C;&#x5BB9;<code>native</code>&#xFF0C;&#x6240;&#x4EE5;<code>Link</code>&#x7EC4;&#x4EF6;&#x5176;&#x5B9E;&#x662F;&#x5728;<code>react-router-dom</code>&#x8FD9;&#x4E2A;&#x5305;&#x91CC;&#x9762;&#xFF1A;</p>
@@ -1345,11 +1360,17 @@ export default Link;
 </li>
 <li><p>&#x6D4F;&#x89C8;&#x5668;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x4E5F;&#x5355;&#x72EC;&#x72EC;&#x7ACB;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x5305;<code>history</code>&#xFF0C;&#x8DDF;<code>history</code>&#x76F8;&#x5173;&#x7684;&#x5904;&#x7406;&#x90FD;&#x653E;&#x5728;&#x4E86;&#x8FD9;&#x91CC;&#xFF0C;&#x6BD4;&#x5982;<code>push</code>&#xFF0C;<code>replace</code>&#x4EC0;&#x4E48;&#x7684;&#x3002;</p>
 </li>
-<li>&#x524D;&#x7AEF;&#x8DEF;&#x7531;&#x5E93;&#x7684;&#x6838;&#x5FC3;&#x903B;&#x8F91;&#x5176;&#x5B9E;&#x90FD;&#x5DEE;&#x4E0D;&#x591A;&#xFF0C;&#x5305;&#x62EC;&#x6211;<a href="https://juejin.im/post/5e255dd76fb9a0301572944a" target="_blank">&#x4E4B;&#x524D;&#x5199;&#x8FC7;&#x7684;<code>vue-router</code></a>&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x5957;&#x8DEF;&#xFF1A;<ol>
+<li><code>React-Router</code>&#x5B9E;&#x73B0;&#x65F6;&#x6838;&#x5FC3;&#x903B;&#x8F91;&#x5982;&#x4E0B;&#xFF1A;<ol>
 <li>&#x4F7F;&#x7528;&#x4E0D;&#x5237;&#x65B0;&#x7684;&#x8DEF;&#x7531;API&#xFF0C;&#x6BD4;&#x5982;<code>history</code>&#x6216;&#x8005;<code>hash</code></li>
-<li>&#x6839;&#x636E;&#x4E0D;&#x540C;&#x6A21;&#x5F0F;&#x76D1;&#x542C;&#x5BF9;&#x5E94;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;<code>history</code>&#x6A21;&#x5F0F;&#x76D1;&#x542C;&#x7684;&#x662F;<code>popstate</code>&#xFF0C;<code>hash</code>&#x6A21;&#x5F0F;&#x76D1;&#x542C;&#x7684;&#x662F;<code>hashchange</code>&#x3002;</li>
-<li>&#x5F53;&#x8DEF;&#x7531;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;&#x5C06;&#x53D8;&#x5316;&#x7684;&#x8DEF;&#x7531;&#x5199;&#x5165;&#x5230;&#x6846;&#x67B6;&#x7684;&#x54CD;&#x5E94;&#x5F0F;&#x6570;&#x636E;&#x4E0A;&#xFF0C;<code>vue</code>&#x91CC;&#x9762;&#x662F;&#x901A;&#x8FC7;&#x63D2;&#x4EF6;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;<code>react</code>&#x91CC;&#x9762;&#x662F;&#x5C06;&#x8FD9;&#x4E2A;&#x503C;&#x5199;&#x5230;&#x6839;<code>router</code>&#x7684;<code>state</code>&#x4E0A;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;<code>context</code>&#x4F20;&#x7ED9;&#x5B50;&#x7EC4;&#x4EF6;&#x3002;</li>
+<li>&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x673A;&#x5236;&#xFF0C;&#x8BA9;<code>React</code>&#x7EC4;&#x4EF6;&#x53EF;&#x4EE5;&#x76D1;&#x542C;&#x8DEF;&#x7531;&#x53D8;&#x5316;&#x3002;</li>
+<li>&#x63D0;&#x4F9B;&#x64CD;&#x4F5C;&#x8DEF;&#x7531;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x5F53;&#x8DEF;&#x7531;&#x53D8;&#x5316;&#x65F6;&#xFF0C;&#x901A;&#x8FC7;&#x4E8B;&#x4EF6;&#x56DE;&#x8C03;&#x901A;&#x77E5;<code>React</code>&#x3002;</li>
+<li>&#x5F53;&#x8DEF;&#x7531;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;&#x5C06;&#x53D8;&#x5316;&#x7684;&#x8DEF;&#x7531;&#x5199;&#x5165;&#x5230;<code>React</code>&#x7684;&#x54CD;&#x5E94;&#x5F0F;&#x6570;&#x636E;&#x4E0A;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5C06;&#x8FD9;&#x4E2A;&#x503C;&#x5199;&#x5230;&#x6839;<code>router</code>&#x7684;<code>state</code>&#x4E0A;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;<code>context</code>&#x4F20;&#x7ED9;&#x5B50;&#x7EC4;&#x4EF6;&#x3002;</li>
 <li>&#x5177;&#x4F53;&#x6E32;&#x67D3;&#x65F6;&#x5C06;&#x8DEF;&#x7531;&#x914D;&#x7F6E;&#x7684;<code>path</code>&#x548C;&#x5F53;&#x524D;&#x6D4F;&#x89C8;&#x5668;&#x5730;&#x5740;&#x505A;&#x4E00;&#x4E2A;&#x5BF9;&#x6BD4;&#xFF0C;&#x5339;&#x914D;&#x4E0A;&#x5C31;&#x6E32;&#x67D3;&#x5BF9;&#x5E94;&#x7684;&#x7EC4;&#x4EF6;&#x3002;</li>
+</ol>
+</li>
+<li>&#x5728;&#x4F7F;&#x7528;<code>popstate</code>&#x65F6;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF1A;<ol>
+<li>&#x539F;&#x751F;<code>history.pushState</code>&#x548C;<code>history.replaceState</code>&#x5E76;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;<code>popstate</code>&#xFF0C;&#x8981;&#x901A;&#x77E5;<code>React</code>&#x9700;&#x8981;&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x8C03;&#x7528;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x6309;&#x94AE;&#x4F1A;&#x89E6;&#x53D1;<code>popstate</code>&#x4E8B;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x8981;&#x76D1;&#x542C;<code>popstate</code>&#xFF0C;&#x76EE;&#x7684;&#x662F;&#x517C;&#x5BB9;&#x524D;&#x8FDB;&#x540E;&#x9000;&#x6309;&#x94AE;&#x3002;</li>
 </ol>
 </li>
 </ol>
@@ -1415,7 +1436,7 @@ export default Link;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"手写React-Router源码","level":"1.6.5","depth":2,"next":{"title":"Node.js","level":"1.7","depth":1,"ref":"","articles":[]},"previous":{"title":"React-Router实现前端路由鉴权","level":"1.6.4","depth":2,"path":"Articles/React/React-Router_Usage.md","ref":"Articles/React/React-Router_Usage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/React/React-Router_Code.md","mtime":"2020-07-29T09:20:37.407Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-07-30T02:16:42.100Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"手写React-Router源码","level":"1.6.5","depth":2,"next":{"title":"Node.js","level":"1.7","depth":1,"ref":"","articles":[]},"previous":{"title":"React-Router实现前端路由鉴权","level":"1.6.4","depth":2,"path":"Articles/React/React-Router_Usage.md","ref":"Articles/React/React-Router_Usage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/React/React-Router_Code.md","mtime":"2020-08-09T05:39:47.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-08-09T05:46:09.178Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

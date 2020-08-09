@@ -30,7 +30,7 @@ class Switch extends React.Component {
           // match属性会被塞给拷贝元素的computedMatch
           // 如果一个都没匹配上，返回null
           return match
-            ? React.cloneElement(element, { location, computedMatch: match })   
+            ? React.cloneElement(element, { location, computedMatch: match })
             : null;
         }}
       </RouterContext.Consumer>
