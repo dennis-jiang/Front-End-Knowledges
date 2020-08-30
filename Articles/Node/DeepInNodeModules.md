@@ -1,5 +1,7 @@
 模块是Node.js里面一个很基本也很重要的概念，各种原生类库是通过模块提供的，第三方库也是通过模块进行管理和引用的。本文会从基本的模块原理出发，到最后我们会利用这个原理，自己实现一个简单的模块加载机制，即自己实现一个`require`。
 
+**本文完整代码已上传GitHub：[https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/Node.js/Module/MyModule/index.js](https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/Node.js/Module/MyModule/index.js)**
+
 ## 简单例子
 
 老规矩，讲原理前我们先来一个简单的例子，从这个例子入手一步一步深入原理。Node.js里面如果要导出某个内容，需要使用`module.exports`，使用`module.exports`几乎可以导出任意类型的JS对象，包括字符串，函数，对象，数组等等。我们先来建一个`a.js`导出一个最简单的`hello world`:
@@ -452,6 +454,8 @@ module.load(filename);
 4. 初始状态下，模块里面的`this, exports, module.exports`都指向同一个对象，如果你对他们重新赋值，这种连接就断了。
 5. 为了解决循环引用，模块在加载前就会被加入缓存，下次再加载会直接返回缓存，如果这时候模块还没加载完，你可能拿到未完成的`exports`。
 6. Node.js实现的这套加载机制叫**CommonJS**。
+
+**本文完整代码已上传GitHub：[https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/Node.js/Module/MyModule/index.js](https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/Node.js/Module/MyModule/index.js)**
 
 ## 参考资料
 
