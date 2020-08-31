@@ -65,7 +65,7 @@ MyModule.prototype.load = function (filename) {
   // 调用后缀名对应的处理函数来处理
   MyModule._extensions[extname](this, filename);
 
-  this.loaded;
+  this.loaded = true;
 }
 
 MyModule._extensions['.js'] = function (module, filename) {

@@ -7,9 +7,7 @@
 // console.log('exports', exports);
 // console.log('module.exports', module.exports);
 
-exports = {
-  a: 1
-}
-module.exports.b = 2;
+exports = 2;
+// module.exports.b = 2;
 
 console.log(exports === module.exports); 

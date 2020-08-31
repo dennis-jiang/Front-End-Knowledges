@@ -256,7 +256,7 @@ MyModule.prototype.load = function (filename) {
   // 调用后缀名对应的处理函数来处理
   MyModule._extensions[extname](this, filename);
 
-  this.loaded;
+  this.loaded = true;
 }
 ```
 
@@ -393,7 +393,7 @@ module.exports = {
 }
 ```
 
-那其实你是给`exports`或者`module.exports`重新赋值了，改变了他们的引用地址，那这两个属性的连接就断开了，他们就不再相等了。
+那其实你是给`exports`或者`module.exports`重新赋值了，改变了他们的引用地址，那这两个属性的连接就断开了，他们就不再相等了。**需要注意的是，你对`module.exports`的重新赋值会作为模块的导出内容，但是你对`exports`的重新赋值并不能改变模块导出内容，只是改变了`exports`这个变量而已，因为模块始终是`module`，导出内容是`module.exports`。**
 
 ## 循环引用
 
@@ -452,8 +452,9 @@ module.load(filename);
 2. 每个模块里面的`exports, require, module, __filename, __dirname`五个参数都不是全局变量，而是模块加载的时候注入的。
 3. 为了注入这几个变量，我们需要将用户的代码用一个函数包裹起来，拼一个字符串然后调用沙盒模块`vm`来实现。
 4. 初始状态下，模块里面的`this, exports, module.exports`都指向同一个对象，如果你对他们重新赋值，这种连接就断了。
-5. 为了解决循环引用，模块在加载前就会被加入缓存，下次再加载会直接返回缓存，如果这时候模块还没加载完，你可能拿到未完成的`exports`。
-6. Node.js实现的这套加载机制叫**CommonJS**。
+5. 对`module.exports`的重新赋值会作为模块的导出内容，但是你对`exports`的重新赋值并不能改变模块导出内容，只是改变了`exports`这个变量而已，因为模块始终是`module`，导出内容是`module.exports`。
+6. 为了解决循环引用，模块在加载前就会被加入缓存，下次再加载会直接返回缓存，如果这时候模块还没加载完，你可能拿到未完成的`exports`。
+7. Node.js实现的这套加载机制叫**CommonJS**。
 
 **本文完整代码已上传GitHub：[https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/Node.js/Module/MyModule/index.js](https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/Node.js/Module/MyModule/index.js)**
 
