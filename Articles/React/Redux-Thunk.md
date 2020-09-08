@@ -8,6 +8,8 @@
 >
 > **Redux-Thunk**：提供`Redux`的异步解决方案，弥补`Redux`功能的不足。
 
+**本文手写代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/React/redux-thunk/src/myThunk.js](https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/React/redux-thunk/src/myThunk.js)**
+
 ## 基本用法
 
 还是以我们之前的[那个计数器作为例子](https://juejin.im/post/6847902222756347911#heading-0)，为了让计数器`+1`，我们会发出一个`action`，像这样：
@@ -630,6 +632,8 @@ export default thunk;
 2. `Redux-Thunk`最主要的作用是帮你给异步`action`传入`dispatch`，这样你就不用从调用的地方手动传入`dispatch`，从而实现了调用的地方和使用的地方的解耦。
 3. `Redux`和`Redux-Thunk`让我深深体会到什么叫“编程思想”，编程思想可以很复杂，但是实现可能并不复杂，但是却非常有用。
 4. 在我们评估是否要引入一个库时最好想清楚我们为什么要引入这个库，是否有更简单的方案。
+
+**本文手写代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/React/redux-thunk/src/myThunk.js](https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/React/redux-thunk/src/myThunk.js)**
 
 ## 参考资料
 
