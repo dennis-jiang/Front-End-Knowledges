@@ -1,5 +1,6 @@
 const path = require('path');
 const vm = require('vm');
+const fs = require('fs');
 
 function MyModule(id = '') {
   this.id = id;       // 这个id其实就是我们require的路径
@@ -83,7 +84,7 @@ MyModule.wrap = function (script) {
 };
 
 MyModule.prototype._compile = function (content, filename) {
-  const wrapper = Module.wrap(content);    // 获取包装后函数体
+  const wrapper = MyModule.wrap(content);    // 获取包装后函数体
 
   // vm是nodejs的虚拟机模块，runInThisContext方法可以接受一个字符串并将它转化为一个函数
   // 返回值就是转化后的函数，所以compiledWrapper是一个函数

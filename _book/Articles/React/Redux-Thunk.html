@@ -1,0 +1,1520 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redux-Thunk原理及源码 · 前端进阶</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Dennis Jiang">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="React-Router_Usage.html" />
+    
+    
+    <link rel="prev" href="React-Redux.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
+            
+                <a href="../Layout/Layout.html">
+            
+                    
+                    页面布局
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Layout/MultiColumns.html">
+            
+                <a href="../Layout/MultiColumns.html">
+            
+                    
+                    多列布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../JavaScript/JavaScript.html">
+            
+                <a href="../JavaScript/JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../JavaScript/MemoryManagement.html">
+            
+                <a href="../JavaScript/MemoryManagement.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../JavaScript/FunctionalProgramming.html">
+            
+                <a href="../JavaScript/FunctionalProgramming.html">
+            
+                    
+                    函数式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../JavaScript/ComposePipe.html">
+            
+                <a href="../JavaScript/ComposePipe.html">
+            
+                    
+                    compose函数和pipe函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../JavaScript/CommonFunctions.html">
+            
+                <a href="../JavaScript/CommonFunctions.html">
+            
+                    
+                    一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../JavaScript/Copy.html">
+            
+                <a href="../JavaScript/Copy.html">
+            
+                    
+                    浅拷贝和深拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../JavaScript/UnitTest.html">
+            
+                <a href="../JavaScript/UnitTest.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../JavaScript/myPrototype.html">
+            
+                <a href="../JavaScript/myPrototype.html">
+            
+                    
+                    JS中的面向对象：prototype、__proto__与constructor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../JavaScript/this.html">
+            
+                <a href="../JavaScript/this.html">
+            
+                    
+                    this指向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="../JavaScript/AsyncAndEventLoop.html">
+            
+                <a href="../JavaScript/AsyncAndEventLoop.html">
+            
+                    
+                    异步和EventLoop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="../JavaScript/Promise.html">
+            
+                <a href="../JavaScript/Promise.html">
+            
+                    
+                    手写Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="../JavaScript/Generator.html">
+            
+                <a href="../JavaScript/Generator.html">
+            
+                    
+                    Generator和async/await还有co源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="../JavaScript/Types.html">
+            
+                <a href="../JavaScript/Types.html">
+            
+                    
+                    数据类型转换和检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="../JavaScript/Scope.html">
+            
+                <a href="../JavaScript/Scope.html">
+            
+                    
+                    JS作用域
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network/Network.html">
+            
+                <a href="../Network/Network.html">
+            
+                    
+                    计算机网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../DataStructureAndAlgorithm/RSA.html">
+            
+                <a href="../DataStructureAndAlgorithm/RSA.html">
+            
+                    
+                    HTTPS和RSA
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
+            
+                <a href="../Vue/Vue.html">
+            
+                    
+                    Vue.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Vue/vueRouter.html">
+            
+                <a href="../Vue/vueRouter.html">
+            
+                    
+                    Vue-Router原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="React.html">
+            
+                <a href="React.html">
+            
+                    
+                    React.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="FiberAndHooks.html">
+            
+                <a href="FiberAndHooks.html">
+            
+                    
+                    手写React的Fiber和Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="Redux.html">
+            
+                <a href="Redux.html">
+            
+                    
+                    手写Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="React-Redux.html">
+            
+                <a href="React-Redux.html">
+            
+                    
+                    手写React-Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.4" data-path="Redux-Thunk.html">
+            
+                <a href="Redux-Thunk.html">
+            
+                    
+                    Redux-Thunk原理及源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="React-Router_Usage.html">
+            
+                <a href="React-Router_Usage.html">
+            
+                    
+                    React-Router实现前端路由鉴权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="React-Router_Code.html">
+            
+                <a href="React-Router_Code.html">
+            
+                    
+                    手写React-Router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Node/Node.html">
+            
+                <a href="../Node/Node.html">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Node/DeepInNodeModules.html">
+            
+                <a href="../Node/DeepInNodeModules.html">
+            
+                    
+                    模块加载机制，手写require
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../DesignPatterns/DesignPatterns.html">
+            
+                <a href="../DesignPatterns/DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../DesignPatterns/PubSub.html">
+            
+                <a href="../DesignPatterns/PubSub.html">
+            
+                    
+                    从发布订阅模式入手读懂Node.js的EventEmitter源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../DesignPatterns/Encapsulate.html">
+            
+                <a href="../DesignPatterns/Encapsulate.html">
+            
+                    
+                    封装代码的设计模式：工厂，建造者，单例，原型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../DesignPatterns/Reusability.html">
+            
+                <a href="../DesignPatterns/Reusability.html">
+            
+                    
+                    提高复用性的设计模式：桥接，享元，模板方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../DesignPatterns/Extendability.html">
+            
+                <a href="../DesignPatterns/Extendability.html">
+            
+                    
+                    提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../DesignPatterns/Quality.html">
+            
+                <a href="../DesignPatterns/Quality.html">
+            
+                    
+                    提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Architecture/Architecture.html">
+            
+                <a href="../Architecture/Architecture.html">
+            
+                    
+                    架构和源码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../Architecture/readSourceCode.html">
+            
+                <a href="../Architecture/readSourceCode.html">
+            
+                    
+                    从架构入手读源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../Architecture/Undersocre.html">
+            
+                <a href="../Architecture/Undersocre.html">
+            
+                    
+                    Underscore源码架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Engineering/Engineering.html">
+            
+                <a href="../Engineering/Engineering.html">
+            
+                    
+                    工程化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../Engineering/leader.html">
+            
+                <a href="../Engineering/leader.html">
+            
+                    
+                    前端负责人/架构师职责
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                <a href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                    
+                    数据结构和算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../DataStructureAndAlgorithm/Sorting.html">
+            
+                <a href="../DataStructureAndAlgorithm/Sorting.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                <a href="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                    
+                    链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../DataStructureAndAlgorithm/Greedy.html">
+            
+                <a href="../DataStructureAndAlgorithm/Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../DataStructureAndAlgorithm/DP.html">
+            
+                <a href="../DataStructureAndAlgorithm/DP.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Projects/Projects.html">
+            
+                <a href="../Projects/Projects.html">
+            
+                    
+                    实战项目
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../Projects/FractionCalcualator.html">
+            
+                <a href="../Projects/FractionCalcualator.html">
+            
+                    
+                    分数计算器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+
+    
+    <li>
+        
+        
+        
+            
+        
+        
+            <a href="http://www.beian.miit.gov.cn/" target="blank" class="gitbook-link">
+                苏ICP备16008535号
+            </a>
+        
+    </li>
+    
+</ul>
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Redux-Thunk原理及源码</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x672C;&#x7528;&#x6CD5;"><b></b>&#x57FA;&#x672C;&#x7528;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;redux-thunk&#xFF1F;"><b></b>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;Redux-Thunk&#xFF1F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x76F4;&#x63A5;&#x5199;&#x5F02;&#x6B65;&#x4EE3;&#x7801;"><b></b>&#x76F4;&#x63A5;&#x5199;&#x5F02;&#x6B65;&#x4EE3;&#x7801;</a></li><li><span class="title-icon "></span><a href="#&#x63D0;&#x53D6;&#x5F02;&#x6B65;&#x7684;action-creator"><b></b>&#x63D0;&#x53D6;&#x5F02;&#x6B65;&#x7684;Action Creator</a></li><li><span class="title-icon "></span><a href="#thunk&#x4E2D;&#x95F4;&#x4EF6;"><b></b>Thunk&#x4E2D;&#x95F4;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x5728;thunk&#x4E2D;&#x8BFB;&#x53D6;state"><b></b>&#x5728;Thunk&#x4E2D;&#x8BFB;&#x53D6;State</a></li><li><span class="title-icon "></span><a href="#&#x4E0B;&#x4E00;&#x6B65;"><b></b>&#x4E0B;&#x4E00;&#x6B65;</a></li></ul><li><span class="title-icon "></span><a href="#&#x6E90;&#x7801;&#x89E3;&#x6790;"><b></b>&#x6E90;&#x7801;&#x89E3;&#x6790;</a></li><ul><li><span class="title-icon "></span><a href="#redux&#x4E2D;&#x95F4;&#x4EF6;&#x8303;&#x5F0F;"><b></b>Redux&#x4E2D;&#x95F4;&#x4EF6;&#x8303;&#x5F0F;</a></li><li><span class="title-icon "></span><a href="#&#x5904;&#x7406;thunk"><b></b>&#x5904;&#x7406;thunk</a></li><li><span class="title-icon "></span><a href="#&#x63A5;&#x6536;&#x989D;&#x5916;&#x53C2;&#x6570;withextraargument"><b></b>&#x63A5;&#x6536;&#x989D;&#x5916;&#x53C2;&#x6570;withExtraArgument</a></li></ul><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b></b>&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#x8D44;&#x6599;"><b></b>&#x53C2;&#x8003;&#x8D44;&#x6599;</a></li></ul></ul></div><p>&#x524D;&#x6BB5;&#x65F6;&#x95F4;&#xFF0C;&#x6211;&#x4EEC;&#x5199;&#x4E86;&#x4E00;&#x7BC7;<a href="https://juejin.im/post/6845166891682512909" target="_blank">Redux&#x6E90;&#x7801;&#x5206;&#x6790;&#x7684;&#x6587;&#x7AE0;</a>&#xFF0C;&#x4E5F;<a href="https://juejin.im/post/6847902222756347911" target="_blank">&#x5206;&#x6790;&#x4E86;&#x8DDF;<code>React</code>&#x8FDE;&#x63A5;&#x7684;&#x5E93;<code>React-Redux</code>&#x7684;&#x6E90;&#x7801;&#x5B9E;&#x73B0;</a>&#x3002;&#x4F46;&#x662F;&#x5728;<code>Redux</code>&#x7684;&#x751F;&#x6001;&#x4E2D;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x91CD;&#x8981;&#x7684;&#x90E8;&#x5206;&#x6CA1;&#x6709;&#x6D89;&#x53CA;&#x5230;&#xFF0C;&#x90A3;&#x5C31;&#x662F;<strong>Redux&#x7684;&#x5F02;&#x6B65;&#x89E3;&#x51B3;&#x65B9;&#x6848;</strong>&#x3002;&#x672C;&#x6587;&#x4F1A;&#x8BB2;&#x89E3;<code>Redux</code>&#x5B98;&#x65B9;&#x5B9E;&#x73B0;&#x7684;&#x5F02;&#x6B65;&#x89E3;&#x51B3;&#x65B9;&#x6848;----<code>Redux-Thunk</code>&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x4F1A;&#x4ECE;&#x57FA;&#x672C;&#x7684;&#x7528;&#x6CD5;&#x5165;&#x624B;&#xFF0C;&#x518D;&#x5230;&#x539F;&#x7406;&#x89E3;&#x6790;&#xFF0C;&#x7136;&#x540E;&#x81EA;&#x5DF1;&#x624B;&#x5199;&#x4E00;&#x4E2A;<code>Redux-Thunk</code>&#x6765;&#x66FF;&#x6362;&#x5B83;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6E90;&#x7801;&#x89E3;&#x6790;&#x3002;</p>
+<p><code>Redux-Thunk</code>&#x548C;&#x524D;&#x9762;&#x5199;&#x8FC7;&#x7684;<code>Redux</code>&#x548C;<code>React-Redux</code>&#x5176;&#x5B9E;&#x90FD;&#x662F;<code>Redux</code>&#x5B98;&#x65B9;&#x56E2;&#x961F;&#x7684;&#x4F5C;&#x54C1;&#xFF0C;&#x4ED6;&#x4EEC;&#x7684;&#x4FA7;&#x91CD;&#x70B9;&#x5404;&#x6709;&#x4E0D;&#x540C;:</p>
+<blockquote>
+<p><strong>Redux</strong>&#xFF1A;&#x662F;&#x6838;&#x5FC3;&#x5E93;&#xFF0C;&#x529F;&#x80FD;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x7EAF;&#x7684;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x4F46;&#x662F;&#x8574;&#x542B;&#x7684;&#x601D;&#x60F3;&#x4E0D;&#x7B80;&#x5355;&#xFF0C;&#x662F;&#x4F20;&#x8BF4;&#x4E2D;&#x7684;&#x201C;&#x767E;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x5343;&#x884C;&#x6587;&#x6863;&#x201D;&#x3002;</p>
+<p><strong>React-Redux</strong>&#xFF1A;&#x662F;&#x8DDF;<code>React</code>&#x7684;&#x8FDE;&#x63A5;&#x5E93;&#xFF0C;&#x5F53;<code>Redux</code>&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x7684;&#x65F6;&#x5019;&#x901A;&#x77E5;<code>React</code>&#x66F4;&#x65B0;&#x7EC4;&#x4EF6;&#x3002;</p>
+<p><strong>Redux-Thunk</strong>&#xFF1A;&#x63D0;&#x4F9B;<code>Redux</code>&#x7684;&#x5F02;&#x6B65;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x5F25;&#x8865;<code>Redux</code>&#x529F;&#x80FD;&#x7684;&#x4E0D;&#x8DB3;&#x3002;</p>
+</blockquote>
+<h2 id="&#x57FA;&#x672C;&#x7528;&#x6CD5;"><a name="&#x57FA;&#x672C;&#x7528;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x672C;&#x7528;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x57FA;&#x672C;&#x7528;&#x6CD5;</h2>
+<p>&#x8FD8;&#x662F;&#x4EE5;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x7684;<a href="https://juejin.im/post/6847902222756347911#heading-0" target="_blank">&#x90A3;&#x4E2A;&#x8BA1;&#x6570;&#x5668;&#x4F5C;&#x4E3A;&#x4F8B;&#x5B50;</a>&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;&#x8BA1;&#x6570;&#x5668;<code>+1</code>&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x53D1;&#x51FA;&#x4E00;&#x4E2A;<code>action</code>&#xFF0C;&#x50CF;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;INCREMENT&apos;</span>
+  }
+};
+
+store.dispatch(increment());
+</code></pre>
+<p>&#x539F;&#x59CB;&#x7684;<code>Redux</code>&#x91CC;&#x9762;&#xFF0C;<code>action creator</code>&#x5FC5;&#x987B;&#x8FD4;&#x56DE;<code>plain object</code>&#xFF0C;&#x800C;&#x4E14;&#x5FC5;&#x987B;&#x662F;&#x540C;&#x6B65;&#x7684;&#x3002;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x91CC;&#x9762;&#x7ECF;&#x5E38;&#x4F1A;&#x6709;&#x5B9A;&#x65F6;&#x5668;&#xFF0C;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7B49;&#x7B49;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#xFF0C;&#x4F7F;&#x7528;<code>Redux-Thunk</code>&#x5C31;&#x53EF;&#x4EE5;&#x53D1;&#x51FA;&#x5F02;&#x6B65;&#x7684;<code>action</code>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;INCREMENT&apos;</span>
+  }
+};
+
+<span class="hljs-comment">// &#x5F02;&#x6B65;action creator</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementAsync</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">dispatch</span>) =&gt;</span> {
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      dispatch(increment());
+    }, <span class="hljs-number">1000</span>);
+  }
+}
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;&#x4E86;Redux-Thunk&#x540E;dispatch&#x4E0D;&#x4EC5;&#x4EC5;&#x53EF;&#x4EE5;&#x53D1;&#x51FA;plain object&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x53D1;&#x51FA;&#x8FD9;&#x4E2A;&#x5F02;&#x6B65;&#x7684;&#x51FD;&#x6570;</span>
+store.dispatch(incrementAsync());
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x518D;&#x6765;&#x770B;&#x4E2A;&#x66F4;&#x5B9E;&#x9645;&#x70B9;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x4E5F;&#x662F;<a href="https://github.com/reduxjs/redux-thunk#composition" target="_blank">&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#x4E2D;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { createStore, applyMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux&apos;</span>;
+<span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-thunk&apos;</span>;
+<span class="hljs-keyword">import</span> rootReducer <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./reducers&apos;</span>;
+
+<span class="hljs-comment">// createStore&#x7684;&#x65F6;&#x5019;&#x4F20;&#x5165;thunk&#x4E2D;&#x95F4;&#x4EF6;</span>
+<span class="hljs-keyword">const</span> store = createStore(rootReducer, applyMiddleware(thunk));
+
+<span class="hljs-comment">// &#x53D1;&#x8D77;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x7684;&#x65B9;&#x6CD5;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchSecretSauce</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> fetch(<span class="hljs-string">&apos;https://www.baidu.com/s?wd=Secret%20Sauce&apos;</span>);
+}
+
+<span class="hljs-comment">// &#x4E0B;&#x9762;&#x4E24;&#x4E2A;&#x662F;&#x666E;&#x901A;&#x7684;action</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeASandwich</span>(<span class="hljs-params">forPerson, secretSauce</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;MAKE_SANDWICH&apos;</span>,
+    forPerson,
+    secretSauce,
+  };
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">apologize</span>(<span class="hljs-params">fromPerson, toPerson, error</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;APOLOGIZE&apos;</span>,
+    fromPerson,
+    toPerson,
+    error,
+  };
+}
+
+<span class="hljs-comment">// &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;action&#xFF0C;&#x5148;&#x8BF7;&#x6C42;&#x7F51;&#x7EDC;&#xFF0C;&#x6210;&#x529F;&#x5C31;makeASandwich&#xFF0C;&#x5931;&#x8D25;&#x5C31;apologize</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeASandwichWithSecretSauce</span>(<span class="hljs-params">forPerson</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dispatch</span>) </span>{
+    <span class="hljs-keyword">return</span> fetchSecretSauce().then(
+      <span class="hljs-function">(<span class="hljs-params">sauce</span>) =&gt;</span> dispatch(makeASandwich(forPerson, sauce)),
+      (error) =&gt; dispatch(apologize(<span class="hljs-string">&apos;The Sandwich Shop&apos;</span>, forPerson, error)),
+    );
+  };
+}
+
+<span class="hljs-comment">// &#x6700;&#x7EC8;dispatch&#x7684;&#x662F;&#x5F02;&#x6B65;action makeASandwichWithSecretSauce</span>
+store.dispatch(makeASandwichWithSecretSauce(<span class="hljs-string">&apos;Me&apos;</span>));
+</code></pre>
+<h2 id="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;redux-thunk&#xFF1F;"><a name="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;redux-thunk&#xFF1F;" class="anchor-navigation-ex-anchor" href="#&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;redux-thunk&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;<code>Redux-Thunk</code>&#xFF1F;</h2>
+<p>&#x5728;&#x7EE7;&#x7EED;&#x6DF1;&#x5165;&#x6E90;&#x7801;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x601D;&#x8003;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x8981;&#x7528;<code>Redux-Thunk</code>&#xFF0C;&#x4E0D;&#x7528;&#x5B83;&#x884C;&#x4E0D;&#x884C;&#xFF1F;&#x518D;&#x4ED4;&#x7EC6;&#x770B;&#x770B;<code>Redux-Thunk</code>&#x7684;&#x4F5C;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5F02;&#x6B65;action creator</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementAsync</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">dispatch</span>) =&gt;</span> {
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      dispatch(increment());
+    }, <span class="hljs-number">1000</span>);
+  }
+}
+
+store.dispatch(incrementAsync());
+</code></pre>
+<p>&#x4ED6;&#x4EC5;&#x4EC5;&#x662F;&#x8BA9;<code>dispath</code>&#x591A;&#x652F;&#x6301;&#x4E86;&#x4E00;&#x79CD;&#x7C7B;&#x578B;&#xFF0C;&#x5C31;&#x662F;&#x51FD;&#x6570;&#x7C7B;&#x578B;&#xFF0C;&#x5728;&#x4F7F;&#x7528;<code>Redux-Thunk</code>&#x524D;&#x6211;&#x4EEC;<code>dispatch</code>&#x7684;<code>action</code>&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;&#x7EAF;&#x5BF9;&#x8C61;(<code>plain object</code>)&#xFF0C;&#x4F7F;&#x7528;&#x4E86;<code>Redux-Thunk</code>&#x540E;&#xFF0C;<code>dispatch</code>&#x53EF;&#x4EE5;&#x652F;&#x6301;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x4F20;&#x5165;<code>dispatch</code>&#x672C;&#x8EAB;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x3002;&#x4F46;&#x662F;&#x5176;&#x5B9E;&#x6211;&#x4EEC;&#x4E0D;&#x4F7F;&#x7528;<code>Redux-Thunk</code>&#x4E5F;&#x53EF;&#x4EE5;&#x8FBE;&#x5230;&#x540C;&#x6837;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x6211;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x4E0D;&#x8981;&#x5916;&#x5C42;&#x7684;<code>incrementAsync</code>&#xFF0C;&#x76F4;&#x63A5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
+<pre><code class="lang-javascript">setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  store.dispatch(increment());
+}, <span class="hljs-number">1000</span>);
+</code></pre>
+<p>&#x8FD9;&#x6837;&#x5199;&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x5728;1&#x79D2;&#x540E;&#x53D1;&#x51FA;&#x589E;&#x52A0;&#x7684;<code>action</code>&#xFF0C;&#x800C;&#x4E14;&#x4EE3;&#x7801;&#x8FD8;&#x66F4;&#x7B80;&#x5355;&#xFF0C;&#x90A3;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x7528;<code>Redux-Thunk</code>&#x5462;&#xFF0C;&#x4ED6;&#x5B58;&#x5728;&#x7684;&#x610F;&#x4E49;&#x662F;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;<a href="https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559" target="_blank">stackoverflow&#x5BF9;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x597D;&#x7684;&#x56DE;&#x7B54;&#xFF0C;&#x800C;&#x4E14;&#x662F;&#x5B98;&#x65B9;&#x63A8;&#x8350;&#x7684;&#x89E3;&#x91CA;</a>&#x3002;&#x6211;&#x518D;&#x5199;&#x4E00;&#x904D;&#x4E5F;&#x4E0D;&#x4F1A;&#x6BD4;&#x4ED6;&#x5199;&#x5F97;&#x66F4;&#x597D;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5C31;&#x76F4;&#x63A5;&#x7FFB;&#x8BD1;&#x4E86;&#xFF1A;</p>
+<p><strong>----&#x7FFB;&#x8BD1;&#x4ECE;&#x8FD9;&#x91CC;&#x5F00;&#x59CB;----</strong></p>
+<p><strong>&#x4E0D;&#x8981;&#x89C9;&#x5F97;&#x4E00;&#x4E2A;&#x5E93;&#x5C31;&#x5E94;&#x8BE5;&#x89C4;&#x5B9A;&#x4E86;&#x6240;&#x6709;&#x4E8B;&#x60C5;&#xFF01;</strong>&#x5982;&#x679C;&#x4F60;&#x60F3;&#x7528;JS&#x5904;&#x7406;&#x4E00;&#x4E2A;&#x5EF6;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x76F4;&#x63A5;&#x7528;<code>setTimeout</code>&#x5C31;&#x597D;&#x4E86;&#xFF0C;&#x5373;&#x4F7F;&#x4F60;&#x4F7F;&#x7528;&#x4E86;<code>Redux</code>&#x4E5F;&#x6CA1;&#x5565;&#x533A;&#x522B;&#x3002;<code>Redux</code>&#x786E;&#x5B9E;&#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x4E00;&#x79CD;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x4F46;&#x662F;&#x4F60;&#x5E94;&#x8BE5;&#x7528;&#x5B83;&#x6765;&#x89E3;&#x51B3;&#x4F60;&#x5F88;&#x591A;&#x91CD;&#x590D;&#x4EE3;&#x7801;&#x7684;&#x95EE;&#x9898;&#x3002;&#x5982;&#x679C;&#x4F60;&#x6CA1;&#x6709;&#x592A;&#x591A;&#x91CD;&#x590D;&#x4EE3;&#x7801;&#xFF0C;&#x4F7F;&#x7528;&#x8BED;&#x8A00;&#x539F;&#x751F;&#x65B9;&#x6848;&#x5176;&#x5B9E;&#x662F;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6848;&#x3002;</p>
+<h3 id="&#x76F4;&#x63A5;&#x5199;&#x5F02;&#x6B65;&#x4EE3;&#x7801;"><a name="&#x76F4;&#x63A5;&#x5199;&#x5F02;&#x6B65;&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x76F4;&#x63A5;&#x5199;&#x5F02;&#x6B65;&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x76F4;&#x63A5;&#x5199;&#x5F02;&#x6B65;&#x4EE3;&#x7801;</h3>
+<p>&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#x8FD9;&#x662F;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6848;&#xFF0C;<code>Redux</code>&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x7279;&#x6B8A;&#x7684;&#x914D;&#x7F6E;&#xFF1A;</p>
+<pre><code class="lang-javascript">store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;SHOW_NOTIFICATION&apos;</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;You logged in.&apos;</span> })
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;HIDE_NOTIFICATION&apos;</span> })
+}, <span class="hljs-number">5000</span>)
+</code></pre>
+<p>(&#x8BD1;&#x6CE8;&#xFF1A;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7684;&#x529F;&#x80FD;&#x662F;&#x663E;&#x793A;&#x4E00;&#x4E2A;&#x901A;&#x77E5;&#xFF0C;5&#x79D2;&#x540E;&#x81EA;&#x52A8;&#x6D88;&#x5931;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x7684;<code>toast</code>&#x6548;&#x679C;&#xFF0C;&#x539F;&#x4F5C;&#x8005;&#x4E00;&#x76F4;&#x4EE5;&#x8FD9;&#x4E2A;&#x4E3A;&#x4F8B;&#x3002;)</p>
+<p>&#x76F8;&#x4F3C;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x4E86;<code>Redux</code>&#x7EC4;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">this</span>.props.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;SHOW_NOTIFICATION&apos;</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;You logged in.&apos;</span> })
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">this</span>.props.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;HIDE_NOTIFICATION&apos;</span> })
+}, <span class="hljs-number">5000</span>)
+</code></pre>
+<p>&#x552F;&#x4E00;&#x7684;&#x533A;&#x522B;&#x5C31;&#x662F;&#x8FDE;&#x63A5;&#x7EC4;&#x4EF6;&#x4E00;&#x822C;&#x4E0D;&#x9700;&#x8981;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>store</code>&#xFF0C;&#x800C;&#x662F;&#x5C06;<code>dispatch</code>&#x6216;&#x8005;<code>action creator</code>&#x4F5C;&#x4E3A;<code>props</code>&#x6CE8;&#x5165;&#xFF0C;&#x8FD9;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x5BF9;&#x6211;&#x4EEC;&#x90FD;&#x6CA1;&#x533A;&#x522B;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x4E0D;&#x60F3;&#x5199;&#x91CD;&#x590D;&#x7684;<code>action</code>&#x540D;&#x5B57;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5C06;&#x8FD9;&#x4E24;&#x4E2A;<code>action</code>&#x62BD;&#x53D6;&#x6210;<code>action creator</code>&#x800C;&#x4E0D;&#x662F;&#x76F4;&#x63A5;<code>dispatch</code>&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// actions.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotification</span>(<span class="hljs-params">text</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;SHOW_NOTIFICATION&apos;</span>, text }
+}
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hideNotification</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;HIDE_NOTIFICATION&apos;</span> }
+}
+
+<span class="hljs-comment">// component.js</span>
+<span class="hljs-keyword">import</span> { showNotification, hideNotification } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actions&apos;</span>
+
+<span class="hljs-keyword">this</span>.props.dispatch(showNotification(<span class="hljs-string">&apos;You just logged in.&apos;</span>))
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">this</span>.props.dispatch(hideNotification())
+}, <span class="hljs-number">5000</span>)
+</code></pre>
+<p>&#x6216;&#x8005;&#x4F60;&#x5DF2;&#x7ECF;&#x901A;&#x8FC7;<code>connect()</code>&#x6CE8;&#x5165;&#x4E86;&#x8FD9;&#x4E24;&#x4E2A;<code>action creator</code>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">this</span>.props.showNotification(<span class="hljs-string">&apos;You just logged in.&apos;</span>)
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">this</span>.props.hideNotification()
+}, <span class="hljs-number">5000</span>)
+</code></pre>
+<p>&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#xFF0C;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x4E2D;&#x95F4;&#x4EF6;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x9AD8;&#x7EA7;&#x6280;&#x5DE7;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x540C;&#x6837;&#x5B9E;&#x73B0;&#x4E86;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x7684;&#x5904;&#x7406;&#x3002;</p>
+<h3 id="&#x63D0;&#x53D6;&#x5F02;&#x6B65;&#x7684;action-creator"><a name="&#x63D0;&#x53D6;&#x5F02;&#x6B65;&#x7684;action-creator" class="anchor-navigation-ex-anchor" href="#&#x63D0;&#x53D6;&#x5F02;&#x6B65;&#x7684;action-creator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x63D0;&#x53D6;&#x5F02;&#x6B65;&#x7684;Action Creator</h3>
+<p>&#x4F7F;&#x7528;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x5F0F;&#x5728;&#x7B80;&#x5355;&#x573A;&#x666F;&#x4E0B;&#x53EF;&#x4EE5;&#x5DE5;&#x4F5C;&#x7684;&#x5F88;&#x597D;&#xFF0C;&#x4F46;&#x662F;&#x4F60;&#x53EF;&#x80FD;&#x5DF2;&#x7ECF;&#x53D1;&#x73B0;&#x4E86;&#x51E0;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+<blockquote>
+<ol>
+<li>&#x6BCF;&#x6B21;&#x4F60;&#x60F3;&#x663E;&#x793A;<code>toast</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F60;&#x90FD;&#x5F97;&#x628A;&#x8FD9;&#x4E00;&#x5927;&#x6BB5;&#x4EE3;&#x7801;&#x6284;&#x8FC7;&#x6765;&#x6284;&#x8FC7;&#x53BB;&#x3002;</li>
+<li>&#x73B0;&#x5728;&#x7684;<code>toast</code>&#x6CA1;&#x6709;<code>id</code>&#xFF0C;&#x8FD9;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x4E00;&#x79CD;&#x7ADE;&#x4E89;&#x7684;&#x60C5;&#x51B5;&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x8FDE;&#x7EED;&#x5FEB;&#x901F;&#x7684;&#x663E;&#x793A;&#x4E24;&#x6B21;<code>toast</code>&#xFF0C;&#x5F53;&#x7B2C;&#x4E00;&#x6B21;&#x7684;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x4ED6;&#x4F1A;<code>dispatch</code>&#x51FA;<code>HIDE_NOTIFICATION</code>&#xFF0C;&#x8FD9;&#x4F1A;&#x9519;&#x8BEF;&#x7684;&#x5BFC;&#x81F4;&#x7B2C;&#x4E8C;&#x4E2A;&#x4E5F;&#x88AB;&#x5173;&#x6389;&#x3002;</li>
+</ol>
+</blockquote>
+<p>&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8FD9;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x5C06;<code>toast</code>&#x7684;&#x903B;&#x8F91;&#x62BD;&#x53D6;&#x51FA;&#x6765;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5927;&#x6982;&#x957F;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// actions.js</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotification</span>(<span class="hljs-params">id, text</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;SHOW_NOTIFICATION&apos;</span>, id, text }
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hideNotification</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;HIDE_NOTIFICATION&apos;</span>, id }
+}
+
+<span class="hljs-keyword">let</span> nextNotificationId = <span class="hljs-number">0</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotificationWithTimeout</span>(<span class="hljs-params">dispatch, text</span>) </span>{
+  <span class="hljs-comment">// &#x7ED9;&#x901A;&#x77E5;&#x5206;&#x914D;&#x4E00;&#x4E2A;ID&#x53EF;&#x4EE5;&#x8BA9;reducer&#x5FFD;&#x7565;&#x975E;&#x5F53;&#x524D;&#x901A;&#x77E5;&#x7684;HIDE_NOTIFICATION</span>
+  <span class="hljs-comment">// &#x800C;&#x4E14;&#x6211;&#x4EEC;&#x628A;&#x8BA1;&#x65F6;&#x5668;&#x7684;ID&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#x4EE5;&#x4FBF;&#x4E8E;&#x540E;&#x9762;&#x7528;clearTimeout()&#x6E05;&#x9664;&#x8BA1;&#x65F6;&#x5668;</span>
+  <span class="hljs-keyword">const</span> id = nextNotificationId++
+  dispatch(showNotification(id, text))
+
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    dispatch(hideNotification(id))
+  }, <span class="hljs-number">5000</span>)
+}
+</code></pre>
+<p>&#x73B0;&#x5728;&#x4F60;&#x7684;&#x7EC4;&#x4EF6;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>showNotificationWithTimeout</code>&#xFF0C;&#x518D;&#x4E5F;&#x4E0D;&#x7528;&#x6284;&#x6765;&#x6284;&#x53BB;&#x4E86;&#xFF0C;&#x4E5F;&#x4E0D;&#x7528;&#x62C5;&#x5FC3;&#x7ADE;&#x4E89;&#x95EE;&#x9898;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// component.js</span>
+showNotificationWithTimeout(<span class="hljs-keyword">this</span>.props.dispatch, <span class="hljs-string">&apos;You just logged in.&apos;</span>)
+
+<span class="hljs-comment">// otherComponent.js</span>
+showNotificationWithTimeout(<span class="hljs-keyword">this</span>.props.dispatch, <span class="hljs-string">&apos;You just logged out.&apos;</span>)
+</code></pre>
+<p>&#x4F46;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;<code>showNotificationWithTimeout()</code>&#x8981;&#x63A5;&#x6536;<code>dispatch</code>&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x5462;&#xFF1F;&#x56E0;&#x4E3A;&#x4ED6;&#x9700;&#x8981;&#x5C06;<code>action</code>&#x53D1;&#x7ED9;<code>store</code>&#x3002;&#x4E00;&#x822C;&#x7EC4;&#x4EF6;&#x662F;&#x53EF;&#x4EE5;&#x62FF;&#x5230;<code>dispatch</code>&#x7684;&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;&#x5916;&#x90E8;&#x65B9;&#x6CD5;&#x4E5F;&#x80FD;<code>dispatch</code>&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7ED9;&#x4ED6;<code>dispath</code>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x6709;&#x4E00;&#x4E2A;&#x5355;&#x4F8B;&#x7684;<code>store</code>&#xFF0C;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x8BA9;<code>showNotificationWithTimeout</code>&#x76F4;&#x63A5;&#x5F15;&#x5165;&#x8FD9;&#x4E2A;<code>store</code>&#x7136;&#x540E;<code>dispatch</code> <code>action</code>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// store.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> createStore(reducer)
+
+<span class="hljs-comment">// actions.js</span>
+<span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./store&apos;</span>
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">let</span> nextNotificationId = <span class="hljs-number">0</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotificationWithTimeout</span>(<span class="hljs-params">text</span>) </span>{
+  <span class="hljs-keyword">const</span> id = nextNotificationId++
+  store.dispatch(showNotification(id, text))
+
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    store.dispatch(hideNotification(id))
+  }, <span class="hljs-number">5000</span>)
+}
+
+<span class="hljs-comment">// component.js</span>
+showNotificationWithTimeout(<span class="hljs-string">&apos;You just logged in.&apos;</span>)
+
+<span class="hljs-comment">// otherComponent.js</span>
+showNotificationWithTimeout(<span class="hljs-string">&apos;You just logged out.&apos;</span>)
+</code></pre>
+<p>&#x8FD9;&#x6837;&#x505A;&#x770B;&#x8D77;&#x6765;&#x4E0D;&#x590D;&#x6742;&#xFF0C;&#x4E5F;&#x80FD;&#x8FBE;&#x5230;&#x6548;&#x679C;&#xFF0C;<strong>&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x4E0D;&#x63A8;&#x8350;&#x8FD9;&#x79CD;&#x505A;&#x6CD5;&#xFF01;</strong>&#x4E3B;&#x8981;&#x539F;&#x56E0;&#x662F;&#x4F60;&#x7684;<code>store</code>&#x5FC5;&#x987B;&#x662F;&#x5355;&#x4F8B;&#x7684;&#xFF0C;&#x8FD9;&#x8BA9;<code>Server Render</code>&#x5B9E;&#x73B0;&#x8D77;&#x6765;&#x5F88;&#x9EBB;&#x70E6;&#x3002;&#x5728;<code>Server</code>&#x7AEF;&#xFF0C;&#x4F60;&#x4F1A;&#x5E0C;&#x671B;&#x6BCF;&#x4E2A;&#x8BF7;&#x6C42;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;<code>store</code>&#xFF0C;&#x6BD4;&#x4FBF;&#x4E8E;&#x4E0D;&#x540C;&#x7684;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x9884;&#x52A0;&#x8F7D;&#x5185;&#x5BB9;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x5355;&#x4F8B;&#x7684;<code>store</code>&#x4E5F;&#x8BA9;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x5F88;&#x96BE;&#x5199;&#x3002;&#x6D4B;&#x8BD5;<code>action creator</code>&#x7684;&#x65F6;&#x5019;&#x4F60;&#x5F88;&#x96BE;<code>mock</code> <code>store</code>&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x5F15;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x771F;&#x5B9E;&#x7684;<code>store</code>&#x3002;&#x4F60;&#x751A;&#x81F3;&#x4E0D;&#x80FD;&#x4ECE;&#x5916;&#x90E8;&#x91CD;&#x7F6E;<code>store</code>&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x4ECE;&#x6280;&#x672F;&#x4E0A;&#x6765;&#x8BF4;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4ECE;&#x4E00;&#x4E2A;<code>module</code>&#x5BFC;&#x51FA;&#x5355;&#x4F8B;&#x7684;<code>store</code>&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x4E0D;&#x9F13;&#x52B1;&#x8FD9;&#x6837;&#x505A;&#x3002;&#x9664;&#x975E;&#x4F60;&#x786E;&#x5B9A;&#x52A0;&#x80AF;&#x5B9A;&#x4F60;&#x4EE5;&#x540E;&#x90FD;&#x4E0D;&#x4F1A;&#x5347;&#x7EA7;<code>Server Render</code>&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x56DE;&#x5230;&#x524D;&#x9762;&#x4E00;&#x79CD;&#x65B9;&#x6848;&#x5427;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// actions.js</span>
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">let</span> nextNotificationId = <span class="hljs-number">0</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotificationWithTimeout</span>(<span class="hljs-params">dispatch, text</span>) </span>{
+  <span class="hljs-keyword">const</span> id = nextNotificationId++
+  dispatch(showNotification(id, text))
+
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    dispatch(hideNotification(id))
+  }, <span class="hljs-number">5000</span>)
+}
+
+<span class="hljs-comment">// component.js</span>
+showNotificationWithTimeout(<span class="hljs-keyword">this</span>.props.dispatch, <span class="hljs-string">&apos;You just logged in.&apos;</span>)
+
+<span class="hljs-comment">// otherComponent.js</span>
+showNotificationWithTimeout(<span class="hljs-keyword">this</span>.props.dispatch, <span class="hljs-string">&apos;You just logged out.&apos;</span>)
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x5C31;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x91CD;&#x590D;&#x4EE3;&#x7801;&#x548C;&#x7ADE;&#x4E89;&#x95EE;&#x9898;&#x3002;</p>
+<h3 id="thunk&#x4E2D;&#x95F4;&#x4EF6;"><a name="thunk&#x4E2D;&#x95F4;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#thunk&#x4E2D;&#x95F4;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>Thunk&#x4E2D;&#x95F4;&#x4EF6;</h3>
+<p>&#x5BF9;&#x4E8E;&#x7B80;&#x5355;&#x9879;&#x76EE;&#xFF0C;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6848;&#x5E94;&#x8BE5;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x6EE1;&#x8DB3;&#x9700;&#x6C42;&#x4E86;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x5927;&#x578B;&#x9879;&#x76EE;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x8FD8;&#x662F;&#x4F1A;&#x89C9;&#x5F97;&#x8FD9;&#x6837;&#x4F7F;&#x7528;&#x5E76;&#x4E0D;&#x65B9;&#x4FBF;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#xFF0C;&#x4F3C;&#x4E4E;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x5C06;<code>dispatch</code>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x9012;&#xFF0C;&#x8FD9;&#x8BA9;&#x6211;&#x4EEC;&#x5206;&#x9694;&#x5BB9;&#x5668;&#x7EC4;&#x4EF6;&#x548C;&#x5C55;&#x793A;&#x7EC4;&#x4EF6;&#x53D8;&#x5F97;&#x66F4;&#x56F0;&#x96BE;&#xFF0C;&#x56E0;&#x4E3A;&#x4EFB;&#x4F55;&#x53D1;&#x51FA;&#x5F02;&#x6B65;<code>Redux action</code>&#x7684;&#x7EC4;&#x4EF6;&#x90FD;&#x5FC5;&#x987B;&#x63A5;&#x6536;<code>dispatch</code>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x6837;&#x4ED6;&#x624D;&#x80FD;&#x5C06;&#x5B83;&#x7EE7;&#x7EED;&#x5F80;&#x4E0B;&#x4F20;&#x3002;&#x4F60;&#x4E5F;&#x4E0D;&#x80FD;&#x4EC5;&#x4EC5;&#x4F7F;&#x7528;<code>connect()</code>&#x6765;&#x7ED1;&#x5B9A;<code>action creator</code>&#xFF0C;&#x56E0;&#x4E3A;<code>showNotificationWithTimeout()</code>&#x5E76;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x771F;&#x6B63;&#x7684;<code>action creator</code>&#xFF0C;&#x4ED6;&#x8FD4;&#x56DE;&#x7684;&#x4E5F;&#x4E0D;&#x662F;<code>Redux action</code>&#x3002;</p>
+<p>&#x8FD8;&#x6709;&#x4E2A;&#x5F88;&#x5C34;&#x5C2C;&#x7684;&#x4E8B;&#x60C5;&#x662F;&#xFF0C;&#x4F60;&#x5FC5;&#x987B;&#x8BB0;&#x4F4F;&#x54EA;&#x4E2A;<code>action cerator</code>&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x6BD4;&#x5982;<code>showNotification</code>&#xFF0C;&#x54EA;&#x4E2A;&#x662F;&#x5F02;&#x6B65;&#x7684;&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#xFF0C;&#x6BD4;&#x5982;<code>showNotificationWithTimeout</code>&#x3002;&#x8FD9;&#x4E24;&#x4E2A;&#x7684;&#x7528;&#x6CD5;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x5C0F;&#x5FC3;&#x7684;&#x4E0D;&#x8981;&#x4F20;&#x9519;&#x4E86;&#x53C2;&#x6570;&#xFF0C;&#x4E5F;&#x4E0D;&#x8981;&#x6DF7;&#x6DC6;&#x4E86;&#x4ED6;&#x4EEC;&#x3002;</p>
+<p>&#x8FD9;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;<strong>&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x201C;&#x5408;&#x6CD5;&#x201D;&#x7684;&#x65B9;&#x6CD5;&#x7ED9;&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#x63D0;&#x4F9B;<code>dispatch</code>&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x5E2E;&#x52A9;<code>Redux</code>&#x533A;&#x5206;&#x51FA;&#x54EA;&#x4E9B;&#x662F;&#x5F02;&#x6B65;&#x7684;<code>action creator</code>&#xFF0C;&#x597D;&#x7279;&#x6B8A;&#x5904;&#x7406;&#x4ED6;&#x4EEC;</strong>&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x7684;&#x9879;&#x76EE;&#x4E2D;&#x9762;&#x4E34;&#x7740;&#x7C7B;&#x4F3C;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x6B22;&#x8FCE;&#x4F7F;&#x7528;<code>Redux Thunk</code>&#x4E2D;&#x95F4;&#x4EF6;&#x3002;</p>
+<p>&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;<code>React Thunk</code>&#x544A;&#x8BC9;<code>Redux</code>&#x600E;&#x4E48;&#x53BB;&#x533A;&#x5206;&#x8FD9;&#x79CD;&#x7279;&#x6B8A;&#x7684;<code>action</code>----&#x4ED6;&#x5176;&#x5B9E;&#x662F;&#x4E2A;&#x51FD;&#x6570;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { createStore, applyMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux&apos;</span>
+<span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-thunk&apos;</span>
+
+<span class="hljs-keyword">const</span> store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+)
+
+<span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x662F;&#x666E;&#x901A;&#x7684;&#x7EAF;&#x5BF9;&#x8C61;action</span>
+store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;INCREMENT&apos;</span> })
+
+<span class="hljs-comment">// &#x4F46;&#x662F;&#x6709;&#x4E86;Thunk&#xFF0C;&#x4ED6;&#x5C31;&#x53EF;&#x4EE5;&#x8BC6;&#x522B;&#x51FD;&#x6570;&#x4E86;</span>
+store.dispatch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x53C8;&#x53EF;&#x4EE5;dispatch&#x5F88;&#x591A;action</span>
+  dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;INCREMENT&apos;</span> })
+  dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;INCREMENT&apos;</span> })
+  dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;INCREMENT&apos;</span> })
+
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">// &#x5F02;&#x6B65;&#x7684;dispatch&#x4E5F;&#x53EF;&#x4EE5;</span>
+    dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;DECREMENT&apos;</span> })
+  }, <span class="hljs-number">1000</span>)
+})
+</code></pre>
+<p>&#x5982;&#x679C;&#x4F60;&#x4F7F;&#x7528;&#x4E86;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x800C;&#x4E14;&#x4F60;<code>dispatch</code>&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;<code>React Thunk</code>&#x4F1A;&#x81EA;&#x5DF1;&#x5C06;<code>dispatch</code>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x8FDB;&#x53BB;&#x3002;&#x800C;&#x4E14;&#x4ED6;&#x4F1A;&#x5C06;&#x8FD9;&#x4E9B;&#x51FD;&#x6570;<code>action</code>&#x201C;&#x5403;&#x4E86;&#x201D;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x7528;&#x62C5;&#x5FC3;&#x4F60;&#x7684;<code>reducer</code>&#x4F1A;&#x63A5;&#x6536;&#x5230;&#x5947;&#x602A;&#x7684;&#x51FD;&#x6570;&#x53C2;&#x6570;&#x3002;&#x4F60;&#x7684;<code>reducer</code>&#x53EA;&#x4F1A;&#x63A5;&#x6536;&#x5230;&#x7EAF;&#x5BF9;&#x8C61;<code>action</code>&#xFF0C;&#x65E0;&#x8BBA;&#x662F;&#x76F4;&#x63A5;&#x53D1;&#x51FA;&#x7684;&#x8FD8;&#x662F;&#x524D;&#x9762;&#x90A3;&#x4E9B;&#x5F02;&#x6B65;&#x51FD;&#x6570;&#x53D1;&#x51FA;&#x7684;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x770B;&#x8D77;&#x6765;&#x597D;&#x50CF;&#x4E5F;&#x6CA1;&#x5565;&#x5927;&#x7528;&#xFF0C;&#x5BF9;&#x4E0D;&#x5BF9;&#xFF1F;&#x5728;&#x5F53;&#x524D;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x786E;&#x5B9E;&#x662F;&#x7684;&#xFF01;&#x4F46;&#x662F;&#x4ED6;&#x8BA9;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x50CF;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x7684;<code>action creator</code>&#x90A3;&#x6837;&#x53BB;&#x5B9A;&#x4E49;<code>showNotificationWithTimeout</code>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// actions.js</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotification</span>(<span class="hljs-params">id, text</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;SHOW_NOTIFICATION&apos;</span>, id, text }
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hideNotification</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;HIDE_NOTIFICATION&apos;</span>, id }
+}
+
+<span class="hljs-keyword">let</span> nextNotificationId = <span class="hljs-number">0</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotificationWithTimeout</span>(<span class="hljs-params">text</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dispatch</span>) </span>{
+    <span class="hljs-keyword">const</span> id = nextNotificationId++
+    dispatch(showNotification(id, text))
+
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      dispatch(hideNotification(id))
+    }, <span class="hljs-number">5000</span>)
+  }
+}
+</code></pre>
+<p>&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7684;<code>showNotificationWithTimeout</code>&#x8DDF;&#x6211;&#x4EEC;&#x524D;&#x9762;&#x7684;&#x90A3;&#x4E2A;&#x770B;&#x8D77;&#x6765;&#x975E;&#x5E38;&#x50CF;&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x63A5;&#x6536;<code>dispatch</code>&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;&#x800C;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x6765;&#x63A5;&#x6536;<code>dispatch</code>&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x90A3;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x7EC4;&#x4EF6;&#x4E2D;&#x600E;&#x4E48;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x5462;&#xFF0C;&#x6211;&#x4EEC;&#x5F53;&#x7136;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// component.js</span>
+showNotificationWithTimeout(<span class="hljs-string">&apos;You just logged in.&apos;</span>)(<span class="hljs-keyword">this</span>.props.dispatch)
+</code></pre>
+<p>&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E86;&#x5F02;&#x6B65;&#x7684;<code>action creator</code>&#x6765;&#x5F97;&#x5230;&#x5185;&#x5C42;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x9700;&#x8981;<code>dispatch</code>&#x505A;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x7ED9;&#x4E86;&#x4ED6;<code>dispatch</code>&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x7136;&#x800C;&#x8FD9;&#x6837;&#x4F7F;&#x7528;&#x5C82;&#x4E0D;&#x662F;&#x66F4;&#x5C2C;&#xFF0C;&#x8FD8;&#x4E0D;&#x5982;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x90A3;&#x4E2A;&#x7248;&#x672C;&#x7684;&#xFF01;&#x6211;&#x4EEC;&#x4E3A;&#x5565;&#x8981;&#x8FD9;&#x4E48;&#x5E72;&#x5462;&#xFF1F;</p>
+<p>&#x6211;&#x4E4B;&#x524D;&#x5C31;&#x544A;&#x8BC9;&#x8FC7;&#x4F60;&#xFF1A;<strong>&#x53EA;&#x8981;&#x4F7F;&#x7528;&#x4E86;<code>Redux Thunk</code>&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x60F3;<code>dispatch</code>&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x7EAF;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x4F1A;&#x81EA;&#x5DF1;&#x5E2E;&#x4F60;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x4E14;&#x4F1A;&#x5C06;<code>dispatch</code>&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4F20;&#x8FDB;&#x53BB;&#x3002;</strong></p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FD9;&#x6837;&#x5E72;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// component.js</span>
+<span class="hljs-keyword">this</span>.props.dispatch(showNotificationWithTimeout(<span class="hljs-string">&apos;You just logged in.&apos;</span>))
+</code></pre>
+<p>&#x6700;&#x540E;&#xFF0C;&#x5BF9;&#x4E8E;&#x7EC4;&#x4EF6;&#x6765;&#x8BF4;&#xFF0C;<code>dispatch</code>&#x4E00;&#x4E2A;&#x5F02;&#x6B65;&#x7684;<code>action</code>(&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x5806;&#x666E;&#x901A;<code>action</code>)&#x770B;&#x8D77;&#x6765;&#x548C;<code>dispatch</code>&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x7684;&#x540C;&#x6B65;<code>action</code>&#x770B;&#x8D77;&#x6765;&#x5E76;&#x6CA1;&#x6709;&#x5565;&#x533A;&#x522B;&#x3002;&#x8FD9;&#x662F;&#x4E2A;&#x597D;&#x73B0;&#x8C61;&#xFF0C;&#x56E0;&#x4E3A;&#x7EC4;&#x4EF6;&#x5C31;&#x4E0D;&#x5E94;&#x8BE5;&#x5173;&#x5FC3;&#x90A3;&#x4E9B;&#x52A8;&#x4F5C;&#x5230;&#x5E95;&#x662F;&#x540C;&#x6B65;&#x7684;&#x8FD8;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5C06;&#x5B83;&#x62BD;&#x8C61;&#x51FA;&#x6765;&#x4E86;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x6559;&#x4E86;<code>Redux</code>&#x600E;&#x4E48;&#x533A;&#x5206;&#x8FD9;&#x4E9B;&#x7279;&#x6B8A;&#x7684;<code>action creator</code>(&#x6211;&#x4EEC;&#x79F0;&#x4E4B;&#x4E3A;<code>thunk action creator</code>)&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4EFB;&#x4F55;&#x666E;&#x901A;&#x7684;<code>action creator</code>&#x7684;&#x5730;&#x65B9;&#x4F7F;&#x7528;&#x4ED6;&#x4EEC;&#x4E86;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728;<code>connect()</code>&#x4E2D;&#x4F7F;&#x7528;&#x4ED6;&#x4EEC;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// actions.js</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotification</span>(<span class="hljs-params">id, text</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;SHOW_NOTIFICATION&apos;</span>, id, text }
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hideNotification</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;HIDE_NOTIFICATION&apos;</span>, id }
+}
+
+<span class="hljs-keyword">let</span> nextNotificationId = <span class="hljs-number">0</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotificationWithTimeout</span>(<span class="hljs-params">text</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dispatch</span>) </span>{
+    <span class="hljs-keyword">const</span> id = nextNotificationId++
+    dispatch(showNotification(id, text))
+
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      dispatch(hideNotification(id))
+    }, <span class="hljs-number">5000</span>)
+  }
+}
+
+<span class="hljs-comment">// component.js</span>
+
+<span class="hljs-keyword">import</span> { connect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-redux&apos;</span>
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">this</span>.props.showNotificationWithTimeout(<span class="hljs-string">&apos;You just logged in.&apos;</span>)
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  { showNotificationWithTimeout }
+)(MyComponent)
+</code></pre>
+<h3 id="&#x5728;thunk&#x4E2D;&#x8BFB;&#x53D6;state"><a name="&#x5728;thunk&#x4E2D;&#x8BFB;&#x53D6;state" class="anchor-navigation-ex-anchor" href="#&#x5728;thunk&#x4E2D;&#x8BFB;&#x53D6;state"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5728;Thunk&#x4E2D;&#x8BFB;&#x53D6;State</h3>
+<p>&#x901A;&#x5E38;&#x6765;&#x8BF4;&#xFF0C;&#x4F60;&#x7684;<code>reducer</code>&#x4F1A;&#x5305;&#x542B;&#x8BA1;&#x7B97;&#x65B0;&#x7684;<code>state</code>&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x4F46;&#x662F;<code>reducer</code>&#x53EA;&#x6709;&#x5F53;&#x4F60;<code>dispatch</code>&#x4E86;<code>action</code>&#x624D;&#x4F1A;&#x89E6;&#x53D1;&#x3002;&#x5982;&#x679C;&#x4F60;&#x5728;<code>thunk action creator</code>&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x526F;&#x4F5C;&#x7528;(&#x6BD4;&#x5982;&#x4E00;&#x4E2A;API&#x8C03;&#x7528;)&#xFF0C;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F60;&#x4E0D;&#x60F3;&#x53D1;&#x51FA;&#x8FD9;&#x4E2A;<code>action</code>&#x8BE5;&#x600E;&#x4E48;&#x529E;&#x5462;&#xFF1F;</p>
+<p>&#x5982;&#x679C;&#x6CA1;&#x6709;<code>Thunk</code>&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x5728;&#x7EC4;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x8FD9;&#x4E2A;&#x903B;&#x8F91;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// component.js</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.props.areNotificationsEnabled) {
+  showNotificationWithTimeout(<span class="hljs-keyword">this</span>.props.dispatch, <span class="hljs-string">&apos;You just logged in.&apos;</span>)
+}
+</code></pre>
+<p>&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x63D0;&#x53D6;<code>action creator</code>&#x7684;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x96C6;&#x4E2D;&#x8FD9;&#x4E9B;&#x5728;&#x5404;&#x4E2A;&#x7EC4;&#x4EF6;&#x4E2D;&#x91CD;&#x590D;&#x7684;&#x903B;&#x8F91;&#x3002;&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;<code>Redux Thunk</code>&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x8BFB;&#x53D6;&#x5F53;&#x524D;<code>store state</code>&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x90A3;&#x5C31;&#x662F;&#x9664;&#x4E86;&#x4F20;&#x5165;<code>dispatch</code>&#x53C2;&#x6570;&#x5916;&#xFF0C;&#x4ED6;&#x8FD8;&#x4F1A;&#x4F20;&#x5165;<code>getState</code>&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x6837;<code>thunk</code>&#x5C31;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;<code>store</code>&#x7684;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x4E86;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> nextNotificationId = <span class="hljs-number">0</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotificationWithTimeout</span>(<span class="hljs-params">text</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dispatch, getState</span>) </span>{
+    <span class="hljs-comment">// &#x4E0D;&#x50CF;&#x666E;&#x901A;&#x7684;action cerator&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x63D0;&#x524D;&#x9000;&#x51FA;</span>
+    <span class="hljs-comment">// Redux&#x4E0D;&#x5173;&#x5FC3;&#x8FD9;&#x91CC;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x6CA1;&#x8FD4;&#x56DE;&#x503C;&#x4E5F;&#x6CA1;&#x5173;&#x7CFB;</span>
+    <span class="hljs-keyword">if</span> (!getState().areNotificationsEnabled) {
+      <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">const</span> id = nextNotificationId++
+    dispatch(showNotification(id, text))
+
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      dispatch(hideNotification(id))
+    }, <span class="hljs-number">5000</span>)
+  }
+}
+</code></pre>
+<p>&#x4F46;&#x662F;&#x4E0D;&#x8981;&#x6EE5;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#xFF01;&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x68C0;&#x67E5;&#x7F13;&#x5B58;&#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x53D1;&#x8D77;API&#x8BF7;&#x6C42;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x5C31;&#x5F88;&#x597D;&#xFF0C;&#x4F46;&#x662F;&#x5C06;&#x4F60;&#x6574;&#x4E2A;APP&#x7684;&#x903B;&#x8F91;&#x90FD;&#x6784;&#x5EFA;&#x5728;&#x8FD9;&#x4E2A;&#x57FA;&#x7840;&#x4E0A;&#x5E76;&#x4E0D;&#x662F;&#x5F88;&#x597D;&#x3002;&#x5982;&#x679C;&#x4F60;&#x53EA;&#x662F;&#x7528;<code>getState</code>&#x6765;&#x505A;&#x6761;&#x4EF6;&#x5224;&#x65AD;&#x662F;&#x5426;&#x8981;<code>dispatch action</code>&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x5C06;&#x8FD9;&#x4E9B;&#x903B;&#x8F91;&#x653E;&#x5230;<code>reducer</code>&#x91CC;&#x9762;&#x53BB;&#x3002;</p>
+<h3 id="&#x4E0B;&#x4E00;&#x6B65;"><a name="&#x4E0B;&#x4E00;&#x6B65;" class="anchor-navigation-ex-anchor" href="#&#x4E0B;&#x4E00;&#x6B65;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E0B;&#x4E00;&#x6B65;</h3>
+<p>&#x73B0;&#x5728;&#x4F60;&#x5E94;&#x8BE5;&#x5BF9;<code>thunk</code>&#x7684;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x6709;&#x4E86;&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x66F4;&#x591A;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x8FD9;&#x91CC;:<a href="https://redux.js.org/introduction/examples#async" target="_blank">https://redux.js.org/introduction/examples#async</a>&#x3002;</p>
+<p>&#x4F60;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x73B0;&#x5F88;&#x591A;&#x4F8B;&#x5B50;&#x90FD;&#x8FD4;&#x56DE;&#x4E86;<code>Promise</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x7528;&#x8D77;&#x6765;&#x5374;&#x5F88;&#x65B9;&#x4FBF;&#x3002;<code>Redux</code>&#x5E76;&#x4E0D;&#x5173;&#x5FC3;&#x4F60;&#x7684;<code>thunk</code>&#x8FD4;&#x56DE;&#x4E86;&#x4EC0;&#x4E48;&#x503C;&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x4F1A;&#x5C06;&#x8FD9;&#x4E2A;&#x503C;&#x901A;&#x8FC7;&#x5916;&#x5C42;&#x7684;<code>dispatch()</code>&#x8FD4;&#x56DE;&#x7ED9;&#x4F60;&#x3002;&#x8FD9;&#x5C31;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x4F60;&#x53EF;&#x4EE5;&#x5728;<code>thunk</code>&#x4E2D;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>Promise</code>&#x5E76;&#x4E14;&#x7B49;&#x4ED6;&#x5B8C;&#x6210;&#xFF1A;</p>
+<pre><code class="lang-javascript">dispatch(someThunkReturningPromise()).then(...)
+</code></pre>
+<p>&#x53E6;&#x5916;&#x4F60;&#x8FD8;&#x53EF;&#x4EE5;&#x5C06;&#x4E00;&#x4E2A;&#x590D;&#x6742;&#x7684;<code>thunk action creator</code>&#x62C6;&#x5206;&#x6210;&#x51E0;&#x4E2A;&#x66F4;&#x5C0F;&#x7684;<code>thunk action creator</code>&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;<code>thunk</code>&#x63D0;&#x4F9B;&#x7684;<code>dispatch</code>&#x4E5F;&#x53EF;&#x4EE5;&#x63A5;&#x6536;<code>thunk</code>&#xFF0C;&#x6240;&#x4EE5;&#x4F60;&#x53EF;&#x4EE5;&#x4E00;&#x76F4;&#x5D4C;&#x5957;&#x7684;<code>dispatch thunk</code>&#x3002;&#x800C;&#x4E14;&#x7ED3;&#x5408;<code>Promise</code>&#x7684;&#x8BDD;&#x53EF;&#x4EE5;&#x66F4;&#x597D;&#x7684;&#x63A7;&#x5236;&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x3002;</p>
+<p>&#x5728;&#x4E00;&#x4E9B;&#x66F4;&#x590D;&#x6742;&#x7684;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x73B0;&#x4F60;&#x7684;&#x5F02;&#x6B65;&#x63A7;&#x5236;&#x6D41;&#x7A0B;&#x901A;&#x8FC7;<code>thunk</code>&#x5F88;&#x96BE;&#x8868;&#x8FBE;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x91CD;&#x8BD5;&#x5931;&#x8D25;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x4F7F;&#x7528;<code>token</code>&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#xFF0C;&#x6216;&#x8005;&#x5728;&#x4E00;&#x6B65;&#x4E00;&#x6B65;&#x7684;&#x5F15;&#x5BFC;&#x6D41;&#x7A0B;&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x53EF;&#x80FD;&#x4F1A;&#x5F88;&#x7E41;&#x7410;&#xFF0C;&#x800C;&#x4E14;&#x5BB9;&#x6613;&#x51FA;&#x9519;&#x3002;&#x5982;&#x679C;&#x4F60;&#x6709;&#x8FD9;&#x4E9B;&#x9700;&#x6C42;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x4E0B;&#x4E00;&#x4E9B;&#x66F4;&#x9AD8;&#x7EA7;&#x7684;&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x63A7;&#x5236;&#x5E93;&#xFF0C;&#x6BD4;&#x5982;<a href="https://github.com/yelouafi/redux-saga" target="_blank">Redux Saga</a>&#x6216;&#x8005;<a href="https://github.com/raisemarketplace/redux-loop" target="_blank">Redux Loop</a>&#x3002;&#x53EF;&#x4EE5;&#x770B;&#x770B;&#x4ED6;&#x4EEC;&#xFF0C;&#x8BC4;&#x4F30;&#x4E0B;&#xFF0C;&#x54EA;&#x4E2A;&#x66F4;&#x9002;&#x5408;&#x4F60;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x9009;&#x4E00;&#x4E2A;&#x4F60;&#x6700;&#x559C;&#x6B22;&#x7684;&#x3002;</p>
+<p>&#x6700;&#x540E;&#xFF0C;&#x4E0D;&#x8981;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x5E93;(&#x5305;&#x62EC;thunk)&#x5982;&#x679C;&#x4F60;&#x6CA1;&#x6709;&#x771F;&#x5B9E;&#x7684;&#x9700;&#x6C42;&#x3002;&#x8BB0;&#x4F4F;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x5B9E;&#x73B0;&#x90FD;&#x662F;&#x8981;&#x770B;&#x9700;&#x6C42;&#x7684;&#xFF0C;&#x4E5F;&#x8BB8;&#x4F60;&#x7684;&#x9700;&#x6C42;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6848;&#x5C31;&#x80FD;&#x6EE1;&#x8DB3;&#xFF1A;</p>
+<pre><code class="lang-javascript">store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;SHOW_NOTIFICATION&apos;</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;You logged in.&apos;</span> })
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;HIDE_NOTIFICATION&apos;</span> })
+}, <span class="hljs-number">5000</span>)
+</code></pre>
+<p>&#x4E0D;&#x8981;&#x8DDF;&#x98CE;&#x5C1D;&#x8BD5;&#xFF0C;&#x9664;&#x975E;&#x4F60;&#x77E5;&#x9053;&#x4F60;&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x8FD9;&#x4E2A;&#xFF01;</p>
+<p><strong>----&#x7FFB;&#x8BD1;&#x5230;&#x6B64;&#x7ED3;&#x675F;----</strong></p>
+<p><code>StackOverflow</code>&#x7684;&#x5927;&#x795E;<strong><a href="https://stackoverflow.com/users/458193/dan-abramov" target="_blank">Dan Abramov</a></strong>&#x5BF9;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#x56DE;&#x7B54;&#x5B9E;&#x5728;&#x592A;&#x7EC6;&#x81F4;&#xFF0C;&#x592A;&#x5230;&#x4F4D;&#x4E86;&#xFF0C;&#x4EE5;&#x81F4;&#x4E8E;&#x6211;&#x770B;&#x4E86;&#x4E4B;&#x540E;&#x90FD;&#x4E0D;&#x6562;&#x518D;&#x5199;&#x8FD9;&#x4E2A;&#x539F;&#x56E0;&#x4E86;&#xFF0C;&#x4EE5;&#x6B64;&#x7FFB;&#x8BD1;&#x5411;&#x5927;&#x795E;&#x81F4;&#x656C;&#xFF0C;&#x518D;&#x8D34;&#x4E0B;&#x8FD9;&#x4E2A;&#x56DE;&#x7B54;&#x7684;&#x5730;&#x5740;&#xFF1A;<a href="https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559" target="_blank">https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559</a>&#x3002;</p>
+<p>PS: Dan Abramov&#x662F;<code>Redux</code>&#x751F;&#x6001;&#x7684;&#x6838;&#x5FC3;&#x4F5C;&#x8005;&#xFF0C;&#x8FD9;&#x51E0;&#x7BC7;&#x6587;&#x7AE0;&#x8BB2;&#x7684;<code>Redux</code>&#xFF0C;<code>React-Redux</code>&#xFF0C;<code>Redux-Thunk</code>&#x90FD;&#x662F;&#x4ED6;&#x7684;&#x4F5C;&#x54C1;&#x3002;</p>
+<h2 id="&#x6E90;&#x7801;&#x89E3;&#x6790;"><a name="&#x6E90;&#x7801;&#x89E3;&#x6790;" class="anchor-navigation-ex-anchor" href="#&#x6E90;&#x7801;&#x89E3;&#x6790;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6E90;&#x7801;&#x89E3;&#x6790;</h2>
+<p>&#x4E0A;&#x9762;&#x5173;&#x4E8E;&#x539F;&#x56E0;&#x7684;&#x7FFB;&#x8BD1;&#x5176;&#x5B9E;&#x5DF2;&#x7ECF;&#x5C06;<code>Redux</code>&#x9002;&#x7528;&#x7684;&#x573A;&#x666F;&#x548C;&#x539F;&#x7406;&#x8BB2;&#x7684;&#x5F88;&#x6E05;&#x695A;&#x4E86;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x81EA;&#x5DF1;&#x4EFF;&#x5199;&#x4E00;&#x4E2A;&#x6765;&#x66FF;&#x6362;&#x4ED6;&#x3002;&#x7167;&#x4F8B;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x5206;&#x6790;&#x4E0B;&#x8981;&#x70B9;:</p>
+<blockquote>
+<ol>
+<li><code>Redux-Thunk</code>&#x662F;&#x4E00;&#x4E2A;<code>Redux</code>&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x4ED6;&#x9075;&#x5B88;<code>Redux</code>&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x8303;&#x5F0F;&#x3002;</li>
+<li><code>thunk</code>&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;<code>dispatch</code>&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6539;&#x5199;<code>dispatch</code>&#x8BA9;&#x4ED6;&#x63A5;&#x53D7;&#x51FD;&#x6570;&#x53C2;&#x6570;&#x3002;</li>
+</ol>
+</blockquote>
+<h3 id="redux&#x4E2D;&#x95F4;&#x4EF6;&#x8303;&#x5F0F;"><a name="redux&#x4E2D;&#x95F4;&#x4EF6;&#x8303;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#redux&#x4E2D;&#x95F4;&#x4EF6;&#x8303;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a><code>Redux</code>&#x4E2D;&#x95F4;&#x4EF6;&#x8303;&#x5F0F;</h3>
+<p><a href="https://juejin.im/post/6845166891682512909#heading-7" target="_blank">&#x5728;&#x6211;&#x524D;&#x9762;&#x90A3;&#x7BC7;&#x8BB2;<code>Redux</code>&#x6E90;&#x7801;&#x7684;&#x6587;&#x7AE0;&#x8BB2;&#x8FC7;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x8303;&#x5F0F;&#x4EE5;&#x53CA;<code>Redux</code>&#x4E2D;&#x8FD9;&#x5757;&#x6E90;&#x7801;&#x662F;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x6CA1;&#x770B;&#x8FC7;&#x6216;&#x8005;&#x5FD8;&#x4E86;&#x7684;&#x670B;&#x53CB;&#x53EF;&#x4EE5;&#x518D;&#x53BB;&#x770B;&#x770B;&#x3002;</a>&#x6211;&#x8FD9;&#x91CC;&#x518D;&#x7B80;&#x5355;&#x63D0;&#x4E00;&#x4E0B;&#xFF0C;&#x4E00;&#x4E2A;<code>Redux</code>&#x4E2D;&#x95F4;&#x4EF6;&#x7ED3;&#x6784;&#x5927;&#x6982;&#x662F;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logger</span>(<span class="hljs-params">store</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">action</span>) </span>{
+      <span class="hljs-built_in">console</span>.group(action.type);
+      <span class="hljs-built_in">console</span>.info(<span class="hljs-string">&apos;dispatching&apos;</span>, action);
+      <span class="hljs-keyword">let</span> result = next(action);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;next state&apos;</span>, store.getState());
+      <span class="hljs-built_in">console</span>.groupEnd();
+      <span class="hljs-keyword">return</span> result
+    }
+  }
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x6CE8;&#x610F;&#x51E0;&#x4E2A;&#x8981;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<ol>
+<li>&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x63A5;&#x6536;<code>store</code>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</li>
+<li>&#x8FD4;&#x56DE;&#x7684;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x63A5;&#x6536;&#x8001;&#x7684;<code>dispatch</code>&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;(&#x4E5F;&#x5C31;&#x662F;&#x4EE3;&#x7801;&#x4E2D;&#x7684;<code>next</code>)&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x51FD;&#x6570;</li>
+<li>&#x8FD4;&#x56DE;&#x7684;&#x65B0;&#x51FD;&#x6570;&#x5C31;&#x662F;&#x65B0;&#x7684;<code>dispatch</code>&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x5916;&#x9762;&#x4E24;&#x5C42;&#x4F20;&#x8FDB;&#x6765;&#x7684;<code>store</code>&#x548C;&#x8001;<code>dispatch</code>&#x51FD;&#x6570;</li>
+</ol>
+</blockquote>
+<p>&#x4EFF;&#x7167;&#x8FD9;&#x4E2A;&#x8303;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x5199;&#x4E00;&#x4E0B;<code>thunk</code>&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x7ED3;&#x6784;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thunk</span>(<span class="hljs-params">store</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">action</span>) </span>{
+      <span class="hljs-comment">// &#x5148;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x539F;&#x59CB;&#x7ED3;&#x679C;</span>
+      <span class="hljs-keyword">let</span> result = next(action);
+      <span class="hljs-keyword">return</span> result
+    }
+  }
+}
+</code></pre>
+<h3 id="&#x5904;&#x7406;thunk"><a name="&#x5904;&#x7406;thunk" class="anchor-navigation-ex-anchor" href="#&#x5904;&#x7406;thunk"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5904;&#x7406;thunk</h3>
+<p>&#x6839;&#x636E;&#x6211;&#x4EEC;&#x524D;&#x9762;&#x8BB2;&#x7684;&#xFF0C;<code>thunk</code>&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x63A5;&#x6536;<code>dispatch getState</code>&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5C06;<code>thunk</code>&#x62FF;&#x51FA;&#x6765;&#x8FD0;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x7ED9;&#x4ED6;&#x4F20;&#x5165;&#x8FD9;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x518D;&#x5C06;&#x5B83;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5C31;&#x884C;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thunk</span>(<span class="hljs-params">store</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">action</span>) </span>{
+      <span class="hljs-comment">// &#x4ECE;store&#x4E2D;&#x89E3;&#x6784;&#x51FA;dispatch, getState</span>
+      <span class="hljs-keyword">const</span> { dispatch, getState } = store;
+
+      <span class="hljs-comment">// &#x5982;&#x679C;action&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5C06;&#x5B83;&#x62FF;&#x51FA;&#x6765;&#x8FD0;&#x884C;&#xFF0C;&#x53C2;&#x6570;&#x5C31;&#x662F;dispatch&#x548C;getState</span>
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">&apos;function&apos;</span>) {
+        <span class="hljs-keyword">return</span> action(dispatch, getState);
+      }
+
+      <span class="hljs-comment">// &#x5426;&#x5219;&#x6309;&#x7167;&#x666E;&#x901A;action&#x5904;&#x7406;</span>
+      <span class="hljs-keyword">let</span> result = next(action);
+      <span class="hljs-keyword">return</span> result
+    }
+  }
+}
+</code></pre>
+<h3 id="&#x63A5;&#x6536;&#x989D;&#x5916;&#x53C2;&#x6570;withextraargument"><a name="&#x63A5;&#x6536;&#x989D;&#x5916;&#x53C2;&#x6570;withextraargument" class="anchor-navigation-ex-anchor" href="#&#x63A5;&#x6536;&#x989D;&#x5916;&#x53C2;&#x6570;withextraargument"><i class="fa fa-link" aria-hidden="true"></i></a>&#x63A5;&#x6536;&#x989D;&#x5916;&#x53C2;&#x6570;withExtraArgument</h3>
+<p><code>Redux-Thunk</code>&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;API&#xFF0C;&#x5C31;&#x662F;&#x4F60;&#x5728;&#x4F7F;&#x7528;<code>applyMiddleware</code>&#x5F15;&#x5165;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>withExtraArgument</code>&#x6CE8;&#x5165;&#x51E0;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x6BD4;&#x5982;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> api = <span class="hljs-string">&quot;http://www.example.com/sandwiches/&quot;</span>;
+<span class="hljs-keyword">const</span> whatever = <span class="hljs-number">42</span>;
+
+<span class="hljs-keyword">const</span> store = createStore(
+  reducer,
+  applyMiddleware(thunk.withExtraArgument({ api, whatever })),
+);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchUser</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">dispatch, getState, { api, whatever }</span>) =&gt;</span> {
+    <span class="hljs-comment">// &#x73B0;&#x5728;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x989D;&#x5916;&#x7684;&#x53C2;&#x6570;api&#x548C;whatever&#x4E86;</span>
+  };
+}
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#x8981;&#x5B9E;&#x73B0;&#x8D77;&#x6765;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5728;&#x524D;&#x9762;&#x7684;<code>thunk</code>&#x51FD;&#x6570;&#x5916;&#x9762;&#x518D;&#x5305;&#x4E00;&#x5C42;&#x5C31;&#x884C;:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5916;&#x9762;&#x518D;&#x5305;&#x4E00;&#x5C42;&#x51FD;&#x6570;createThunkMiddleware&#x63A5;&#x6536;&#x989D;&#x5916;&#x7684;&#x53C2;&#x6570;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createThunkMiddleware</span>(<span class="hljs-params">extraArgument</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thunk</span>(<span class="hljs-params">store</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">action</span>) </span>{
+        <span class="hljs-keyword">const</span> { dispatch, getState } = store;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">&apos;function&apos;</span>) {
+          <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x6267;&#x884C;&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x4F20;&#x5165;extraArgument</span>
+          <span class="hljs-keyword">return</span> action(dispatch, getState, extraArgument);  
+        }
+
+        <span class="hljs-keyword">let</span> result = next(action);
+        <span class="hljs-keyword">return</span> result
+      }
+    }
+  }
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x7684;<code>thunk</code>&#x4E2D;&#x95F4;&#x4EF6;&#x5176;&#x5B9E;&#x76F8;&#x5F53;&#x4E8E;&#x6CA1;&#x4F20;<code>extraArgument</code>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> thunk = createThunkMiddleware();
+</code></pre>
+<p>&#x800C;&#x66B4;&#x9732;&#x7ED9;&#x5916;&#x9762;&#x7684;<code>withExtraArgument</code>&#x51FD;&#x6570;&#x5C31;&#x76F4;&#x63A5;&#x662F;<code>createThunkMiddleware</code>&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-javascript">thunk.withExtraArgument = createThunkMiddleware;
+</code></pre>
+<p>&#x6E90;&#x7801;&#x89E3;&#x6790;&#x5230;&#x6B64;&#x7ED3;&#x675F;&#x3002;&#x5565;&#xFF0C;&#x8FD9;&#x5C31;&#x5B8C;&#x4E86;&#xFF1F;&#x662F;&#x7684;&#xFF0C;&#x8FD9;&#x5C31;&#x5B8C;&#x4E86;&#xFF01;<code>Redux-Thunk</code>&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#xFF0C;&#x867D;&#x7136;&#x80CC;&#x540E;&#x7684;&#x601D;&#x60F3;&#x6BD4;&#x8F83;&#x590D;&#x6742;&#xFF0C;&#x4F46;&#x662F;&#x4EE3;&#x7801;&#x771F;&#x7684;&#x53EA;&#x6709;14&#x884C;&#xFF01;&#x6211;&#x5F53;&#x65F6;&#x4E5F;&#x9707;&#x60CA;&#x4E86;&#xFF0C;&#x6765;&#x770B;&#x770B;<a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js" target="_blank">&#x5B98;&#x65B9;&#x6E90;&#x7801;</a>&#x5427;:</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createThunkMiddleware</span>(<span class="hljs-params">extraArgument</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">{ dispatch, getState }</span>) =&gt;</span> (next) =&gt; <span class="hljs-function">(<span class="hljs-params">action</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">&apos;function&apos;</span>) {
+      <span class="hljs-keyword">return</span> action(dispatch, getState, extraArgument);
+    }
+
+    <span class="hljs-keyword">return</span> next(action);
+  };
+}
+
+<span class="hljs-keyword">const</span> thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> thunk;
+</code></pre>
+<h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x603B;&#x7ED3;</h2>
+<ol>
+<li>&#x5982;&#x679C;&#x662F;<code>Redux</code>&#x662F;&#x201C;&#x767E;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x5343;&#x884C;&#x6587;&#x6863;&#x201D;&#xFF0C;&#x90A3;<code>Redux-Thunk</code>&#x5C31;&#x662F;&#x201C;&#x5341;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x767E;&#x884C;&#x601D;&#x60F3;&#x201D;&#x3002;</li>
+<li><code>Redux-Thunk</code>&#x6700;&#x4E3B;&#x8981;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x5E2E;&#x4F60;&#x7ED9;&#x5F02;&#x6B65;<code>action</code>&#x4F20;&#x5165;<code>dispatch</code>&#xFF0C;&#x8FD9;&#x6837;&#x4F60;&#x5C31;&#x4E0D;&#x7528;&#x4ECE;&#x8C03;&#x7528;&#x7684;&#x5730;&#x65B9;&#x624B;&#x52A8;&#x4F20;&#x5165;<code>dispatch</code>&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x4E86;&#x8C03;&#x7528;&#x7684;&#x5730;&#x65B9;&#x548C;&#x4F7F;&#x7528;&#x7684;&#x5730;&#x65B9;&#x7684;&#x89E3;&#x8026;&#x3002;</li>
+<li><code>Redux</code>&#x548C;<code>Redux-Thunk</code>&#x8BA9;&#x6211;&#x6DF1;&#x6DF1;&#x4F53;&#x4F1A;&#x5230;&#x4EC0;&#x4E48;&#x53EB;&#x201C;&#x7F16;&#x7A0B;&#x601D;&#x60F3;&#x201D;&#xFF0C;&#x7F16;&#x7A0B;&#x601D;&#x60F3;&#x53EF;&#x4EE5;&#x5F88;&#x590D;&#x6742;&#xFF0C;&#x4F46;&#x662F;&#x5B9E;&#x73B0;&#x53EF;&#x80FD;&#x5E76;&#x4E0D;&#x590D;&#x6742;&#xFF0C;&#x4F46;&#x662F;&#x5374;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002;</li>
+<li>&#x5728;&#x6211;&#x4EEC;&#x8BC4;&#x4F30;&#x662F;&#x5426;&#x8981;&#x5F15;&#x5165;&#x4E00;&#x4E2A;&#x5E93;&#x65F6;&#x6700;&#x597D;&#x60F3;&#x6E05;&#x695A;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5F15;&#x5165;&#x8FD9;&#x4E2A;&#x5E93;&#xFF0C;&#x662F;&#x5426;&#x6709;&#x66F4;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6848;&#x3002;</li>
+</ol>
+<h2 id="&#x53C2;&#x8003;&#x8D44;&#x6599;"><a name="&#x53C2;&#x8003;&#x8D44;&#x6599;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#x8D44;&#x6599;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53C2;&#x8003;&#x8D44;&#x6599;</h2>
+<p>Redux-Thunk&#x6587;&#x6863;&#xFF1A;<a href="https://github.com/reduxjs/redux-thunk" target="_blank">https://github.com/reduxjs/redux-thunk</a></p>
+<p>Redux-Thunk&#x6E90;&#x7801;: <a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js" target="_blank">https://github.com/reduxjs/redux-thunk/blob/master/src/index.js</a></p>
+<p>Dan Abramov&#x5728;StackOverflow&#x4E0A;&#x7684;&#x56DE;&#x7B54;: <a href="https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559" target="_blank">https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559</a></p>
+<p><strong>&#x6587;&#x7AE0;&#x7684;&#x6700;&#x540E;&#xFF0C;&#x611F;&#x8C22;&#x4F60;&#x82B1;&#x8D39;&#x5B9D;&#x8D35;&#x7684;&#x65F6;&#x95F4;&#x9605;&#x8BFB;&#x672C;&#x6587;&#xFF0C;&#x5982;&#x679C;&#x672C;&#x6587;&#x7ED9;&#x4E86;&#x4F60;&#x4E00;&#x70B9;&#x70B9;&#x5E2E;&#x52A9;&#x6216;&#x8005;&#x542F;&#x53D1;&#xFF0C;&#x8BF7;&#x4E0D;&#x8981;&#x541D;&#x556C;&#x4F60;&#x7684;&#x8D5E;&#x548C;GitHub&#x5C0F;&#x661F;&#x661F;&#xFF0C;&#x4F60;&#x7684;&#x652F;&#x6301;&#x662F;&#x4F5C;&#x8005;&#x6301;&#x7EED;&#x521B;&#x4F5C;&#x7684;&#x52A8;&#x529B;&#x3002;</strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x535A;&#x6587;GitHub&#x9879;&#x76EE;&#x5730;&#x5740;&#xFF1A; <a href="https://github.com/dennis-jiang/Front-End-Knowledges" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges</a></strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x6398;&#x91D1;&#x6587;&#x7AE0;&#x6C47;&#x603B;&#xFF1A;<a href="https://juejin.im/post/5e3ffc85518825494e2772fd" target="_blank">https://juejin.im/post/5e3ffc85518825494e2772fd</a></strong></p>
+<p><strong>&#x6211;&#x4E5F;&#x641E;&#x4E86;&#x4E2A;&#x516C;&#x4F17;&#x53F7;[&#x8FDB;&#x51FB;&#x7684;&#x5927;&#x524D;&#x7AEF;]&#xFF0C;&#x4E0D;&#x6253;&#x5E7F;&#x544A;&#xFF0C;&#x4E0D;&#x5199;&#x6C34;&#x6587;&#xFF0C;&#x53EA;&#x53D1;&#x9AD8;&#x8D28;&#x91CF;&#x539F;&#x521B;&#xFF0C;&#x6B22;&#x8FCE;&#x5173;&#x6CE8;~</strong></p>
+<p><img src="../../images/Others/QRCode.jpg" alt="QRCode"></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="React-Redux.html" class="navigation navigation-prev " aria-label="Previous page: 手写React-Redux">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="React-Router_Usage.html" class="navigation navigation-next " aria-label="Next page: React-Router实现前端路由鉴权">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redux-Thunk原理及源码","level":"1.6.4","depth":2,"next":{"title":"React-Router实现前端路由鉴权","level":"1.6.5","depth":2,"path":"Articles/React/React-Router_Usage.md","ref":"Articles/React/React-Router_Usage.md","articles":[]},"previous":{"title":"手写React-Redux","level":"1.6.3","depth":2,"path":"Articles/React/React-Redux.md","ref":"Articles/React/React-Redux.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/React/Redux-Thunk.md","mtime":"2020-09-08T02:43:27.654Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-08T02:57:11.634Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
