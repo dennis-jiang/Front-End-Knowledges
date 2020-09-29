@@ -2,6 +2,8 @@
 
 本文仍然是老套路，先来一个`Redux-Saga`的简单例子，然后我们自己写一个`Redux-Saga`来替代他，也就是源码分析。
 
+本文可运行的代码已经上传到GitHub，可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga)
+
 ## 简单例子
 
 网络请求是我们经常需要处理的异步操作，假设我们现在的一个简单需求就是点击一个按钮去请求用户的信息，大概长这样：
@@ -587,6 +589,8 @@ export function takeEvery(pattern, saga) {
 5. 我们调用的`effects`和真正实现功能的函数是分开的，表层调用的`effects`只会返回一个简单的对象，这个对象描述了当前任务，他是稳定的，所以基于`effects`的单元测试很好写。
 6. 当拿到`effects`返回的对象后，我们再根据他的`type`去找对应的处理函数来进行处理。
 7. 整个`Redux-Saga`都是基于`Generator`的，每往下走一步都需要手动调用`next`，这样当他执行到中途的时候我们可以根据情况不再继续调用`next`，这其实就相当于将当前任务`cancel`了。
+
+本文可运行的代码已经上传到GitHub，可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga)
 
 ## 参考资料
 
