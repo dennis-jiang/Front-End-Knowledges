@@ -1,5 +1,7 @@
 `Node.js`也是`JavaScript`，所以前端开发者应该天生就会一点。一般我们会用它来做`CLI工具`或者`Web服务器`，做`Web服务器`也有很多成熟的框架，比如`Express`和`Koa`。但是`Express`和`Koa`都是对`Node.js`原生`API`的封装，所以其实不借助任何框架，只用原生`API`我们也能写一个`Web服务器`出来。本文要讲的就是不借助框架，只用原生`API`怎么写一个`Web服务器`。因为在我的计划中，后面会讲`Express`和`Koa`的源码解析，他们都是使用原生API来实现的，所以本文其实是这两个源码解析的前置知识。
 
+**本文可运行代码示例已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/HttpServer](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/HttpServer)**
+
 ## Hello World
 
 要搭建一个简单的`Web服务器`，使用原生的`http`模块就够了，一个简单的`Hello World`程序几行代码就够了：
@@ -146,6 +148,8 @@ else if (method === 'POST') {
 ## 总结
 
 到这里我们就完成了一个具有基本功能的`web服务器`，代码不复杂，但是对于帮我们理解`Node web服务器`的原理很有帮助。但是上述代码还有个很大的问题就是：**代码很丑**！所有代码都写在一堆，而且`HTTP动词`和路由匹配全部是使用`if`条件判断，如果有几百个`API`，再配合十来个动词，那代码简直就是个灾难！所以我们应该将`路由处理`，`HTTP动词`，`静态文件`，`数据持久化`这些功能全部抽离出来，让整个应用变得更优雅，更好扩展。这就是`Express`和`Koa`这些框架存在的意义，下一篇文章我们就去`Express`的源码看看他是怎么解决这个问题的，点个关注不迷路~
+
+**本文可运行代码示例已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/HttpServer](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/HttpServer)**
 
 **文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
 
