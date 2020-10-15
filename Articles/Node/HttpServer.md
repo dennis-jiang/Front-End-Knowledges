@@ -139,11 +139,11 @@ else if (method === 'POST') {
 
 然后我们测试一下这个`API`:
 
-![image-20201007092227467](../../images/Node/HttpServer/image-20201007092227467.png)
+![image-20201007165330636](../../images/Node/HttpServer/image-20201007165330636.png)
 
 再去看看文件里面写进去没有：
 
-![image-20201007092315193](../../images/Node/HttpServer/image-20201007092315193.png)
+![image-20201007165506756](../../images/Node/HttpServer/image-20201007165506756.png)
 
 ## 总结
 
