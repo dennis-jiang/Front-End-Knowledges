@@ -1,5 +1,6 @@
 const path = require("path");
-const express = require("express");
+// const express = require("express");
+const express = require("./myExpress/express");
 const fs = require("fs");
 const url = require("url");
 
@@ -15,10 +16,6 @@ app.use((req, res, next) => {
   console.log(`request path: ${pathname}`);
 
   next();
-});
-
-app.get("/", (req, res) => {
-  res.end("Hello World");
 });
 
 app.get("/api/users", (req, res) => {

@@ -2,7 +2,7 @@
 
 本文仍然是老套路，先来一个`Redux-Saga`的简单例子，然后我们自己写一个`Redux-Saga`来替代他，也就是源码分析。
 
-本文可运行的代码已经上传到GitHub，可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga)
+**本文可运行的代码已经上传到GitHub，可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga)**
 
 ## 简单例子
 
@@ -590,7 +590,7 @@ export function takeEvery(pattern, saga) {
 6. 当拿到`effects`返回的对象后，我们再根据他的`type`去找对应的处理函数来进行处理。
 7. 整个`Redux-Saga`都是基于`Generator`的，每往下走一步都需要手动调用`next`，这样当他执行到中途的时候我们可以根据情况不再继续调用`next`，这其实就相当于将当前任务`cancel`了。
 
-本文可运行的代码已经上传到GitHub，可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga)
+**本文可运行的代码已经上传到GitHub，可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/React/redux-saga)**
 
 ## 参考资料
 
