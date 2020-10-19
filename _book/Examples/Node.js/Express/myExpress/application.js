@@ -1,3 +1,5 @@
+var Router = require("./router");
+
 var http = require("http");
 var finalhandler = require("finalhandler");
 
@@ -41,7 +43,7 @@ app.use = function use(fn) {
 };
 
 // HTTP动词的方法
-const methods = ["get", "post"];
+var methods = ["get", "post"];
 methods.forEach(function (method) {
   app[method] = function (path) {
     this.lazyrouter();

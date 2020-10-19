@@ -19,7 +19,6 @@ Layer.prototype.match = function match(path) {
 
   if (path != null) {
     if (this.regexp.fast_slash) {
-      this.path = "";
       return true;
     }
 

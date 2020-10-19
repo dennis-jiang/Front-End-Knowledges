@@ -1,9 +1,9 @@
-const { Route } = require("./route");
+var Route = require("./route");
 var setPrototypeOf = require("setprototypeof");
 var parseUrl = require("parseurl");
-const Layer = require("./layer");
+var Layer = require("./layer");
 
-var proto = (module.exports = function () {
+var proto = function () {
   function router(req, res) {
     router.handle(req, res);
   }
@@ -14,11 +14,13 @@ var proto = (module.exports = function () {
   router.stack = [];
 
   return router;
-});
+};
+
+module.exports = proto;
 
 proto.route = function route(path) {
   var route = new Route();
-  var layer = new layer(path, route.dispatch.bind(route));
+  var layer = new Layer(path, route.dispatch.bind(route));
 
   layer.route = route;
 
@@ -77,15 +79,12 @@ proto.handle = function handle(req, res, done) {
     }
 
     // 如果匹配上了，就执行对应的回调函数
-    if (route) {
-      return layer.handle_request(req, res, next);
-    }
+    return layer.handle_request(req, res, next);
   }
 };
 
 proto.use = function use(path, fn) {
   var layer = new Layer(path, fn);
 
-  layer.route = undefined;
   this.stack.push(layer);
 };

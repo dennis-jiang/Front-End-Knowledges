@@ -1,5 +1,7 @@
 上一篇文章我们讲了怎么用`Node.js`原生API来写一个`web服务器`，虽然代码比较丑，但是基本功能还是有的。但是一般我们不会直接用原生API来写，而是借助框架来做，比如本文要讲的`Express`。通过上一篇文章的铺垫，我们可以猜测，`Express`其实也没有什么黑魔法，也仅仅是原生API的封装，主要是用来提供更好的扩展性，使用起来更方便，代码更优雅。本文照例会从`Express`的基本使用入手，然后自己手写一个`Express`来替代他，也就是源码解析。
 
+**本文可运行代码已经上传GitHub，拿下来一边玩代码，一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express)**
+
 ## 简单示例
 
 使用`Express`搭建一个最简单的`Hello World`也是几行代码就可以搞定，下面这个例子来源官方文档：
@@ -129,7 +131,7 @@ function createApplication() {
 exports = module.exports = createApplication;
 ```
 
-上述代码就是我们在运行`express()`的时候执行的代码，其实就是个空壳，返回的`app`是个空函数，真正的`app`并没在这里，而是在`proto`上，从上述代码可以看出`proto`其实就是`application.js`，然后通过下面这行代码将`proto`上的东西都赋值给了`app`：
+上述代码就是我们在运行`express()`的时候执行的代码，其实就是个空壳，返回的`app`暂时是个空函数，真正的`app`并没在这里，而是在`proto`上，从上述代码可以看出`proto`其实就是`application.js`，然后通过下面这行代码将`proto`上的东西都赋值给了`app`：
 
 ```javascript
 mixin(app, proto, false);
@@ -202,7 +204,7 @@ app.handle = function handle(req, res) {
 }
 ```
 
-上面代码可以看出，实际处理路由的是`router`，这是`Router`的一个实例，并且挂载在`this`上的，我们这里并没有给他赋值，如果没有赋值的话，会直接运行`finalhandler`并且结束处理。`finalhandler`也是一个第三方库，GitHub链接在这里：[https://github.com/pillarjs/finalhandler](https://github.com/pillarjs/finalhandler)。这个库的功能也不复杂，就是帮你处理一些收尾的工作，比如所有路由都没匹配上，你可能需要返回`404`并记录下`error log`，这个库就可以帮你做。
+上面代码可以看出，实际处理路由的是`router`，这是`Router`的一个实例，并且挂载在`this`上的，我们这里还没有给他赋值，如果没有赋值的话，会直接运行`finalhandler`并且结束处理。`finalhandler`也是一个第三方库，GitHub链接在这里：[https://github.com/pillarjs/finalhandler](https://github.com/pillarjs/finalhandler)。这个库的功能也不复杂，就是帮你处理一些收尾的工作，比如所有路由都没匹配上，你可能需要返回`404`并记录下`error log`，这个库就可以帮你做。
 
 ### app.get
 
@@ -210,7 +212,7 @@ app.handle = function handle(req, res) {
 
 ```javascript
 // HTTP动词的方法
-const methods = ['get', 'post'];
+var methods = ['get', 'post'];
 methods.forEach(function (method) {
   app[method] = function (path) {
     this.lazyrouter();
@@ -285,7 +287,7 @@ var instance = new Class();
 setPrototypeOf(router, proto);
 ```
 
-这行代码的意思就是让`router.__proto__`指向`proto`，`router`是你在`new proto()`时的返回对象，执行了上面这行代码，这个`router`就可以拿到`proto`上的全部方法了。所以像`router.handle`这种方法就可以挂载到`proto`上了，成为`proto.handle`。
+这行代码的意思就是让`router.__proto__`指向`proto`，`router`是你在`new proto()`时的返回对象，执行了上面这行代码，这个`router`就可以拿到`proto`上的全部方法了。像`router.handle`这种方法就可以挂载到`proto`上了，成为`proto.handle`。
 
 绕了一大圈，其实就是JS面向对象的使用，给`router`添加类方法，但是为什么使用这么绕的方式，而不是像我上面那个`Class`那样用呢？这我就不是很清楚了，可能有什么历史原因吧。
 
@@ -297,7 +299,7 @@ setPrototypeOf(router, proto);
 >
 > post   /api/users
 
-我们发现他们的`path`是一样的，都是`/api/users`，但是他们的请求方法，也就是`method`不一样。`Express`里面将`path`这一层提取出来作为了一个类，也就是`Layer`。但是对于一个`Layer`，我们只知道他的`path`，不知道`method`的话，是不能确定一个路由的，所以`Layer`上还添加了一个属性`route`，这个`route`上也存了一个数组，数组的每个项存了对应的`method`和回调函数`handle`。整个结构你可以理解成这个样子：
+我们发现他们的`path`是一样的，都是`/api/users`，但是他们的请求方法，也就是`method`不一样。`Express`里面将`path`这一层提取出来作为了一个类，叫做`Layer`。但是对于一个`Layer`，我们只知道他的`path`，不知道`method`的话，是不能确定一个路由的，所以`Layer`上还添加了一个属性`route`，这个`route`上也存了一个数组，数组的每个项存了对应的`method`和回调函数`handle`。整个结构你可以理解成这个样子：
 
 ```javascript
 const router = {
@@ -307,7 +309,7 @@ const router = {
       path: '/api/users'
       route: {
       	stack: [
-          // 里面存了多个method
+          // 里面存了多个method和回调函数
           {
             method: 'get',
             handle: function1
@@ -325,7 +327,7 @@ const router = {
 
 知道了这个结构我们可以猜到，整个流程可以分成两部分：**注册路由**和**匹配路由**。当我们写`app.get`和`app.post`这些方法时，其实就是在`router`上添加`layer`和`route`。当一个网络请求过来时，其实就是遍历`layer`和`route`，找到对应的`handle`拿出来执行。
 
-**注意`route`数组里面的结构，每个项按理来说应该使用一种新的数据结构来存储，比如`routeItem`之类的。但是`Express`并没有这样做，而是将它和`layer`合在一起了，给`layer`添加了`method`和`handle`属性。这在初次看源码的时候可能造成困惑，因为`layer`同时存在于`router`的`stack`上和`route`的`stack`，肩负了两种职责。**
+**注意`route`数组里面的结构，每个项按理来说应该使用一种新的数据结构来存储，比如`routeItem`之类的。但是`Express`并没有这样做，而是将它和`layer`合在一起了，给`layer`添加了`method`和`handle`属性。这在初次看源码的时候可能造成困惑，因为`layer`同时存在于`router`的`stack`上和`route`的`stack上`，肩负了两种职责。**
 
 ### router.route
 
@@ -346,7 +348,7 @@ app.get = function (path) {
 ```javascript
 proto.route = function route(path) {
   var route = new Route();
-  var layer = new Layer(path, route.dispatch.bind(route));
+  var layer = new Layer(path, route.dispatch.bind(route));     // 参数是path和回调函数
 
   layer.route = route;
 
@@ -393,7 +395,7 @@ route.get.apply(route, Array.prototype.slice.call(arguments, 1));
 也知道了`route.get`这种动词处理函数，其实就是往`route.stack`上添加`layer`，那我们的`route.get`也可以写出来了：
 
 ```javascript
-const methods = ["get", "post"];
+var methods = ["get", "post"];
 methods.forEach(function (method) {
   Route.prototype[method] = function () {
     // 支持传入多个回调函数
@@ -414,6 +416,8 @@ methods.forEach(function (method) {
         throw new Error(msg);
       }
 
+      // 注意这里的层级是layer.route.layer
+      // 前面第一个layer已经做个path的比较了，所以这里是第二个layer，path可以直接设置为/
       var layer = new Layer("/", handle);
       layer.method = method;
       this.methods[method] = true; // 将methods对应的method设置为true，用于后面的快速查找
@@ -464,10 +468,10 @@ proto.handle = function handle(req, res, done) {
         continue;
       }
 
-      // 看看route上有没有对应的method
+      // 匹配上了，看看route上有没有对应的method
       var method = req.method;
       var has_method = route._handles_method(method);
-      // 如果没有对应额method，其实也是没匹配上，跳出当次循环
+      // 如果没有对应的method，其实也是没匹配上，跳出当次循环
       if (!has_method) {
         match = false;
         continue;
@@ -480,9 +484,7 @@ proto.handle = function handle(req, res, done) {
     }
 
     // 如果匹配上了，就执行对应的回调函数
-    if (route) {
-      return layer.handle_request(req, res, next);
-    }
+    return layer.handle_request(req, res, next);
   }
 };
 ```
@@ -497,7 +499,7 @@ proto.handle = function handle(req, res, done) {
 
 这几个方法看起来并不复杂，我们后面一个一个来实现。
 
-到这里其实还有个疑问。从他整个的匹配流程来看，他寻找的其实是`router.stack.layer`这一层，但是最终应该执行的回调却是`router.stack.layer.route.stack.layer.handle`。这是怎么通过`router.stack.layer`找到最终的`router.stack.layer.route.stack.layer.handle`来执行的呢？
+到这里其实还有个疑问。从他整个的匹配流程来看，他寻找的其实是`router.stack.layer`这一层，但是最终应该执行的回调却是在`router.stack.layer.route.stack.layer.handle`。这是怎么通过`router.stack.layer`找到最终的`router.stack.layer.route.stack.layer.handle`来执行的呢？
 
 这要回到我们前面的`router.route`方法：
 
@@ -552,7 +554,6 @@ Layer.prototype.match = function match(path) {
 
   if (path != null) {
     if (this.regexp.fast_slash) {
-      this.path = "";
       return true;
     }
 
@@ -629,7 +630,7 @@ Route.prototype.dispatch = function dispatch(req, res, done) {
 };
 ```
 
-到这里其实`Express`整体的路由结构，注册和执行流程都完成了，贴下对应的代码：
+到这里其实`Express`整体的路由结构，注册和执行流程都完成了，贴下对应的官方源码：
 
 > **Router类**：[https://github.com/expressjs/express/blob/master/lib/router/index.js](https://github.com/expressjs/express/blob/master/lib/router/index.js)
 >
@@ -639,7 +640,7 @@ Route.prototype.dispatch = function dispatch(req, res, done) {
 
 ### 中间件
 
-其实我们前面已经隐含了中间件，从前面的结构可以看出，一个网络请求过来，会到`router`的第一个`layer`，然后调用`next`到到第二个`layer`，匹配上`layer`的`path`就执行回调，然后一直这样把所有的`layer`都走完。所以中间件是啥？中间件就是一个`layer`，他的`path`是默认`/`，也就是对所有请求都生效。按照这个思路，代码就简单了：
+其实我们前面已经隐含了中间件，从前面的结构可以看出，一个网络请求过来，会到`router`的第一个`layer`，然后调用`next`到到第二个`layer`，匹配上`layer`的`path`就执行回调，然后一直这样把所有的`layer`都走完。所以中间件是啥？中间件就是一个`layer`，他的`path`默认是`/`，也就是对所有请求都生效。按照这个思路，代码就简单了：
 
 ```javascript
 // application.js
@@ -660,7 +661,6 @@ app.use = function use(fn) {
 proto.use = function use(path, fn) {
   var layer = new Layer(path, fn);
 
-  layer.route = undefined;
   this.stack.push(layer);
 };
 ```
@@ -679,9 +679,19 @@ proto.use = function use(path, fn) {
 10. 每个请求来了都会遍历一遍所有的`layer`，匹配上就执行回调，一个请求可能会匹配上多个`layer`。
 11. 总体来看，`Express`代码给人的感觉并不是很完美，特别是`Layer`类肩负两种职责，跟软件工程强调的`单一职责`原则不符，这也导致`Router`，`Layer`，`Route`三个类的调用关系有点混乱。可能也是这种不完美催生了`Koa`的诞生，下一篇文章我们就来看看`Koa`的源码吧。
 
+**本文可运行代码已经上传GitHub，拿下来一边玩代码，一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express)**
+
 ## 参考资料
 
 Express官方文档：[http://expressjs.com/](http://expressjs.com/)
 
 Express官方源码：[https://github.com/expressjs/express/tree/master/lib](https://github.com/expressjs/express/tree/master/lib)
+
+**文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
+
+**作者博文GitHub项目地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
+
+**作者掘金文章汇总：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
+
+**我也搞了个公众号[进击的大前端]，不打广告，不写水文，只发高质量原创，欢迎关注~**
 

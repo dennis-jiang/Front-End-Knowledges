@@ -1,5 +1,7 @@
-var flatten = require("array-flatten");
-const Layer = require("./layer");
+var { flatten } = require("array-flatten");
+var Layer = require("./layer");
+
+var slice = Array.prototype.slice;
 
 module.exports = Route;
 
@@ -44,7 +46,7 @@ Route.prototype.dispatch = function dispatch(req, res, done) {
   }
 };
 
-const methods = ["get", "post"];
+var methods = ["get", "post"];
 methods.forEach(function (method) {
   Route.prototype[method] = function () {
     // 支持传入多个回调函数
