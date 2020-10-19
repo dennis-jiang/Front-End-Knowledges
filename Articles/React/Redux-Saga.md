@@ -98,7 +98,7 @@ yield takeEvery("FETCH_USER_INFO", fetchUserInfo);
 
 这一行代码用到了`Redux-Saga`的一个`effect`，也就是`takeEvery`，他的作用是监听**每个**`FETCH_USER_INFO`,当`FETCH_USER_INFO`出现的时候，就调用`fetchUserInfo`函数，注意这里是**每个**`FETCH_USER_INFO`。也就是说如果同时发出多个`FETCH_USER_INFO`，我们每个都会响应并发起请求。类似的还有`takeLatest`，`takeLatest`从名字都可以看出来，是响应最后一个请求，具体使用哪一个，要看具体的需求。
 
-然后看看`fetchUserInfo`函数，这个函数也不复杂，就是调用一个`API`函数`fetchUserInfoAPI`去获取数据，注意我们这里函数调用并不是直接的`fetchUserInfoAPI()`，而是使用了`Redux-Saga`的`call`这个`effect`，这样做可以让我们写单元测试变得更简单，我们后面讲源码的时候再来仔细看看。获取数据后，我们调用了`put`去发出`FETCH_USER_SUCCEEDED`这个`action`，这里的`put`类似于`Redux`里面的`dispatch`，也是用来发出`action`的。这样我们的`reducer`就可以拿到`FETCH_USER_SUCCEEDED`进行处理了，跟以前的`reducer`并没有太大区别。
+然后看看`fetchUserInfo`函数，这个函数也不复杂，就是调用一个`API`函数`fetchUserInfoAPI`去获取数据，注意我们这里函数调用并不是直接的`fetchUserInfoAPI()`，而是使用了`Redux-Saga`的`call`这个`effect`，这样做可以让我们写单元测试变得更简单，为什么会这样，我们后面讲源码的时候再来仔细看看。获取数据后，我们调用了`put`去发出`FETCH_USER_SUCCEEDED`这个`action`，这里的`put`类似于`Redux`里面的`dispatch`，也是用来发出`action`的。这样我们的`reducer`就可以拿到`FETCH_USER_SUCCEEDED`进行处理了，跟以前的`reducer`并没有太大区别。
 
 ```javascript
 // reducer.js
@@ -228,7 +228,7 @@ export function multicastChannel() {
   const currentTakers = [];     // 一个变量存储我们所有注册的事件和回调
 
   // 保存事件和回调的函数
-  // Redux-Saga里面take接收回调和匹配方法matcher两个参数
+  // Redux-Saga里面take接收回调cb和匹配方法matcher两个参数
   // 事实上take到的事件名称也被封装到了matcher里面
   function take(cb, matcher) {
     cb['MATCH'] = matcher;
@@ -555,7 +555,7 @@ export function put(action) {
 }
 ```
 
-可以看到当我们使用`effect`时，他的返回值就仅仅是一个描述当前任务的对象，这就让我们的单元测试好写很多。我们的代码在不同的环境下运行可能会产生不同的结果，特别是这些异步请求，我们写单元测试时来造这些数据也会很麻烦。但是如果你使用`Redux-Saga`的`effect`，每次你代码运行的时候得到的都是一个任务描述对象，这个对象是稳定的，不受运行结果影响，也就不需要造测试数据了，大大减少了工作量。
+可以看到当我们使用`effect`时，他的返回值就仅仅是一个描述当前任务的对象，这就让我们的单元测试好写很多。因为我们的代码在不同的环境下运行可能会产生不同的结果，特别是这些异步请求，我们写单元测试时来造这些数据也会很麻烦。但是如果你使用`Redux-Saga`的`effect`，每次你代码运行的时候得到的都是一个任务描述对象，这个对象是稳定的，不受运行结果影响，也就不需要针对这个造测试数据了，大大减少了工作量。
 
 `effects`对应的源码文件看这里：[https://github.com/redux-saga/redux-saga/blob/master/packages/core/src/internal/io.js](https://github.com/redux-saga/redux-saga/blob/master/packages/core/src/internal/io.js)
 
@@ -583,7 +583,7 @@ export function takeEvery(pattern, saga) {
 到这里我们例子中用到的`API`已经全部自己实现了，我们可以用自己的这个`Redux-Saga`来替换官方的了，只是我们只实现了他的一部分功能，还有很多功能没有实现，不过这已经不妨碍我们理解他的基本原理了。再来回顾下他的主要要点：
 
 1. `Redux-Saga`其实也是一个发布订阅模式，管理事件的地方是`channel`，两个重点`API`：`take`和`put`。
-2. `take`是注册一个事件到`channel`上，当事件过来时触发回调，需要注意的时，这里的回调仅仅是迭代器的`next`，并不是具体响应事件的函数。也就是说`take`的意思就是：我在等某某事件，这个事件来之前不许往下走，来了后就可以往下走了。
+2. `take`是注册一个事件到`channel`上，当事件过来时触发回调，需要注意的是，这里的回调仅仅是迭代器的`next`，并不是具体响应事件的函数。也就是说`take`的意思就是：我在等某某事件，这个事件来之前不许往下走，来了后就可以往下走了。
 3. `put`是发出事件，他是使用`Redux dispatch`发出事件的，也就是说`put`的事件会被`Redux`和`Redux-Saga`同时响应。
 4. `Redux-Saga`增强了`Redux`的`dispatch`函数，在`dispatch`的同时会触发`channel.put`，也就是让`Redux-Saga`也响应回调。
 5. 我们调用的`effects`和真正实现功能的函数是分开的，表层调用的`effects`只会返回一个简单的对象，这个对象描述了当前任务，他是稳定的，所以基于`effects`的单元测试很好写。
@@ -605,5 +605,3 @@ export function takeEvery(pattern, saga) {
 **作者掘金文章汇总：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
 
 **我也搞了个公众号[进击的大前端]，不打广告，不写水文，只发高质量原创，欢迎关注~**
-
-![QRCode](../../images/Others/QRCode.jpg)
