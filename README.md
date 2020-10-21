@@ -8,7 +8,6 @@
 
 * 页面布局
   * [各种CSS居中方案](https://juejin.im/post/5e213084e51d451c7a436108)
-  * [一篇文章搞定多列布局--等宽，等高，自适应布局](https://juejin.im/post/5e1eabcbf265da3ded025229)
 * JavaScript
   * [JavaScript内存管理](https://juejin.im/post/5e2155cee51d4552455a8878)
   * [JavaScript中的函数式编程](https://juejin.im/post/5e3ff8c4f265da57503cb7a8)
