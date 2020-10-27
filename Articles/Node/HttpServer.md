@@ -1,4 +1,4 @@
-`Node.js`是`JavaScript`基础上发展起来的语言，所以前端开发者应该天生就会一点。一般我们会用它来做`CLI工具`或者`Web服务器`，做`Web服务器`也有很多成熟的框架，比如`Express`和`Koa`。但是`Express`和`Koa`都是对`Node.js`原生`API`的封装，所以其实不借助任何框架，只用原生`API`我们也能写一个`Web服务器`出来。本文要讲的就是不借助框架，只用原生`API`怎么写一个`Web服务器`。因为在我的计划中，后面会讲`Express`和`Koa`的源码解析，他们都是使用原生API来实现的。所以本文其实是这两个源码解析的前置知识，可以帮我们更好的理解`Express`和`Koa`这种框架的意义和源码。**本文仅为说明原生API的使用方法，代码较丑，请不要在实际工作中模仿！**
+`Node.js`是`JavaScript`基础上发展起来的语言，所以前端开发者应该天生就会一点。一般我们会用它来做`CLI工具`或者`Web服务器`，做`Web服务器`也有很多成熟的框架，比如`Express`和`Koa`。但是`Express`和`Koa`都是对`Node.js`原生`API`的封装，所以其实不借助任何框架，只用原生`API`我们也能写一个`Web服务器`出来。本文要讲的就是不借助框架，只用原生`API`怎么写一个`Web服务器`。因为在我的计划中，后面会写`Express`和`Koa`的源码解析，他们都是使用原生API来实现的。所以本文其实是这两个源码解析的前置知识，可以帮我们更好的理解`Express`和`Koa`这种框架的意义和源码。**本文仅为说明原生API的使用方法，代码较丑，请不要在实际工作中模仿！**
 
 **本文可运行代码示例已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/HttpServer](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/HttpServer)**
 
