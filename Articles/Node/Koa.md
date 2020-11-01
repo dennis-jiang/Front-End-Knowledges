@@ -13,6 +13,8 @@
 * 对于一个`web服务器`来说，路由是必不可少的，所以`@koa/router`会写一篇文章。
 * 另外可能会写一些常用中间件，静态文件支持或者`bodyparser`等等，具体还没定，可能会有一篇或多篇文章。
 
+**本文可运行迷你版Koa代码已经上传GitHub，拿下来，一边玩代码一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaCore](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaCore)**
+
 ## 简单示例
 
 我写源码解析，一般都遵循一个简单的套路：先引入库，写一个简单的例子，然后自己手写源码来替代这个库，并让我们的例子顺利运行。本文也是遵循这个套路，由于`Koa`的核心库只有中间件，所以我们写出的例子也比较简单，也只有中间件。
@@ -437,9 +439,9 @@ console.log(`${ctx.req.method} ${ctx.req.url} - ${ms}ms`);
 
 ## 总结
 
-通过一层一层的抽丝剥茧，我们成功拎出了`Koa`的代码骨架，自己还写了一个迷你版的`Koa`，基本功能都有。
+通过一层一层的抽丝剥茧，我们成功拎出了`Koa`的代码骨架，自己还写了一个迷你版的`Koa`。
 
-**这个迷你版代码已经上传GitHub，大家可以拿下来玩玩：**
+**这个迷你版代码已经上传GitHub，大家可以拿下来玩玩：**[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaCore](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaCore)
 
 最后我们再来总结下本文的要点吧：
 
@@ -450,7 +452,7 @@ console.log(`${ctx.req.method} ${ctx.req.url} - ${ms}ms`);
 5. `Koa`的思路看起来更清晰，`Koa`本身的库只是一个内核，只有中间件功能，作用只有添加中间件，来的请求会依次经过每一个中间件，然后再出来返回给请求者，这就是大家经常听说的“洋葱模型”。
 6. 想要`Koa`支持其他功能，必须手动添加中间件。作为一个`web服务器`，路由可以算是基本功能了，所以下一遍文章我们会来看看`Koa`官方的路由库`@koa/router`，敬请关注。
 
-## 参考资料：
+## 参考资料
 
 Koa官方文档：[https://github.com/koajs/koa](https://github.com/koajs/koa)
 
