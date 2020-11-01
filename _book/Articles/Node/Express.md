@@ -1,4 +1,4 @@
-上一篇文章我们讲了怎么用`Node.js`原生API来写一个`web服务器`，虽然代码比较丑，但是基本功能还是有的。但是一般我们不会直接用原生API来写，而是借助框架来做，比如本文要讲的`Express`。通过上一篇文章的铺垫，我们可以猜测，`Express`其实也没有什么黑魔法，也仅仅是原生API的封装，主要是用来提供更好的扩展性，使用起来更方便，代码更优雅。本文照例会从`Express`的基本使用入手，然后自己手写一个`Express`来替代他，也就是源码解析。
+[上一篇文章我们讲了怎么用`Node.js`原生API来写一个`web服务器`](https://juejin.im/post/6887797543212843016)，虽然代码比较丑，但是基本功能还是有的。但是一般我们不会直接用原生API来写，而是借助框架来做，比如本文要讲的`Express`。通过上一篇文章的铺垫，我们可以猜测，`Express`其实也没有什么黑魔法，也仅仅是原生API的封装，主要是用来提供更好的扩展性，使用起来更方便，代码更优雅。本文照例会从`Express`的基本使用入手，然后自己手写一个`Express`来替代他，也就是源码解析。
 
 **本文可运行代码已经上传GitHub，拿下来一边玩代码，一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express)**
 
@@ -103,7 +103,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 > 2. `app.listen`，这个方法类似于原生的`server.listen`，用来启动服务器。
 > 3. `app.get`，这是处理路由的API，类似的还有`app.post`等。
 > 4. `app.use`，这是中间件的调用入口，所有中间件都要通过这个方法来调用。
-> 5. `express.static`，这个中间件帮助我们做静态资源托管，其实是另外一个库了，叫[[serve-static](https://github.com/expressjs/serve-static)](https://github.com/expressjs/serve-static/blob/master/index.js)，因为跟`Express`架构关系不大，本文就不讲他的源码了。
+> 5. `express.static`，这个中间件帮助我们做静态资源托管，其实是另外一个库了，叫[serve-static](https://github.com/expressjs/serve-static)，因为跟`Express`架构关系不大，本文就先不讲他的源码了。
 
 [本文所有手写代码全部参照官方源码写成](https://github.com/expressjs/express/tree/master/lib)，方法名和变量名尽量与官方保持一致，大家可以对照着看，写到具体的方法时我也会贴出官方源码的地址。
 
@@ -119,7 +119,7 @@ var proto = require('./application');
 // 创建web服务器的方法
 function createApplication() {
   // 这个app方法其实就是传给http.createServer的回调函数
-  var app = function (req, res, next) {
+  var app = function (req, res) {
 
   };
 
@@ -269,7 +269,7 @@ var proto = module.exports = function () {
 }
 ```
 
-这段代码对我来说是比较奇怪的，我们在执行`new Router()`的时候其实执行的是`new proto()`，`new proto()`并不是我奇怪的地方，奇怪的是他设置原型的方式。[我之前来讲JS的面向对象的文章](https://juejin.im/post/6844904069887164423)提到过如果你要给一个类加上类方法可以这样写：
+这段代码对我来说是比较奇怪的，我们在执行`new Router()`的时候其实执行的是`new proto()`，`new proto()`并不是我奇怪的地方，奇怪的是他设置原型的方式。[我之前在讲JS的面向对象的文章](https://juejin.im/post/6844904069887164423)提到过如果你要给一个类加上类方法可以这样写：
 
 ```javascript
 function Class() {}
@@ -281,7 +281,7 @@ var instance = new Class();
 
 这样`instance.__proto__`就会指向`Class.prototype`，你就可使用`instance.method1`了。
 
-`Express.js`的上述代码其实也是实现了类似的效果，`setprototypeof`又是一个第三方库，作用类似`Object.setPrototypeOf(obj, prototype)`，就是给一个对象设置原型，`setprototypeof`存在的意义就是兼容老标准的JS，也就是加了一些`polyfill`，[他的代码在这里，也不复杂](https://github.com/wesleytodd/setprototypeof/blob/master/index.js)。所以：
+`Express.js`的上述代码其实也是实现了类似的效果，`setprototypeof`又是一个第三方库，作用类似`Object.setPrototypeOf(obj, prototype)`，就是给一个对象设置原型，`setprototypeof`存在的意义就是兼容老标准的JS，也就是加了一些`polyfill`，[他的代码在这里](https://github.com/wesleytodd/setprototypeof/blob/master/index.js)。所以：
 
 ```javascript
 setPrototypeOf(router, proto);
@@ -293,7 +293,7 @@ setPrototypeOf(router, proto);
 
 ### 路由架构
 
-`Router`的基本结构知道了，要理解`Router`他的具体代码，我们还需要对`Express`的路由架构有一个整体的认识。就以我们这两个示例API来说：
+`Router`的基本结构知道了，要理解`Router`的具体代码，我们还需要对`Express`的路由架构有一个整体的认识。就以我们这两个示例API来说：
 
 > get      /api/users
 >
@@ -671,13 +671,14 @@ proto.use = function use(path, fn) {
 2. `Express`的主要工作是将`http.createServer`的回调函数拆出来了，构建了一个路由结构`Router`。
 3. 这个路由结构由很多层`layer`组成。
 4. 一个中间件就是一个`layer`。
-5. 路由也是一个`layer`，`layer`上有一个`path`属性来表示他可以处理哪个API。
+5. 路由也是一个`layer`，`layer`上有一个`path`属性来表示他可以处理的API路径。
 6. `path`可能有不同的`method`，每个`method`对应`layer.route`上的一个`layer`。
 7. `layer.route`上的`layer`虽然名字和`router`上的`layer`一样，但是功能侧重点并不一样，这也是源码中让人困惑的一个点。
 8. `layer.route`上的`layer`的主要参数是`method`和`handle`，如果`method`匹配了，就执行对应的`handle`。
 9. 整个路由匹配过程其实就是遍历`router.layer`的一个过程。
 10. 每个请求来了都会遍历一遍所有的`layer`，匹配上就执行回调，一个请求可能会匹配上多个`layer`。
-11. 总体来看，`Express`代码给人的感觉并不是很完美，特别是`Layer`类肩负两种职责，跟软件工程强调的`单一职责`原则不符，这也导致`Router`，`Layer`，`Route`三个类的调用关系有点混乱。可能也是这种不完美催生了`Koa`的诞生，下一篇文章我们就来看看`Koa`的源码吧。
+11. 总体来看，`Express`代码给人的感觉并不是很完美，特别是`Layer`类肩负两种职责，跟软件工程强调的`单一职责`原则不符，这也导致`Router`，`Layer`，`Route`三个类的调用关系有点混乱。而且对于继承和原型的使用都是很老的方式。可能也是这种不完美催生了`Koa`的诞生，下一篇文章我们就来看看`Koa`的源码吧。
+12. `Express`其实还对原生的`req`和`res`进行了扩展，让他们变得更好用，但是这个其实只相当于一个语法糖，对整体架构没有太大影响，所以本文就没涉及了。
 
 **本文可运行代码已经上传GitHub，拿下来一边玩代码，一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/Express)**
 
