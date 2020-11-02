@@ -1,5 +1,7 @@
 const Emitter = require("events");
 const http = require("http");
+const compose = require("./compose");
+// const compose = require('koa-compose');
 // const context = require("./context");
 
 // module.exports 直接导出Application类
@@ -54,4 +56,24 @@ module.exports = class Application extends Emitter {
 
     return context;
   }
+
+  // 处理具体请求
+  handleRequest(ctx, fnMiddleware) {
+    const handleResponse = () => respond(ctx);
+
+    // 调用中间件处理
+    // 所有处理完后就调用handleResponse返回请求
+    return fnMiddleware(ctx)
+      .then(handleResponse)
+      .catch((err) => {
+        console.log("Somethis is wrong: ", err);
+      });
+  }
 };
+
+function respond(ctx) {
+  const res = ctx.res; // 取出res对象
+  const body = ctx.body; // 取出body
+
+  return res.end(body); // 用res返回bodu
+}
