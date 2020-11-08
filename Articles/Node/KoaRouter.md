@@ -1,5 +1,7 @@
 上一篇文章我们讲了`Koa`的基本架构，可以看到`Koa`的基本架构只有中间件内核，并没有其他功能，路由功能也没有。要实现路由功能我们必须引入第三方中间件，本文要讲的路由中间件是[@koa/router](https://github.com/koajs/router)，这个中间件是挂在`Koa`官方名下的，他跟另一个中间件[koa-router](https://github.com/ZijianHe/koa-router)名字很像。其实`@koa/router`是`fork`的`koa-router`，因为`koa-router`的作者很多年没维护了，所以`Koa`官方将它`fork`到了自己名下进行维护。这篇文章我们还是老套路，先写一个`@koa/router`的简单例子，然后自己手写`@koa/router`源码来替换他。
 
+**本文可运行代码已经上传GitHun，拿下来一边玩代码，一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter)**
+
 ## 简单例子
 
 我们这里的例子还是使用之前[Express文章中的例子](https://juejin.im/post/6890358903960240142)：
@@ -468,7 +470,7 @@ Layer.prototype.match = function (path) {
 
 到这里，我们自己的`@koa/router`就写完了，使用他替换官方的源码也能正常工作啦~
 
-本文可运行代码已经上传到GitHub，大家可以拿下来玩玩：
+**本文可运行代码已经上传到GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter)**
 
 最后我们再来总结下本文的要点吧：
 
