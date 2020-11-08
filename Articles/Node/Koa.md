@@ -1,7 +1,7 @@
 用`Node.js`写一个`web服务器`，我前面已经写过两篇文章了：
 
 * 第一篇是不使用任何框架也能搭建一个`web服务器`，主要是熟悉`Node.js`原生API的使用：[使用Node.js原生API写一个web服务器](https://juejin.im/post/6887797543212843016)
-* 第二篇文章是看了`Express`的基本用法，更主要的是看了下他的源码：
+* 第二篇文章是看了`Express`的基本用法，更主要的是看了下他的源码：[手写Express.js源码](https://juejin.im/post/6890358903960240142)
 
 `Express`的源码还是比较复杂的，自带了路由处理和静态资源支持等等功能，功能比较全面。与之相比，本文要讲的`Koa`就简洁多了，`Koa`虽然是`Express`的原班人马写的，但是设计思路却不一样。`Express`更多是偏向`All in one`的思想，各种功能都集成在一起，而`Koa`本身的库只有一个中间件内核，其他像路由处理和静态资源这些功能都没有，全部需要引入第三方中间件库才能实现。下面这张图可以直观的看到`Express`和`koa`在功能上的区别，[此图来自于官方文档](https://github.com/koajs/koa/blob/master/docs/koa-vs-express.md)：
 
@@ -97,7 +97,7 @@ module.exports = class Application extends Emitter {
 };
 ```
 
-这段代码我们可以看出，`Koa`直接使用`class`关键之来申明类了，看过我之前`Express`源码解析的朋友可能还有印象，`Express`源码里面还是使用的老的`prototype`来实现面向对象的。所以`Koa`项目介绍里面的`Expressive middleware for node.js using ES2017 async functions`并不是一句虚言，它不仅支持`ES2017`新的API，而且在自己的源码里面里面也是用的新API。我想这也是`Koa`要求运行环境必须是`node v7.6.0 or higher`的原因吧。**所以到这里我们其实已经可以看出`Koa`和`Express`的一个重大区别了，那就是：`Express`使用老的API，兼容性更强，可以在老的`Node.js`版本上运行；`Koa`因为使用了新API，只能在`v7.6.0`或者更高版本上运行了。**
+这段代码我们可以看出，`Koa`直接使用`class`关键字来申明类了，看过我之前`Express`源码解析的朋友可能还有印象，`Express`源码里面还是使用的老的`prototype`来实现面向对象的。所以`Koa`项目介绍里面的`Expressive middleware for node.js using ES2017 async functions`并不是一句虚言，它不仅支持`ES2017`新的API，而且在自己的源码里面里面也是用的新API。我想这也是`Koa`要求运行环境必须是`node v7.6.0 or higher`的原因吧。**所以到这里我们其实已经可以看出`Koa`和`Express`的一个重大区别了，那就是：`Express`使用老的API，兼容性更强，可以在老的`Node.js`版本上运行；`Koa`因为使用了新API，只能在`v7.6.0`或者更高版本上运行了。**
 
 这段代码还有个点需要注意，那就是`Application`继承自`Node.js`原生的`EventEmitter`类，这个类其实就是一个发布订阅模式，可以订阅和发布消息，[我在另一篇文章里面详细讲过他的源码](https://juejin.im/post/6844904101331877895)。所以他有些方法如果在`application.js`里面找不到，那可能就是继承自`EventEmitter`，比如下图这行代码：
 
@@ -123,13 +123,13 @@ use(fn) {
 }
 ```
 
-注意`app.use`方法最后返回了`this`，这个有点意思，为什么要返回`this`呢，这么做了有什么效果呢？[这个其实我之前在其他文章讲过的](https://juejin.im/post/6844904084571439118#heading-7)：类的实例方法返回`this`可以实现链式调用。比如这里的`app.use`就可以连续点点点了，像这样：
+注意`app.use`方法最后返回了`this`，这个有点意思，为什么要返回`this`呢？[这个其实我之前在其他文章讲过的](https://juejin.im/post/6844904084571439118#heading-7)：类的实例方法返回`this`可以实现链式调用。比如这里的`app.use`就可以连续点点点了，像这样：
 
 ```javascript
 app.use(middlewaer1).use(middlewaer2).use(middlewaer3)
 ```
 
-为什么会有这种效果呢？因为这里的`this`其实就是当前实例，其实就是`app`，所以`app.use()`的返回值就是`app`，`app`上有个实例方法`use`，所以可以继续点`app.use().use()`。
+为什么会有这种效果呢？因为这里的`this`其实就是当前实例，也就是`app`，所以`app.use()`的返回值就是`app`，`app`上有个实例方法`use`，所以可以继续点`app.use().use()`。
 
 `app.use`的官方源码看这里: [https://github.com/koajs/koa/blob/master/lib/application.js#L122](https://github.com/koajs/koa/blob/master/lib/application.js#L122)
 
@@ -286,7 +286,7 @@ logger(context, dispatch.bind(null, i + 1));
 这段代码里面`context`，`ctx`，`response`，`res`，`request`，`req`，`app`这几个变量相互赋值，头都看晕了。其实完全没必要陷入这堆面条里面去，我们只需要将他的思路和骨架拎清楚就行，那怎么来拎呢？
 
 1. 首先搞清楚他这么赋值的目的，他的目的其实很简单，就是为了使用方便。通过一个变量可以很方便的拿到其他变量，比如我现在只有`request`，但是我想要的是`req`，怎么办呢？通过这种赋值后，直接用`request.req`就行。其他的类似，这种面条式的赋值我很难说好还是不好，但是使用时确实很方便，缺点就是看源码时容易陷进去。
-2. 那`request`和`req`有啥区别？这两个变量长得这么像，到底是干啥的？这就要说到`Koa`对于原生`req`的扩展，我们知道`http.createServer`的回调里面会传入`req`作为请求对象的描述，里面可以拿到请求的`header`啊，`method`啊这些变量。但是`Koa`觉得这个`req`提供的API不好用，所以他在这个基础上扩展了一些API，其实就是一些语法糖，扩展后的`req`就变成了`request`。之所以扩展后还保留的原始的`req`，应该也是想为用户提供和更多选择吧。**所以这两个变量的区别就是`request`是`Koa`包装过的`req`，`req`是原生的请求对象。`response`和`res`也是类似的。**
+2. 那`request`和`req`有啥区别？这两个变量长得这么像，到底是干啥的？这就要说到`Koa`对于原生`req`的扩展，我们知道`http.createServer`的回调里面会传入`req`作为请求对象的描述，里面可以拿到请求的`header`啊，`method`啊这些变量。但是`Koa`觉得这个`req`提供的API不好用，所以他在这个基础上扩展了一些API，其实就是一些语法糖，扩展后的`req`就变成了`request`。之所以扩展后还保留的原始的`req`，应该也是想为用户提供更多选择吧。**所以这两个变量的区别就是`request`是`Koa`包装过的`req`，`req`是原生的请求对象。`response`和`res`也是类似的。**
 3. 既然`request`和`response`都只是包装过的语法糖，那其实`Koa`没有这两个变量也能跑起来。所以我们拎骨架的时候完全可以将这两个变量踢出去，这下骨架就清晰了。
 
 那我们踢出`response`和`request`后再来写下`createContext`这个方法：
@@ -379,7 +379,7 @@ constructor() {
 
 ```javascript
 ctx = {
-  app: this,
+  app,
   req,
   res
 }
@@ -419,7 +419,7 @@ function respond(ctx) {
   const res = ctx.res; // 取出res对象
   const body = ctx.body; // 取出body
 
-  return res.end(body); // 用res返回bodu
+  return res.end(body); // 用res返回body
 }
 ```
 
@@ -439,7 +439,7 @@ console.log(`${ctx.req.method} ${ctx.req.url} - ${ms}ms`);
 
 ## 总结
 
-通过一层一层的抽丝剥茧，我们成功拎出了`Koa`的代码骨架，自己还写了一个迷你版的`Koa`。
+通过一层一层的抽丝剥茧，我们成功拎出了`Koa`的代码骨架，自己写了一个迷你版的`Koa`。
 
 **这个迷你版代码已经上传GitHub，大家可以拿下来玩玩：**[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaCore](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaCore)
 
@@ -448,8 +448,8 @@ console.log(`${ctx.req.method} ${ctx.req.url} - ${ms}ms`);
 1. `Koa`是`Express`原班人马写的一个新框架。
 2. `Koa`使用了JS的新API，比如`async`和`await`。
 3. `Koa`的架构和`Express`有很大区别。
-4. `Express`的思路是大而全，内置了很多功能，比如路由，静态资源等，而且`Express`的中间件也是使用路由同样的机制实现的，整个代码更复杂。`Express`源码可以看我之前这篇文章：
-5. `Koa`的思路看起来更清晰，`Koa`本身的库只是一个内核，只有中间件功能，作用只有添加中间件，来的请求会依次经过每一个中间件，然后再出来返回给请求者，这就是大家经常听说的“洋葱模型”。
+4. `Express`的思路是大而全，内置了很多功能，比如路由，静态资源等，而且`Express`的中间件也是使用路由同样的机制实现的，整个代码更复杂。`Express`源码可以看我之前这篇文章：[手写Express.js源码](https://juejin.im/post/6890358903960240142)
+5. `Koa`的思路看起来更清晰，`Koa`本身的库只是一个内核，只有中间件功能，来的请求会依次经过每一个中间件，然后再出来返回给请求者，这就是大家经常听说的“洋葱模型”。
 6. 想要`Koa`支持其他功能，必须手动添加中间件。作为一个`web服务器`，路由可以算是基本功能了，所以下一遍文章我们会来看看`Koa`官方的路由库`@koa/router`，敬请关注。
 
 ## 参考资料
