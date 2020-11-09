@@ -91,7 +91,7 @@ module.exports = class Application extends Emitter {
   constructor() {
     super();
 
-    // middleware实例属性实例化为一个空数组，用来存储后续可能的中间件
+    // middleware实例属性初始化为一个空数组，用来存储后续可能的中间件
     this.middleware = [];
   }
 };
@@ -271,7 +271,7 @@ app.use(logger);
 logger(context, dispatch.bind(null, i + 1));
 ```
 
-也就是说`logger`接收到的`next`其实是`dispatch.bind(null, i + 1)`，你调用`next`的时候，其实调用的是`dispatch(i + 1)`，这样就达到了执行数组下一个中间件的效果。
+也就是说`logger`接收到的`next`其实是`dispatch.bind(null, i + 1)`，你调用`next()`的时候，其实调用的是`dispatch(i + 1)`，这样就达到了执行数组下一个中间件的效果。
 
 另外由于中间件在返回前还包裹了一层`Promise.resolve`，所以我们所有自己写的中间件，无论你是否用了`Promise`，`next`调用后返回的都是一个`Promise`，所以你可以使用`await next()`。
 
@@ -279,7 +279,7 @@ logger(context, dispatch.bind(null, i + 1));
 
 ### app.createContext
 
-上面用到的`this.createContext`也是一个实例方法，也就是`app.createContext`。这个方法根据`http.createServer`传入的`req`和`res`来构建`ctx`这个上下文，官方源码长这样：
+上面用到的`this.createContext`也是一个实例方法。这个方法根据`http.createServer`传入的`req`和`res`来构建`ctx`这个上下文，官方源码长这样：
 
 ![image-20201029163710087](/Users/djiang/Code/Mine/Front-End-Knowledges/images/Node/Koa/image-20201029163710087.png)
 

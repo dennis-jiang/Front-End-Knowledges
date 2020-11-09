@@ -13,7 +13,7 @@ module.exports = class Application extends Emitter {
 
     this.context = {};
 
-    // middleware实例属性实例化为一个空数组，用来存储后续可能的中间件
+    // middleware实例属性初始化为一个空数组，用来存储后续可能的中间件
     this.middleware = [];
   }
 
