@@ -281,7 +281,7 @@ logger(context, dispatch.bind(null, i + 1));
 
 上面用到的`this.createContext`也是一个实例方法。这个方法根据`http.createServer`传入的`req`和`res`来构建`ctx`这个上下文，官方源码长这样：
 
-![image-20201029163710087](/Users/djiang/Code/Mine/Front-End-Knowledges/images/Node/Koa/image-20201029163710087.png)
+![image-20201029163710087](../../images/Node/Koa/image-20201029163710087.png)
 
 这段代码里面`context`，`ctx`，`response`，`res`，`request`，`req`，`app`这几个变量相互赋值，头都看晕了。其实完全没必要陷入这堆面条里面去，我们只需要将他的思路和骨架拎清楚就行，那怎么来拎呢？
 
