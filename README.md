@@ -4,6 +4,12 @@
 
 在线阅读地址： https://juejin.im/post/5e3ffc85518825494e2772fd
 
+你也可以在这些地方找到我：
+
+掘金：[https://juejin.im/user/2295436011645655](https://juejin.im/user/2295436011645655)
+
+思否：[https://segmentfault.com/u/jiangpengfei_5ecce944a3d8a](https://segmentfault.com/u/jiangpengfei_5ecce944a3d8a)
+
 已经完成的文章如下:
 
 * 页面布局
