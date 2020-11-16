@@ -1,0 +1,1460 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>手写@koa/router源码 · 前端进阶</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Dennis Jiang">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../DesignPatterns/DesignPatterns.html" />
+    
+    
+    <link rel="prev" href="Koa.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
+            
+                <a href="../Layout/Layout.html">
+            
+                    
+                    页面布局
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Layout/MultiColumns.html">
+            
+                <a href="../Layout/MultiColumns.html">
+            
+                    
+                    多列布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../JavaScript/JavaScript.html">
+            
+                <a href="../JavaScript/JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../JavaScript/MemoryManagement.html">
+            
+                <a href="../JavaScript/MemoryManagement.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../JavaScript/FunctionalProgramming.html">
+            
+                <a href="../JavaScript/FunctionalProgramming.html">
+            
+                    
+                    函数式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../JavaScript/ComposePipe.html">
+            
+                <a href="../JavaScript/ComposePipe.html">
+            
+                    
+                    compose函数和pipe函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../JavaScript/CommonFunctions.html">
+            
+                <a href="../JavaScript/CommonFunctions.html">
+            
+                    
+                    一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../JavaScript/Copy.html">
+            
+                <a href="../JavaScript/Copy.html">
+            
+                    
+                    浅拷贝和深拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../JavaScript/UnitTest.html">
+            
+                <a href="../JavaScript/UnitTest.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../JavaScript/myPrototype.html">
+            
+                <a href="../JavaScript/myPrototype.html">
+            
+                    
+                    JS中的面向对象：prototype、__proto__与constructor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../JavaScript/this.html">
+            
+                <a href="../JavaScript/this.html">
+            
+                    
+                    this指向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="../JavaScript/AsyncAndEventLoop.html">
+            
+                <a href="../JavaScript/AsyncAndEventLoop.html">
+            
+                    
+                    异步和EventLoop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="../JavaScript/Promise.html">
+            
+                <a href="../JavaScript/Promise.html">
+            
+                    
+                    手写Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="../JavaScript/Generator.html">
+            
+                <a href="../JavaScript/Generator.html">
+            
+                    
+                    Generator和async/await还有co源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="../JavaScript/Types.html">
+            
+                <a href="../JavaScript/Types.html">
+            
+                    
+                    数据类型转换和检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="../JavaScript/Scope.html">
+            
+                <a href="../JavaScript/Scope.html">
+            
+                    
+                    JS作用域
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network/Network.html">
+            
+                <a href="../Network/Network.html">
+            
+                    
+                    计算机网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../DataStructureAndAlgorithm/RSA.html">
+            
+                <a href="../DataStructureAndAlgorithm/RSA.html">
+            
+                    
+                    HTTPS和RSA
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
+            
+                <a href="../Vue/Vue.html">
+            
+                    
+                    Vue.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Vue/vueRouter.html">
+            
+                <a href="../Vue/vueRouter.html">
+            
+                    
+                    Vue-Router原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../React/React.html">
+            
+                <a href="../React/React.html">
+            
+                    
+                    React.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../React/FiberAndHooks.html">
+            
+                <a href="../React/FiberAndHooks.html">
+            
+                    
+                    手写React的Fiber和Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../React/Redux.html">
+            
+                <a href="../React/Redux.html">
+            
+                    
+                    手写Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../React/React-Redux.html">
+            
+                <a href="../React/React-Redux.html">
+            
+                    
+                    手写React-Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../React/Redux-Thunk.html">
+            
+                <a href="../React/Redux-Thunk.html">
+            
+                    
+                    Redux-Thunk原理及源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../React/Redux-Saga.html">
+            
+                <a href="../React/Redux-Saga.html">
+            
+                    
+                    手写Redux-Saga源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../React/React-Router_Usage.html">
+            
+                <a href="../React/React-Router_Usage.html">
+            
+                    
+                    React-Router实现前端路由鉴权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../React/React-Router_Code.html">
+            
+                <a href="../React/React-Router_Code.html">
+            
+                    
+                    手写React-Router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="Node.html">
+            
+                <a href="Node.html">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="DeepInNodeModules.html">
+            
+                <a href="DeepInNodeModules.html">
+            
+                    
+                    模块加载机制，手写require
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="HttpServer.html">
+            
+                <a href="HttpServer.html">
+            
+                    
+                    使用Node.js原生API写一个web服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="Express.html">
+            
+                <a href="Express.html">
+            
+                    
+                    手写Express.js源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="Koa.html">
+            
+                <a href="Koa.html">
+            
+                    
+                    手写Koa源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7.5" data-path="KoaRouter.html">
+            
+                <a href="KoaRouter.html">
+            
+                    
+                    手写@koa/router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../DesignPatterns/DesignPatterns.html">
+            
+                <a href="../DesignPatterns/DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../DesignPatterns/PubSub.html">
+            
+                <a href="../DesignPatterns/PubSub.html">
+            
+                    
+                    从发布订阅模式入手读懂Node.js的EventEmitter源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../DesignPatterns/Encapsulate.html">
+            
+                <a href="../DesignPatterns/Encapsulate.html">
+            
+                    
+                    封装代码的设计模式：工厂，建造者，单例，原型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../DesignPatterns/Reusability.html">
+            
+                <a href="../DesignPatterns/Reusability.html">
+            
+                    
+                    提高复用性的设计模式：桥接，享元，模板方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../DesignPatterns/Extendability.html">
+            
+                <a href="../DesignPatterns/Extendability.html">
+            
+                    
+                    提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../DesignPatterns/Quality.html">
+            
+                <a href="../DesignPatterns/Quality.html">
+            
+                    
+                    提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Architecture/Architecture.html">
+            
+                <a href="../Architecture/Architecture.html">
+            
+                    
+                    架构和源码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../Architecture/readSourceCode.html">
+            
+                <a href="../Architecture/readSourceCode.html">
+            
+                    
+                    从架构入手读源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../Architecture/Undersocre.html">
+            
+                <a href="../Architecture/Undersocre.html">
+            
+                    
+                    Underscore源码架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Engineering/Engineering.html">
+            
+                <a href="../Engineering/Engineering.html">
+            
+                    
+                    工程化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../Engineering/leader.html">
+            
+                <a href="../Engineering/leader.html">
+            
+                    
+                    前端负责人/架构师职责
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                <a href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                    
+                    数据结构和算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../DataStructureAndAlgorithm/Sorting.html">
+            
+                <a href="../DataStructureAndAlgorithm/Sorting.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                <a href="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                    
+                    链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../DataStructureAndAlgorithm/Greedy.html">
+            
+                <a href="../DataStructureAndAlgorithm/Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../DataStructureAndAlgorithm/DP.html">
+            
+                <a href="../DataStructureAndAlgorithm/DP.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Projects/Projects.html">
+            
+                <a href="../Projects/Projects.html">
+            
+                    
+                    实战项目
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../Projects/FractionCalcualator.html">
+            
+                <a href="../Projects/FractionCalcualator.html">
+            
+                    
+                    分数计算器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+
+    
+    <li>
+        
+        
+        
+            
+        
+        
+            <a href="http://www.beian.miit.gov.cn/" target="blank" class="gitbook-link">
+                苏ICP备16008535号
+            </a>
+        
+    </li>
+    
+</ul>
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >手写@koa/router源码</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x7B80;&#x5355;&#x4F8B;&#x5B50;"><b></b>&#x7B80;&#x5355;&#x4F8B;&#x5B50;</a></li><li><span class="title-icon "></span><a href="#&#x624B;&#x5199;&#x6E90;&#x7801;"><b></b>&#x624B;&#x5199;&#x6E90;&#x7801;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5148;&#x770B;&#x770B;&#x8DEF;&#x7531;&#x67B6;&#x6784;"><b></b>&#x5148;&#x770B;&#x770B;&#x8DEF;&#x7531;&#x67B6;&#x6784;</a></li><li><span class="title-icon "></span><a href="#router&#x7C7B;"><b></b>Router&#x7C7B;</a></li><li><span class="title-icon "></span><a href="#&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;"><b></b>&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;</a></li><li><span class="title-icon "></span><a href="#routerregister"><b></b>router.register()</a></li><li><span class="title-icon "></span><a href="#layer&#x7C7B;"><b></b>Layer&#x7C7B;</a></li><li><span class="title-icon "></span><a href="#routerroutes"><b></b>router.routes()</a></li><li><span class="title-icon "></span><a href="#routermatch"><b></b>router.match()</a></li><li><span class="title-icon "></span><a href="#layermatch"><b></b>layer.match()</a></li></ul><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b></b>&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#x8D44;&#x6599;"><b></b>&#x53C2;&#x8003;&#x8D44;&#x6599;</a></li></ul></ul></div><p><a href="https://juejin.im/post/6892952604163342344" target="_blank">&#x4E0A;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x6211;&#x4EEC;&#x8BB2;&#x4E86;<code>Koa</code>&#x7684;&#x57FA;&#x672C;&#x67B6;&#x6784;</a>&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>Koa</code>&#x7684;&#x57FA;&#x672C;&#x67B6;&#x6784;&#x53EA;&#x6709;&#x4E2D;&#x95F4;&#x4EF6;&#x5185;&#x6838;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x5176;&#x4ED6;&#x529F;&#x80FD;&#xFF0C;&#x8DEF;&#x7531;&#x529F;&#x80FD;&#x4E5F;&#x6CA1;&#x6709;&#x3002;&#x8981;&#x5B9E;&#x73B0;&#x8DEF;&#x7531;&#x529F;&#x80FD;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x5F15;&#x5165;&#x7B2C;&#x4E09;&#x65B9;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x672C;&#x6587;&#x8981;&#x8BB2;&#x7684;&#x8DEF;&#x7531;&#x4E2D;&#x95F4;&#x4EF6;&#x662F;<a href="https://github.com/koajs/router" target="_blank">@koa/router</a>&#xFF0C;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x662F;&#x6302;&#x5728;<code>Koa</code>&#x5B98;&#x65B9;&#x540D;&#x4E0B;&#x7684;&#xFF0C;&#x4ED6;&#x8DDF;&#x53E6;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;<a href="https://github.com/ZijianHe/koa-router" target="_blank">koa-router</a>&#x540D;&#x5B57;&#x5F88;&#x50CF;&#x3002;&#x5176;&#x5B9E;<code>@koa/router</code>&#x662F;<code>fork</code>&#x7684;<code>koa-router</code>&#xFF0C;&#x56E0;&#x4E3A;<code>koa-router</code>&#x7684;&#x4F5C;&#x8005;&#x5F88;&#x591A;&#x5E74;&#x6CA1;&#x7EF4;&#x62A4;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;<code>Koa</code>&#x5B98;&#x65B9;&#x5C06;&#x5B83;<code>fork</code>&#x5230;&#x4E86;&#x81EA;&#x5DF1;&#x540D;&#x4E0B;&#x8FDB;&#x884C;&#x7EF4;&#x62A4;&#x3002;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x8001;&#x5957;&#x8DEF;&#xFF0C;&#x5148;&#x5199;&#x4E00;&#x4E2A;<code>@koa/router</code>&#x7684;&#x7B80;&#x5355;&#x4F8B;&#x5B50;&#xFF0C;&#x7136;&#x540E;&#x81EA;&#x5DF1;&#x624B;&#x5199;<code>@koa/router</code>&#x6E90;&#x7801;&#x6765;&#x66FF;&#x6362;&#x4ED6;&#x3002;</p>
+<p><strong>&#x672C;&#x6587;&#x53EF;&#x8FD0;&#x884C;&#x4EE3;&#x7801;&#x5DF2;&#x7ECF;&#x4E0A;&#x4F20;GitHun&#xFF0C;&#x62FF;&#x4E0B;&#x6765;&#x4E00;&#x8FB9;&#x73A9;&#x4EE3;&#x7801;&#xFF0C;&#x4E00;&#x8FB9;&#x770B;&#x6587;&#x7AE0;&#x6548;&#x679C;&#x66F4;&#x4F73;&#xFF1A;<a href="https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter</a></strong></p>
+<h2 id="&#x7B80;&#x5355;&#x4F8B;&#x5B50;"><a name="&#x7B80;&#x5355;&#x4F8B;&#x5B50;" class="anchor-navigation-ex-anchor" href="#&#x7B80;&#x5355;&#x4F8B;&#x5B50;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7B80;&#x5355;&#x4F8B;&#x5B50;</h2>
+<p>&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x7684;&#x4F8B;&#x5B50;&#x8FD8;&#x662F;&#x4F7F;&#x7528;&#x4E4B;&#x524D;<a href="https://juejin.im/post/6890358903960240142" target="_blank">Express&#x6587;&#x7AE0;&#x4E2D;&#x7684;&#x4F8B;&#x5B50;</a>&#xFF1A;</p>
+<ol>
+<li>&#x8BBF;&#x95EE;&#x8DDF;&#x8DEF;&#x7531;&#x8FD4;&#x56DE;<code>Hello World</code></li>
+<li><code>get /api/users</code>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x5217;&#x8868;&#xFF0C;&#x6570;&#x636E;&#x662F;&#x968F;&#x4FBF;&#x9020;&#x7684;</li>
+<li><code>post /api/users</code>&#x5199;&#x5165;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x4FE1;&#x606F;&#xFF0C;&#x7528;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x6765;&#x6A21;&#x62DF;&#x6570;&#x636E;&#x5E93;</li>
+</ol>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E4B;&#x524D;&#x5199;&#x8FC7;&#x51E0;&#x6B21;&#x4E86;&#xFF0C;&#x7528;<code>@koa/router</code>&#x5199;&#x51FA;&#x6765;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>);
+<span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;koa&quot;</span>);
+<span class="hljs-keyword">const</span> Router = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@koa/router&quot;</span>);
+<span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;koa-bodyparser&quot;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa();
+<span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> Router();
+
+app.use(bodyParser());
+
+router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx) =&gt; {
+  ctx.body = <span class="hljs-string">&quot;Hello World&quot;</span>;
+});
+
+router.get(<span class="hljs-string">&quot;/api/users&quot;</span>, (ctx) =&gt; {
+  <span class="hljs-keyword">const</span> resData = [
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;&#x5C0F;&#x660E;&quot;</span>,
+      <span class="hljs-attr">age</span>: <span class="hljs-number">18</span>,
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;&#x5C0F;&#x7EA2;&quot;</span>,
+      <span class="hljs-attr">age</span>: <span class="hljs-number">19</span>,
+    },
+  ];
+
+  ctx.body = resData;
+});
+
+router.post(<span class="hljs-string">&quot;/api/users&quot;</span>, <span class="hljs-keyword">async</span> (ctx) =&gt; {
+  <span class="hljs-comment">// &#x4F7F;&#x7528;&#x4E86;koa-bodyparser&#x624D;&#x80FD;&#x4ECE;ctx.request&#x62FF;&#x5230;body</span>
+  <span class="hljs-keyword">const</span> postData = ctx.request.body;
+
+  <span class="hljs-comment">// &#x4F7F;&#x7528;fs.promises&#x6A21;&#x5757;&#x4E0B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x503C;&#x662F;promises</span>
+  <span class="hljs-keyword">await</span> fs.promises.appendFile(
+    path.join(__dirname, <span class="hljs-string">&quot;db.txt&quot;</span>),
+    <span class="hljs-built_in">JSON</span>.stringify(postData)
+  );
+
+  ctx.body = postData;
+});
+
+app.use(router.routes());
+
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3001</span>;
+app.listen(port, () =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server is running on http://127.0.0.1:<span class="hljs-subst">${port}</span>/`</span>);
+});
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x4E2D;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF0C;<code>Koa</code>&#x4E3B;&#x8981;&#x63D0;&#x5021;&#x7684;&#x662F;<code>promise</code>&#x7684;&#x7528;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x50CF;&#x4E4B;&#x524D;&#x90A3;&#x6837;&#x4F7F;&#x7528;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x8FD4;&#x56DE;<code>Not Found</code>&#x3002;&#x6BD4;&#x5982;&#x5728;<code>post /api/users</code>&#x8FD9;&#x4E2A;&#x8DEF;&#x7531;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x53BB;&#x5199;&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x50CF;&#x4E4B;&#x524D;<code>Express</code>&#x90A3;&#x6837;&#x4F7F;&#x7528;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF1A;</p>
+<pre><code class="lang-javascript">fs.appendFile(path.join(__dirname, <span class="hljs-string">&quot;db.txt&quot;</span>), postData, () =&gt; {
+  ctx.body = postData;
+});
+</code></pre>
+<p>&#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;&#x8FD9;&#x4E2A;&#x8DEF;&#x7531;&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#x5E76;&#x4E0D;&#x77E5;&#x9053;&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x6267;&#x884C;&#x56DE;&#x8C03;&#xFF0C;&#x800C;&#x662F;&#x76F4;&#x63A5;&#x5C06;&#x5916;&#x5C42;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x5C31;&#x7ED3;&#x675F;&#x4E86;&#x3002;&#x800C;&#x5916;&#x5C42;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x5E76;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;<code>ctx</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x6240;&#x4EE5;<code>Koa</code>&#x4F1A;&#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>Not Found</code>&#x3002;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BA9;&#x5916;&#x5C42;&#x51FD;&#x6570;&#x7B49;&#x5F85;&#x8FD9;&#x91CC;&#x6267;&#x884C;&#x5B8C;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;<code>fs.promises</code>&#x4E0B;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E0B;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x4F1A;&#x8FD4;&#x56DE;<code>promise</code>&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>await</code>&#x6765;&#x7B49;&#x5F85;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x4E86;&#x3002;</p>
+<h2 id="&#x624B;&#x5199;&#x6E90;&#x7801;"><a name="&#x624B;&#x5199;&#x6E90;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x624B;&#x5199;&#x6E90;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x624B;&#x5199;&#x6E90;&#x7801;</h2>
+<p>&#x672C;&#x6587;&#x624B;&#x5199;&#x6E90;&#x7801;&#x5168;&#x90E8;&#x53C2;&#x7167;&#x5B98;&#x65B9;&#x6E90;&#x7801;&#x5199;&#x6210;&#xFF0C;&#x65B9;&#x6CD5;&#x540D;&#x548C;&#x53D8;&#x91CF;&#x540D;&#x5C3D;&#x53EF;&#x80FD;&#x4E0E;&#x5B98;&#x65B9;&#x4EE3;&#x7801;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x5BF9;&#x7167;&#x7740;&#x770B;&#xFF0C;&#x5199;&#x5230;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x65F6;&#x6211;&#x4E5F;&#x4F1A;&#x8D34;&#x4E0A;&#x5B98;&#x65B9;&#x6E90;&#x7801;&#x5730;&#x5740;&#x3002;&#x624B;&#x5199;&#x6E90;&#x7801;&#x524D;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x770B;&#x6709;&#x54EA;&#x4E9B;API&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x7684;&#xFF1A;</p>
+<ol>
+<li><code>Router</code>&#x7C7B;&#xFF1A;&#x6211;&#x4EEC;&#x4ECE;<code>@koa/router</code>&#x5F15;&#x5165;&#x7684;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x7C7B;&#xFF0C;&#x901A;&#x8FC7;<code>new</code>&#x5173;&#x952E;&#x5B57;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;<code>router</code>&#xFF0C;&#x540E;&#x7EED;&#x4F7F;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x6302;&#x8F7D;&#x5728;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x4E0B;&#x9762;&#x3002;</li>
+<li><code>router.get</code>&#x548C;<code>router.post</code>&#xFF1A;<code>router</code>&#x7684;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;<code>get</code>&#x548C;<code>post</code>&#x662F;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x8DEF;&#x7531;&#x7684;&#x65B9;&#x6CD5;&#x3002;</li>
+<li><code>router.routes</code>&#xFF1A;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x662F;&#x4F5C;&#x4E3A;&#x4E2D;&#x95F4;&#x4EF6;&#x4F20;&#x7ED9;<code>app.use</code>&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5F88;&#x53EF;&#x80FD;&#x662F;&#x751F;&#x6210;&#x5177;&#x4F53;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x7ED9;<code>Koa</code>&#x8C03;&#x7528;&#x3002;</li>
+</ol>
+<p><code>@koa/router</code>&#x7684;&#x8FD9;&#x79CD;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x8DDF;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x770B;&#x8FC7;&#x7684;<a href="https://juejin.im/post/6890358903960240142#heading-6" target="_blank">Express.js&#x7684;&#x8DEF;&#x7531;&#x6A21;&#x5757;</a>&#x6709;&#x70B9;&#x50CF;&#xFF0C;&#x5982;&#x679C;&#x4E4B;&#x524D;&#x770B;&#x8FC7;<code>Express.js</code>&#x6E90;&#x7801;&#x89E3;&#x6790;&#x7684;&#xFF0C;&#x770B;&#x672C;&#x6587;&#x5E94;&#x8BE5;&#x4F1A;&#x6709;&#x79CD;&#x4F3C;&#x66FE;&#x76F8;&#x8BC6;&#x7684;&#x611F;&#x89C9;&#x3002;</p>
+<h3 id="&#x5148;&#x770B;&#x770B;&#x8DEF;&#x7531;&#x67B6;&#x6784;"><a name="&#x5148;&#x770B;&#x770B;&#x8DEF;&#x7531;&#x67B6;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x5148;&#x770B;&#x770B;&#x8DEF;&#x7531;&#x67B6;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5148;&#x770B;&#x770B;&#x8DEF;&#x7531;&#x67B6;&#x6784;</h3>
+<p><a href="https://juejin.im/post/6890358903960240142#heading-6" target="_blank">Express.js&#x6E90;&#x7801;&#x89E3;&#x6790;&#x91CC;&#x9762;</a>&#x6211;&#x8BB2;&#x8FC7;&#x4ED6;&#x7684;&#x8DEF;&#x7531;&#x67B6;&#x6784;&#xFF0C;&#x672C;&#x6587;&#x8BB2;&#x7684;<code>@koa/router</code>&#x7684;&#x67B6;&#x6784;&#x8DDF;&#x4ED6;&#x6709;&#x5F88;&#x591A;&#x76F8;&#x4F3C;&#x4E4B;&#x5904;&#xFF0C;&#x4F46;&#x662F;&#x4E5F;&#x6709;&#x4E00;&#x4E9B;&#x6539;&#x8FDB;&#x3002;&#x5728;&#x8FDB;&#x4E00;&#x6B65;&#x6DF1;&#x5165;<code>@koa/router</code>&#x6E90;&#x7801;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x56DE;&#x987E;&#x4E0B;<code>Express.js</code>&#x7684;&#x8DEF;&#x7531;&#x67B6;&#x6784;&#xFF0C;&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x6709;&#x4E00;&#x4E2A;&#x6574;&#x4F53;&#x7684;&#x8BA4;&#x8BC6;&#xFF0C;&#x53EF;&#x4EE5;&#x66F4;&#x597D;&#x7684;&#x7406;&#x89E3;&#x540E;&#x9762;&#x7684;&#x6E90;&#x7801;&#x3002;&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x4E0A;&#x9762;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#xFF0C;&#x4ED6;&#x6709;&#x4E24;&#x4E2A;API&#xFF1A;</p>
+<ol>
+<li><code>get /api/users</code></li>
+<li><code>post /api/users</code></li>
+</ol>
+<p>&#x8FD9;&#x4E24;&#x4E2A;API&#x7684;<code>path</code>&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x90FD;&#x662F;<code>/api/users</code>&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x4EEC;&#x7684;<code>method</code>&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;<code>get</code>&#xFF0C;&#x4E00;&#x4E2A;&#x662F;<code>post</code>&#x3002;<code>Express</code>&#x91CC;&#x9762;&#x5C06;<code>path</code>&#x8FD9;&#x4E00;&#x5C42;&#x63D0;&#x53D6;&#x51FA;&#x6765;&#x5355;&#x72EC;&#x4F5C;&#x4E3A;&#x4E86;&#x4E00;&#x4E2A;&#x7C7B;----<code>Layer</code>&#x3002;&#x4E00;&#x4E2A;<code>Layer</code>&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;<code>path</code>&#xFF0C;&#x4F46;&#x662F;&#x540C;&#x4E00;&#x4E2A;<code>path</code>&#x53EF;&#x80FD;&#x5BF9;&#x5E94;&#x591A;&#x4E2A;<code>method</code>&#x3002;&#x6240;&#x4EE5;<code>Layer</code>&#x4E0A;&#x8FD8;&#x6DFB;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;<code>route</code>&#xFF0C;<code>route</code>&#x4E0A;&#x4E5F;&#x5B58;&#x4E86;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x6570;&#x7EC4;&#x7684;&#x6BCF;&#x4E2A;&#x9879;&#x5B58;&#x4E86;&#x5BF9;&#x5E94;&#x7684;<code>method</code>&#x548C;&#x56DE;&#x8C03;&#x51FD;&#x6570;<code>handle</code>&#x3002;&#x6240;&#x4EE5;&#x6574;&#x4E2A;&#x7ED3;&#x6784;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> router = {
+  <span class="hljs-attr">stack</span>: [
+    <span class="hljs-comment">// &#x91CC;&#x9762;&#x5F88;&#x591A;layer</span>
+    {
+      <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/api/users&apos;</span>
+      route: {
+          <span class="hljs-attr">stack</span>: [
+          <span class="hljs-comment">// &#x91CC;&#x9762;&#x5B58;&#x4E86;&#x591A;&#x4E2A;method&#x548C;&#x56DE;&#x8C03;&#x51FD;&#x6570;</span>
+          {
+            <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>,
+            <span class="hljs-attr">handle</span>: function1
+          },
+          {
+            <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;post&apos;</span>,
+            <span class="hljs-attr">handle</span>: function2
+          }
+        ]
+        }
+    }
+  ]
+}
+</code></pre>
+<p>&#x6574;&#x4E2A;&#x8DEF;&#x7531;&#x7684;&#x6267;&#x884C;&#x5206;&#x4E3A;&#x4E86;&#x4E24;&#x90E8;&#x5206;&#xFF1A;<strong>&#x6CE8;&#x518C;&#x8DEF;&#x7531;</strong>&#x548C;<strong>&#x5339;&#x914D;&#x8DEF;&#x7531;</strong>&#x3002;</p>
+<p><strong>&#x6CE8;&#x518C;&#x8DEF;&#x7531;</strong>&#x5C31;&#x662F;&#x6784;&#x9020;&#x4E0A;&#x9762;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x6BD4;&#x5982;&#x8FD0;&#x884C;<code>router.get(&apos;/api/users&apos;, function1)</code>&#x5176;&#x5B9E;&#x5C31;&#x4F1A;&#x5F80;<code>router</code>&#x4E0A;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;<code>layer</code>&#xFF0C;&#x8FD9;&#x4E2A;<code>layer</code>&#x7684;<code>path</code>&#x662F;<code>/api/users</code>&#xFF0C;&#x540C;&#x65F6;&#x8FD8;&#x4F1A;&#x5728;<code>layer.route</code>&#x7684;&#x6570;&#x7EC4;&#x4E0A;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x9879;&#xFF1A;</p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;get&apos;</span>,
+  <span class="hljs-attr">handle</span>: function1
+}
+</code></pre>
+<p><strong>&#x5339;&#x914D;&#x8DEF;&#x7531;</strong>&#x5C31;&#x662F;&#x5F53;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x6765;&#x4E86;&#x6211;&#x4EEC;&#x5C31;&#x53BB;&#x904D;&#x5386;<code>router</code>&#x4E0A;&#x7684;&#x6240;&#x6709;<code>layer</code>&#xFF0C;&#x627E;&#x51FA;<code>path</code>&#x5339;&#x914D;&#x7684;<code>layer</code>&#xFF0C;&#x518D;&#x627E;&#x51FA;<code>layer</code>&#x4E0A;<code>method</code>&#x5339;&#x914D;&#x7684;<code>route</code>&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5BF9;&#x5E94;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;<code>handle</code>&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;&#x3002;</p>
+<p><code>@koa/router</code>&#x6709;&#x7740;&#x7C7B;&#x4F3C;&#x7684;&#x67B6;&#x6784;&#xFF0C;&#x4ED6;&#x7684;&#x4EE3;&#x7801;&#x5C31;&#x662F;&#x5728;&#x5B9E;&#x73B0;&#x8FD9;&#x79CD;&#x67B6;&#x6784;&#xFF0C;&#x5148;&#x5E26;&#x7740;&#x8FD9;&#x79CD;&#x67B6;&#x6784;&#x601D;&#x7EF4;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x8BFB;&#x61C2;&#x4ED6;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+<h3 id="router&#x7C7B;"><a name="router&#x7C7B;" class="anchor-navigation-ex-anchor" href="#router&#x7C7B;"><i class="fa fa-link" aria-hidden="true"></i></a>Router&#x7C7B;</h3>
+<p>&#x9996;&#x5148;&#x80AF;&#x5B9A;&#x662F;<code>Router</code>&#x7C7B;&#xFF0C;&#x4ED6;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E5F;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x521D;&#x59CB;&#x5316;&#x51E0;&#x4E2A;&#x5C5E;&#x6027;&#x5C31;&#x884C;&#x3002;<a href="https://juejin.im/post/6844904069887164423" target="_blank">&#x7531;&#x4E8E;<code>@koa/router</code>&#x6A21;&#x5757;&#x5927;&#x91CF;&#x4F7F;&#x7528;&#x4E86;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x5BF9;JS&#x7684;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x8FD8;&#x4E0D;&#x719F;&#x6089;&#xFF0C;&#x53EF;&#x4EE5;&#x5148;&#x770B;&#x770B;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x3002;</a></p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = Router;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Router</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// &#x652F;&#x6301;&#x65E0;new&#x76F4;&#x63A5;&#x8C03;&#x7528;</span>
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Router)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Router();
+
+  <span class="hljs-keyword">this</span>.stack = []; <span class="hljs-comment">// &#x53D8;&#x91CF;&#x540D;&#x5B57;&#x90FD;&#x8DDF;Express.js&#x7684;&#x8DEF;&#x7531;&#x6A21;&#x5757;&#x4E00;&#x6837;</span>
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x6709;&#x4E00;&#x884C;&#x6BD4;&#x8F83;&#x6709;&#x610F;&#x601D;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Router)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Router();
+</code></pre>
+<p>&#x8FD9;&#x79CD;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x6211;&#x5728;&#x5176;&#x4ED6;&#x6587;&#x7AE0;&#x4E5F;&#x63D0;&#x5230;&#x8FC7;&#xFF1A;&#x652F;&#x6301;&#x65E0;<code>new</code>&#x8C03;&#x7528;&#x3002;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x8981;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x4E00;&#x822C;&#x8981;&#x4F7F;&#x7528;<code>new</code>&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x6BD4;&#x5982;<code>new Router()</code>&#x3002;&#x4F46;&#x662F;&#x5982;&#x679C;<code>Router</code>&#x6784;&#x9020;&#x51FD;&#x6570;&#x52A0;&#x4E86;&#x8FD9;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x652F;&#x6301;&#x65E0;<code>new</code>&#x8C03;&#x7528;&#x4E86;&#xFF0C;&#x76F4;&#x63A5;<code>Router()</code>&#x53EF;&#x4EE5;&#x8FBE;&#x5230;&#x540C;&#x6837;&#x7684;&#x6548;&#x679C;&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x5982;&#x679C;&#x4F60;&#x76F4;&#x63A5;<code>Router()</code>&#x8C03;&#x7528;&#xFF0C;<code>this instanceof Router</code>&#x8FD4;&#x56DE;&#x4E3A;<code>false</code>&#xFF0C;&#x4F1A;&#x8D70;&#x5230;&#x8FD9;&#x4E2A;<code>if</code>&#x91CC;&#x9762;&#x53BB;&#xFF0C;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4F1A;&#x5E2E;&#x4F60;&#x8C03;&#x7528;&#x4E00;&#x4E0B;<code>new Router()</code>&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x521D;&#x59CB;&#x5316;&#x4E86;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;<code>stack</code>&#xFF0C;&#x55EF;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x540D;&#x5B57;&#x90FD;&#x8DDF;<code>Express.js</code>&#x8DEF;&#x7531;&#x6A21;&#x5757;&#x4E00;&#x6837;&#x3002;&#x524D;&#x9762;&#x7684;&#x67B6;&#x6784;&#x5DF2;&#x7ECF;&#x8BF4;&#x4E86;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x5C31;&#x662F;&#x7528;&#x6765;&#x5B58;&#x653E;<code>layer</code>&#x7684;&#x3002;</p>
+<p><code>Router</code>&#x6784;&#x9020;&#x51FD;&#x6570;&#x5B98;&#x65B9;&#x6E90;&#x7801;:<a href="https://github.com/koajs/router/blob/master/lib/router.js#L50" target="_blank">https://github.com/koajs/router/blob/master/lib/router.js#L50</a></p>
+<h3 id="&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;"><a name="&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;</h3>
+<p>&#x524D;&#x9762;&#x67B6;&#x6784;&#x8BB2;&#x4E86;&#xFF0C;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x6A21;&#x5757;&#xFF0C;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x89E3;&#x51B3;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;<strong>&#x6CE8;&#x518C;&#x8DEF;&#x7531;</strong>&#x548C;<strong>&#x5339;&#x914D;&#x8DEF;&#x7531;</strong>&#x3002;</p>
+<p>&#x5148;&#x6765;&#x770B;&#x770B;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#xFF0C;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#x4E3B;&#x8981;&#x662F;&#x5728;&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x8FDB;&#x884C;&#x7684;&#xFF0C;&#x6BD4;&#x5982;<code>router.get</code>&#x548C;<code>router.post</code>&#x8FD9;&#x79CD;&#x51FD;&#x6570;&#x3002;<code>HTTP</code>&#x52A8;&#x8BCD;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;&#x5E93;&#x4E13;&#x95E8;&#x7EF4;&#x62A4;&#x4E86;&#x8FD9;&#x4E9B;&#x52A8;&#x8BCD;&#xFF1A;<a href="https://github.com/jshttp/methods" target="_blank">methods</a>&#x3002;<code>@koa/router</code>&#x4E5F;&#x662F;&#x7528;&#x7684;&#x8FD9;&#x4E2A;&#x5E93;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x5C31;&#x7B80;&#x5316;&#x4E0B;&#xFF0C;&#x76F4;&#x63A5;&#x4E00;&#x4E2A;&#x5C06;<code>get</code>&#x548C;<code>post</code>&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x91CC;&#x9762;&#x5427;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// HTTP&#x52A8;&#x8BCD;&#x51FD;&#x6570;</span>
+<span class="hljs-keyword">const</span> methods = [<span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">&quot;post&quot;</span>];
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; methods.length; i++) {
+  <span class="hljs-keyword">const</span> method = methods[i];
+
+  Router.prototype[method] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path, middleware</span>) </span>{
+    <span class="hljs-comment">// &#x5C06;middleware&#x8F6C;&#x5316;&#x4E3A;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x652F;&#x6301;&#x4F20;&#x5165;&#x591A;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;</span>
+    middleware = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">this</span>.register(path, [method], middleware);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  };
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x76F4;&#x63A5;&#x5FAA;&#x73AF;<code>methods</code>&#x6570;&#x7EC4;&#xFF0C;&#x5C06;&#x91CC;&#x9762;&#x7684;&#x6BCF;&#x4E2A;&#x503C;&#x90FD;&#x6DFB;&#x52A0;&#x5230;<code>Router.prototype</code>&#x4E0A;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x63A5;&#x6536;<code>path</code>&#x548C;<code>middleware</code>&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;<code>middleware</code>&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x8DEF;&#x7531;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x56E0;&#x4E3A;&#x4EE3;&#x7801;&#x662F;&#x53D6;&#x7684;<code>arguments</code>&#x7B2C;&#x4E8C;&#x4E2A;&#x5F00;&#x59CB;&#x5230;&#x6700;&#x540E;&#x6240;&#x6709;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x6240;&#x4EE5;&#x5176;&#x5B9E;&#x4ED6;&#x662F;&#x652F;&#x6301;&#x540C;&#x65F6;&#x4F20;&#x591A;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x3002;&#x53E6;&#x5916;&#x5B98;&#x65B9;&#x6E90;&#x7801;&#x5176;&#x5B9E;&#x662F;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8FD8;&#x6709;&#x53EF;&#x9009;&#x53C2;&#x6570;<code>name</code>&#xFF0C;&#x56E0;&#x4E3A;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x8DDF;&#x6838;&#x5FC3;&#x903B;&#x8F91;&#x65E0;&#x5173;&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x76F4;&#x63A5;&#x53BB;&#x6389;&#x4E86;&#x3002;</p>
+<p>&#x8FD8;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x4E86;<code>this</code>&#xFF0C;&#x8FD9;&#x79CD;&#x64CD;&#x4F5C;&#x6211;&#x4EEC;&#x5728;<code>Koa</code>&#x6E90;&#x7801;&#x91CC;&#x9762;&#x4E5F;&#x89C1;&#x8FC7;&#xFF0C;&#x76EE;&#x7684;&#x662F;&#x8BA9;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x8FDE;&#x7EED;&#x70B9;&#x70B9;&#x70B9;&#xFF0C;&#x6BD4;&#x5982;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript">router.get().post();
+</code></pre>
+<p>&#x8FD9;&#x4E9B;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x6700;&#x540E;&#x5176;&#x5B9E;&#x90FD;&#x662F;&#x8C03;<code>this.register()</code>&#x53BB;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#x7684;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4ED6;&#x662F;&#x600E;&#x4E48;&#x5199;&#x7684;&#x3002;</p>
+<p>&#x8BF7;&#x6C42;&#x52A8;&#x8BCD;&#x51FD;&#x6570;&#x5B98;&#x65B9;&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/router/blob/master/lib/router.js#L189" target="_blank">https://github.com/koajs/router/blob/master/lib/router.js#L189</a></p>
+<h3 id="routerregister"><a name="routerregister" class="anchor-navigation-ex-anchor" href="#routerregister"><i class="fa fa-link" aria-hidden="true"></i></a>router.register()</h3>
+<p><code>router.register()</code>&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x662F;&#x771F;&#x6B63;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x7ED3;&#x5408;&#x524D;&#x9762;&#x67B6;&#x6784;&#x8BB2;&#x7684;&#xFF0C;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#x5C31;&#x662F;&#x6784;&#x5EFA;<code>layer</code>&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x53EF;&#x77E5;&#xFF0C;<code>router.register()</code>&#x7684;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x6784;&#x5EFA;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF1A;</p>
+<pre><code class="lang-javascript">Router.prototype.register = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path, methods, middleware</span>) </span>{
+  <span class="hljs-keyword">const</span> stack = <span class="hljs-keyword">this</span>.stack;
+
+  <span class="hljs-keyword">const</span> route = <span class="hljs-keyword">new</span> Layer(path, methods, middleware);
+
+  stack.push(route);
+
+  <span class="hljs-keyword">return</span> route;
+};
+</code></pre>
+<p>&#x4EE3;&#x7801;&#x8DDF;&#x9884;&#x671F;&#x7684;&#x4E00;&#x6837;&#xFF0C;&#x5C31;&#x662F;&#x7528;<code>path</code>&#xFF0C;<code>method</code>&#x548C;<code>middleware</code>&#x6765;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;<code>layer</code>&#x5B9E;&#x4F8B;&#xFF0C;&#x7136;&#x540E;&#x628A;&#x5B83;&#x585E;&#x5230;<code>stack</code>&#x6570;&#x7EC4;&#x91CC;&#x9762;&#x53BB;&#x3002;</p>
+<p><code>router.register</code>&#x5B98;&#x65B9;&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/router/blob/master/lib/router.js#L553" target="_blank">https://github.com/koajs/router/blob/master/lib/router.js#L553</a></p>
+<h3 id="layer&#x7C7B;"><a name="layer&#x7C7B;" class="anchor-navigation-ex-anchor" href="#layer&#x7C7B;"><i class="fa fa-link" aria-hidden="true"></i></a>Layer&#x7C7B;</h3>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x51FA;&#x73B0;&#x4E86;<code>Layer</code>&#x8FD9;&#x4E2A;&#x7C7B;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x5427;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { pathToRegexp } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path-to-regexp&quot;</span>);
+
+<span class="hljs-built_in">module</span>.exports = Layer;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Layer</span>(<span class="hljs-params">path, methods, middleware</span>) </span>{
+  <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;methods&#x548C;stack&#x5C5E;&#x6027;</span>
+  <span class="hljs-keyword">this</span>.methods = [];
+  <span class="hljs-comment">// &#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7684;stack&#x5B58;&#x653E;&#x7684;&#x662F;&#x6211;&#x4EEC;&#x4F20;&#x5165;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;</span>
+  <span class="hljs-keyword">this</span>.stack = <span class="hljs-built_in">Array</span>.isArray(middleware) ? middleware : [middleware];
+
+  <span class="hljs-comment">// &#x5C06;&#x53C2;&#x6570;methods&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x585E;&#x8FDB;this.methods&#x91CC;&#x9762;&#x53BB;</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; methods.length; i++) {
+    <span class="hljs-keyword">this</span>.methods.push(methods[i].toUpperCase());    <span class="hljs-comment">// ctx.method&#x662F;&#x5927;&#x5199;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x8F6C;&#x6362;&#x4E3A;&#x5927;&#x5199;</span>
+  }
+
+  <span class="hljs-comment">// &#x4FDD;&#x5B58;path&#x5C5E;&#x6027;</span>
+  <span class="hljs-keyword">this</span>.path = path;
+  <span class="hljs-comment">// &#x4F7F;&#x7528;path-to-regexp&#x5E93;&#x5C06;path&#x8F6C;&#x5316;&#x4E3A;&#x6B63;&#x5219;</span>
+  <span class="hljs-keyword">this</span>.regexp = pathToRegexp(path);
+}
+</code></pre>
+<p>&#x4ECE;<code>Layer</code>&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x4ED6;&#x7684;&#x67B6;&#x6784;&#x8DDF;<code>Express.js</code>&#x8DEF;&#x7531;&#x6A21;&#x5757;&#x5DF2;&#x7ECF;&#x6709;&#x70B9;&#x533A;&#x522B;&#x4E86;&#x3002;<code>Express.js</code>&#x7684;<code>Layer</code>&#x4E0A;&#x8FD8;&#x6709;<code>Route</code>&#x8FD9;&#x4E2A;&#x6982;&#x5FF5;&#x3002;&#x800C;<code>@koa/router</code>&#x7684;<code>stack</code>&#x4E0A;&#x5B58;&#x7684;&#x76F4;&#x63A5;&#x662F;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E86;&#xFF0C;&#x5DF2;&#x7ECF;&#x6CA1;&#x6709;<code>route</code>&#x8FD9;&#x4E00;&#x5C42;&#x4E86;&#x3002;&#x6211;&#x4E2A;&#x4EBA;&#x89C9;&#x5F97;&#x8FD9;&#x79CD;&#x5C42;&#x7EA7;&#x7ED3;&#x6784;&#x662F;&#x6BD4;<code>Express</code>&#x7684;&#x8981;&#x6E05;&#x6670;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;<code>Express</code>&#x7684;<code>route.stack</code>&#x91CC;&#x9762;&#x5B58;&#x7684;&#x53C8;&#x662F;<code>layer</code>&#xFF0C;&#x8FD9;&#x79CD;&#x76F8;&#x4E92;&#x5F15;&#x7528;&#x662F;&#x6709;&#x70B9;&#x7ED5;&#x7684;&#xFF0C;&#x8FD9;&#x70B9;&#x6211;&#x5728;<a href="https://juejin.im/post/6890358903960240142" target="_blank">Express&#x6E90;&#x7801;&#x89E3;&#x6790;&#x4E2D;&#x4E5F;&#x63D0;&#x51FA;&#x8FC7;</a>&#x3002;</p>
+<p>&#x53E6;&#x5916;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x4ED6;&#x4E5F;&#x7528;&#x5230;&#x4E86;<a href="https://github.com/pillarjs/path-to-regexp" target="_blank"><code>path-to-regexp</code>&#x8FD9;&#x4E2A;&#x5E93;</a>&#xFF0C;&#x8FD9;&#x4E2A;&#x5E93;&#x6211;&#x5728;&#x5F88;&#x591A;&#x5904;&#x7406;&#x8DEF;&#x7531;&#x7684;&#x5E93;&#x91CC;&#x9762;&#x90FD;&#x89C1;&#x5230;&#x8FC7;&#xFF0C;&#x6BD4;&#x5982;<code>React-Router</code>&#xFF0C;<code>Express</code>&#xFF0C;&#x771F;&#x60F3;&#x53BB;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x52A0;&#x5230;&#x6211;&#x7684;&#x5F85;&#x5199;&#x6587;&#x7AE0;&#x5217;&#x8868;&#x91CC;&#x9762;&#x53BB;&#xFF0C;&#x7A7A;&#x4E86;&#x53BB;&#x770B;&#x770B;~</p>
+<p><code>Layer</code>&#x6784;&#x9020;&#x51FD;&#x6570;&#x5B98;&#x65B9;&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/router/blob/master/lib/layer.js#L20" target="_blank">https://github.com/koajs/router/blob/master/lib/layer.js#L20</a></p>
+<h3 id="routerroutes"><a name="routerroutes" class="anchor-navigation-ex-anchor" href="#routerroutes"><i class="fa fa-link" aria-hidden="true"></i></a>router.routes()</h3>
+<p>&#x524D;&#x9762;&#x67B6;&#x6784;&#x63D0;&#x5230;&#x7684;&#x8FD8;&#x6709;&#x4EF6;&#x4E8B;&#x60C5;&#x9700;&#x8981;&#x505A;&#xFF0C;&#x90A3;&#x5C31;&#x662F;<strong>&#x8DEF;&#x7531;&#x5339;&#x914D;</strong>&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;<code>Koa</code>&#x6765;&#x8BF4;&#xFF0C;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x6765;&#x4E86;&#x4F1A;&#x4F9D;&#x6B21;&#x7ECF;&#x8FC7;&#x6BCF;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x7684;&#x8DEF;&#x7531;&#x5339;&#x914D;&#x5176;&#x5B9E;&#x4E5F;&#x662F;&#x5728;&#x4E2D;&#x95F4;&#x4EF6;&#x91CC;&#x9762;&#x505A;&#x7684;&#x3002;&#x800C;<code>@koa/router</code>&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x662F;&#x901A;&#x8FC7;<code>router.routes()</code>&#x8FD4;&#x56DE;&#x7684;&#x3002;&#x6240;&#x4EE5;<code>router.routes()</code>&#x4E3B;&#x8981;&#x505A;&#x4E24;&#x4EF6;&#x4E8B;&#xFF1A;</p>
+<ol>
+<li>&#x4ED6;&#x5E94;&#x8BE5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>Koa</code>&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x4EE5;&#x4FBF;<code>Koa</code>&#x8C03;&#x7528;</li>
+<li>&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x4E3B;&#x8981;&#x5DE5;&#x4F5C;&#x662F;&#x904D;&#x5386;<code>router</code>&#x4E0A;&#x7684;<code>layer</code>&#xFF0C;&#x627E;&#x5230;&#x5339;&#x914D;&#x7684;&#x8DEF;&#x7531;&#xFF0C;&#x5E76;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;&#x3002;</li>
+</ol>
+<pre><code class="lang-javascript">Router.prototype.routes = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> router = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-comment">// &#x8FD9;&#x4E2A;dispatch&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x8981;&#x8FD4;&#x56DE;&#x7ED9;Koa&#x8C03;&#x7528;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;</span>
+  <span class="hljs-keyword">let</span> dispatch = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatch</span>(<span class="hljs-params">ctx, next</span>) </span>{
+    <span class="hljs-keyword">const</span> path = ctx.path;
+    <span class="hljs-keyword">const</span> matched = router.match(path, ctx.method); <span class="hljs-comment">// &#x83B7;&#x53D6;&#x6240;&#x6709;&#x5339;&#x914D;&#x7684;layer</span>
+
+    <span class="hljs-keyword">let</span> layerChain; <span class="hljs-comment">// &#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x6765;&#x4E32;&#x8054;&#x6240;&#x6709;&#x5339;&#x914D;&#x7684;layer</span>
+
+    ctx.router = router; <span class="hljs-comment">// &#x987A;&#x624B;&#x628A;router&#x6302;&#x5230;ctx&#x4E0A;&#xFF0C;&#x7ED9;&#x5176;&#x4ED6;Koa&#x4E2D;&#x95F4;&#x4EF6;&#x4F7F;&#x7528;</span>
+
+    <span class="hljs-keyword">if</span> (!matched.route) <span class="hljs-keyword">return</span> next(); <span class="hljs-comment">// &#x5982;&#x679C;&#x4E00;&#x4E2A;layer&#x90FD;&#x6CA1;&#x5339;&#x914D;&#x4E0A;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x5E76;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;Koa&#x4E2D;&#x95F4;&#x4EF6;</span>
+
+    <span class="hljs-keyword">const</span> matchedLayers = matched.pathAndMethod; <span class="hljs-comment">// &#x83B7;&#x53D6;&#x6240;&#x6709;path&#x548C;method&#x90FD;&#x5339;&#x914D;&#x7684;layer</span>
+    <span class="hljs-comment">// &#x4E0B;&#x9762;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x5C06;&#x6240;&#x6709;layer&#x4E0A;&#x7684;stack&#xFF0C;&#x4E5F;&#x5C31;&#x662F;layer&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x90FD;&#x5408;&#x5E76;&#x5230;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;layerChain&#x91CC;&#x9762;&#x53BB;</span>
+    layerChain = matchedLayers.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">memo, layer</span>) </span>{
+      <span class="hljs-keyword">return</span> memo.concat(layer.stack);
+    }, []);
+
+    <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x7684;compose&#x4E5F;&#x662F;koa-compose&#x8FD9;&#x4E2A;&#x5E93;&#xFF0C;&#x6E90;&#x7801;&#x5728;&#x8BB2;Koa&#x6E90;&#x7801;&#x7684;&#x65F6;&#x5019;&#x8BB2;&#x8FC7;</span>
+    <span class="hljs-comment">// &#x4F7F;&#x7528;compose&#x5C06;layerChain&#x6570;&#x7EC4;&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;&#x53EF;&#x6267;&#x884C;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x62FF;&#x6765;&#x6267;&#x884C;&#xFF0C;&#x4F20;&#x5165;&#x53C2;&#x6570;&#x662F;Koa&#x4E2D;&#x95F4;&#x4EF6;&#x53C2;&#x6570;ctx, next</span>
+    <span class="hljs-keyword">return</span> compose(layerChain)(ctx, next);
+  };
+
+  <span class="hljs-comment">// &#x5C06;&#x4E2D;&#x95F4;&#x4EF6;&#x8FD4;&#x56DE;</span>
+  <span class="hljs-keyword">return</span> dispatch;
+};
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x4E2D;&#x4E3B;&#x4F53;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;<code>Koa</code>&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x91CC;&#x9762;&#x5148;&#x662F;&#x901A;&#x8FC7;<code>router.match</code>&#x65B9;&#x6CD5;&#x5C06;&#x6240;&#x6709;&#x5339;&#x914D;&#x7684;<code>layer</code>&#x62FF;&#x51FA;&#x6765;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x8FD9;&#x4E9B;<code>layer</code>&#x5BF9;&#x5E94;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x901A;&#x8FC7;<code>reduce</code>&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x91CC;&#x9762;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>layerChain</code>&#x3002;&#x7136;&#x540E;&#x7528;<code>koa-compose</code>&#x5C06;&#x8FD9;&#x4E2A;&#x6570;&#x7EC4;&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;&#x53EF;&#x6267;&#x884C;&#x65B9;&#x6CD5;&#xFF0C;<strong>&#x8FD9;&#x91CC;&#x5C31;&#x6709;&#x95EE;&#x9898;&#x4E86;</strong>&#x3002;&#x4E4B;&#x524D;&#x5728;<code>Koa</code>&#x6E90;&#x7801;&#x89E3;&#x6790;&#x6211;&#x8BB2;&#x8FC7;<code>koa-compose</code>&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x8FD9;&#x91CC;&#x518D;&#x5927;&#x81F4;&#x8D34;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compose</span>(<span class="hljs-params">middleware</span>) </span>{
+  <span class="hljs-comment">// &#x53C2;&#x6570;&#x68C0;&#x67E5;&#xFF0C;middleware&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;</span>
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(middleware))
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&quot;Middleware stack must be an array!&quot;</span>);
+  <span class="hljs-comment">// &#x6570;&#x7EC4;&#x91CC;&#x9762;&#x7684;&#x6BCF;&#x4E00;&#x9879;&#x90FD;&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> fn <span class="hljs-keyword">of</span> middleware) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn !== <span class="hljs-string">&quot;function&quot;</span>)
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&quot;Middleware must be composed of functions!&quot;</span>);
+  }
+
+  <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5C31;&#x662F;compose&#x7684;&#x7ED3;&#x679C;</span>
+  <span class="hljs-comment">// &#x5916;&#x90E8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x6765;&#x5F00;&#x8D77;&#x4E2D;&#x95F4;&#x4EF6;&#x6570;&#x7EC4;&#x7684;&#x904D;&#x5386;</span>
+  <span class="hljs-comment">// &#x53C2;&#x6570;&#x5F62;&#x5F0F;&#x548C;&#x666E;&#x901A;&#x4E2D;&#x95F4;&#x4EF6;&#x4E00;&#x6837;&#xFF0C;&#x90FD;&#x662F;context&#x548C;next</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context, next</span>) </span>{
+    <span class="hljs-keyword">return</span> dispatch(<span class="hljs-number">0</span>); <span class="hljs-comment">// &#x5F00;&#x59CB;&#x4E2D;&#x95F4;&#x4EF6;&#x6267;&#x884C;&#xFF0C;&#x4ECE;&#x6570;&#x7EC4;&#x7B2C;&#x4E00;&#x4E2A;&#x5F00;&#x59CB;</span>
+
+    <span class="hljs-comment">// &#x6267;&#x884C;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x65B9;&#x6CD5;</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatch</span>(<span class="hljs-params">i</span>) </span>{
+      <span class="hljs-keyword">let</span> fn = middleware[i]; <span class="hljs-comment">// &#x53D6;&#x51FA;&#x9700;&#x8981;&#x6267;&#x884C;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;</span>
+
+      <span class="hljs-comment">// &#x5982;&#x679C;i&#x7B49;&#x4E8E;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#xFF0C;&#x8BF4;&#x660E;&#x6570;&#x7EC4;&#x5DF2;&#x7ECF;&#x6267;&#x884C;&#x5B8C;&#x4E86;</span>
+      <span class="hljs-keyword">if</span> (i === middleware.length) {
+        fn = next; <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x8BA9;fn&#x7B49;&#x4E8E;&#x5916;&#x90E8;&#x4F20;&#x8FDB;&#x6765;&#x7684;next&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x8FDB;&#x884C;&#x6536;&#x5C3E;&#x5DE5;&#x4F5C;&#xFF0C;&#x6BD4;&#x5982;&#x8FD4;&#x56DE;404</span>
+      }
+
+      <span class="hljs-comment">// &#x5982;&#x679C;&#x5916;&#x90E8;&#x6CA1;&#x6709;&#x4F20;&#x6536;&#x5C3E;&#x7684;next&#xFF0C;&#x76F4;&#x63A5;&#x5C31;resolve</span>
+      <span class="hljs-keyword">if</span> (!fn) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve();
+      }
+
+      <span class="hljs-comment">// &#x6267;&#x884C;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x6CE8;&#x610F;&#x4F20;&#x7ED9;&#x4E2D;&#x95F4;&#x4EF6;&#x63A5;&#x6536;&#x7684;&#x53C2;&#x6570;&#x5E94;&#x8BE5;&#x662F;context&#x548C;next</span>
+      <span class="hljs-comment">// &#x4F20;&#x7ED9;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;next&#x662F;dispatch.bind(null, i + 1)</span>
+      <span class="hljs-comment">// &#x6240;&#x4EE5;&#x4E2D;&#x95F4;&#x4EF6;&#x91CC;&#x9762;&#x8C03;&#x7528;next&#x7684;&#x65F6;&#x5019;&#x5176;&#x5B9E;&#x8C03;&#x7528;&#x7684;&#x662F;dispatch(i + 1)&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;</span>
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(fn(context, dispatch.bind(<span class="hljs-literal">null</span>, i + <span class="hljs-number">1</span>)));
+      } <span class="hljs-keyword">catch</span> (err) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(err);
+      }
+    }
+  };
+}
+</code></pre>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x91CC;&#x9762;<code>fn</code>&#x662F;&#x6211;&#x4EEC;&#x4F20;&#x5165;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x5728;<code>@koa/router</code>&#x8FD9;&#x91CC;&#x5BF9;&#x5E94;&#x7684;&#x5176;&#x5B9E;&#x662F;<code>layerChain</code>&#x91CC;&#x9762;&#x7684;&#x4E00;&#x9879;&#xFF0C;&#x6267;&#x884C;<code>fn</code>&#x7684;&#x65F6;&#x5019;&#x662F;&#x8FD9;&#x6837;&#x7684;:</p>
+<pre><code class="lang-javascript">fn(context, dispatch.bind(<span class="hljs-literal">null</span>, i + <span class="hljs-number">1</span>))
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x4F20;&#x7684;&#x53C2;&#x6570;&#x7B26;&#x5408;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>@koa/router</code>&#x7684;&#x4E60;&#x60EF;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>@koa/router</code>&#x4E00;&#x822C;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;</p>
+<pre><code class="lang-javascript">router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx, next) =&gt; {
+  ctx.body = <span class="hljs-string">&quot;Hello World&quot;</span>;
+});
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;<code>fn</code>&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x4F20;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x6CE8;&#x610F;&#x6211;&#x4EEC;&#x6267;&#x884C;<code>fn</code>&#x65F6;&#x4F20;&#x5165;&#x7684;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;<code>dispatch.bind(null, i + 1)</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>router.get</code>&#x8FD9;&#x91CC;&#x7684;<code>next</code>&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E0A;&#x9762;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x518D;&#x6267;&#x884C;&#x4E0B;<code>next</code>&#xFF1A;</p>
+<pre><code class="lang-javascript">router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx, next) =&gt; {
+  ctx.body = <span class="hljs-string">&quot;Hello World&quot;</span>;
+  next();    <span class="hljs-comment">// &#x6CE8;&#x610F;&#x8FD9;&#x91CC;</span>
+});
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x56DE;&#x8C03;&#x91CC;&#x9762;&#x6267;&#x884C;<code>next()</code>&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x628A;<code>koa-compose</code>&#x91CC;&#x9762;&#x7684;<code>dispatch.bind(null, i + 1)</code>&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>dispatch(i + 1)</code>&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x5C31;&#x662F;&#x6267;&#x884C;<code>layerChain</code>&#x91CC;&#x9762;&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x91CC;&#x9762;&#x5E76;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x5339;&#x914D;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x3002;&#x4F46;&#x662F;&#x5982;&#x679C;<code>/</code>&#x8FD9;&#x4E2A;&#x8DEF;&#x5F84;&#x5339;&#x914D;&#x4E86;&#x591A;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x6BD4;&#x5982;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript">router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx, next) =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;123&quot;</span>);
+});
+
+router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx, next) =&gt; {
+  ctx.body = <span class="hljs-string">&quot;Hello World&quot;</span>;
+});
+</code></pre>
+<p>&#x8FD9;&#x91CC;<code>/</code>&#x5C31;&#x5339;&#x914D;&#x4E86;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x4F60;&#x5982;&#x679C;&#x8FD9;&#x4E48;&#x5199;&#xFF0C;&#x4F60;&#x4F1A;&#x5F97;&#x5230;&#x4E00;&#x4E2A;<code>Not Found</code>&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x56E0;&#x4E3A;&#x4F60;&#x7B2C;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x8C03;&#x7528;<code>next()</code>!&#x524D;&#x9762;&#x8BF4;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;<code>next()</code>&#x662F;<code>dispatch(i + 1)</code>&#xFF0C;&#x4F1A;&#x53BB;&#x8C03;&#x7528;<code>layerChain</code>&#x91CC;&#x9762;&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x6362;&#x4E00;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;<strong>&#x4F60;&#x8FD9;&#x91CC;&#x4E0D;&#x8C03;<code>next()</code>&#x5C31;&#x4E0D;&#x4F1A;&#x8FD0;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E86;&#xFF01;</strong>&#x8981;&#x60F3;&#x8BA9;<code>/</code>&#x8FD4;&#x56DE;<code>Hello World</code>&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x8C03;&#x7528;<code>next</code>&#xFF0C;&#x50CF;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript">router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx, next) =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;123&quot;</span>);
+  next();     <span class="hljs-comment">// &#x8BB0;&#x5F97;&#x8C03;&#x7528;next</span>
+});
+
+router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx, next) =&gt; {
+  ctx.body = <span class="hljs-string">&quot;Hello World&quot;</span>;
+});
+</code></pre>
+<p>&#x6240;&#x4EE5;&#x6709;&#x670B;&#x53CB;&#x89C9;&#x5F97;<code>@koa/router</code>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;<code>next</code>&#x6CA1;&#x4EC0;&#x4E48;&#x7528;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x90A3;&#x786E;&#x5B9E;&#x6CA1;&#x4EC0;&#x4E48;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x4F60;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x53EF;&#x80FD;&#x5339;&#x914D;&#x591A;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x8BB0;&#x5F97;&#x8C03;&#x7528;<code>next</code>&#x3002;</p>
+<p><code>router.routes</code>&#x5B98;&#x65B9;&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/router/blob/master/lib/router.js#L335" target="_blank">https://github.com/koajs/router/blob/master/lib/router.js#L335</a></p>
+<h3 id="routermatch"><a name="routermatch" class="anchor-navigation-ex-anchor" href="#routermatch"><i class="fa fa-link" aria-hidden="true"></i></a>router.match()</h3>
+<p>&#x4E0A;&#x9762;<code>router.routes</code>&#x7684;&#x6E90;&#x7801;&#x91CC;&#x9762;&#x6211;&#x4EEC;&#x7528;&#x5230;&#x4E86;<code>router.match</code>&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x6765;&#x67E5;&#x627E;&#x6240;&#x6709;&#x5339;&#x914D;&#x7684;<code>layer</code>&#xFF0C;&#x4E0A;&#x9762;&#x662F;&#x8FD9;&#x4E48;&#x7528;&#x7684;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> matched = router.match(path, ctx.method);
+</code></pre>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E5F;&#x9700;&#x8981;&#x5199;&#x4E00;&#x4E0B;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4E0D;&#x590D;&#x6742;&#xFF0C;&#x901A;&#x8FC7;&#x4F20;&#x5165;&#x7684;<code>path</code>&#x548C;<code>method</code>&#x53BB;<code>router.stack</code>&#x4E0A;&#x627E;&#x5230;&#x6240;&#x6709;&#x5339;&#x914D;&#x7684;<code>layer</code>&#x5C31;&#x884C;&#xFF1A;</p>
+<pre><code class="lang-javascript">Router.prototype.match = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path, method</span>) </span>{
+  <span class="hljs-keyword">const</span> layers = <span class="hljs-keyword">this</span>.stack; <span class="hljs-comment">// &#x53D6;&#x51FA;&#x6240;&#x6709;layer</span>
+
+  <span class="hljs-keyword">let</span> layer;
+  <span class="hljs-comment">// &#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF0C;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x7684;&#x4E5F;&#x662F;&#x8FD9;&#x4E2A;matched</span>
+  <span class="hljs-keyword">const</span> matched = {
+    <span class="hljs-attr">path</span>: [], <span class="hljs-comment">// path&#x4FDD;&#x5B58;&#x4EC5;&#x4EC5;path&#x5339;&#x914D;&#x7684;layer</span>
+    pathAndMethod: [], <span class="hljs-comment">// pathAndMethod&#x4FDD;&#x5B58;path&#x548C;method&#x90FD;&#x5339;&#x914D;&#x7684;layer</span>
+    route: <span class="hljs-literal">false</span>, <span class="hljs-comment">// &#x53EA;&#x8981;&#x6709;&#x4E00;&#x4E2A;path&#x548C;method&#x90FD;&#x5339;&#x914D;&#x7684;layer&#xFF0C;&#x5C31;&#x8BF4;&#x660E;&#x8FD9;&#x4E2A;&#x8DEF;&#x7531;&#x662F;&#x5339;&#x914D;&#x4E0A;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x7F6E;&#x4E3A;true</span>
+  };
+
+  <span class="hljs-comment">// &#x5FAA;&#x73AF;layers&#x6765;&#x8FDB;&#x884C;&#x5339;&#x914D;</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; layers.length; i++) {
+    layer = layers[i];
+    <span class="hljs-comment">// &#x5339;&#x914D;&#x7684;&#x65F6;&#x5019;&#x8C03;&#x7528;&#x7684;&#x662F;layer&#x7684;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;match</span>
+    <span class="hljs-keyword">if</span> (layer.match(path)) {
+      matched.path.push(layer); <span class="hljs-comment">// &#x53EA;&#x8981;path&#x5339;&#x914D;&#x5C31;&#x5148;&#x653E;&#x5230;matched.path&#x4E0A;&#x53BB;</span>
+
+      <span class="hljs-comment">// &#x5982;&#x679C;method&#x4E5F;&#x6709;&#x5339;&#x914D;&#x7684;&#xFF0C;&#x5C06;layer&#x653E;&#x5230;pathAndMethod&#x91CC;&#x9762;&#x53BB;</span>
+      <span class="hljs-keyword">if</span> (~layer.methods.indexOf(method)) {
+        matched.pathAndMethod.push(layer);
+        <span class="hljs-keyword">if</span> (layer.methods.length) matched.route = <span class="hljs-literal">true</span>;
+      }
+    }
+  }
+
+  <span class="hljs-keyword">return</span> matched;
+};
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x53EA;&#x662F;&#x5FAA;&#x73AF;&#x4E86;&#x6240;&#x6709;&#x7684;<code>layer</code>&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5339;&#x914D;&#x7684;<code>layer</code>&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;<code>matched</code>&#x91CC;&#x9762;&#x5E76;&#x8FD4;&#x56DE;&#x7ED9;&#x5916;&#x9762;&#x8C03;&#x7528;&#xFF0C;<code>match.path</code>&#x4FDD;&#x5B58;&#x4E86;&#x6240;&#x6709;<code>path</code>&#x5339;&#x914D;&#xFF0C;&#x4F46;&#x662F;<code>method</code>&#x5E76;&#x4E0D;&#x4E00;&#x5B9A;&#x5339;&#x914D;&#x7684;<code>layer</code>&#xFF0C;&#x672C;&#x6587;&#x5E76;&#x6CA1;&#x6709;&#x7528;&#x5230;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x3002;&#x5177;&#x4F53;&#x5339;&#x914D;<code>path</code>&#x5176;&#x5B9E;&#x8FD8;&#x662F;&#x8C03;&#x7528;&#x7684;<code>layer</code>&#x7684;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;<code>layer.match</code>&#xFF0C;&#x6211;&#x4EEC;&#x540E;&#x9762;&#x4F1A;&#x6765;&#x770B;&#x770B;&#x3002;</p>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x8FD8;&#x6709;&#x4E2A;&#x6709;&#x610F;&#x601D;&#x7684;&#x70B9;&#x662F;&#x68C0;&#x6D4B;<code>layer.methods</code>&#x91CC;&#x9762;&#x662F;&#x5426;&#x5305;&#x542B;<code>method</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6E90;&#x7801;&#x662F;&#x8FD9;&#x6837;&#x5199;&#x7684;&#xFF1A;</p>
+<pre><code class="lang-javascript">~layer.methods.indexOf(method)
+</code></pre>
+<p>&#x800C;&#x4E00;&#x822C;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x662F;&#x8FD9;&#x6837;&#x5199;:</p>
+<pre><code class="lang-javascript">layer.methods.indexOf(method) &gt; <span class="hljs-number">-1</span>
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x6E90;&#x7801;&#x91CC;&#x9762;&#x7684;<code>~</code>&#x662F;&#x6309;&#x4F4D;&#x53D6;&#x53CD;&#x7684;&#x610F;&#x601D;&#xFF0C;&#x8FBE;&#x5230;&#x7684;&#x6548;&#x679C;&#x4E0E;&#x6211;&#x4EEC;&#x540E;&#x9762;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;:</p>
+<pre><code class="lang-javascript">~ <span class="hljs-number">-1</span>;      <span class="hljs-comment">// &#x8FD4;&#x56DE;0&#xFF0C;&#x4E5F;&#x5C31;&#x662F;false</span>
+~ <span class="hljs-number">0</span>;       <span class="hljs-comment">// &#x8FD4;&#x56DE;-1, &#x6CE8;&#x610F;-1&#x8F6C;&#x6362;&#x4E3A;bool&#x662F;true</span>
+~ <span class="hljs-number">1</span>;       <span class="hljs-comment">// &#x8FD4;&#x56DE;-2&#xFF0C;&#x8F6C;&#x6362;&#x4E3A;bool&#x4E5F;&#x662F;true</span>
+</code></pre>
+<p>&#x8FD9;&#x79CD;&#x7528;&#x6CD5;&#x53EF;&#x4EE5;&#x5C11;&#x5199;&#x51E0;&#x4E2A;&#x5B57;&#x6BCD;&#xFF0C;&#x53C8;&#x5B66;&#x4F1A;&#x4E00;&#x62DB;&#xFF0C;&#x5927;&#x5BB6;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x7684;&#x8FD8;&#x662F;&#x6839;&#x636E;&#x81EA;&#x5DF1;&#x7684;&#x60C5;&#x51B5;&#x6765;&#x5427;&#xFF0C;&#x9009;&#x53D6;&#x559C;&#x6B22;&#x7684;&#x65B9;&#x5F0F;&#x3002;</p>
+<p><code>router.match</code>&#x5B98;&#x65B9;&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/router/blob/master/lib/router.js#L669" target="_blank">https://github.com/koajs/router/blob/master/lib/router.js#L669</a></p>
+<h3 id="layermatch"><a name="layermatch" class="anchor-navigation-ex-anchor" href="#layermatch"><i class="fa fa-link" aria-hidden="true"></i></a>layer.match()</h3>
+<p>&#x4E0A;&#x9762;&#x7528;&#x5230;&#x4E86;<code>layer.match</code>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x6765;&#x5199;&#x4E00;&#x4E0B;&#x5427;&#x3002;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5728;&#x521B;&#x5EFA;<code>layer</code>&#x5B9E;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5176;&#x5B9E;&#x5DF2;&#x7ECF;&#x5C06;<code>path</code>&#x8F6C;&#x6362;&#x4E3A;&#x4E86;&#x4E00;&#x4E2A;&#x6B63;&#x5219;&#xFF0C;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x62FF;&#x6765;&#x7528;&#x5C31;&#x884C;&#xFF1A;</p>
+<pre><code class="lang-javascript">Layer.prototype.match = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.regexp.test(path);
+};
+</code></pre>
+<p><code>layer.match</code>&#x5B98;&#x65B9;&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/router/blob/master/lib/layer.js#L54" target="_blank">https://github.com/koajs/router/blob/master/lib/layer.js#L54</a></p>
+<h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x603B;&#x7ED3;</h2>
+<p>&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;<code>@koa/router</code>&#x5C31;&#x5199;&#x5B8C;&#x4E86;&#xFF0C;&#x4F7F;&#x7528;&#x4ED6;&#x66FF;&#x6362;&#x5B98;&#x65B9;&#x7684;&#x6E90;&#x7801;&#x4E5F;&#x80FD;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;&#x5566;~</p>
+<p><strong>&#x672C;&#x6587;&#x53EF;&#x8FD0;&#x884C;&#x4EE3;&#x7801;&#x5DF2;&#x7ECF;&#x4E0A;&#x4F20;&#x5230;GitHub&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x62FF;&#x4E0B;&#x6765;&#x73A9;&#x73A9;&#xFF1A;<a href="https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter</a></strong></p>
+<p>&#x6700;&#x540E;&#x6211;&#x4EEC;&#x518D;&#x6765;&#x603B;&#x7ED3;&#x4E0B;&#x672C;&#x6587;&#x7684;&#x8981;&#x70B9;&#x5427;&#xFF1A;</p>
+<ol>
+<li><code>@koa/router</code>&#x6574;&#x4F53;&#x662F;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;<code>Koa</code>&#x4E2D;&#x95F4;&#x4EF6;&#x5B58;&#x5728;&#x7684;&#x3002;</li>
+<li><code>@koa/router</code>&#x662F;<code>fork</code>&#x7684;<code>koa-router</code>&#x7EE7;&#x7EED;&#x8FDB;&#x884C;&#x7EF4;&#x62A4;&#x3002;</li>
+<li><code>@koa/router</code>&#x7684;&#x6574;&#x4F53;&#x601D;&#x8DEF;&#x8DDF;<code>Express.js</code>&#x8DEF;&#x7531;&#x6A21;&#x5757;&#x5F88;&#x50CF;&#x3002;</li>
+<li><code>@koa/router</code>&#x4E5F;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;<strong>&#x6CE8;&#x518C;&#x8DEF;&#x7531;</strong>&#x548C;<strong>&#x5339;&#x914D;&#x8DEF;&#x7531;</strong>&#x4E24;&#x90E8;&#x5206;&#x3002;</li>
+<li><strong>&#x6CE8;&#x518C;&#x8DEF;&#x7531;</strong>&#x4E3B;&#x8981;&#x662F;&#x6784;&#x5EFA;&#x8DEF;&#x7531;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x5177;&#x4F53;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x521B;&#x5EFA;&#x5F88;&#x591A;<code>layer</code>&#xFF0C;&#x6BCF;&#x4E2A;<code>layer</code>&#x4E0A;&#x4FDD;&#x5B58;&#x5177;&#x4F53;&#x7684;<code>path</code>&#xFF0C;<code>methods</code>&#xFF0C;&#x548C;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+<li><code>@koa/router</code>&#x521B;&#x5EFA;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x8DDF;<code>Express.js</code>&#x8DEF;&#x7531;&#x6A21;&#x5757;&#x6709;&#x533A;&#x522B;&#xFF0C;&#x5C11;&#x4E86;<code>route</code>&#x8FD9;&#x4E2A;&#x5C42;&#x7EA7;&#xFF0C;&#x4F46;&#x662F;&#x4E2A;&#x4EBA;&#x89C9;&#x5F97;<code>@koa/router</code>&#x7684;&#x8FD9;&#x79CD;&#x7ED3;&#x6784;&#x53CD;&#x800C;&#x66F4;&#x6E05;&#x6670;&#x3002;<code>Express.js</code>&#x7684;<code>layer</code>&#x548C;<code>route</code>&#x7684;&#x76F8;&#x4E92;&#x5F15;&#x7528;&#x53CD;&#x800C;&#x66F4;&#x8BA9;&#x4EBA;&#x7591;&#x60D1;&#x3002;</li>
+<li><strong>&#x5339;&#x914D;&#x8DEF;&#x7531;</strong>&#x5C31;&#x662F;&#x53BB;&#x904D;&#x5386;&#x6240;&#x6709;&#x7684;<code>layer</code>&#xFF0C;&#x627E;&#x51FA;&#x5339;&#x914D;&#x7684;<code>layer</code>&#xFF0C;&#x5C06;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x62FF;&#x6765;&#x6267;&#x884C;&#x3002;</li>
+<li>&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x53EF;&#x80FD;&#x5339;&#x914D;&#x591A;&#x4E2A;<code>layer</code>&#x548C;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x6267;&#x884C;&#x65F6;&#x4F7F;&#x7528;<code>koa-compose</code>&#x5C06;&#x8FD9;&#x4E9B;&#x5339;&#x914D;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E32;&#x8D77;&#x6765;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x3002;</li>
+<li>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x5339;&#x914D;&#x4E86;&#x591A;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x524D;&#x9762;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5FC5;&#x987B;&#x8C03;&#x7528;<code>next()</code>&#x624D;&#x80FD;&#x7EE7;&#x7EED;&#x8D70;&#x5230;&#x4E0B;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+</ol>
+<h2 id="&#x53C2;&#x8003;&#x8D44;&#x6599;"><a name="&#x53C2;&#x8003;&#x8D44;&#x6599;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#x8D44;&#x6599;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53C2;&#x8003;&#x8D44;&#x6599;</h2>
+<p><code>@koa/router</code>&#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;<a href="https://github.com/koajs/router" target="_blank">https://github.com/koajs/router</a></p>
+<p><code>@koa/router</code>&#x6E90;&#x7801;&#x5730;&#x5740;&#xFF1A;<a href="https://github.com/koajs/router/tree/master/lib" target="_blank">https://github.com/koajs/router/tree/master/lib</a></p>
+<p><strong>&#x6587;&#x7AE0;&#x7684;&#x6700;&#x540E;&#xFF0C;&#x611F;&#x8C22;&#x4F60;&#x82B1;&#x8D39;&#x5B9D;&#x8D35;&#x7684;&#x65F6;&#x95F4;&#x9605;&#x8BFB;&#x672C;&#x6587;&#xFF0C;&#x5982;&#x679C;&#x672C;&#x6587;&#x7ED9;&#x4E86;&#x4F60;&#x4E00;&#x70B9;&#x70B9;&#x5E2E;&#x52A9;&#x6216;&#x8005;&#x542F;&#x53D1;&#xFF0C;&#x8BF7;&#x4E0D;&#x8981;&#x541D;&#x556C;&#x4F60;&#x7684;&#x8D5E;&#x548C;GitHub&#x5C0F;&#x661F;&#x661F;&#xFF0C;&#x4F60;&#x7684;&#x652F;&#x6301;&#x662F;&#x4F5C;&#x8005;&#x6301;&#x7EED;&#x521B;&#x4F5C;&#x7684;&#x52A8;&#x529B;&#x3002;</strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x535A;&#x6587;GitHub&#x9879;&#x76EE;&#x5730;&#x5740;&#xFF1A; <a href="https://github.com/dennis-jiang/Front-End-Knowledges" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges</a></strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x6398;&#x91D1;&#x6587;&#x7AE0;&#x6C47;&#x603B;&#xFF1A;<a href="https://juejin.im/post/5e3ffc85518825494e2772fd" target="_blank">https://juejin.im/post/5e3ffc85518825494e2772fd</a></strong></p>
+<p><strong>&#x6211;&#x4E5F;&#x641E;&#x4E86;&#x4E2A;&#x516C;&#x4F17;&#x53F7;[&#x8FDB;&#x51FB;&#x7684;&#x5927;&#x524D;&#x7AEF;]&#xFF0C;&#x4E0D;&#x6253;&#x5E7F;&#x544A;&#xFF0C;&#x4E0D;&#x5199;&#x6C34;&#x6587;&#xFF0C;&#x53EA;&#x53D1;&#x9AD8;&#x8D28;&#x91CF;&#x539F;&#x521B;&#xFF0C;&#x6B22;&#x8FCE;&#x5173;&#x6CE8;~</strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Koa.html" class="navigation navigation-prev " aria-label="Previous page: 手写Koa源码">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../DesignPatterns/DesignPatterns.html" class="navigation navigation-next " aria-label="Next page: 设计模式">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"手写@koa/router源码","level":"1.7.5","depth":2,"next":{"title":"设计模式","level":"1.8","depth":1,"path":"Articles/DesignPatterns/DesignPatterns.md","ref":"Articles/DesignPatterns/DesignPatterns.md","articles":[{"title":"从发布订阅模式入手读懂Node.js的EventEmitter源码","level":"1.8.1","depth":2,"path":"Articles/DesignPatterns/PubSub.md","ref":"Articles/DesignPatterns/PubSub.md","articles":[]},{"title":"封装代码的设计模式：工厂，建造者，单例，原型","level":"1.8.2","depth":2,"path":"Articles/DesignPatterns/Encapsulate.md","ref":"Articles/DesignPatterns/Encapsulate.md","articles":[]},{"title":"提高复用性的设计模式：桥接，享元，模板方法","level":"1.8.3","depth":2,"path":"Articles/DesignPatterns/Reusability.md","ref":"Articles/DesignPatterns/Reusability.md","articles":[]},{"title":"提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者","level":"1.8.4","depth":2,"path":"Articles/DesignPatterns/Extendability.md","ref":"Articles/DesignPatterns/Extendability.md","articles":[]},{"title":"提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录","level":"1.8.5","depth":2,"path":"Articles/DesignPatterns/Quality.md","ref":"Articles/DesignPatterns/Quality.md","articles":[]}]},"previous":{"title":"手写Koa源码","level":"1.7.4","depth":2,"path":"Articles/Node/Koa.md","ref":"Articles/Node/Koa.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/Node/KoaRouter.md","mtime":"2020-11-16T04:12:45.164Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-16T05:41:07.375Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

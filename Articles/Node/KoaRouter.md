@@ -1,4 +1,4 @@
-上一篇文章我们讲了`Koa`的基本架构，可以看到`Koa`的基本架构只有中间件内核，并没有其他功能，路由功能也没有。要实现路由功能我们必须引入第三方中间件，本文要讲的路由中间件是[@koa/router](https://github.com/koajs/router)，这个中间件是挂在`Koa`官方名下的，他跟另一个中间件[koa-router](https://github.com/ZijianHe/koa-router)名字很像。其实`@koa/router`是`fork`的`koa-router`，因为`koa-router`的作者很多年没维护了，所以`Koa`官方将它`fork`到了自己名下进行维护。这篇文章我们还是老套路，先写一个`@koa/router`的简单例子，然后自己手写`@koa/router`源码来替换他。
+[上一篇文章我们讲了`Koa`的基本架构](https://juejin.im/post/6892952604163342344)，可以看到`Koa`的基本架构只有中间件内核，并没有其他功能，路由功能也没有。要实现路由功能我们必须引入第三方中间件，本文要讲的路由中间件是[@koa/router](https://github.com/koajs/router)，这个中间件是挂在`Koa`官方名下的，他跟另一个中间件[koa-router](https://github.com/ZijianHe/koa-router)名字很像。其实`@koa/router`是`fork`的`koa-router`，因为`koa-router`的作者很多年没维护了，所以`Koa`官方将它`fork`到了自己名下进行维护。这篇文章我们还是老套路，先写一个`@koa/router`的简单例子，然后自己手写`@koa/router`源码来替换他。
 
 **本文可运行代码已经上传GitHun，拿下来一边玩代码，一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaRouter)**
 
@@ -184,7 +184,7 @@ for (let i = 0; i < methods.length; i++) {
 }
 ```
 
-上面代码直接循环`methods`数组，将里面的每个值都添加到`Router.prototype`上成为一个实例方法。这个方法接收`path`和`middleware`两个参数，这里的`middleware`其实就是我们路由的回调函数，因为代码是取的`arguments`第二个开始到最后所有的参数，所以其他他是支持同时传多个回调函数 的。另外官方源码其实是三个参数，还有可选参数`name`，因为是可选的，跟核心逻辑无关，我这里直接去掉了。
+上面代码直接循环`methods`数组，将里面的每个值都添加到`Router.prototype`上成为一个实例方法。这个方法接收`path`和`middleware`两个参数，这里的`middleware`其实就是我们路由的回调函数，因为代码是取的`arguments`第二个开始到最后所有的参数，所以其实他是支持同时传多个回调函数的。另外官方源码其实是三个参数，还有可选参数`name`，因为是可选的，跟核心逻辑无关，我这里直接去掉了。
 
 还需要注意这个实例方法最后返回了`this`，这种操作我们在`Koa`源码里面也见过，目的是让用户可以连续点点点，比如这样：
 
@@ -198,7 +198,7 @@ router.get().post();
 
 ### router.register()
 
-`router.register()`实例方法是真正注册路由的方法，结合前面架构讲的，注册路由就是构建`layer`的数据结构可知，`router.register()`的主要作用就是构建数据结构：
+`router.register()`实例方法是真正注册路由的方法，结合前面架构讲的，注册路由就是构建`layer`的数据结构可知，`router.register()`的主要作用就是构建这个数据结构：
 
 ```javascript
 Router.prototype.register = function (path, methods, middleware) {
@@ -370,7 +370,7 @@ router.get("/", (ctx, next) => {
 });
 ```
 
-这里`/`就匹配了两个回调函数，但是你如果这么写，你会得到一个`Not Found`。为什么呢？因为你第一个回调里面没有调用`next()`!前面说了，这里的`next()`是`dispatch(i + 1)`，会去调用`layerChain`里面的下一个回调函数，换一句说，**你这里不调`next()`就不会运行下一个回调函数了！**要想让`/`返回`Hello World`，我们需要在第一个回调函数里面调用`next`，像这样：
+这里`/`就匹配了两个回调函数，但是你如果这么写，你会得到一个`Not Found`。为什么呢？因为你第一个回调里面没有调用`next()`!前面说了，这里的`next()`是`dispatch(i + 1)`，会去调用`layerChain`里面的下一个回调函数，换一句话说，**你这里不调`next()`就不会运行下一个回调函数了！**要想让`/`返回`Hello World`，我们需要在第一个回调函数里面调用`next`，像这样：
 
 ```javascript
 router.get("/", (ctx, next) => {
@@ -430,19 +430,19 @@ Router.prototype.match = function (path, method) {
 
 上面代码只是循环了所有的`layer`，然后将匹配的`layer`放到一个对象`matched`里面并返回给外面调用，`match.path`保存了所有`path`匹配，但是`method`并不一定匹配的`layer`，本文并没有用到这个变量。具体匹配`path`其实还是调用的`layer`的实例方法`layer.match`，我们后面会来看看。
 
-这段代码还有个有意思的点是检测`layer.methods`里面是否包含`method`的时候，源码是这样用的：
+这段代码还有个有意思的点是检测`layer.methods`里面是否包含`method`的时候，源码是这样写的：
 
 ```javascript
 ~layer.methods.indexOf(method)
 ```
 
-而一般我们可能是这样用:
+而一般我们可能是这样写:
 
 ```javascript
 layer.methods.indexOf(method) > -1
 ```
 
-这个源码里面的`~`是按位取反的意思，达到的效果与我们下面这行代码其实是一样的，因为:
+这个源码里面的`~`是按位取反的意思，达到的效果与我们后面这种写法其实是一样的，因为:
 
 ```javascript
 ~ -1;      // 返回0，也就是false
