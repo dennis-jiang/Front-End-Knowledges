@@ -6,7 +6,7 @@
 
 这个鞋子就是两层产品选项，一个是颜色，一个是尺码，颜色总共有11种，尺码总共也是11种。为了验证我的直觉，我把我手机上所有的购物APP，啥淘宝，京东，拼多多，苏宁易购全部打开看了一遍。**在我看过的商品中，没有发现一个商品有三层选项的，最多也就两层**。
 
-**本文可运行的示例代码已经上传GitHub，大家可以拿下来玩玩：[]**
+**本文可运行的示例代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DataStructureAndAlgorithm/OptimizeVariations](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DataStructureAndAlgorithm/OptimizeVariations)**
 
 ## 为什么没人做三层选项？
 
@@ -343,7 +343,7 @@ console.log('matchedProduct', matchedProduct);    // { productId: 8 }
 
 **本文讲述了一个我工作中实际遇到的需求，分享了我的实现和优化思路，供大家参考。我的实现方案不一定完美，如果大家有更好的方案，欢迎在评论区讨论~**
 
-**本文可运行实例代码已经上传GitHub**
+**本文可运行的示例代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DataStructureAndAlgorithm/OptimizeVariations](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/DataStructureAndAlgorithm/OptimizeVariations)**
 
 下面再来回顾下本文的要点：
 
@@ -352,10 +352,10 @@ console.log('matchedProduct', matchedProduct);    // { productId: 8 }
 3. 鉴于后端API返回选项和商品间没有直接的对应关系，为了找出能卖还是不能卖，我们需要遍历所有商品。
 4. 当总商品数量不多的时候，所有商品遍历可能不会产生明显的性能问题。
 5. 但是当选项增加到三层，商品数量的增加是指数级的，性能问题就会显现出来。
-6. 对于$$O(n^3)$$这种写代码时就能预见的性能问题，我们不用等着报BUG了才处理，而是写代码时直接就解决了。
+6. 对于$$O(n^3)$$这种写代码时就能预见的性能问题，我们不用等着报BUG了才处理，而是开发时直接就解决了。
 7. 本例要解决的是一个查找问题，所以我想到了建一颗树，直接将$$O(n^3)$$的复杂度降到了$$O(1)$$。
 8. 但是一颗树并不能覆盖所有的用户操作，要覆盖所有的用户操作需要6棵树。
-9. 出于偷懒的目的，我从需求上砍掉了5颗树。真实原因是树太多了，会占用更多的内存空间，也不好维护。有时候适当的调整需求和交互也可以达到优化性能的效果，性能优化可以将交互和技术结合起来思考。
+9. 出于偷懒的目的，我调整需求和交互砍掉了5颗树。真实原因是树太多了，会占用更多的内存空间，也不好维护。有时候适当的调整需求和交互也可以达到优化性能的效果，性能优化可以将交互和技术结合起来思考。
 10. 这个树的搜索模块可以单独封装成一个类，外部使用者，不需要知道细节，直接调用接口查找就行。
 11. **前端会点数据结构还是有用的，本文这种场景下还很有必要。**
 
