@@ -13,6 +13,8 @@
 
 `koa-static`的代码更通用，更优雅，而且对大文件有更好的支持，下面我们来看看他是怎么做的吧。本文还是采用一贯套路，先看一下他的基本用法，然后从基本用法入手去读源码，并手写一个简化版的源码来替换他。
 
+**本文可运行代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaStatic](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaStatic)**
+
 ## 基本用法
 
 `koa-static`使用很简单，主要代码就一行：
@@ -321,7 +323,7 @@ function respond(ctx) {
 }
 ```
 
-直接用`res.end`返回结果只能对一些简单的小对象比较合适，比如字符串什么的。**对于复杂对象，比如文件，这个就合适了，因为你如果要用`res.write`或者`res.end`返回文件，你需要先把文件整个读入内存，然后作为参数传递，如果文件很大，服务器内存可能就爆了**。那要怎么处理呢？回到`koa-send`源码里面，我们给`ctx.body`设置的值其实是一个可读流:
+直接用`res.end`返回结果只能对一些简单的小对象比较合适，比如字符串什么的。**对于复杂对象，比如文件，这个就不合适了，因为你如果要用`res.write`或者`res.end`返回文件，你需要先把文件整个读入内存，然后作为参数传递，如果文件很大，服务器内存可能就爆了**。那要怎么处理呢？回到`koa-send`源码里面，我们给`ctx.body`设置的值其实是一个可读流:
 
 ```javascript
 ctx.body = fs.createReadStream(path)
@@ -348,6 +350,8 @@ function respond(ctx) {
 `Koa`源码对于流的处理看这里：[https://github.com/koajs/koa/blob/master/lib/application.js#L267](https://github.com/koajs/koa/blob/master/lib/application.js#L267)
 
 ## 总结
+
+**本文可运行代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaStatic](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Node.js/KoaStatic)**
 
 现在，我们可以用自己写的`koa-static`来替换官方的了，运行效果是一样的。最后我们再来回顾下本文的要点：
 
