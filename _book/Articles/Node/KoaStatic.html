@@ -1,0 +1,1435 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>手写koa-static源码，深入理解静态服务器原理 · 前端进阶</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Dennis Jiang">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../DesignPatterns/DesignPatterns.html" />
+    
+    
+    <link rel="prev" href="KoaRouter.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
+            
+                <a href="../Layout/Layout.html">
+            
+                    
+                    页面布局
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Layout/MultiColumns.html">
+            
+                <a href="../Layout/MultiColumns.html">
+            
+                    
+                    多列布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../JavaScript/JavaScript.html">
+            
+                <a href="../JavaScript/JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../JavaScript/MemoryManagement.html">
+            
+                <a href="../JavaScript/MemoryManagement.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../JavaScript/FunctionalProgramming.html">
+            
+                <a href="../JavaScript/FunctionalProgramming.html">
+            
+                    
+                    函数式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../JavaScript/ComposePipe.html">
+            
+                <a href="../JavaScript/ComposePipe.html">
+            
+                    
+                    compose函数和pipe函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../JavaScript/CommonFunctions.html">
+            
+                <a href="../JavaScript/CommonFunctions.html">
+            
+                    
+                    一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../JavaScript/Copy.html">
+            
+                <a href="../JavaScript/Copy.html">
+            
+                    
+                    浅拷贝和深拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../JavaScript/UnitTest.html">
+            
+                <a href="../JavaScript/UnitTest.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../JavaScript/myPrototype.html">
+            
+                <a href="../JavaScript/myPrototype.html">
+            
+                    
+                    JS中的面向对象：prototype、__proto__与constructor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../JavaScript/this.html">
+            
+                <a href="../JavaScript/this.html">
+            
+                    
+                    this指向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="../JavaScript/AsyncAndEventLoop.html">
+            
+                <a href="../JavaScript/AsyncAndEventLoop.html">
+            
+                    
+                    异步和EventLoop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="../JavaScript/Promise.html">
+            
+                <a href="../JavaScript/Promise.html">
+            
+                    
+                    手写Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="../JavaScript/Generator.html">
+            
+                <a href="../JavaScript/Generator.html">
+            
+                    
+                    Generator和async/await还有co源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="../JavaScript/Types.html">
+            
+                <a href="../JavaScript/Types.html">
+            
+                    
+                    数据类型转换和检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="../JavaScript/Scope.html">
+            
+                <a href="../JavaScript/Scope.html">
+            
+                    
+                    JS作用域
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network/Network.html">
+            
+                <a href="../Network/Network.html">
+            
+                    
+                    计算机网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../DataStructureAndAlgorithm/RSA.html">
+            
+                <a href="../DataStructureAndAlgorithm/RSA.html">
+            
+                    
+                    HTTPS和RSA
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
+            
+                <a href="../Vue/Vue.html">
+            
+                    
+                    Vue.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Vue/vueRouter.html">
+            
+                <a href="../Vue/vueRouter.html">
+            
+                    
+                    Vue-Router原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../React/React.html">
+            
+                <a href="../React/React.html">
+            
+                    
+                    React.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../React/FiberAndHooks.html">
+            
+                <a href="../React/FiberAndHooks.html">
+            
+                    
+                    手写React的Fiber和Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../React/Redux.html">
+            
+                <a href="../React/Redux.html">
+            
+                    
+                    手写Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../React/React-Redux.html">
+            
+                <a href="../React/React-Redux.html">
+            
+                    
+                    手写React-Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../React/Redux-Thunk.html">
+            
+                <a href="../React/Redux-Thunk.html">
+            
+                    
+                    Redux-Thunk原理及源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../React/Redux-Saga.html">
+            
+                <a href="../React/Redux-Saga.html">
+            
+                    
+                    手写Redux-Saga源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../React/React-Router_Usage.html">
+            
+                <a href="../React/React-Router_Usage.html">
+            
+                    
+                    React-Router实现前端路由鉴权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../React/React-Router_Code.html">
+            
+                <a href="../React/React-Router_Code.html">
+            
+                    
+                    手写React-Router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="Node.html">
+            
+                <a href="Node.html">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="DeepInNodeModules.html">
+            
+                <a href="DeepInNodeModules.html">
+            
+                    
+                    模块加载机制，手写require
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="HttpServer.html">
+            
+                <a href="HttpServer.html">
+            
+                    
+                    使用Node.js原生API写一个web服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="Express.html">
+            
+                <a href="Express.html">
+            
+                    
+                    手写Express.js源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="Koa.html">
+            
+                <a href="Koa.html">
+            
+                    
+                    手写Koa源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="KoaRouter.html">
+            
+                <a href="KoaRouter.html">
+            
+                    
+                    手写@koa/router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7.6" data-path="KoaStatic.html">
+            
+                <a href="KoaStatic.html">
+            
+                    
+                    手写koa-static源码，深入理解静态服务器原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../DesignPatterns/DesignPatterns.html">
+            
+                <a href="../DesignPatterns/DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../DesignPatterns/PubSub.html">
+            
+                <a href="../DesignPatterns/PubSub.html">
+            
+                    
+                    从发布订阅模式入手读懂Node.js的EventEmitter源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../DesignPatterns/Encapsulate.html">
+            
+                <a href="../DesignPatterns/Encapsulate.html">
+            
+                    
+                    封装代码的设计模式：工厂，建造者，单例，原型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../DesignPatterns/Reusability.html">
+            
+                <a href="../DesignPatterns/Reusability.html">
+            
+                    
+                    提高复用性的设计模式：桥接，享元，模板方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../DesignPatterns/Extendability.html">
+            
+                <a href="../DesignPatterns/Extendability.html">
+            
+                    
+                    提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../DesignPatterns/Quality.html">
+            
+                <a href="../DesignPatterns/Quality.html">
+            
+                    
+                    提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Architecture/Architecture.html">
+            
+                <a href="../Architecture/Architecture.html">
+            
+                    
+                    架构和源码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../Architecture/readSourceCode.html">
+            
+                <a href="../Architecture/readSourceCode.html">
+            
+                    
+                    从架构入手读源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../Architecture/Undersocre.html">
+            
+                <a href="../Architecture/Undersocre.html">
+            
+                    
+                    Underscore源码架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Engineering/Engineering.html">
+            
+                <a href="../Engineering/Engineering.html">
+            
+                    
+                    工程化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../Engineering/leader.html">
+            
+                <a href="../Engineering/leader.html">
+            
+                    
+                    前端负责人/架构师职责
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                <a href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                    
+                    数据结构和算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../DataStructureAndAlgorithm/Sorting.html">
+            
+                <a href="../DataStructureAndAlgorithm/Sorting.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                <a href="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                    
+                    链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../DataStructureAndAlgorithm/Greedy.html">
+            
+                <a href="../DataStructureAndAlgorithm/Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../DataStructureAndAlgorithm/DP.html">
+            
+                <a href="../DataStructureAndAlgorithm/DP.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../DataStructureAndAlgorithm/OptimizeVariations.html">
+            
+                <a href="../DataStructureAndAlgorithm/OptimizeVariations.html">
+            
+                    
+                    三层商品选项优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Projects/Projects.html">
+            
+                <a href="../Projects/Projects.html">
+            
+                    
+                    实战项目
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../Projects/FractionCalcualator.html">
+            
+                <a href="../Projects/FractionCalcualator.html">
+            
+                    
+                    分数计算器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+
+    
+    <li>
+        
+        
+        
+            
+        
+        
+            <a href="http://www.beian.miit.gov.cn/" target="blank" class="gitbook-link">
+                苏ICP备16008535号
+            </a>
+        
+    </li>
+    
+</ul>
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >手写koa-static源码，深入理解静态服务器原理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x672C;&#x7528;&#x6CD5;"><b></b>&#x57FA;&#x672C;&#x7528;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x624B;&#x5199;&#x6E90;&#x7801;"><b></b>&#x624B;&#x5199;&#x6E90;&#x7801;</a></li><ul><li><span class="title-icon "></span><a href="#&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;koa&#x4E2D;&#x95F4;&#x4EF6;"><b></b>&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;Koa&#x4E2D;&#x95F4;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x8C03;&#x7528;koa-send&#x8FD4;&#x56DE;&#x6587;&#x4EF6;"><b></b>&#x8C03;&#x7528;koa-send&#x8FD4;&#x56DE;&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#optdefer"><b></b>opt.defer</a></li><li><span class="title-icon "></span><a href="#koa-send"><b></b>koa-send</a></li><li><span class="title-icon "></span><a href="#ctxtype&#x548C;ctxbody"><b></b>ctx.type&#x548C;ctx.body</a></li></ul><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b></b>&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;"><b></b>&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;</a></li></ul></ul></div><p>&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x7EE7;&#x7EED;&#x524D;&#x9762;&#x7684;<code>Koa</code>&#x6E90;&#x7801;&#x7CFB;&#x5217;&#xFF0C;&#x8FD9;&#x4E2A;&#x7CFB;&#x5217;&#x5DF2;&#x7ECF;&#x6709;&#x4E24;&#x7BC7;&#x6587;&#x7AE0;&#x4E86;&#xFF1A;</p>
+<ol>
+<li>&#x7B2C;&#x4E00;&#x7BC7;&#x8BB2;&#x89E3;&#x4E86;<code>Koa</code>&#x7684;&#x6838;&#x5FC3;&#x67B6;&#x6784;&#x548C;&#x6E90;&#x7801;&#xFF1A;<a href="https://juejin.cn/post/6892952604163342344" target="_blank">&#x624B;&#x5199;Koa.js&#x6E90;&#x7801;</a></li>
+<li>&#x7B2C;&#x4E8C;&#x7BC7;&#x8BB2;&#x89E3;&#x4E86;<code>@koa/router</code>&#x7684;&#x67B6;&#x6784;&#x548C;&#x6E90;&#x7801;&#xFF1A;<a href="https://juejin.cn/post/6895594434843869197" target="_blank">&#x624B;&#x5199;@koa/router&#x6E90;&#x7801;</a></li>
+</ol>
+<p>&#x672C;&#x6587;&#x4F1A;&#x63A5;&#x7740;&#x8BB2;&#x4E00;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;----<code>koa-static</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x662F;&#x7528;&#x6765;&#x642D;&#x5EFA;&#x9759;&#x6001;&#x670D;&#x52A1;&#x5668;&#x7684;&#x3002;</p>
+<p>&#x5176;&#x5B9E;&#x5728;&#x6211;&#x4E4B;&#x524D;<a href="https://juejin.cn/post/6887797543212843016" target="_blank">&#x4F7F;&#x7528;Node.js&#x539F;&#x751F;API&#x5199;&#x4E00;&#x4E2A;web&#x670D;&#x52A1;&#x5668;</a>&#x5DF2;&#x7ECF;&#x8BB2;&#x8FC7;&#x600E;&#x4E48;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x4E86;&#xFF0C;&#x4EE3;&#x7801;&#x867D;&#x7136;&#x6BD4;&#x8F83;&#x4E11;&#xFF0C;&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x8FD8;&#x662F;&#x5DEE;&#x4E0D;&#x591A;&#x7684;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x8DEF;&#x5F84;&#x53D6;&#x51FA;&#x6B63;&#x786E;&#x7684;&#x6587;&#x4EF6;&#x5730;&#x5740;</li>
+<li>&#x901A;&#x8FC7;&#x5730;&#x5740;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;</li>
+<li>&#x4F7F;&#x7528;<code>Node.js</code>&#x7684;API&#x8FD4;&#x56DE;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x8BBE;&#x7F6E;&#x76F8;&#x5E94;&#x7684;<code>header</code></li>
+</ol>
+<p><code>koa-static</code>&#x7684;&#x4EE3;&#x7801;&#x66F4;&#x901A;&#x7528;&#xFF0C;&#x66F4;&#x4F18;&#x96C5;&#xFF0C;&#x800C;&#x4E14;&#x5BF9;&#x5927;&#x6587;&#x4EF6;&#x6709;&#x66F4;&#x597D;&#x7684;&#x652F;&#x6301;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x4ED6;&#x662F;&#x600E;&#x4E48;&#x505A;&#x7684;&#x5427;&#x3002;&#x672C;&#x6587;&#x8FD8;&#x662F;&#x91C7;&#x7528;&#x4E00;&#x8D2F;&#x5957;&#x8DEF;&#xFF0C;&#x5148;&#x770B;&#x4E00;&#x4E0B;&#x4ED6;&#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;&#xFF0C;&#x7136;&#x540E;&#x4ECE;&#x57FA;&#x672C;&#x7528;&#x6CD5;&#x5165;&#x624B;&#x53BB;&#x8BFB;&#x6E90;&#x7801;&#xFF0C;&#x5E76;&#x624B;&#x5199;&#x4E00;&#x4E2A;&#x7B80;&#x5316;&#x7248;&#x7684;&#x6E90;&#x7801;&#x6765;&#x66FF;&#x6362;&#x4ED6;&#x3002;</p>
+<h2 id="&#x57FA;&#x672C;&#x7528;&#x6CD5;"><a name="&#x57FA;&#x672C;&#x7528;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x672C;&#x7528;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x57FA;&#x672C;&#x7528;&#x6CD5;</h2>
+<p><code>koa-static</code>&#x4F7F;&#x7528;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4E3B;&#x8981;&#x4EE3;&#x7801;&#x5C31;&#x4E00;&#x884C;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;koa&apos;</span>);
+<span class="hljs-keyword">const</span> serve = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;koa-static&apos;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa();
+
+<span class="hljs-comment">// &#x4E3B;&#x8981;&#x5C31;&#x662F;&#x8FD9;&#x884C;&#x4EE3;&#x7801;</span>
+app.use(serve(<span class="hljs-string">&apos;public&apos;</span>));
+
+app.listen(<span class="hljs-number">3001</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;listening on port 3001&apos;</span>);
+});
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x4E2D;&#x7684;<code>serve</code>&#x5C31;&#x662F;<code>koa-static</code>&#xFF0C;&#x4ED6;&#x8FD0;&#x884C;&#x540E;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>Koa</code>&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x7136;&#x540E;<code>Koa</code>&#x7684;&#x5B9E;&#x4F8B;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x5C31;&#x884C;&#x4E86;&#x3002;</p>
+<p><code>serve</code>&#x65B9;&#x6CD5;&#x652F;&#x6301;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x662F;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x7684;&#x76EE;&#x5F55;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#x9879;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x4F20;&#x3002;&#x50CF;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;<code>serve(&apos;public&apos;)</code>&#x5C31;&#x8868;&#x793A;<code>public</code>&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x9762;&#x7684;&#x6587;&#x4EF6;&#x90FD;&#x53EF;&#x4EE5;&#x88AB;&#x5916;&#x90E8;&#x8BBF;&#x95EE;&#x3002;&#x6BD4;&#x5982;&#x6211;&#x5728;&#x91CC;&#x9762;&#x653E;&#x4E86;&#x4E00;&#x5F20;&#x56FE;&#x7247;:</p>
+<p><img src="../../images/Node/KoaStatic/image-20201125163558774.png" alt="image-20201125163558774"></p>
+<p>&#x8DD1;&#x8D77;&#x6765;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x5B50;&#xFF1A;</p>
+<p><img src="../../images/Node/KoaStatic/image-20201125163432769.png" alt="image-20201125163432769" style="zoom:50%;"></p>
+<p>&#x6CE8;&#x610F;&#x4E0A;&#x9762;&#x8FD9;&#x4E2A;&#x8DEF;&#x5F84;&#x8BF7;&#x6C42;&#x7684;&#x662F;<code>/test.jpg</code>&#xFF0C;&#x524D;&#x9762;&#x5E76;&#x6CA1;&#x6709;<code>public</code>&#xFF0C;&#x8BF4;&#x660E;<code>koa-static</code>&#x5BF9;&#x8BF7;&#x6C42;&#x8DEF;&#x5F84;&#x8FDB;&#x884C;&#x4E86;&#x5224;&#x65AD;&#xFF0C;&#x53D1;&#x73B0;&#x662F;&#x6587;&#x4EF6;&#x5C31;&#x6620;&#x5C04;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7684;<code>public</code>&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x5916;&#x90E8;&#x4F7F;&#x7528;&#x8005;&#x63A2;&#x77E5;&#x670D;&#x52A1;&#x5668;&#x76EE;&#x5F55;&#x7ED3;&#x6784;&#x3002;</p>
+<h2 id="&#x624B;&#x5199;&#x6E90;&#x7801;"><a name="&#x624B;&#x5199;&#x6E90;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x624B;&#x5199;&#x6E90;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x624B;&#x5199;&#x6E90;&#x7801;</h2>
+<h3 id="&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;koa&#x4E2D;&#x95F4;&#x4EF6;"><a name="&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;koa&#x4E2D;&#x95F4;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;koa&#x4E2D;&#x95F4;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;<code>Koa</code>&#x4E2D;&#x95F4;&#x4EF6;</h3>
+<p>&#x6211;&#x4EEC;&#x770B;&#x5230;<code>koa-static</code>&#x5BFC;&#x51FA;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;<code>serve</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x8FD0;&#x884C;&#x540E;&#x8FD4;&#x56DE;&#x7684;&#x5E94;&#x8BE5;&#x662F;&#x4E00;&#x4E2A;<code>Koa</code>&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x8FD9;&#x6837;<code>Koa</code>&#x624D;&#x80FD;&#x5F15;&#x7528;&#x4ED6;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x5199;&#x4E00;&#x4E0B;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x5427;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = serve;   <span class="hljs-comment">// &#x5BFC;&#x51FA;&#x7684;&#x662F;serve&#x65B9;&#x6CD5;</span>
+
+<span class="hljs-comment">// serve&#x63A5;&#x53D7;&#x4E24;&#x4E2A;&#x53C2;&#x6570;</span>
+<span class="hljs-comment">// &#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x8DEF;&#x5F84;&#x5730;&#x5740;</span>
+<span class="hljs-comment">// &#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x914D;&#x7F6E;&#x9009;&#x9879;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serve</span>(<span class="hljs-params">root, opts</span>) </span>{
+    <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7B26;&#x5408;koa&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x5B9A;&#x4E49;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serve</span>(<span class="hljs-params">ctx, next</span>) </span>{
+        <span class="hljs-keyword">await</span> next();
+    }
+}
+</code></pre>
+<h3 id="&#x8C03;&#x7528;koa-send&#x8FD4;&#x56DE;&#x6587;&#x4EF6;"><a name="&#x8C03;&#x7528;koa-send&#x8FD4;&#x56DE;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x8C03;&#x7528;koa-send&#x8FD4;&#x56DE;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8C03;&#x7528;<code>koa-send</code>&#x8FD4;&#x56DE;&#x6587;&#x4EF6;</h3>
+<p>&#x73B0;&#x5728;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x5176;&#x5B9E;&#x4ED6;&#x5E94;&#x8BE5;&#x505A;&#x7684;&#x662F;&#x5C06;&#x6587;&#x4EF6;&#x8FD4;&#x56DE;&#xFF0C;&#x8FD4;&#x56DE;&#x6587;&#x4EF6;&#x7684;&#x529F;&#x80FD;&#x4E5F;&#x88AB;&#x5355;&#x72EC;&#x62BD;&#x53D6;&#x51FA;&#x6765;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x5E93;----<code>koa-send</code>&#xFF0C;&#x6211;&#x4EEC;&#x540E;&#x9762;&#x4F1A;&#x770B;&#x4ED6;&#x6E90;&#x7801;&#xFF0C;&#x8FD9;&#x91CC;&#x5148;&#x76F4;&#x63A5;&#x7528;&#x5427;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serve</span>(<span class="hljs-params">root, opts</span>) </span>{
+    <span class="hljs-comment">// &#x8FD9;&#x884C;&#x4EE3;&#x7801;&#x5982;&#x679C;&#x6548;&#x679C;&#x5C31;&#x662F;</span>
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x6CA1;&#x4F20;opts&#xFF0C;opts&#x5C31;&#x662F;&#x7A7A;&#x5BF9;&#x8C61;{}</span>
+    <span class="hljs-comment">// &#x540C;&#x65F6;&#x5C06;&#x5B83;&#x7684;&#x539F;&#x578B;&#x7F6E;&#x4E3A;null</span>
+    opts = <span class="hljs-built_in">Object</span>.assign(<span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>), opts);
+
+    <span class="hljs-comment">// &#x5C06;root&#x89E3;&#x6790;&#x4E3A;&#x4E00;&#x4E2A;&#x5408;&#x6CD5;&#x8DEF;&#x5F84;&#xFF0C;&#x5E76;&#x653E;&#x5230;opts&#x4E0A;&#x53BB;</span>
+    <span class="hljs-comment">// &#x56E0;&#x4E3A;koa-send&#x63A5;&#x6536;&#x7684;&#x8DEF;&#x5F84;&#x662F;&#x5728;opts&#x4E0A;</span>
+    opts.root = resolve(root);
+
+      <span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x662F;&#x7528;&#x6765;&#x517C;&#x5BB9;&#x6587;&#x4EF6;&#x5939;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x8BF7;&#x6C42;&#x8DEF;&#x5F84;&#x662F;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x9ED8;&#x8BA4;&#x53BB;&#x53D6;index</span>
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x7528;&#x6237;&#x6CA1;&#x6709;&#x914D;&#x7F6E;index&#xFF0C;&#x9ED8;&#x8BA4;index&#x5C31;&#x662F;index.html</span>
+    <span class="hljs-keyword">if</span> (opts.index !== <span class="hljs-literal">false</span>) opts.index = opts.index || <span class="hljs-string">&apos;index.html&apos;</span>;
+
+      <span class="hljs-comment">// &#x6574;&#x4E2A;serve&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x662F;&#x4E00;&#x4E2A;koa&#x4E2D;&#x95F4;&#x4EF6;</span>
+      <span class="hljs-comment">// &#x7B26;&#x5408;koa&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x8303;&#x5F0F;&#xFF1A; (ctx, next) =&gt; {}</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serve</span>(<span class="hljs-params">ctx, next</span>) </span>{
+        <span class="hljs-keyword">let</span> done = <span class="hljs-literal">false</span>;    <span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x6807;&#x8BB0;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x6210;&#x529F;&#x8FD4;&#x56DE;</span>
+
+        <span class="hljs-comment">// &#x53EA;&#x6709;HEAD&#x548C;GET&#x8BF7;&#x6C42;&#x624D;&#x54CD;&#x5E94;</span>
+        <span class="hljs-keyword">if</span> (ctx.method === <span class="hljs-string">&apos;HEAD&apos;</span> || ctx.method === <span class="hljs-string">&apos;GET&apos;</span>) {
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-comment">// &#x8C03;&#x7528;koa-send&#x53D1;&#x9001;&#x6587;&#x4EF6;</span>
+                <span class="hljs-comment">// &#x5982;&#x679C;&#x53D1;&#x9001;&#x6210;&#x529F;&#xFF0C;koa-send&#x4F1A;&#x8FD4;&#x56DE;&#x8DEF;&#x5F84;&#xFF0C;&#x8D4B;&#x503C;&#x7ED9;done</span>
+                <span class="hljs-comment">// done&#x8F6C;&#x6362;&#x4E3A;bool&#x503C;&#x5C31;&#x662F;true</span>
+                done = <span class="hljs-keyword">await</span> send(ctx, ctx.path, opts);
+            } <span class="hljs-keyword">catch</span> (err) {
+                <span class="hljs-comment">// &#x5982;&#x679C;&#x4E0D;&#x662F;404&#xFF0C;&#x53EF;&#x80FD;&#x662F;&#x4E00;&#x4E9B;400&#xFF0C;500&#x8FD9;&#x79CD;&#x975E;&#x9884;&#x671F;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x5C06;&#x5B83;&#x629B;&#x51FA;&#x53BB;</span>
+                <span class="hljs-keyword">if</span> (err.status !== <span class="hljs-number">404</span>) {
+                    <span class="hljs-keyword">throw</span> err
+                }
+            }
+        }
+
+        <span class="hljs-comment">// &#x901A;&#x8FC7;done&#x6765;&#x68C0;&#x6D4B;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x53D1;&#x9001;&#x6210;&#x529F;</span>
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x6CA1;&#x6210;&#x529F;&#xFF0C;&#x5C31;&#x8BA9;&#x540E;&#x7EED;&#x4E2D;&#x95F4;&#x4EF6;&#x7EE7;&#x7EED;&#x5904;&#x7406;&#x4ED6;</span>
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x6210;&#x529F;&#x4E86;&#xFF0C;&#x672C;&#x6B21;&#x8BF7;&#x6C42;&#x5C31;&#x5230;&#x6B64;&#x4E3A;&#x6B62;&#x4E86;</span>
+        <span class="hljs-keyword">if</span> (!done) {
+            <span class="hljs-keyword">await</span> next()
+        }
+    }
+}
+</code></pre>
+<h3 id="optdefer"><a name="optdefer" class="anchor-navigation-ex-anchor" href="#optdefer"><i class="fa fa-link" aria-hidden="true"></i></a>opt.defer</h3>
+<p><code>defer</code>&#x662F;&#x914D;&#x7F6E;&#x9009;&#x9879;<code>opt</code>&#x91CC;&#x9762;&#x7684;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF0C;&#x4ED6;&#x7A0D;&#x5FAE;&#x7279;&#x6B8A;&#x4E00;&#x70B9;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;<code>false</code>&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x4F20;&#x4E86;<code>true</code>&#xFF0C;<code>koa-static</code>&#x4F1A;&#x8BA9;&#x5176;&#x4ED6;&#x4E2D;&#x95F4;&#x4EF6;&#x5148;&#x54CD;&#x5E94;&#xFF0C;&#x5373;&#x4F7F;&#x5176;&#x4ED6;&#x4E2D;&#x95F4;&#x4EF6;&#x5199;&#x5728;<code>koa-static</code>&#x540E;&#x9762;&#x4E5F;&#x4F1A;&#x8BA9;&#x4ED6;&#x5148;&#x54CD;&#x5E94;&#xFF0C;&#x81EA;&#x5DF1;&#x6700;&#x540E;&#x54CD;&#x5E94;&#x3002;&#x8981;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x63A7;&#x5236;&#x8C03;&#x7528;<code>next()</code>&#x7684;&#x65F6;&#x673A;&#x3002;&#x5728;<a href="https://juejin.cn/post/6892952604163342344" target="_blank">&#x8BB2;Koa&#x6E90;&#x7801;&#x7684;&#x6587;&#x7AE0;&#x91CC;&#x9762;&#x5DF2;&#x7ECF;&#x8BB2;&#x8FC7;&#x4E86;</a>&#xFF0C;&#x8C03;&#x7528;<code>next()</code>&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5728;&#x8C03;&#x7528;&#x540E;&#x9762;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x50CF;&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x90A3;&#x6837;&#x6700;&#x540E;&#x8C03;&#x7528;<code>next()</code>&#xFF0C;&#x5C31;&#x662F;&#x5148;&#x6267;&#x884C;<code>koa-static</code>&#x7136;&#x540E;&#x518D;&#x6267;&#x884C;&#x5176;&#x4ED6;&#x4E2D;&#x95F4;&#x4EF6;&#x3002;&#x5982;&#x679C;&#x4F60;&#x7ED9;<code>defer</code>&#x4F20;&#x4E86;<code>true</code>&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5148;&#x6267;&#x884C;<code>next()</code>&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6267;&#x884C;<code>koa-static</code>&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x6309;&#x7167;&#x8FD9;&#x4E2A;&#x601D;&#x8DEF;&#x6211;&#x4EEC;&#x6765;&#x652F;&#x6301;&#x4E0B;<code>defer</code>&#x5427;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serve</span>(<span class="hljs-params">root, opts</span>) </span>{
+    opts = <span class="hljs-built_in">Object</span>.assign(<span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>), opts);
+
+    opts.root = resolve(root);
+
+    <span class="hljs-comment">// &#x5982;&#x679C;defer&#x4E3A;false&#xFF0C;&#x5C31;&#x7528;&#x4E4B;&#x524D;&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x6700;&#x540E;&#x8C03;&#x7528;next</span>
+    <span class="hljs-keyword">if</span> (!opts.defer) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serve</span>(<span class="hljs-params">ctx, next</span>) </span>{
+            <span class="hljs-keyword">let</span> done = <span class="hljs-literal">false</span>;    
+
+            <span class="hljs-keyword">if</span> (ctx.method === <span class="hljs-string">&apos;HEAD&apos;</span> || ctx.method === <span class="hljs-string">&apos;GET&apos;</span>) {
+                <span class="hljs-keyword">try</span> {
+                    done = <span class="hljs-keyword">await</span> send(ctx, ctx.path, opts);
+                } <span class="hljs-keyword">catch</span> (err) {
+                    <span class="hljs-keyword">if</span> (err.status !== <span class="hljs-number">404</span>) {
+                        <span class="hljs-keyword">throw</span> err
+                    }
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (!done) {
+                <span class="hljs-keyword">await</span> next()
+            }
+        }
+    }
+
+    <span class="hljs-comment">// &#x5982;&#x679C;defer&#x4E3A;true&#xFF0C;&#x5148;&#x8C03;&#x7528;next&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;&#x81EA;&#x5DF1;&#x7684;&#x903B;&#x8F91;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">serve</span>(<span class="hljs-params">ctx, next</span>) </span>{
+        <span class="hljs-comment">// &#x5148;&#x8C03;&#x7528;next,&#x6267;&#x884C;&#x540E;&#x9762;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;</span>
+        <span class="hljs-keyword">await</span> next();
+
+        <span class="hljs-keyword">if</span> (ctx.method !== <span class="hljs-string">&apos;HEAD&apos;</span> &amp;&amp; ctx.method !== <span class="hljs-string">&apos;GET&apos;</span>) <span class="hljs-keyword">return</span>
+
+        <span class="hljs-comment">// &#x5982;&#x679C;ctx.body&#x6709;&#x503C;&#x4E86;&#xFF0C;&#x6216;&#x8005;status&#x4E0D;&#x662F;404&#xFF0C;&#x8BF4;&#x660E;&#x8BF7;&#x6C42;&#x5DF2;&#x7ECF;&#x88AB;&#x5176;&#x4ED6;&#x4E2D;&#x95F4;&#x4EF6;&#x5904;&#x7406;&#x8FC7;&#x4E86;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x4E86;</span>
+        <span class="hljs-keyword">if</span> (ctx.body != <span class="hljs-literal">null</span> || ctx.status !== <span class="hljs-number">404</span>) <span class="hljs-keyword">return</span> <span class="hljs-comment">// eslint-disable-line</span>
+
+        <span class="hljs-comment">// koa-static&#x81EA;&#x5DF1;&#x7684;&#x903B;&#x8F91;&#x8FD8;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x90FD;&#x662F;&#x8C03;&#x7528;koa-send</span>
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">await</span> send(ctx, ctx.path, opts)
+        } <span class="hljs-keyword">catch</span> (err) {
+            <span class="hljs-keyword">if</span> (err.status !== <span class="hljs-number">404</span>) {
+                <span class="hljs-keyword">throw</span> err
+            }
+        }
+    }
+}
+</code></pre>
+<p><code>koa-static</code>&#x6E90;&#x7801;&#x603B;&#x5171;&#x5C31;&#x51E0;&#x5341;&#x884C;&#xFF1A;<a href="https://github.com/koajs/static/blob/master/index.js" target="_blank">https://github.com/koajs/static/blob/master/index.js</a></p>
+<h3 id="koa-send"><a name="koa-send" class="anchor-navigation-ex-anchor" href="#koa-send"><i class="fa fa-link" aria-hidden="true"></i></a>koa-send</h3>
+<p>&#x4E0A;&#x9762;&#x6211;&#x4EEC;&#x770B;&#x5230;<code>koa-static</code>&#x5176;&#x5B9E;&#x662F;&#x5305;&#x88C5;&#x7684;<code>koa-send</code>&#xFF0C;&#x771F;&#x6B63;&#x53D1;&#x9001;&#x6587;&#x4EF6;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x662F;&#x5728;<code>koa-send</code>&#x91CC;&#x9762;&#x7684;&#x3002;&#x6587;&#x7AE0;&#x6700;&#x5F00;&#x5934;&#x8BF4;&#x7684;&#x51E0;&#x4EF6;&#x4E8B;&#x60C5;<code>koa-static</code>&#x4E00;&#x4EF6;&#x4E5F;&#x6CA1;&#x5E72;&#xFF0C;&#x90FD;&#x4E22;&#x7ED9;<code>koa-send</code>&#x4E86;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x4ED6;&#x5E94;&#x8BE5;&#x628A;&#x8FD9;&#x51E0;&#x4EF6;&#x4E8B;&#x90FD;&#x5E72;&#x5B8C;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x8DEF;&#x5F84;&#x53D6;&#x51FA;&#x6B63;&#x786E;&#x7684;&#x6587;&#x4EF6;&#x5730;&#x5740;</li>
+<li>&#x901A;&#x8FC7;&#x5730;&#x5740;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;</li>
+<li>&#x4F7F;&#x7528;<code>Node.js</code>&#x7684;API&#x8FD4;&#x56DE;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x8BBE;&#x7F6E;&#x76F8;&#x5E94;&#x7684;<code>header</code></li>
+</ol>
+<p>&#x7531;&#x4E8E;<code>koa-send</code>&#x4EE3;&#x7801;&#x4E5F;&#x4E0D;&#x591A;&#xFF0C;&#x6211;&#x5C31;&#x76F4;&#x63A5;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x5199;&#x6CE8;&#x91CA;&#x4E86;&#xFF0C;&#x901A;&#x8FC7;&#x524D;&#x9762;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x4ED6;&#x7684;&#x4F7F;&#x7528;&#x5F62;&#x5F0F;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-javascript">send (ctx, path, opts)
+</code></pre>
+<p>&#x4ED6;&#x63A5;&#x6536;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
+<ol>
+<li><code>ctx</code>&#xFF1A;&#x5C31;&#x662F;<code>koa</code>&#x7684;&#x90A3;&#x4E2A;&#x4E0A;&#x4E0B;&#x6587;<code>ctx</code>&#x3002;</li>
+<li><code>path</code>&#xFF1A;<code>koa-static</code>&#x4F20;&#x8FC7;&#x6765;&#x7684;&#x662F;<code>ctx.path</code>&#xFF0C;&#x770B;&#x8FC7;<code>koa</code>&#x6E90;&#x7801;&#x89E3;&#x6790;&#x7684;&#x5E94;&#x8BE5;&#x77E5;&#x9053;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x5176;&#x5B9E;&#x5C31;&#x662F;<code>req.path</code></li>
+<li><code>opts</code>: &#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#x9879;&#xFF0C;<code>defer</code>&#x524D;&#x9762;&#x8BB2;&#x8FC7;&#x4E86;&#xFF0C;&#x4F1A;&#x5F71;&#x54CD;&#x6267;&#x884C;&#x987A;&#x5E8F;&#xFF0C;&#x5176;&#x4ED6;&#x8FD8;&#x6709;&#x4E9B;&#x7F13;&#x5B58;&#x63A7;&#x5236;&#x4EC0;&#x4E48;&#x7684;&#x3002;</li>
+</ol>
+<p>&#x4E0B;&#x9762;&#x76F4;&#x63A5;&#x6765;&#x5199;&#x4E00;&#x4E2A;<code>send</code>&#x65B9;&#x6CD5;&#x5427;&#xFF1A;</p>
+<pre><code class="lang-javascript">const fs = require(&apos;fs&apos;)
+const fsPromises = fs.promises;
+const { stat, access } = fsPromises;
+
+const {
+    normalize,
+    basename,
+    extname,
+    resolve,
+    parse,
+    sep
+} = require(&apos;path&apos;)
+const resolvePath = require(&apos;resolve-path&apos;)
+
+// &#x5BFC;&#x51FA;send&#x65B9;&#x6CD5;
+module.exports = send;
+
+// send&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;
+async function send(ctx, path, opts = {}) {
+    // &#x5148;&#x89E3;&#x6790;&#x914D;&#x7F6E;&#x9879;
+    const root = opts.root ? normalize(resolve(opts.root)) : &apos;&apos;;  // &#x8FD9;&#x91CC;&#x7684;root&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x914D;&#x7F6E;&#x7684;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF0C;&#x6BD4;&#x5982;public
+    const index = opts.index;    // &#x8BF7;&#x6C42;&#x6587;&#x4EF6;&#x5939;&#x65F6;&#xFF0C;&#x4F1A;&#x53BB;&#x8BFB;&#x53D6;&#x8FD9;&#x4E2A;index&#x6587;&#x4EF6;
+    const maxage = opts.maxage || opts.maxAge || 0;     // &#x5C31;&#x662F;http&#x7F13;&#x5B58;&#x63A7;&#x5236;Cache-Control&#x7684;&#x90A3;&#x4E2A;maxage
+    const immutable = opts.immutable || false;   // &#x4E5F;&#x662F;Cache-Control&#x7F13;&#x5B58;&#x63A7;&#x5236;&#x7684;
+    const format = opts.format !== false;   // format&#x9ED8;&#x8BA4;&#x662F;true&#xFF0C;&#x7528;&#x6765;&#x652F;&#x6301;/directory&#x8FD9;&#x79CD;&#x4E0D;&#x5E26;/&#x7684;&#x6587;&#x4EF6;&#x5939;&#x8BF7;&#x6C42;
+
+    const trailingSlash = path[path.length - 1] === &apos;/&apos;;    // &#x770B;&#x770B;path&#x7ED3;&#x5C3E;&#x662F;&#x4E0D;&#x662F;/
+    path = path.substr(parse(path).root.length)             // &#x53BB;&#x6389;path&#x5F00;&#x5934;&#x7684;/
+
+    path = decode(path);      // &#x5176;&#x5B9E;&#x5C31;&#x662F;decodeURIComponent&#xFF0C; decode&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#x5728;&#x540E;&#x9762;
+    if (path === -1) return ctx.throw(400, &apos;failed to decode&apos;);
+
+    // &#x5982;&#x679C;&#x8BF7;&#x6C42;&#x4EE5;/&#x7ED3;&#x5C3E;&#xFF0C;&#x80AF;&#x5B9A;&#x662F;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x5C06;path&#x6539;&#x4E3A;&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x9762;&#x7684;&#x9ED8;&#x8BA4;&#x6587;&#x4EF6;
+    if (index &amp;&amp; trailingSlash) path += index;
+
+    // resolvePath&#x53EF;&#x4EE5;&#x5C06;&#x4E00;&#x4E2A;&#x6839;&#x8DEF;&#x5F84;&#x548C;&#x8BF7;&#x6C42;&#x7684;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;
+    // &#x5E76;&#x4E14;&#x9632;&#x6B62;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x7684;&#x653B;&#x51FB;&#xFF0C;&#x6BD4;&#x5982;GET /../file.js
+    // GitHub&#x5730;&#x5740;&#xFF1A;https://github.com/pillarjs/resolve-path
+    path = resolvePath(root, path)
+
+    // &#x7528;fs.stat&#x83B7;&#x53D6;&#x6587;&#x4EF6;&#x7684;&#x57FA;&#x672C;&#x4FE1;&#x606F;&#xFF0C;&#x987A;&#x4FBF;&#x68C0;&#x6D4B;&#x4E0B;&#x6587;&#x4EF6;&#x5B58;&#x5728;&#x4E0D;
+    let stats;
+    try {
+        stats = await stat(path)
+
+        // &#x5982;&#x679C;&#x662F;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x5E76;&#x4E14;format&#x4E3A;true&#xFF0C;&#x62FC;&#x4E0A;index&#x6587;&#x4EF6;
+        if (stats.isDirectory()) {
+            if (format &amp;&amp; index) {
+                path += `/${index}`
+                stats = await stat(path)
+            } else {
+                return
+            }
+        }
+    } catch (err) {
+        // &#x9519;&#x8BEF;&#x5904;&#x7406;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FD4;&#x56DE;404&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;500
+        const notfound = [&apos;ENOENT&apos;, &apos;ENAMETOOLONG&apos;, &apos;ENOTDIR&apos;]
+        if (notfound.includes(err.code)) {
+              // createError&#x6765;&#x81EA;http-errors&#x5E93;&#xFF0C;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x521B;&#x5EFA;HTTP&#x9519;&#x8BEF;&#x5BF9;&#x8C61;
+            // github&#x5730;&#x5740;&#xFF1A;https://github.com/jshttp/http-errors
+            throw createError(404, err)
+        }
+        err.status = 500
+        throw err
+    }
+
+    // &#x8BBE;&#x7F6E;Content-Length&#x7684;header
+    ctx.set(&apos;Content-Length&apos;, stats.size)
+
+    // &#x8BBE;&#x7F6E;&#x7F13;&#x5B58;&#x63A7;&#x5236;header
+    if (!ctx.response.get(&apos;Last-Modified&apos;)) ctx.set(&apos;Last-Modified&apos;, stats.mtime.toUTCString())
+    if (!ctx.response.get(&apos;Cache-Control&apos;)) {
+        const directives = [`max-age=${(maxage / 1000 | 0)}`]
+        if (immutable) {
+            directives.push(&apos;immutable&apos;)
+        }
+        ctx.set(&apos;Cache-Control&apos;, directives.join(&apos;,&apos;))
+    }
+
+    // &#x8BBE;&#x7F6E;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x548C;&#x8FD4;&#x56DE;&#x5185;&#x5BB9;
+   if (!ctx.type) ctx.type = extname(path)
+    ctx.body = fs.createReadStream(path)
+
+    return path
+}
+
+function decode(path) {
+    try {
+        return decodeURIComponent(path)
+    } catch (err) {
+        return -1
+    }
+}
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x5E76;&#x6CA1;&#x6709;&#x592A;&#x590D;&#x6742;&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x5148;&#x62FC;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;<code>fs.stat</code>&#x83B7;&#x53D6;&#x6587;&#x4EF6;&#x7684;&#x57FA;&#x672C;&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x679C;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FD9;&#x4E2A;API&#x5C31;&#x62A5;&#x9519;&#x4E86;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;<code>404</code>&#x3002;&#x5982;&#x679C;&#x6587;&#x4EF6;&#x5B58;&#x5728;&#xFF0C;&#x5C31;&#x7528;<code>fs.stat</code>&#x62FF;&#x5230;&#x7684;&#x4FE1;&#x606F;&#x8BBE;&#x7F6E;<code>Content-Length</code>&#x548C;&#x4E00;&#x4E9B;&#x7F13;&#x5B58;&#x63A7;&#x5236;&#x7684;header&#x3002;</p>
+<p><code>koa-send</code>&#x7684;&#x6E90;&#x7801;&#x4E5F;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x767E;&#x6765;&#x884C;&#x4EE3;&#x7801;:<a href="https://github.com/koajs/send/blob/master/index.js" target="_blank">https://github.com/koajs/send/blob/master/index.js</a></p>
+<h3 id="ctxtype&#x548C;ctxbody"><a name="ctxtype&#x548C;ctxbody" class="anchor-navigation-ex-anchor" href="#ctxtype&#x548C;ctxbody"><i class="fa fa-link" aria-hidden="true"></i></a>ctx.type&#x548C;ctx.body</h3>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x6700;&#x540E;&#x5E76;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x53EA;&#x662F;&#x8BBE;&#x7F6E;&#x4E86;<code>ctx.type</code>&#x548C;<code>ctx.body</code>&#x8FD9;&#x4E24;&#x4E2A;&#x503C;&#x5C31;&#x7ED3;&#x675F;&#x4E86;&#xFF0C;&#x4E3A;&#x5565;&#x8BBE;&#x7F6E;&#x4E86;&#x8FD9;&#x4E24;&#x4E2A;&#x503C;&#xFF0C;&#x6587;&#x4EF6;&#x5C31;&#x81EA;&#x52A8;&#x8FD4;&#x56DE;&#x4E86;&#x5462;&#xFF1F;&#x8981;&#x77E5;&#x9053;&#x8FD9;&#x4E2A;&#x539F;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x7ED3;&#x5408;<code>Koa</code>&#x6E90;&#x7801;&#x6765;&#x770B;&#x3002;</p>
+<p>&#x4E4B;&#x524D;&#x8BB2;<code>Koa</code>&#x6E90;&#x7801;&#x7684;&#x65F6;&#x5019;&#x6211;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;&#x4ED6;&#x6269;&#x5C55;&#x4E86;<code>Node</code>&#x539F;&#x751F;&#x7684;<code>res</code>&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x91CC;&#x9762;&#x7ED9;<code>type</code>&#x5C5E;&#x6027;&#x6DFB;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;<code>set</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-javascript">set type(type) {
+  type = getType(type);
+  <span class="hljs-keyword">if</span> (type) {
+    <span class="hljs-keyword">this</span>.set(<span class="hljs-string">&apos;Content-Type&apos;</span>, type);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">this</span>.remove(<span class="hljs-string">&apos;Content-Type&apos;</span>);
+  }
+}
+</code></pre>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x5F53;&#x4F60;&#x7ED9;<code>ctx.type</code>&#x8BBE;&#x7F6E;&#x503C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x7ED9;<code>Content-Type</code>&#x8BBE;&#x7F6E;&#x503C;&#xFF0C;<code>getType</code>&#x5176;&#x5B9E;&#x662F;&#x53E6;&#x4E00;&#x4E2A;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;<a href="https://github.com/node-modules/cache-content-type" target="_blank"><code>cache-content-type</code></a>&#xFF0C;&#x4ED6;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x4F60;&#x4F20;&#x5165;&#x7684;&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#xFF0C;&#x8FD4;&#x56DE;&#x5339;&#x914D;&#x7684;<code>MIME type</code>&#x3002;&#x6211;&#x521A;&#x770B;<code>koa-static</code>&#x6E90;&#x7801;&#x65F6;&#xFF0C;&#x627E;&#x4E86;&#x534A;&#x5929;&#x4E5F;&#x6CA1;&#x627E;&#x5230;&#x5728;&#x54EA;&#x91CC;&#x8BBE;&#x7F6E;&#x7684;<code>Content-Type</code>&#xFF0C;&#x540E;&#x9762;&#x53D1;&#x73B0;&#x662F;&#x5728;<code>Koa</code>&#x6E90;&#x7801;&#x91CC;&#x9762;&#x3002;<strong>&#x6240;&#x4EE5;&#x8BBE;&#x7F6E;&#x4E86;<code>ctx.type</code>&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x8BBE;&#x7F6E;&#x4E86;<code>Content-Type</code></strong>&#x3002;</p>
+<p><code>koa</code>&#x6269;&#x5C55;&#x7684;<code>type</code>&#x5C5E;&#x6027;&#x770B;&#x8FD9;&#x91CC;&#xFF1A;<a href="https://github.com/koajs/koa/blob/master/lib/response.js#L308" target="_blank">https://github.com/koajs/koa/blob/master/lib/response.js#L308</a></p>
+<p>&#x4E4B;&#x524D;&#x8BB2;<code>Koa</code>&#x6E90;&#x7801;&#x7684;&#x65F6;&#x5019;&#x6211;&#x8FD8;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;&#x5F53;&#x6240;&#x6709;&#x4E2D;&#x95F4;&#x4EF6;&#x90FD;&#x8FD0;&#x884C;&#x5B8C;&#x4E86;&#xFF0C;&#x6700;&#x540E;&#x4F1A;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;<code>respond</code>&#x6765;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x5728;&#x90A3;&#x7BC7;&#x6587;&#x7AE0;&#x91CC;&#x9762;&#xFF0C;<code>respond</code>&#x662F;&#x7B80;&#x5316;&#x7248;&#x7684;&#xFF0C;&#x76F4;&#x63A5;&#x7528;<code>res.end</code>&#x8FD4;&#x56DE;&#x4E86;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">respond</span>(<span class="hljs-params">ctx</span>) </span>{
+  <span class="hljs-keyword">const</span> res = ctx.res; <span class="hljs-comment">// &#x53D6;&#x51FA;res&#x5BF9;&#x8C61;</span>
+  <span class="hljs-keyword">const</span> body = ctx.body; <span class="hljs-comment">// &#x53D6;&#x51FA;body</span>
+
+  <span class="hljs-keyword">return</span> res.end(body); <span class="hljs-comment">// &#x7528;res&#x8FD4;&#x56DE;body</span>
+}
+</code></pre>
+<p>&#x76F4;&#x63A5;&#x7528;<code>res.end</code>&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x53EA;&#x80FD;&#x5BF9;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x7684;&#x5C0F;&#x5BF9;&#x8C61;&#x6BD4;&#x8F83;&#x5408;&#x9002;&#xFF0C;&#x6BD4;&#x5982;&#x5B57;&#x7B26;&#x4E32;&#x4EC0;&#x4E48;&#x7684;&#x3002;<strong>&#x5BF9;&#x4E8E;&#x590D;&#x6742;&#x5BF9;&#x8C61;&#xFF0C;&#x6BD4;&#x5982;&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x5408;&#x9002;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x4F60;&#x5982;&#x679C;&#x8981;&#x7528;<code>res.write</code>&#x6216;&#x8005;<code>res.end</code>&#x8FD4;&#x56DE;&#x6587;&#x4EF6;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x5148;&#x628A;&#x6587;&#x4EF6;&#x6574;&#x4E2A;&#x8BFB;&#x5165;&#x5185;&#x5B58;&#xFF0C;&#x7136;&#x540E;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x9012;&#xFF0C;&#x5982;&#x679C;&#x6587;&#x4EF6;&#x5F88;&#x5927;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x5185;&#x5B58;&#x53EF;&#x80FD;&#x5C31;&#x7206;&#x4E86;</strong>&#x3002;&#x90A3;&#x8981;&#x600E;&#x4E48;&#x5904;&#x7406;&#x5462;&#xFF1F;&#x56DE;&#x5230;<code>koa-send</code>&#x6E90;&#x7801;&#x91CC;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x7ED9;<code>ctx.body</code>&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x8BFB;&#x6D41;:</p>
+<pre><code class="lang-javascript">ctx.body = fs.createReadStream(path)
+</code></pre>
+<p>&#x8FD9;&#x79CD;&#x6D41;&#x600E;&#x4E48;&#x8FD4;&#x56DE;&#x5462;&#xFF1F;&#x5176;&#x5B9E;<code>Node.js</code>&#x5BF9;&#x4E8E;&#x8FD4;&#x56DE;&#x6D41;&#x672C;&#x8EAB;&#x5C31;&#x6709;&#x5F88;&#x597D;&#x7684;&#x652F;&#x6301;&#x3002;&#x8981;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x9700;&#x8981;&#x7528;&#x5230;<code>http</code>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;<code>res</code>&#xFF0C;&#x8FD9;&#x4E2A;<code>res</code>&#x672C;&#x8EAB;&#x5176;&#x5B9E;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x6D41;&#x3002;<a href="http://nodejs.cn/api/http.html#http_class_http_serverresponse" target="_blank">&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x518D;&#x7FFB;&#x7FFB;<code>Node.js</code>&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#xFF0C;&#x8FD9;&#x91CC;&#x7684;<code>res</code>&#x5176;&#x5B9E;&#x662F;<code>http.ServerResponse</code>&#x7C7B;&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x800C;<code>http.ServerResponse</code>&#x672C;&#x8EAB;&#x53C8;&#x7EE7;&#x627F;&#x81EA;<code>Stream</code>&#x7C7B;&#xFF1A;</p>
+<p><img src="../../images/Node/KoaStatic/image-20201203154324281.png" alt="image-20201203154324281"></p>
+<p><strong>&#x6240;&#x4EE5;<code>res</code>&#x672C;&#x8EAB;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x6D41;<code>Stream</code>&#xFF0C;&#x90A3;<code>Stream</code>&#x7684;API&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x4E86;</strong>&#x3002;<code>ctx.body</code>&#x662F;&#x4F7F;&#x7528;<code>fs.createReadStream</code>&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4ED6;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x8BFB;&#x6D41;&#xFF0C;<a href="http://nodejs.cn/api/stream.html#stream_readable_pipe_destination_options" target="_blank">&#x53EF;&#x8BFB;&#x6D41;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x65B9;&#x4FBF;&#x7684;API&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BA9;&#x5185;&#x5BB9;&#x6D41;&#x52A8;&#x5230;&#x53EF;&#x5199;&#x6D41;&#xFF1A;<code>readable.pipe</code></a>&#xFF0C;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;API&#xFF0C;<code>Node.js</code>&#x4F1A;&#x81EA;&#x52A8;&#x5C06;&#x53EF;&#x8BFB;&#x6D41;&#x91CC;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x63A8;&#x9001;&#x5230;&#x53EF;&#x5199;&#x6D41;&#xFF0C;&#x6570;&#x636E;&#x6D41;&#x4F1A;&#x88AB;&#x81EA;&#x52A8;&#x7BA1;&#x7406;&#xFF0C;&#x6240;&#x4EE5;&#x5373;&#x4F7F;&#x53EF;&#x8BFB;&#x6D41;&#x66F4;&#x5FEB;&#xFF0C;&#x76EE;&#x6807;&#x53EF;&#x5199;&#x6D41;&#x4E5F;&#x4E0D;&#x4F1A;&#x8D85;&#x8D1F;&#x8377;&#xFF0C;&#x800C;&#x4E14;&#x5373;&#x4F7F;&#x4F60;&#x6587;&#x4EF6;&#x5F88;&#x5927;&#xFF0C;&#x56E0;&#x4E3A;&#x4E0D;&#x662F;&#x4E00;&#x6B21;&#x8BFB;&#x5165;&#x5185;&#x5B58;&#xFF0C;&#x800C;&#x662F;&#x6D41;&#x5F0F;&#x8BFB;&#x5165;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x4E0D;&#x4F1A;&#x7206;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5728;<code>Koa</code>&#x7684;<code>respond</code>&#x91CC;&#x9762;&#x652F;&#x6301;&#x4E0B;&#x6D41;&#x5F0F;<code>body</code>&#x5C31;&#x884C;&#x4E86;:</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">respond</span>(<span class="hljs-params">ctx</span>) </span>{
+  <span class="hljs-keyword">const</span> res = ctx.res; 
+  <span class="hljs-keyword">const</span> body = ctx.body; 
+
+  <span class="hljs-comment">// &#x5982;&#x679C;body&#x662F;&#x4E2A;&#x6D41;&#xFF0C;&#x76F4;&#x63A5;&#x7528;pipe&#x5C06;&#x5B83;&#x7ED1;&#x5B9A;&#x5230;res&#x4E0A;</span>
+  <span class="hljs-keyword">if</span> (body <span class="hljs-keyword">instanceof</span> Stream) <span class="hljs-keyword">return</span> body.pipe(res);
+
+  <span class="hljs-keyword">return</span> res.end(body); 
+}
+</code></pre>
+<p><code>Koa</code>&#x6E90;&#x7801;&#x5BF9;&#x4E8E;&#x6D41;&#x7684;&#x5904;&#x7406;&#x770B;&#x8FD9;&#x91CC;&#xFF1A;<a href="https://github.com/koajs/koa/blob/master/lib/application.js#L267" target="_blank">https://github.com/koajs/koa/blob/master/lib/application.js#L267</a></p>
+<h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x603B;&#x7ED3;</h2>
+<p>&#x73B0;&#x5728;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x81EA;&#x5DF1;&#x5199;&#x7684;<code>koa-static</code>&#x6765;&#x66FF;&#x6362;&#x5B98;&#x65B9;&#x7684;&#x4E86;&#xFF0C;&#x8FD0;&#x884C;&#x6548;&#x679C;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;&#x6700;&#x540E;&#x6211;&#x4EEC;&#x518D;&#x6765;&#x56DE;&#x987E;&#x4E0B;&#x672C;&#x6587;&#x7684;&#x8981;&#x70B9;&#xFF1A;</p>
+<ol>
+<li><p>&#x672C;&#x6587;&#x662F;<code>Koa</code>&#x5E38;&#x7528;&#x9759;&#x6001;&#x670D;&#x52A1;&#x4E2D;&#x95F4;&#x4EF6;<code>koa-static</code>&#x7684;&#x6E90;&#x7801;&#x89E3;&#x6790;&#x3002;</p>
+</li>
+<li><p>&#x7531;&#x4E8E;&#x662F;&#x4E00;&#x4E2A;<code>Koa</code>&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;<code>koa-static</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x4E14;&#x9700;&#x8981;&#x7B26;&#x5408;&#x4E2D;&#x95F4;&#x4EF6;&#x8303;&#x5F0F;: <code>(ctx, next) =&gt; {}</code></p>
+</li>
+<li><p>&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x670D;&#x52A1;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;<code>koa-static</code>&#x672C;&#x5E94;&#x8BE5;&#x5B8C;&#x6210;&#x4EE5;&#x4E0B;&#x51E0;&#x4EF6;&#x4E8B;&#x60C5;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x8DEF;&#x5F84;&#x53D6;&#x51FA;&#x6B63;&#x786E;&#x7684;&#x6587;&#x4EF6;&#x5730;&#x5740;</li>
+<li>&#x901A;&#x8FC7;&#x5730;&#x5740;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;</li>
+<li>&#x4F7F;&#x7528;<code>Node.js</code>&#x7684;API&#x8FD4;&#x56DE;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x8BBE;&#x7F6E;&#x76F8;&#x5E94;&#x7684;<code>header</code></li>
+</ol>
+<p>&#x4F46;&#x662F;&#x8FD9;&#x51E0;&#x4EF6;&#x4E8B;&#x60C5;&#x4ED6;&#x4E00;&#x4EF6;&#x4E5F;&#x6CA1;&#x5E72;&#xFF0C;&#x90FD;&#x6254;&#x7ED9;<code>koa-send</code>&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x4ED6;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E5F;&#x8BF4;&#x4E86;&#x4ED6;&#x53EA;&#x662F;<code>wrapper for koa-send.</code></p>
+</li>
+<li><p>&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;<code>wrapper</code>&#x4ED6;&#x8FD8;&#x652F;&#x6301;&#x4E86;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#x7684;&#x914D;&#x7F6E;&#x9879;<code>opt.defer</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x9879;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x4ED6;&#x5728;&#x6240;&#x6709;<code>Koa</code>&#x4E2D;&#x95F4;&#x4EF6;&#x91CC;&#x9762;&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x8C03;&#x7528;<code>next</code>&#x7684;&#x65F6;&#x673A;&#x3002;&#x5982;&#x679C;&#x4F60;&#x7ED9;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x4F20;&#x4E86;<code>true</code>&#xFF0C;&#x4ED6;&#x5C31;&#x5148;&#x8C03;&#x7528;<code>next</code>&#xFF0C;&#x8BA9;&#x5176;&#x4ED6;&#x4E2D;&#x95F4;&#x4EF6;&#x5148;&#x6267;&#x884C;&#xFF0C;&#x81EA;&#x5DF1;&#x6700;&#x540E;&#x6267;&#x884C;&#xFF0C;&#x53CD;&#x4E4B;&#x4EA6;&#x7136;&#x3002;&#x6709;&#x4E86;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5C06;<code>/test.jpg</code>&#x8FD9;&#x79CD;&#x8BF7;&#x6C42;&#x5148;&#x4F5C;&#x4E3A;&#x666E;&#x901A;&#x8DEF;&#x7531;&#x5904;&#x7406;&#xFF0C;&#x8DEF;&#x7531;&#x6CA1;&#x5339;&#x914D;&#x4E0A;&#x518D;&#x5C1D;&#x8BD5;&#x9759;&#x6001;&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x5728;&#x67D0;&#x4E9B;&#x573A;&#x666F;&#x4E0B;&#x5F88;&#x6709;&#x7528;&#x3002;</p>
+</li>
+<li><p><code>koa-send</code>&#x624D;&#x662F;&#x771F;&#x6B63;&#x5904;&#x7406;&#x9759;&#x6001;&#x6587;&#x4EF6;&#xFF0C;&#x4ED6;&#x628A;&#x524D;&#x9762;&#x8BF4;&#x7684;&#x4E09;&#x4EF6;&#x4E8B;&#x5168;&#x5E72;&#x4E86;&#xFF0C;&#x5728;&#x62FC;&#x63A5;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x65F6;&#x8FD8;&#x4F7F;&#x7528;&#x4E86;<code>resolvePath</code>&#x6765;&#x9632;&#x5FA1;&#x5E38;&#x89C1;&#x653B;&#x51FB;&#x3002;</p>
+</li>
+<li><p><code>koa-send</code>&#x53D6;&#x6587;&#x4EF6;&#x65F6;&#x4F7F;&#x7528;&#x4E86;<code>fs</code>&#x6A21;&#x5757;&#x7684;API&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x53EF;&#x8BFB;&#x6D41;&#xFF0C;&#x5E76;&#x5C06;&#x5B83;&#x8D4B;&#x503C;&#x7ED9;<code>ctx.body</code>&#xFF0C;&#x540C;&#x65F6;&#x8BBE;&#x7F6E;&#x4E86;<code>ctx.type</code>&#x3002;</p>
+</li>
+<li><p>&#x901A;&#x8FC7;<code>ctx.type</code>&#x548C;<code>ctx.body</code>&#x8FD4;&#x56DE;&#x7ED9;&#x8BF7;&#x6C42;&#x8005;&#x5E76;&#x4E0D;&#x662F;<code>koa-send</code>&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x800C;&#x662F;<code>Koa</code>&#x672C;&#x8EAB;&#x7684;&#x529F;&#x80FD;&#x3002;&#x7531;&#x4E8E;<code>http</code>&#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x548C;&#x7684;<code>res</code>&#x672C;&#x8EAB;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x5199;&#x6D41;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x53EF;&#x8BFB;&#x6D41;&#x7684;<code>pipe</code>&#x51FD;&#x6570;&#x76F4;&#x63A5;&#x5C06;<code>ctx.body</code>&#x7ED1;&#x5B9A;&#x5230;<code>res</code>&#x4E0A;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x5DE5;&#x4F5C;<code>Node.js</code>&#x4F1A;&#x81EA;&#x52A8;&#x5E2E;&#x6211;&#x4EEC;&#x5B8C;&#x6210;&#x3002;</p>
+</li>
+<li><p>&#x4F7F;&#x7528;&#x6D41;(<code>Stream</code>)&#x6765;&#x8BFB;&#x5199;&#x6587;&#x4EF6;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x4F18;&#x70B9;&#xFF1A;</p>
+<ol>
+<li>&#x4E0D;&#x7528;&#x4E00;&#x6B21;&#x6027;&#x5C06;&#x6587;&#x4EF6;&#x8BFB;&#x5165;&#x5185;&#x5B58;&#xFF0C;&#x6682;&#x7528;&#x5185;&#x5B58;&#x5C0F;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6587;&#x4EF6;&#x5F88;&#x5927;&#xFF0C;&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x5B8C;&#x6574;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x53EF;&#x80FD;&#x8017;&#x65F6;&#x8F83;&#x957F;&#x3002;&#x4F7F;&#x7528;&#x6D41;&#xFF0C;&#x53EF;&#x4EE5;&#x4E00;&#x70B9;&#x4E00;&#x70B9;&#x8BFB;&#x6587;&#x4EF6;&#xFF0C;&#x8BFB;&#x5230;&#x4E00;&#x70B9;&#x5C31;&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x7ED9;<code>response</code>&#xFF0C;&#x6709;&#x66F4;&#x5FEB;&#x7684;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x3002;</li>
+<li><code>Node.js</code>&#x53EF;&#x4EE5;&#x5728;&#x53EF;&#x8BFB;&#x6D41;&#x548C;&#x53EF;&#x5199;&#x6D41;&#x4E4B;&#x95F4;&#x4F7F;&#x7528;&#x7BA1;&#x9053;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4F20;&#x8F93;&#xFF0C;&#x4F7F;&#x7528;&#x4E5F;&#x5F88;&#x65B9;&#x4FBF;&#x3002;</li>
+</ol>
+</li>
+</ol>
+<h2 id="&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;"><a name="&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;</h2>
+<p><code>koa-static</code>&#x6587;&#x6863;&#xFF1A;<a href="https://github.com/koajs/static" target="_blank">https://github.com/koajs/static</a></p>
+<p><code>koa-static</code>&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/static/blob/master/index.js" target="_blank">https://github.com/koajs/static/blob/master/index.js</a></p>
+<p><code>koa-send</code>&#x6587;&#x6863;&#xFF1A;<a href="https://github.com/koajs/send" target="_blank">https://github.com/koajs/send</a></p>
+<p><code>koa-send</code>&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/koajs/send/blob/master/index.js" target="_blank">https://github.com/koajs/send/blob/master/index.js</a></p>
+<p><strong>&#x6587;&#x7AE0;&#x7684;&#x6700;&#x540E;&#xFF0C;&#x611F;&#x8C22;&#x4F60;&#x82B1;&#x8D39;&#x5B9D;&#x8D35;&#x7684;&#x65F6;&#x95F4;&#x9605;&#x8BFB;&#x672C;&#x6587;&#xFF0C;&#x5982;&#x679C;&#x672C;&#x6587;&#x7ED9;&#x4E86;&#x4F60;&#x4E00;&#x70B9;&#x70B9;&#x5E2E;&#x52A9;&#x6216;&#x8005;&#x542F;&#x53D1;&#xFF0C;&#x8BF7;&#x4E0D;&#x8981;&#x541D;&#x556C;&#x4F60;&#x7684;&#x8D5E;&#x548C;GitHub&#x5C0F;&#x661F;&#x661F;&#xFF0C;&#x4F60;&#x7684;&#x652F;&#x6301;&#x662F;&#x4F5C;&#x8005;&#x6301;&#x7EED;&#x521B;&#x4F5C;&#x7684;&#x52A8;&#x529B;&#x3002;</strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x535A;&#x6587;GitHub&#x9879;&#x76EE;&#x5730;&#x5740;&#xFF1A; <a href="https://github.com/dennis-jiang/Front-End-Knowledges" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges</a></strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x6398;&#x91D1;&#x6587;&#x7AE0;&#x6C47;&#x603B;&#xFF1A;<a href="https://juejin.im/post/5e3ffc85518825494e2772fd" target="_blank">https://juejin.im/post/5e3ffc85518825494e2772fd</a></strong></p>
+<p><strong>&#x6211;&#x4E5F;&#x641E;&#x4E86;&#x4E2A;&#x516C;&#x4F17;&#x53F7;[&#x8FDB;&#x51FB;&#x7684;&#x5927;&#x524D;&#x7AEF;]&#xFF0C;&#x4E0D;&#x6253;&#x5E7F;&#x544A;&#xFF0C;&#x4E0D;&#x5199;&#x6C34;&#x6587;&#xFF0C;&#x53EA;&#x53D1;&#x9AD8;&#x8D28;&#x91CF;&#x539F;&#x521B;&#xFF0C;&#x6B22;&#x8FCE;&#x5173;&#x6CE8;~</strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="KoaRouter.html" class="navigation navigation-prev " aria-label="Previous page: 手写@koa/router源码">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../DesignPatterns/DesignPatterns.html" class="navigation navigation-next " aria-label="Next page: 设计模式">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"手写koa-static源码，深入理解静态服务器原理","level":"1.7.6","depth":2,"next":{"title":"设计模式","level":"1.8","depth":1,"path":"Articles/DesignPatterns/DesignPatterns.md","ref":"Articles/DesignPatterns/DesignPatterns.md","articles":[{"title":"从发布订阅模式入手读懂Node.js的EventEmitter源码","level":"1.8.1","depth":2,"path":"Articles/DesignPatterns/PubSub.md","ref":"Articles/DesignPatterns/PubSub.md","articles":[]},{"title":"封装代码的设计模式：工厂，建造者，单例，原型","level":"1.8.2","depth":2,"path":"Articles/DesignPatterns/Encapsulate.md","ref":"Articles/DesignPatterns/Encapsulate.md","articles":[]},{"title":"提高复用性的设计模式：桥接，享元，模板方法","level":"1.8.3","depth":2,"path":"Articles/DesignPatterns/Reusability.md","ref":"Articles/DesignPatterns/Reusability.md","articles":[]},{"title":"提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者","level":"1.8.4","depth":2,"path":"Articles/DesignPatterns/Extendability.md","ref":"Articles/DesignPatterns/Extendability.md","articles":[]},{"title":"提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录","level":"1.8.5","depth":2,"path":"Articles/DesignPatterns/Quality.md","ref":"Articles/DesignPatterns/Quality.md","articles":[]}]},"previous":{"title":"手写@koa/router源码","level":"1.7.5","depth":2,"path":"Articles/Node/KoaRouter.md","ref":"Articles/Node/KoaRouter.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/Node/KoaStatic.md","mtime":"2020-12-07T03:16:58.835Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-12-07T03:18:21.519Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

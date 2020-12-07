@@ -11,7 +11,7 @@
 2. 通过地址获取对应的文件
 3. 使用`Node.js`的API返回对应的文件，并设置相应的`header`
 
-`koa-static`的代码更通用，更优雅，但是基本思路还是一样的，下面我们来看看他是怎么做的吧。本文还是采用一贯套路，先看一下他的基本用法，然后从基本用法入手去读源码，并手写一个简化版的源码来替换他。
+`koa-static`的代码更通用，更优雅，而且对大文件有更好的支持，下面我们来看看他是怎么做的吧。本文还是采用一贯套路，先看一下他的基本用法，然后从基本用法入手去读源码，并手写一个简化版的源码来替换他。
 
 ## 基本用法
 
@@ -321,7 +321,7 @@ function respond(ctx) {
 }
 ```
 
-直接用`res.end`返回结果只能对一些简单对象有效，比如字符串什么的。对于复杂对象，比如文件，这个就不行了。那要怎么处理呢？回到`koa-send`源码里面，我们给`ctx.body`设置的值其实是一个可读流:
+直接用`res.end`返回结果只能对一些简单的小对象比较合适，比如字符串什么的。**对于复杂对象，比如文件，这个就合适了，因为你如果要用`res.write`或者`res.end`返回文件，你需要先把文件整个读入内存，然后作为参数传递，如果文件很大，服务器内存可能就爆了**。那要怎么处理呢？回到`koa-send`源码里面，我们给`ctx.body`设置的值其实是一个可读流:
 
 ```javascript
 ctx.body = fs.createReadStream(path)
@@ -331,7 +331,7 @@ ctx.body = fs.createReadStream(path)
 
 ![image-20201203154324281](../../images/Node/KoaStatic/image-20201203154324281.png)
 
-**所以`res`本身就是一个流`Stream`，那`Stream`的API就可以用了**。`ctx.body`是使用`fs.createReadStream`创建的，所以他是一个可读流，[可读流有一个很方便的API可以直接让内容流动到可写流：`readable.pipe`](http://nodejs.cn/api/stream.html#stream_readable_pipe_destination_options)，使用这个API，`Node.js`会自动将可读流里面的内容推送到可写流，数据流会被自动管理，所以即使可读流更快，目标可写流也不会超负荷。所以我们在`Koa`的`respond`里面支持下流式`body`就行了:
+**所以`res`本身就是一个流`Stream`，那`Stream`的API就可以用了**。`ctx.body`是使用`fs.createReadStream`创建的，所以他是一个可读流，[可读流有一个很方便的API可以直接让内容流动到可写流：`readable.pipe`](http://nodejs.cn/api/stream.html#stream_readable_pipe_destination_options)，使用这个API，`Node.js`会自动将可读流里面的内容推送到可写流，数据流会被自动管理，所以即使可读流更快，目标可写流也不会超负荷，而且即使你文件很大，因为不是一次读入内存，而是流式读入，所以也不会爆。所以我们在`Koa`的`respond`里面支持下流式`body`就行了:
 
 ```javascript
 function respond(ctx) {
@@ -369,7 +369,13 @@ function respond(ctx) {
 
 6. `koa-send`取文件时使用了`fs`模块的API创建了一个可读流，并将它赋值给`ctx.body`，同时设置了`ctx.type`。
 
-7. 通过`ctx.type`和`ctx.body`返回给请求者并不是`koa-send`的功能，而是`Koa`本身的功能。由于`http`模块提供和的`res`本身就是一个流，所以我们可以通过可读流的`pipe`函数直接将`ctx.body`绑定到`res`上，剩下的工作`Node.js`会自动帮我们完成。
+7. 通过`ctx.type`和`ctx.body`返回给请求者并不是`koa-send`的功能，而是`Koa`本身的功能。由于`http`模块提供和的`res`本身就是一个可写流，所以我们可以通过可读流的`pipe`函数直接将`ctx.body`绑定到`res`上，剩下的工作`Node.js`会自动帮我们完成。
+
+8. 使用流(`Stream`)来读写文件有以下几个优点：
+
+   1. 不用一次性将文件读入内存，暂用内存小。
+   2. 如果文件很大，一次性读完整个文件，可能耗时较长。使用流，可以一点一点读文件，读到一点就可以返回给`response`，有更快的响应时间。
+   3. `Node.js`可以在可读流和可写流之间使用管道进行数据传输，使用也很方便。
 
 ## 参考资料：
 

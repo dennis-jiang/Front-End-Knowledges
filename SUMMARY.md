@@ -37,6 +37,7 @@
     * [手写Express.js源码](/Articles/Node/Express.md)
     * [手写Koa源码](/Articles/Node/Koa.md)
     * [手写@koa/router源码](/Articles/Node/KoaRouter.md)
+    * [手写koa-static源码，深入理解静态服务器原理](/Articles/Node/KoaStatic.md)
 * [设计模式](/Articles/DesignPatterns/DesignPatterns.md)
     * [从发布订阅模式入手读懂Node.js的EventEmitter源码](/Articles/DesignPatterns/PubSub.md)
     * [封装代码的设计模式：工厂，建造者，单例，原型](/Articles/DesignPatterns/Encapsulate.md)
