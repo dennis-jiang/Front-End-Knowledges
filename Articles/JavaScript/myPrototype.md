@@ -195,7 +195,82 @@ const obj = new Child();
 console.log(obj.parentAge);    // 50
 ```
 
-当然还有很多其他的继承方式，他们的原理都差不多，只是实现方式不一样，核心都是让子类拥有父类的方法和属性，感兴趣的朋友可以自行查阅。
+### 组合继承
+
+上面的继承已经有了基本原理，但是并不能适合所有场景，比如构造函数接收参数的场景就不行了，所以我们改造下这个代码：
+
+```javascript
+function Parent(age) {
+  this.age = age;    // age从参数传进来
+}
+function Child(age) {
+  Parent.call(this, age);    // 调用父级构造函数，设置age
+  // 下面Child可以干自己想干的
+}
+
+Child.prototype = new Parent();
+Child.prototype.constructor = Child;      
+
+const obj = new Child(50);
+console.log(obj.age);    // 50
+```
+
+这段代码里面，我们在`Child`里面先调用了`Parent`的构造函数，让`Parent`的初始化也对`Child`生效。这个函数里面`Parent`的作用是设置`age`，因为在`Child`也运行了，所以`Child`实例上也有了`age`。现在我们看下`obj`长什么样子：
+
+![image-20201213134136809](../../images/JavaScript/myPrototype/image-20201213134136809.png)
+
+嗯，`obj.age`是`50`，符合我们的预期，但是`obj.__proto__.age`是从哪里来的，而且还有个值是`undefined`？
+
+### 寄生组合继承
+
+上面的`obj.__proto__.age`其实是我们继承时运行下面这行代码来的：
+
+```javascript
+Child.prototype = new Parent();
+```
+
+这行代码的作用是给`Child.prototype`设置值，但是设置的方式是执行了一次`Parent`的构造函数，执行`Parent`的构造函数构造函数自然就会运行`this.age = age; `，由于我们没给`age`传值，所以他就是`undefined`的。但是这种结果不是我们想要的！我们已经在`Child`构造函数里面调用过`Parent`构造函数了，已经设置了`age`到`Child`的实例上，我们不需要再来个`age`到实例的原型上！而且这会造成一种后果，即使我们`delete obj.age`，我们仍然能够在原型上访问到这个值，虽然这会儿他的值是`undefined`，但是仍然跟我们预期不一样。换句话说，`Child`继承`Parent`的时候，我只希望`Child.prototype`获取`Parent.prototype`上的值，而不需要`Parent`实例属性。要解决这个问题，我们就引入了寄生组合继承，这种继承方式跟上面的只有一行代码不一样：
+
+```javascript
+function Parent(age) {
+  this.age = age;    
+}
+Parent.prototype.instanceFunc = () => {}    // 为了看清楚，我们给Parent加了一个实例方法，不影响继承方式
+
+function Child(age) {
+  Parent.call(this, age);    
+}
+
+Child.prototype = Object.create(Parent.prototype);                 // 就这一行代码不一样
+Child.prototype.constructor = Child;      
+
+const obj = new Child(50);
+console.log(obj.age);    // 50
+```
+
+上面代码就给`Child.prototype`赋值这一行不一样，从：
+
+```javascript
+Child.prototype = new Parent();
+```
+
+变成了：
+
+```
+Child.prototype = Object.create(Parent.prototype);
+```
+
+运行结果是一样的，但是我们把`obj`打印出来看卡就不一样了：
+
+![image-20201213135401527](../../images/JavaScript/myPrototype/image-20201213135401527.png)
+
+我们发现`obj.__proto__.age`这个属性不存在了，但是`Parent`的实例方法`instanceFunc`我们还是能够访问的。这就符合我们的预期了，实现这个的关键是使用`Object.create(proto)`，这个方法会创建一个新的对象`newObj`，并让这个`newObj`的原型指向传入的参数`proto`，即：
+
+```javascript
+newObj.__proto__ = proto;
+```
+
+然后将`newObj`赋值给`Child.prototype`就实现了上述效果，这就是寄生组合继承，也是后面要说的`Class`关键字的实现方式。
 
 ## 自己实现一个new
 
@@ -297,7 +372,7 @@ console.log(myPuppy.say());       // 汪汪汪
 console.log(Puppy.statciFunc());  // 我是静态方法，this拿不到实例对象
 ```
 
-使用class可以让我们的代码看起来更像标准的面向对象，构造函数，实例方法，静态方法都有明确的标识。但是他本质只是改变了一种写法，所以可以看做是一种语法糖，如果你去看babel编译后的代码，你会发现他其实也是把class编译成了我们前面的函数类，extends关键字也是使用我们前面的原型继承的方式实现的。
+使用class可以让我们的代码看起来更像标准的面向对象，构造函数，实例方法，静态方法都有明确的标识。但是他本质只是改变了一种写法，所以可以看做是一种语法糖，如果你去看babel编译后的代码，你会发现他其实也是把class编译成了我们前面的函数类，extends关键字也是使用我们前面的寄生组合继承的方式实现的。
 
 ## 总结
 
