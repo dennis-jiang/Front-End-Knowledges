@@ -58,5 +58,7 @@
     * [三层商品选项优化](/Articles/DataStructureAndAlgorithm/OptimizeVariations.md)
 * [实战项目](/Articles/Projects/Projects.md)
     * [分数计算器](/Articles/Projects/FractionCalcualator.md)
+* [年终总结](/Articles/AnnualReview/AnnualReview.md)
+    * [2020年终总结](/Articles/AnnualReview/AnnualReview2020.md)
 
 
