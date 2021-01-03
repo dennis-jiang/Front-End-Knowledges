@@ -7,6 +7,8 @@
 3. `mono-repo`适用的场景分析。
 4. 产出一个可以跨项目共享组件的项目架构。
 
+**本文产出的架构模板已经上传到GitHub，如果你刚好需要一个mono-repo + react的模板，直接clone下来吧：[https://github.com/dennis-jiang/mono-repo-demo](https://github.com/dennis-jiang/mono-repo-demo)**
+
 ## 需求
 
 ### 需求概况
@@ -478,7 +480,7 @@ lerna publish
 
 ## 总结
 
-这个`mono-repo`工程我已经把代码清理了一下，上传到了GitHub，如果你刚好需要一个`mono-repo + react`的项目模板，直接clone吧：[https://github.com/dennis-jiang/mono-repo-demo](https://github.com/dennis-jiang/mono-repo-demo)
+**这个`mono-repo`工程我已经把代码清理了一下，上传到了GitHub，如果你刚好需要一个`mono-repo + react`的项目模板，直接clone吧：[https://github.com/dennis-jiang/mono-repo-demo](https://github.com/dennis-jiang/mono-repo-demo)**
 
 下面我们再来回顾下本文的要点：
 
