@@ -507,7 +507,7 @@ lerna publish
 
 **作者博文GitHub项目地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
 
-**作者掘金文章汇总：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
+**“前端进阶知识”系列文章：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
 
 **欢迎关注我的公众号[进击的大前端](http://dennisgo.cn/images/Others/QR430.jpg)第一时间获取高质量原创~**
 
