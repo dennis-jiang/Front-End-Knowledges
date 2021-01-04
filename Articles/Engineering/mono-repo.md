@@ -150,7 +150,7 @@ npx lerna init
 }
 ```
 
-`packages`字段就是标记你子项目的位置，默认就是`packages/`文件夹，当然他是一个数组，所以是支持多个不同位置的。另外一个需要特别注意的是`version`字段，这个字段有两个类型的值，一个是像上面的`0.0.0`这样一个具体版本号，还可以是`independent`这个关键字。如果是`0.0.0`这种具体版本号，那`lerna`管理的所有子项目都会有相同的版本号----`0.0.0`，如果你设置为`independent`，那各个子项目可以有自己的版本号，比如子项目1的版本号是`0.0.0`，子项目2的版本号可以是`0.1.0`。
+`packages`字段就是标记你子项目的位置，默认就是`packages/`文件夹，他是一个数组，所以是支持多个不同位置的。另外一个需要特别注意的是`version`字段，这个字段有两个类型的值，一个是像上面的`0.0.0`这样一个具体版本号，还可以是`independent`这个关键字。如果是`0.0.0`这种具体版本号，那`lerna`管理的所有子项目都会有相同的版本号----`0.0.0`，如果你设置为`independent`，那各个子项目可以有自己的版本号，比如子项目1的版本号是`0.0.0`，子项目2的版本号可以是`0.1.0`。
 
 ### 创建子项目
 
@@ -166,7 +166,7 @@ npx lerna init
 lerna create <name>
 ```
 
-也可以自己手动创建文件夹，这里`common`子项目我就用`lerna`命令创建吧，`lerna create common`，运行后·`common`文件夹就出现在`packages`下面了：
+也可以自己手动创建文件夹，这里`common`子项目我就用`lerna`命令创建吧，`lerna create common`，运行后`common`文件夹就出现在`packages`下面了：
 
 ![image-20201231145959966](../../images/engineering/mono-repo/image-20201231145959966.png)
 
@@ -427,7 +427,7 @@ yarn eject
 
 ### 发布
 
-最后要注意的一点是，当我们修改完成后，需要发布了，一定要使用`lerna publish`，他会自动帮我更新依赖的版本号。比如我现在不稍微修改了一下水费表单，然后提交：
+最后要注意的一点是，当我们修改完成后，需要发布了，一定要使用`lerna publish`，他会自动帮我更新依赖的版本号。比如我现在稍微修改了一下水费表单，然后提交：
 
 ![image-20210102145343033](../../images/engineering/mono-repo/image-20210102145343033.png)
 
@@ -459,7 +459,7 @@ lerna publish
 
 ### independent version
 
-上面这种发布策略，我们修改了`common`的版本，`admin-site`的版本也跟着变了，按理来说，这个不是必须的，`admin-site`只需要更新依赖的`common`版本就行，自己的版本可以不变。**这种情况下，`admin-site`的版本要不要跟着变，取决于`lerna.json`里面的`version`配置，前面说过了，如果它是一个固定的指，那所有子项目版本会保持一致，所以`admin-site`版本会跟着变，我们将它改成`independent`就会不一样了。**
+上面这种发布策略，我们修改了`common`的版本，`admin-site`的版本也变成了一样的，按理来说，这个不是必须的，`admin-site`只是更新依赖的`common`版本，自己的版本不一定是升级一个`minor`，也许只是一个`patch`。**这种情况下，`admin-site`的版本要不要跟着变，取决于`lerna.json`里面的`version`配置，前面说过了，如果它是一个固定的指，那所有子项目版本会保持一致，所以`admin-site`版本会跟着变，我们将它改成`independent`就会不一样了。**
 
 ```json
 // lerna.json
@@ -488,7 +488,7 @@ lerna publish
 2. 经过分析，我们决定将柜员端和客户自助端部署为两个站点。
 3. 为了这两个站点，我们新建了两个项目，这样扩展性更好。
 4. 这两个项目有很多长得一样的业务组件，我们需要复用他们。
-5. 为了复用这些业务组件，我们引入了`mono-repo`的架构来进行项目管理。
+5. 为了复用这些业务组件，我们引入了`mono-repo`的架构来进行项目管理，`mono-repo`特别适合联系紧密的多个项目。
 6. `mono-repo`最出名的工具是`lerna`。
 7. `lerna`可以自动管理各个项目之间的依赖以及`node_modules`。
 8. 使用`lerna bootstrap --hoist`可以将子项目的`node_modules`提升到顶层，解决`node_modules`重复的问题。
@@ -505,9 +505,9 @@ lerna publish
 
 **文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
 
-**作者博文GitHub项目地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
+**欢迎关注我的公众号[进击的大前端](https://test-dennis.oss-cn-hangzhou.aliyuncs.com/QRCode/QR430.jpg)第一时间获取高质量原创~**
 
 **“前端进阶知识”系列文章：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
 
-**欢迎关注我的公众号[进击的大前端](http://dennisgo.cn/images/Others/QR430.jpg)第一时间获取高质量原创~**
+**“前端进阶知识”系列文章源码GitHub地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
 

@@ -50,6 +50,7 @@
     * [Underscore源码架构](/Articles/Architecture/Undersocre.md)
 * [工程化](/Articles/Engineering/Engineering.md)
     * [前端负责人/架构师职责](/Articles/Engineering/leader.md)
+    * [mono-repo + react](/Articles/Engineering/mono-repo.md)
 * [数据结构和算法](/Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md)
     * [排序算法](/Articles/DataStructureAndAlgorithm/Sorting.md)
     * [链表](/Articles/DataStructureAndAlgorithm/LinkedList.md)
