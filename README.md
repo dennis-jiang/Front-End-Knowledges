@@ -53,6 +53,8 @@
   * [手写Koa.js源码](https://juejin.im/post/6892952604163342344)
   * [手写@koa/router源码](https://juejin.im/post/6895594434843869197)
   * [手写koa-static源码，深入理解静态服务器原理](https://juejin.cn/post/6903350655474204680)
+* 工程化
+  * [使用mono-repo实现跨项目组件共享](https://juejin.cn/post/6913788953971654663)
 * 设计模式
   * [(推荐！！)不知道怎么封装代码？看看这几种设计模式吧！](https://juejin.im/post/5ec737b36fb9a04799583002)
   * [不知道怎么提高代码复用性？看看这几种设计模式吧！](https://juejin.im/post/5ecb67846fb9a047b534a346)
@@ -62,7 +64,6 @@
 * 架构和源码
   * [(推荐！！)从架构入手轻松读懂框架源码：以jQuery，Zepto，Vue和lodash-es为例](https://juejin.im/post/5e549c4d6fb9a07cd614d268)
   * [深入解析Underscore.js源码架构](https://juejin.im/post/5e74294de51d45270d533191)
-* 工程化
 * 数据结构和算法
   * [前端也能学算法：JS版常见排序算法-冒泡，插入，快排，归并](https://juejin.im/post/5e3cc31f51882549291268bf)
   * [前端也能学算法：JS版链表](https://juejin.im/post/5e3cc377f265da572e4f18d0)
