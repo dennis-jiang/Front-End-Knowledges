@@ -260,7 +260,7 @@ Child.prototype = new Parent();
 Child.prototype = Object.create(Parent.prototype);
 ```
 
-运行结果是一样的，但是我们把`obj`打印出来看卡就不一样了：
+运行结果是一样的，但是我们把`obj`打印出来看看就不一样了：
 
 ![image-20201213135401527](../../images/JavaScript/myPrototype/image-20201213135401527.png)
 
