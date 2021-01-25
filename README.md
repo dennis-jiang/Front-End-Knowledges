@@ -12,7 +12,7 @@
 
 也欢迎关注我的公众号【进击的大前端】，第一时间获取优质原创~
 
-![QR](https://test-dennis.oss-cn-hangzhou.aliyuncs.com/QRCode/QR1270.png)
+![image-20210102202538973](./images/Others/QRCode.jpg)
 
 已经完成的文章如下:
 
