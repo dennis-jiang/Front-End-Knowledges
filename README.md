@@ -10,9 +10,7 @@
 
 思否：[https://segmentfault.com/u/jiangpengfei_5ecce944a3d8a](https://segmentfault.com/u/jiangpengfei_5ecce944a3d8a)
 
-也欢迎关注我的公众号【进击的大前端】，第一时间获取优质原创~
-
-![image-20210102202538973](./images/Others/QRCode.jpg)
+也欢迎关注我的公众号【进击的大前端】，第一时间获取优质原创，末尾有公众号二维码~
 
 已经完成的文章如下:
 
@@ -74,4 +72,10 @@
   * [(推荐！！)学以致用：手把手教你撸一个工具库并打包发布，顺便解决JS浮点数计算精度问题](https://juejin.im/post/5e64cf0ef265da5734024f84)
 
 Github地址： https://github.com/dennis-jiang/Front-End-Knowledges
+
+扫描下方的二维码，关注我的公众号【进击的大前端】，第一时间获取优质原创~
+
+由于GitHub图片转存，可能需要科学上网才能看到。
+
+![QR](https://test-dennis.oss-cn-hangzhou.aliyuncs.com/QRCode/QR1270.png)
 
