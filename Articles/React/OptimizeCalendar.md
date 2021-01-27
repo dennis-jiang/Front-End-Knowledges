@@ -1,14 +1,13 @@
 # 歪门邪道性能优化：魔改三方库源码，性能提高几十倍！
 
-本文会分享一个React性能优化的故事，这也是我在工作中真实遇到的故事，最终我们是通过魔改第三方库源码将它性能提高了几十倍。我们还将性能优化部分单独抽离，给这个第三方库提了一个PR，这个第三方库也是很有名的，在GitHub上有4.5k star，这就是：[react-big-calendar](https://github.com/jquense/react-big-calendar)。
+本文会分享一个React性能优化的故事，这也是我在工作中真实遇到的故事，最终我们是通过魔改第三方库源码将它性能提高了几十倍。这个第三方库也是很有名的，在GitHub上有4.5k star，这就是：[react-big-calendar](https://github.com/jquense/react-big-calendar)。
 
 在本文中你可以看到：
 
 1. React常用性能分析工具的使用介绍
 2. 性能问题的定位思路
-3. 常见性能优化的方式和效果
+3. 常见性能优化的方式和效果：`PureComponent`,  `shouldComponentUpdate`, `Context`, `按需渲染`等等
 4. 对于第三方库的问题的解决思路
-5. 产出一个性能优化的PR，造福大家
 
 关于我工作中遇到的故事，我前面其实也分享过两篇文章了：
 
@@ -16,7 +15,7 @@
 
 2. [使用mono-repo实现跨项目组件共享](https://juejin.cn/post/6913788953971654663)
 
-特别是**速度提高几百倍，记一次数据结构在实际工作中的运用**，这篇文章在某平台单篇阅读都有三万多，有些朋友也提出了质疑。觉得我这篇文章里面提到的问题现实中不太可能遇到，里面的性能优化更多是偏理论的，有点杞人忧天。这个观点我基本是认可的，我在那篇文章正文也提到过可能是个伪需求，但是因此否定这篇文章的价值我是不认可的，技术问题本来很多就是理论上的，你在leetcode上刷题还是纯理论呢，理论结合实际才能发挥其真正的价值，即使是杞人忧天，但是性能确实快上了那么一点点，我觉得也是值得的。
+特别是**速度提高几百倍，记一次数据结构在实际工作中的运用**，这篇文章在某平台单篇阅读都有三万多，有些朋友也提出了质疑。觉得我这篇文章里面提到的问题现实中不太可能遇到，里面的性能优化更多是偏理论的，有点杞人忧天。这个观点我基本是认可的，我在那篇文章正文也提到过可能是个伪需求，但是技术问题本来很多就是理论上的，我们在leetcode上刷题还是纯理论呢，理论结合实际才能发挥其真正的价值，即使是杞人忧天，但是性能确实快上了那么一点点，也给大家提供了另一个思路，我觉得也是值得的。
 
 与之相对的，本文提到的问题完全不是杞人忧天了，而是实打实的用户需求，我们经过用户调研，发现用户确实有这么多数据量，需求上不可能再压缩了，只能技术上优化，这也是逼得我们去改第三方库源码的原因。
 
@@ -36,7 +35,7 @@
 
 ![image-20210117112848684](../../images/React/OptimizeCalendar/image-20210117112848684.png)
 
-本周**场馆1全满**！！如果老板想要为客户找到一个有空的场地，他需要连续切换场馆1，场馆2。。。一直到场馆20，手都点酸了。。。为了减少老板手的负担，我们的产品经理提出一个需求，同时在页面上显示10个场馆的日历，好在`react-big-calendar`本身就是支持这个的，他把这个叫做[resources](http://jquense.github.io/react-big-calendar/examples/index.html#prop-resources)。
+本周**场馆1全满**！！如果老板想要为客户找到一个有空的场地，他需要连续切换场馆1，场馆2。。。一直到场馆20，手都点酸了。。。为了减少老板手的负担，我们的产品经理提出一个需求，**同时在页面上显示10个场馆的日历**，好在`react-big-calendar`本身就是支持这个的，他把这个叫做[resources](http://jquense.github.io/react-big-calendar/examples/index.html#prop-resources)。
 
 ## 性能爆炸
 
@@ -54,7 +53,7 @@
 4. 等你想要的结果出来，我这里就是点击的预定颜色加深
 5. 再点击左上角的小圆点，结束录制就可以看到了
 
-为了让大家看得更清楚，我这里录制了一个操作的动图：
+为了让大家看得更清楚，我这里录制了一个操作的动图，这个图可以看到，点击操作的响应花了很长时间，Chrome加载这个性能数据也花了很长时间：
 
 ![Jan-17-2021 12-51-51](../../images/React/OptimizeCalendar/Jan-17-2021 12-51-51.gif)
 
@@ -82,17 +81,19 @@
 
 ![Jan-17-2021 13-21-55](../../images/React/OptimizeCalendar/Jan-17-2021 13-21-55.gif)
 
-哼，这有点意思。。。我只是点击一个预定，你把整个日历的所有组件都给我更新了！那整个日历有多少组件呢？上面这个图可以看出`10:00 AM`到`10:30 AM`之间是一个大格子，其实这个大格子中间还有条分割线的，只是颜色较淡，看的不明显，也就是说每15分钟就是一个格子。这个15分钟是可以配置的，你也可以设置为1分钟，但是那样格子更多，性能更差！我们是根据需求给用户提供了15分钟，30分钟，1小时等三个选项。当用户选择15分钟的时候，渲染的格子最多，性能最差。
+哼，这有点意思。。。我只是点击一个预定，你把整个日历的所有组件都给我更新了！那整个日历有多少组件呢？上面这个图可以看出`10:00 AM`到`10:30 AM`之间是一个大格子，其实这个大格子中间还有条分割线，只是颜色较淡，看的不明显，也就是说每15分钟就是一个格子。这个15分钟是可以配置的，你也可以设置为1分钟，但是那样格子更多，性能更差！我们是根据需求给用户提供了15分钟，30分钟，1小时等三个选项。当用户选择15分钟的时候，渲染的格子最多，性能最差。
 
-那如果一个格子是15分钟，总共有多少格子呢？一天是`24 * 60 = 1440`分钟，15分钟一个格子，总共`96`个格子。我们周视图最多展示7天，那就是`7 * 96 = 672`格子，最多可以展示10个场馆，就是`672 * 10 = 6720`个格子，这还没算日期和时间本身占据的组件，四舍五入一下姑且就算`7000`个格子吧。
+那如果一个格子是15分钟，总共有多少格子呢？一天是`24 * 60 = 1440`分钟，15分钟一个格子，总共`96`个格子。我们周视图最多展示7天，那就是`7 * 96 = 672`格子，最多可以展示10个场馆，就是`672 * 10 = 6720`个格子，这还没算日期和时间本身占据的组件，四舍五入一下姑且就算**`7000`个格子**吧。
 
 **我仅仅是点击一下预定，你就把作为背景的7000个格子全部给我更新一遍，怪不得性能差**！
 
-再仔细看下上面这个动图，我点击的是小的那个事件，当我点击他时，注意大的那个事件也更新了，外面也有个蓝框，不是很明显，但是确实是更新了，在我后面调试打Log的时候也证实了这一点。所以在真实数据下，被更新的还有另外**1399个事件**，这其实也是不必要的。
+再仔细看下上面这个动图，我点击的是小的那个事件，当我点击他时，注意大的那个事件也更新了，外面也有个蓝框，不是很明显，但是确实是更新了，在我后面调试打Log的时候也证实了这一点。所以在真实1400条数据下，被更新的还有另外**1399个事件**，这其实也是不必要的。
+
+**我这里提到的`事件`和前文提到的`预定`是一个东西，`react-big-calendar`里面将这个称为`event`，也就是`事件`，对应我们业务的意义就是`预定`**。
 
 ### 为什么会这样？
 
-这个现象似曾相识呢，也是我们经常会犯的一个性能上的问题：**将一个状态放到最顶层，然后一层一层往下传，当下面某个元素更新了这个状态，会导致根节点更新，从而触发下面所有子节点的更新**。这里说的更新并不一定要重新渲染DOM节点，但是会运行每个子节点的`render`函数，然后根据`render`函数运行结果来做`diff`，看看要不要更新这个DOM节点。React在这一步会帮我们省略不必要的DOM操作，但是`render`函数的运行却是必须的，而成千上万次`render`函数的运行也会消耗大量性能。
+这个现象我好像似曾相识，也是我们经常会犯的一个性能上的问题：**将一个状态放到最顶层，然后一层一层往下传，当下面某个元素更新了这个状态，会导致根节点更新，从而触发下面所有子节点的更新**。这里说的更新并不一定要重新渲染DOM节点，但是会运行每个子节点的`render`函数，然后根据`render`函数运行结果来做`diff`，看看要不要更新这个DOM节点。React在这一步会帮我们省略不必要的DOM操作，但是`render`函数的运行却是必须的，而成千上万次`render`函数的运行也会消耗大量性能。
 
 说到这个我想起以前看到过的一个资料，也是讲这个问题的，他用了一个一万行的列表来做例子，原文在这里：[high-performance-redux](http://somebody32.github.io/high-performance-redux/)。下面这个例子来源于这篇文章：
 
@@ -266,7 +267,7 @@ export default connect(mapStateToProps, {markItem})(Item);
 
 ![image-20210117162411789](../../images/React/OptimizeCalendar/image-20210117162411789.png)
 
-`react-big-calendar`接收两个参数`onSelectEvent`和`selected`，`selected`表示当前被选中的事件(预定)，`onSelectEvent`可以用来改变`selected`的值。也就是说当我们选中某个预定的时候，会改变`selected`的值，由于这个参数是从顶层往下传的，所以他会引起下面所有子节点的更新，在我们这里就是差不多`7000个背景格子 + 1399个其他事件`不需要更新的组件更新了。
+`react-big-calendar`接收两个参数`onSelectEvent`和`selected`，`selected`表示当前被选中的事件(预定)，`onSelectEvent`可以用来改变`selected`的值。也就是说当我们选中某个预定的时候，会改变`selected`的值，由于这个参数是从顶层往下传的，所以他会引起下面所有子节点的更新，在我们这里就是差不多`7000个背景格子 + 1399个其他事件`，这样就导致不需要更新的组件更新了。
 
 ### 顶层selected换成Context?
 
@@ -408,7 +409,7 @@ shouldComponentUpdate(nextProps) {
 
 代码地址：[https://github.com/jquense/react-big-calendar/blob/master/src/Calendar.js#L790](https://github.com/jquense/react-big-calendar/blob/master/src/Calendar.js#L790)
 
-这行代码的意思是每次`props`改变都去重新计算状态`context`，而他的计算代码是这样的：
+这行代码的意思是每次`props`改变都去重新计算状态`state`，而他的计算代码是这样的：
 
 ![image-20210119151747973](../../images/React/OptimizeCalendar/image-20210119151747973.png)
 
@@ -424,7 +425,7 @@ shouldComponentUpdate(nextProps) {
 
 ### 歪门邪道shouldComponentUpdate
 
-如果只有一两个属性是这样返回新对象，我还可以考虑给他重构下，但是调试了一下发现有大量的属性都是这样，咱也不是他作者，也不知道会不会改坏功能，没敢乱动。但是不动性能也绷不住啊，想来想去，还是在儿子的`shouldComponentUpdate`上动点手脚吧。简单的`this.props[field] !== nextProps[field]`判断肯定是不行的，因为引用地址变啦，但是他内容其实是没变，那我们就判断他的内容吧。两个对象的深度比较需要使用递归，也可以参考`React diff`算法来进行性能优化，但是无论你怎么优化这个算法，性能最差的时候都是两个对象一样的时候，因为他们是一样的，你需要遍历到最深处才能肯定他们是一样的，如果对象很深，这种递归算法不见得会比运行一遍`render`快，我们面临的大多数情况都是这种性能最差的情况。所以递归对比不太靠谱，其实如果你对这些数据心里有数，没有循环引用什么的，你可以考虑直接将两个对象转化为字符串来进行对比，也就是
+如果只有一两个属性是这样返回新对象，我还可以考虑给他重构下，但是调试了一下发现有大量的属性都是这样，咱也不是他作者，也不知道会不会改坏功能，没敢乱动。但是不动性能也绷不住啊，想来想去，还是在儿子的`shouldComponentUpdate`上动点手脚吧。简单的`this.props[field] !== nextProps[field]`判断肯定是不行的，因为引用地址变啦，但是他内容其实是没变，那我们就判断他的内容吧。两个对象的深度比较需要使用递归，也可以参考`React diff`算法来进行性能优化，但是无论你怎么优化这个算法，性能最差的时候都是两个对象一样的时候，因为他们是一样的，你需要遍历到最深处才能肯定他们是一样的，如果对象很深，这种递归算法不见得会比运行一遍`render`快，而我们面临的大多数情况都是这种性能最差的情况。所以递归对比不太靠谱，其实如果你对这些数据心里有数，没有循环引用什么的，你可以考虑直接将两个对象转化为字符串来进行对比，也就是
 
 ```javascript
 JSON.stringify(this.props[field]) !== JSON.stringify(nextProps[field])
@@ -438,7 +439,7 @@ JSON.stringify(this.props[field]) !== JSON.stringify(nextProps[field])
 
 ### 按需渲染
 
-上面我们用`shouldComponentUpdate`阻止了7000个背景格子的更新，响应时间下降了两秒多，但是还是需要5秒多时间，这也很难接受，还需要进一步优化。按照我们之前说的如果还能阻止另外1399个事件的更新那就更好了，但是经过对他数据结构的分析，我们发现他的数据结构跟我们前面举的列表例子还不一样。我们列表的例子所有数据都在`items`里面，是否选中是`item`的一个属性，而`react-big-calendar`的数据结构里面`event`和`selectedEvent`是两个不同的属性，每个事件通过判断自己的`event`是否等于`selectedEvent`来判断自己是否被选中。这造成的结果就是每次我们选中一个事件，`selectedItem`的值都会变化，每个事件的属性都会变化，也就是会更新，运行`render`函数。如果不改这种数据结构，是阻止不了另外1399个事件更新的。但是改这个数据结构改动太大，对于一个第三方库，我们又不想动这么多，怎么办呢？
+上面我们用`shouldComponentUpdate`阻止了7000个背景格子的更新，响应时间下降了两秒多，但是还是需要5秒多时间，这也很难接受，还需要进一步优化。按照我们之前说的如果还能阻止另外1399个事件的更新那就更好了，但是经过对他数据结构的分析，我们发现他的数据结构跟我们前面举的列表例子还不一样。我们列表的例子所有数据都在`items`里面，是否选中是`item`的一个属性，而`react-big-calendar`的数据结构里面`event`和`selectedEvent`是两个不同的属性，每个事件通过判断自己的`event`是否等于`selectedEvent`来判断自己是否被选中。这造成的结果就是每次我们选中一个事件，`selectedEvent`的值都会变化，每个事件的属性都会变化，也就是会更新，运行`render`函数。如果不改这种数据结构，是阻止不了另外1399个事件更新的。但是改这个数据结构改动太大，对于一个第三方库，我们又不想动这么多，怎么办呢？
 
 这条路走不通了，我们完全可以换一个思路，背景7000个格子，再加上1400个事件，用户屏幕有那么大吗，看得完吗？肯定是看不完的，既然看不完，那我们只渲染他能看到部分不就可以了！按照这个思路，我们找到了一个库：[react-visibility-sensor](https://www.npmjs.com/package/react-visibility-sensor)。这个库使用方法也很简单：
 
@@ -503,7 +504,7 @@ Event.contextType = SelectContext;
 
 ![image-20210119170345316](../../images/React/OptimizeCalendar/image-20210119170345316.png)
 
-一次点击同时触发了三个点击事件：`mousedown`，`mouseup`，`click`。如果我们能干掉`mousedown`，`mouseup`是不是时间又可以省一半，先去看看他注册这两个事件时干什么的吧。可以直接在代码里面全局搜`mousedown`，最终发现都是在[Selection.js](https://github.com/jquense/react-big-calendar/blob/master/src/Selection.js)，通过对这个类代码的阅读，发现他是个典型的观察者模式，然后再搜`new Selection`找到使用的地方，发现`mousedown`，`mouseup`主要是用来实现事件的拖拽功能的，`mousedown`标记拖拽开始，`mouseup`标记拖拽结束。如果我把它去掉，拖拽功能就没有了。经过跟产品经理沟通，我们后面是需要拖拽的，所以这个不能去。
+一次点击同时触发了三个点击事件：`mousedown`，`mouseup`，`click`。如果我们能干掉`mousedown`，`mouseup`是不是时间又可以省一半，先去看看他注册这两个事件时干什么的吧。可以直接在代码里面全局搜`mousedown`，最终发现都是在[Selection.js](https://github.com/jquense/react-big-calendar/blob/master/src/Selection.js)，通过对这个类代码的阅读，发现他是个典型的观察者模式，然后再搜`new Selection`找到使用的地方，发现`mousedown`，`mouseup`主要是用来实现事件的拖拽功能的，`mousedown`标记拖拽开始，`mouseup`标记拖拽结束。如果我把它去掉，拖拽功能就没有了。经过跟产品经理沟通，我们后面是需要拖拽的，所以这个不能删。
 
 事情进行到这里，我也没有更多办法了，但是响应时间还是有4秒，真是让人头大
 
@@ -511,11 +512,11 @@ Event.contextType = SelectContext;
 
 反正没啥好办法了，我就随便点着玩，突然，我发现`mousedown`的调用栈好像有点问题：
 
-![image-20210120144433528](/Users/djiang/Code/Mine/Front-End-Knowledges/images/React/OptimizeCalendar/image-20210120144433528.png)
+![image-20210120144433528](../../images/React/OptimizeCalendar/image-20210120144433528.png)
 
 这个调用栈我用数字分成了三块：
 
-1. 这里面有很多熟悉的函数名啊，像啥`performUnitOfWork`，`beginWork`，这不都是我在[React Fiber这篇文章中提过的吗?](https://juejin.cn/post/6844904197008130062)所以这些事React自己内部的函数调用
+1. 这里面有很多熟悉的函数名啊，像啥`performUnitOfWork`，`beginWork`，这不都是我在[React Fiber这篇文章中提过的吗?](https://juejin.cn/post/6844904197008130062)所以这些是React自己内部的函数调用
 2. `render`函数，这是某个组件的渲染函数
 3. 这个`render`里面又调用了`renderEvents`函数，看起来是用来渲染事件列表的，主要的时间都耗在这里了
 
@@ -557,8 +558,8 @@ class Calendar extends Component {
 ```javascript
 // Background.js
 // Background要不要使用shouldComponentUpdate阻止更新可以看看还有没有其他参数变化，因为selected已经从顶层拿掉了
-// 改变selected本来就不会触发Background更新了
-// 但是不再渲染单个事件，而是渲染EventContainer
+// 改变selected本来就不会触发Background更新
+// Background不再渲染单个事件，而是渲染EventContainer
 class Background extends PureComponent {
   render() {
     const { events } = this.props;
@@ -633,7 +634,7 @@ Event.contextType = SelectContext;    // 连接Context
 
 这种结构最大的变化就是当`selected`变化的时候，更新的节点是`EventContainer`，而不是顶层`Calendar`，这样就不会触发`Calendar`下其他节点的更新。缺点就是`Calendar`无法从外部接收`selected`了。
 
-需要注意一点是，如果像我们这样`EventContainer`下面直接渲染`Event`列表，`selected`不用`Context`也可以，可以直接作为`EventContainer`的`state`。但是如果`EventContainer`和`Event`中间还有层级，需要穿透传递，仍然需要`Context`，中间层级和以前的类似，使用`shouldComponentUpdate`阻止更新。
+需要注意一点是，如果像我们这样`EventContainer`下面直接渲染`Event`列表，`selected`不用`Context`也可以，可以直接作为`EventContainer`的`state`。**但是如果`EventContainer`和`Event`中间还有层级，需要穿透传递，仍然需要`Context`，中间层级和以前的类似，使用`shouldComponentUpdate`阻止更新**。
 
 还有一点，因为`selected`不在顶层了，所以`selected`更新也不会触发中间`Background`更新了，所以`Background`上的`shouldComponentUpdate`也可以删掉了。
 
@@ -647,7 +648,7 @@ Event.contextType = SelectContext;    // 连接Context
 
 上面这个动图已经基本看不出卡顿了，但是我们性能图上为啥还有800毫秒呢，而且有一个很长的`Timer Fired`。经过我们的仔细排查，发现这其实是个乌龙，`Timer Fired`在我一开始录制性能就出现了，那时候我还在切换页面，还没来得及点击呢，如果我们点进去会发现他其实是按需渲染引入的`react-visibility-sensor`的一个检查元素可见性的定时任务，并不是我们点击事件的响应时间。把这块去掉，我们点击事件的响应时间其实不到200毫秒。
 
-**从将近7秒优化到不到200毫秒，差不多三十多倍的性能优化，终于可以交差了，哈哈😃**
+**从7秒多优化到不到200毫秒，三十多倍的性能优化，终于可以交差了，哈哈😃**
 
 ## 总结
 
@@ -658,7 +659,7 @@ Event.contextType = SelectContext;    // 连接Context
 1. 使用了`JSON.stringify`来进行`shouldComponentUpdate`的对比优化，对于函数，`Symbol`属性的改变没法监听到，不适合开放使用，只能在数据自己可控的情况下小规模使用。
 2. 牺牲了一个暴露给外部的受控属性`selected`，破坏了功能。
 
-基于这两点，PR我们就没提了，但是提了一个issue，希望官方能够给我们更好的优化方案，issue地址在这里：
+基于这两点，PR我们就没提了，而是将修改后的代码放到了自己的私有NPM仓库。
 
 下面再来总结下本文面临的问题和优化思路：
 
@@ -701,4 +702,18 @@ Event.contextType = SelectContext;    // 连接Context
 #### 第三步优化的问题
 
 功能被阉割了，其他完美！
+
+## 参考资料：
+
+[react-big-calendar仓库](https://github.com/jquense/react-big-calendar)
+
+[high-performance-redux](http://somebody32.github.io/high-performance-redux/)
+
+**文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
+
+**欢迎关注我的公众号[进击的大前端](https://test-dennis.oss-cn-hangzhou.aliyuncs.com/QRCode/QR430.jpg)第一时间获取高质量原创~**
+
+**“前端进阶知识”系列文章：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
+
+**“前端进阶知识”系列文章源码GitHub地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
 
