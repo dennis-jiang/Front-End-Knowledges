@@ -44,6 +44,7 @@
   * [手写Redux-Saga源码](https://juejin.im/post/6885223002703822855)
   * [使用React-Router实现前端路由鉴权](https://juejin.im/post/5f1a45f2518825742109ec2b)
   * [手写React-Router源码，深入理解其原理](https://juejin.im/post/6855129007949398029)
+  * [歪门邪道性能优化：魔改三方库源码，性能提高几十倍！](https://juejin.cn/post/6922684424488222727)
 * Node.js
   * [(推荐！！)深入Node.js的模块加载机制，手写require函数](https://juejin.im/post/6866973719634542606)
   * [使用Node.js原生API写一个web服务器](https://juejin.im/post/6887797543212843016)
