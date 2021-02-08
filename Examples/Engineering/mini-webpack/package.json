@@ -20,6 +20,7 @@
     "@babel/parser": "^7.12.14",
     "@babel/traverse": "^7.12.13",
     "@babel/types": "^7.12.13",
+    "ejs": "^3.1.6",
     "lodash": "^4.17.20"
   }
 }

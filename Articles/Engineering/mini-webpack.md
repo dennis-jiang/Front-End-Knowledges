@@ -1,4 +1,4 @@
-# 手写一个webpack，深入理解其原理
+# 手写一个webpack，看看AST怎么用的
 
 本文开始我会围绕`webpack`和`babel`写一系列的工程化文章，这两个工具我虽然天天用，但是对他们的原理理解的其实不是很深入，写这些文章的过程其实也是我深入学习的过程。由于`webpack`和`babel`的体系太大，知识点众多，不可能一篇文章囊括所有知识点，目前我的计划是从简单入手，先实现一个最简单的可以运行的`webpack`，然后再往上一点点的加`plugin`, `loader`和`tree shaking`等功能。目前我计划会有这些文章：
 
@@ -10,6 +10,8 @@
 6. `babel`和`ast`原理
 
 所有文章都是原理或者源码解析，欢迎关注~
+
+**注意：本文主要讲`webpack`原理，在实现时并不严谨，而且只处理了`import`和`export`的`default`情况，如果你想在生产环境使用，请自己添加其他情况的处理和边界判断**。
 
 ## 为什么要用webpack
 
@@ -314,7 +316,7 @@ traverse(ast, {
     let importFilePath = path.join(path.dirname(config.entry), importFile);
     importFilePath = `./${importFilePath}.js`;
 
-    // 构建一个目标变量定义的AST节点
+    // 构建一个变量定义的AST节点
     const variableDeclaration = t.variableDeclaration("var", [
       t.variableDeclarator(
         t.identifier(
@@ -419,4 +421,222 @@ const helloWorldStr = (0,_helloWorld__WEBPACK_IMPORTED_MODULE_0__.default)();
 这样转换后，我们再重新生成一下代码，已经像那么个样子了：
 
 ![image-20210207175649607](../../images/engineering/mini-webpack/image-20210207175649607.png)
+
+### 递归解析多个文件
+
+现在我们有了一个`parseFile`方法来解析处理入口文件，但是我们的文件其实不止一个，我们应该依据模块的依赖关系，递归的将所有的模块都解析了。要实现递归解析也不复杂，因为前面的`parseFile`的依赖`dependcies`已经返回了：
+
+1. 我们创建一个数组存放文件的解析结果，初始状态下他只有入口文件的解析结果
+2. 根据入口文件的解析结果，可以拿到入口文件的依赖
+3. 解析所有的依赖，将结果继续加到解析结果数组里面
+4. 一直循环这个解析结果数组，将里面的依赖文件解析完
+5. 最后将解析结果数组返回就行
+
+写成代码就是这样：
+
+```javascript
+function parseFiles(entryFile) {
+  const entryRes = parseFile(entryFile); // 解析入口文件
+  const results = [entryRes]; // 将解析结果放入一个数组
+
+  // 循环结果数组，将它的依赖全部拿出来解析
+  for (const res of results) {
+    const dependencies = res.dependencies;
+    dependencies.map((dependency) => {
+      if (dependency) {
+        const ast = parseFile(dependency);
+        results.push(ast);
+      }
+    });
+  }
+
+  return results;
+}
+```
+
+然后就可以调用这个方法解析所有文件了：
+
+```javascript
+const allAst = parseFiles(config.entry);
+console.log(allAst);
+```
+
+看看解析结果吧：
+
+![image-20210208152330212](../../images/engineering/mini-webpack/image-20210208152330212.png)
+
+这个结果其实跟我们最终需要生成的`__webpack_modules__`已经很像了，但是还有两块没有处理：
+
+1. 一个是`import`进来的内容作为变量使用，比如
+
+   ```javascript
+   import hello from './hello';
+   
+   const world = 'world';
+   
+   const helloWorld = () => `${hello} ${world}`;
+   ```
+
+2. 另一个就是`export`语句还没处理
+
+### 替换`import`进来的变量(作为变量调用)
+
+前面我们已经用`CallExpression`处理过作为函数使用的`import`变量了，现在要处理作为变量使用的其实用`Identifier`处理下就行了，处理逻辑跟之前的`CallExpression`差不多：
+
+```javascript
+  traverse(ast, {
+    ImportDeclaration(p) {
+      // 跟以前一样的
+    },
+    CallExpression(p) {
+			// 跟以前一样的
+    },
+    Identifier(p) {
+      // 如果调用的是import进来的变量
+      if (p.node.name === importVarName) {
+        // 就将它替换为转换后的变量名字
+        p.node.name = `${importCovertVarName}.default`;
+      }
+    },
+  });
+```
+
+现在再运行下，`import`进来的变量名字已经变掉了：
+
+![image-20210208153942630](../../images/engineering/mini-webpack/image-20210208153942630.png)
+
+### 替换`export`语句
+
+从我们需要生成的结果来看，`export`需要进行两个处理：
+
+1. 如果一个文件有`export default`，需要添加一个`__webpack_require__.d`的辅助方法，内容都是固定的，加上就行。
+2. 将`export`转换为普通的变量定义。
+
+对应生成结果上的这两个：
+
+![image-20210208154959592](../../images/engineering/mini-webpack/image-20210208154959592.png)
+
+要处理`export`语句，在遍历`ast`的时候添加`ExportDefaultDeclaration`就行了：
+
+```javascript
+  traverse(ast, {
+    ImportDeclaration(p) {
+      // 跟以前一样的
+    },
+    CallExpression(p) {
+			// 跟以前一样的
+    },
+    Identifier(p) {
+      // 跟以前一样的
+    },
+    ExportDefaultDeclaration(p) {
+      hasExport = true; // 先标记是否有export
+
+      // 跟前面import类似的，创建一个变量定义节点
+      const variableDeclaration = t.variableDeclaration("const", [
+        t.variableDeclarator(
+          t.identifier("__WEBPACK_DEFAULT_EXPORT__"),
+          t.identifier(p.node.declaration.name)
+        ),
+      ]);
+
+      // 将当前节点替换为变量定义节点
+      p.replaceWith(variableDeclaration);
+    },
+  });
+```
+
+然后再运行下就可以看到`export`语句被替换了：
+
+![image-20210208160244276](../../images/engineering/mini-webpack/image-20210208160244276.png)
+
+然后就是根据`hasExport`变量判断在`AST`转换为代码的时候要不要加`__webpack_require__.d`辅助函数：
+
+```javascript
+const EXPORT_DEFAULT_FUN = `
+__webpack_require__.d(__webpack_exports__, {
+   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+});\n
+`;
+
+function parseFile(file) {
+  // 省略其他代码
+  // ......
+  
+  let newCode = generate(ast).code;
+
+  if (hasExport) {
+    newCode = `${EXPORT_DEFAULT_FUN} ${newCode}`;
+  }
+}
+```
+
+最后生成的代码里面`export`也就处理好了：
+
+![image-20210208161030554](../../images/engineering/mini-webpack/image-20210208161030554.png)
+
+### 把`__webpack_require__.r`的调用添上吧
+
+前面说了，最终生成的代码，每个模块前面都有个`__webpack_require__.r`的调用
+
+![image-20210208161321401](../../images/engineering/mini-webpack/image-20210208161321401.png)
+
+这个只是拿来给模块添加一个`__esModule`标记的，我们也给他加上吧，直接在前面`export`辅助方法后面加点代码就行了：
+
+```javascript
+const ESMODULE_TAG_FUN = `
+__webpack_require__.r(__webpack_exports__);\n
+`;
+
+function parseFile(file) {
+  // 省略其他代码
+  // ......
+  
+  let newCode = generate(ast).code;
+
+  if (hasExport) {
+    newCode = `${EXPORT_DEFAULT_FUN} ${newCode}`;
+  }
+  
+  // 下面添加模块标记代码
+  newCode = `${ESMODULE_TAG_FUN} ${newCode}`;
+}
+```
+
+再运行下看看，这个代码也加上了：
+
+![image-20210208161721369](../../images/engineering/mini-webpack/image-20210208161721369.png)
+
+### 创建代码模板
+
+到现在，最难的一块，模块代码的解析和转换我们其实已经完成了。下面要做的工作就比较简单了，因为最终生成的代码里面，各种辅助方法都是固定的，动态的部分就是前面解析的模块和入口文件。所以我们可以创建一个这样的模板，将动态的部分标记出来就行，其他不变的部分写死。这个模板文件的处理，你可以将它读进来作为字符串处理，也可以用模板引擎，我这里采用`ejs`模板引擎：
+
+```javascript
+// 模板文件，直接从webpack生成结果抄过来，改改就行
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+// 需要替换的__TO_REPLACE_WEBPACK_MODULES__
+/******/ 	var __webpack_modules__ = <%=__TO_REPLACE_WEBPACK_MODULES__%>;
+// 省略中间的辅助方法
+    /************************************************************************/
+    /******/ 	// startup
+    /******/ 	// Load entry module
+// 需要替换的__TO_REPLACE_WEBPACK_ENTRY
+    /******/ 	__webpack_require__(<%=__TO_REPLACE_WEBPACK_ENTRY__%>);
+    /******/ 	// This entry module used 'exports' so it can't be inlined
+    /******/ })()
+    ;
+    //# sourceMappingURL=main.js.map
+```
+
+### 生成最终的代码
+
+生成最终代码的思路就是：
+
+1. 根据前面生成好的模块代码生成最终的`__webpack_modules__`数组
+2. 使用`ejs`将这个数字替换到`__TO_REPLACE_WEBPACK_MODULES__`上
+3. 使用`ejs`将`__TO_REPLACE_WEBPACK_ENTRY__`替换为真正的入口文件
+4. 将替换好的代码输出到配置的输出路径上
+
+所以代码就是：
 
