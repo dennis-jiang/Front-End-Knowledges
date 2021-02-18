@@ -1,6 +1,6 @@
-# 手写一个webpack，看看AST怎么用的
+# 手写一个webpack，看看AST怎么用
 
-本文开始我会围绕`webpack`和`babel`写一系列的工程化文章，这两个工具我虽然天天用，但是对他们的原理理解的其实不是很深入，写这些文章的过程其实也是我深入学习的过程。由于`webpack`和`babel`的体系太大，知识点众多，不可能一篇文章囊括所有知识点，目前我的计划是从简单入手，先实现一个最简单的可以运行的`webpack`，然后再往上一点点的加`plugin`, `loader`和`tree shaking`等功能。目前我计划会有这些文章：
+本文开始我会围绕`webpack`和`babel`写一系列的工程化文章，这两个工具我虽然天天用，但是对他们的原理理解的其实不是很深入，写这些文章的过程其实也是我深入学习的过程。由于`webpack`和`babel`的体系太大，知识点众多，不可能一篇文章囊括所有知识点，目前我的计划是从简单入手，先实现一个最简单的可以运行的`webpack`，然后再在这个基础上看看`plugin`, `loader`和`tree shaking`等功能。目前我计划会有这些文章：
 
 1. 手写最简`webpack`，也就是本文
 2. `webpack`的`plugin`实现原理
@@ -10,6 +10,8 @@
 6. `babel`和`ast`原理
 
 所有文章都是原理或者源码解析，欢迎关注~
+
+**本文可运行代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack)**
 
 **注意：本文主要讲`webpack`原理，在实现时并不严谨，而且只处理了`import`和`export`的`default`情况，如果你想在生产环境使用，请自己添加其他情况的处理和边界判断**。
 
@@ -168,7 +170,7 @@ document.body.appendChild(component());
 
 虽然我们只有三个简单的JS文件，但是加上`webpack`自己的逻辑，编译后的文件还是有一百多行代码，所以即使我把具体逻辑折叠起来了，这个截图还是有点长，为了能够看清楚他的结构，我将它分成了4个部分，标记在了截图上，下面我们分别来看看这几个部分吧。
 
-1. 其实就是一个对象`__webpack_modules__`，这个对象里面有三个属性，属性名字是我们三个模块的文件路径，属性的值是一个函数，我们随便展开一个`./src/helloWorld.js`看下：
+1. 第一部分其实就是一个对象`__webpack_modules__`，这个对象里面有三个属性，属性名字是我们三个模块的文件路径，属性的值是一个函数，我们随便展开一个`./src/helloWorld.js`看下：
 
    ![image-20210203161613636](../../images/engineering/mini-webpack/image-20210203161613636.png)
 
@@ -178,7 +180,7 @@ document.body.appendChild(component());
 
    他只是在我们的代码前先调用了`__webpack_require__.r`和`__webpack_require__.d`，这两个辅助函数我们在后面会看到。
 
-   然后对我们的代码进行了一点点修改，将我们的`import`关键字改成了`__webpack_require__`函数，并用一个变量`_hello__WEBPACK_IMPORTED_MODULE_0__`来接收了`import`进来的内容，后面引用的地方也改成了这个，其他跟这个无关的代码，比如`const world = 'world';`还是保持原样的。
+   然后对我们的代码进行了一点修改，将我们的`import`关键字改成了`__webpack_require__`函数，并用一个变量`_hello__WEBPACK_IMPORTED_MODULE_0__`来接收了`import`进来的内容，后面引用的地方也改成了这个，其他跟这个无关的代码，比如`const world = 'world';`还是保持原样的。
 
    这个`__webpack_modules__`对象存了所有的模块代码，其实对于模块代码的保存，在不同版本的`webpack`里面实现的方式并不一样，我这个版本是`5.4.0`，在`4.x`的版本里面好像是作为数组存下来，然后在最外层的立即执行函数里面以参数的形式传进来的。但是不管是哪种方式，都只是转换然后保存一下模块代码而已。
 
@@ -230,7 +232,7 @@ document.body.appendChild(component());
 
 ### 使用AST解析代码
 
-由于我们需要将`import`这种代码转换成浏览器能识别的普通JS代码，所以我们首先要能够将代码解析出来。在解析代码的时候，可以将它读出来当成字符串替换，也可以使用更专业的`AST`来解析。`AST`全称叫`Abstract Syntax Trees`，也就是`抽象语法树`，是一个将代码用树来表示的数据结构，一个代码可以转换成`AST`，`AST`又可以转换成代码，而我们熟知的`babel`其实就可以做这个工作。要生成`AST`很复杂，涉及到编译原理，但是如果仅仅拿来用就比较简单了，本文就先不涉及复杂的编译原理，而是直接将`babel`生成好的`AST`拿来使用。这样我们将`AST`当成一个已经有的数据结构拿来用就行。
+由于我们需要将`import`这种代码转换成浏览器能识别的普通JS代码，所以我们首先要能够将代码解析出来。在解析代码的时候，可以将它读出来当成字符串替换，也可以使用更专业的`AST`来解析。`AST`全称叫`Abstract Syntax Trees`，也就是`抽象语法树`，是一个将代码用树来表示的数据结构，一个代码可以转换成`AST`，`AST`又可以转换成代码，而我们熟知的`babel`其实就可以做这个工作。要生成`AST`很复杂，涉及到编译原理，但是如果仅仅拿来用就比较简单了，本文就先不涉及复杂的编译原理，而是直接将`babel`生成好的`AST`拿来使用。
 
 **注意： webpack源码解析AST并不是使用的`babel`，而是使用的[acorn](https://github.com/acornjs/acorn)，webpack继承`acorn`的`Parser`，自己实现了一个[JavascriptParser](https://github.com/webpack/webpack/blob/a07a1269f0a0b23d40de6c9565eeaf962fbc8904/lib/javascript/JavascriptParser.js)，本文写作时采用了`babel`，这也是一个大家更熟悉的工具**。
 
@@ -259,7 +261,7 @@ console.log(ast);   // 把ast打印出来看看
 
 ![image-20210207154116026](../../images/engineering/mini-webpack/image-20210207154116026.png)
 
-从这个解析出来的`AST`我们可以看到，主要有4块代码：
+从这个解析出来的`AST`我们可以看到，`body`主要有4块代码：
 
 1. `ImportDeclaration`：就是第一行的`import`定义
 2. `VariableDeclaration`：第三行的一个变量申明
@@ -334,7 +336,7 @@ traverse(ast, {
 });
 ```
 
-上面这段代码我们用了很多`@babel/types`下面的API，比如`t.variableDeclaration`，`t.variableDeclarator`，这些都是用来创建对应的节点的，[具体的API可以看这里](https://babeljs.io/docs/en/babel-types#variabledeclaration)。注意这个代码里面我有很多写死的地方，比如`importFilePath`生成逻辑，还应该处理多种后缀名的，还有最终生成的变量名`__${path.basename(importFile)}__WEBPACK_IMPORTED_MODULE_0__`，最后的数字我也是直接写了`0`，按理来说应该是根据不同的`import`顺序来生成的，但是本文主要讲`webpack`的原理，这些细节上我就没花过多时间了。
+上面这段代码我们用了很多`@babel/types`下面的API，比如`t.variableDeclaration`，`t.variableDeclarator`，这些都是用来创建对应的节点的，[具体的API可以看这里](https://babeljs.io/docs/en/babel-types#variabledeclaration)。注意这个代码里面我有很多写死的地方，比如`importFilePath`生成逻辑，还应该处理多种后缀名的，还有最终生成的变量名`_${path.basename(importFile)}__WEBPACK_IMPORTED_MODULE_0__`，最后的数字我也是直接写了`0`，按理来说应该是根据不同的`import`顺序来生成的，但是本文主要讲`webpack`的原理，这些细节上我就没花过多时间了。
 
 上面的代码其实是修改了我们的`AST`，修改后的`AST`可以用`@babel/generator`又转换为代码：
 
@@ -393,7 +395,13 @@ parseFile(config.entry);
 
 ![image-20210207173744463](../../images/engineering/mini-webpack/image-20210207173744463.png)
 
-好了，现在需要将使用`import`的地方也替换了，因为我们已经知道了这个地方是将它作为函数调用的，也就是要将`const helloWorldStr = helloWorld();`转为这个样子：
+好了，现在需要将使用`import`的地方也替换了，因为我们已经知道了这个地方是将它作为函数调用的，也就是要将
+
+```javascript
+const helloWorldStr = helloWorld();
+```
+
+转为这个样子：
 
 ```javascript
 const helloWorldStr = (0,_helloWorld__WEBPACK_IMPORTED_MODULE_0__.default)();
@@ -509,8 +517,8 @@ console.log(allAst);
 
 从我们需要生成的结果来看，`export`需要进行两个处理：
 
-1. 如果一个文件有`export default`，需要添加一个`__webpack_require__.d`的辅助方法，内容都是固定的，加上就行。
-2. 将`export`转换为普通的变量定义。
+1. 如果一个文件有`export default`，需要添加一个`__webpack_require__.d`的辅助方法调用，内容都是固定的，加上就行。
+2. 将`export`语句转换为普通的变量定义。
 
 对应生成结果上的这两个：
 
@@ -616,13 +624,20 @@ function parseFile(file) {
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 // 需要替换的__TO_REPLACE_WEBPACK_MODULES__
-/******/ 	var __webpack_modules__ = <%=__TO_REPLACE_WEBPACK_MODULES__%>;
+/******/ 	var __webpack_modules__ = ({
+                <% __TO_REPLACE_WEBPACK_MODULES__.map(item => { %>
+                    '<%- item.file %>' : 
+                    ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+                        <%- item.code %>
+                    }),
+                <% }) %>
+            });
 // 省略中间的辅助方法
     /************************************************************************/
     /******/ 	// startup
     /******/ 	// Load entry module
 // 需要替换的__TO_REPLACE_WEBPACK_ENTRY
-    /******/ 	__webpack_require__(<%=__TO_REPLACE_WEBPACK_ENTRY__%>);
+    /******/ 	__webpack_require__('<%- __TO_REPLACE_WEBPACK_ENTRY__ %>');
     /******/ 	// This entry module used 'exports' so it can't be inlined
     /******/ })()
     ;
@@ -633,10 +648,77 @@ function parseFile(file) {
 
 生成最终代码的思路就是：
 
-1. 根据前面生成好的模块代码生成最终的`__webpack_modules__`数组
-2. 使用`ejs`将这个数字替换到`__TO_REPLACE_WEBPACK_MODULES__`上
-3. 使用`ejs`将`__TO_REPLACE_WEBPACK_ENTRY__`替换为真正的入口文件
-4. 将替换好的代码输出到配置的输出路径上
+1. 模板里面用`__TO_REPLACE_WEBPACK_MODULES__`来生成最终的`__webpack_modules__`
+2. 模板里面用`__TO_REPLACE_WEBPACK_ENTRY__`来替代动态的入口文件
+3. `webpack`代码里面使用前面生成好的`AST`数组来替换模板的`__TO_REPLACE_WEBPACK_MODULES__`
+4. `webpack`代码里面使用前面拿到的入口文件来替代模板的`__TO_REPLACE_WEBPACK_ENTRY__`
+5. 使用`ejs`来生成最终的代码
 
 所以代码就是：
+
+```javascript
+// 使用ejs将上面解析好的ast传递给模板
+// 返回最终生成的代码
+function generateCode(allAst, entry) {
+  const temlateFile = fs.readFileSync(
+    path.join(__dirname, "./template.js"),
+    "utf-8"
+  );
+
+  const codes = ejs.render(temlateFile, {
+    __TO_REPLACE_WEBPACK_MODULES__: allAst,
+    __TO_REPLACE_WEBPACK_ENTRY__: entry,
+  });
+
+  return codes;
+}
+```
+
+### 大功告成
+
+最后将`ejs`生成好的代码写入配置的输出路径就行了：
+
+```javascript
+const codes = generateCode(allAst, config.entry);
+
+fs.writeFileSync(path.join(config.output.path, config.output.filename), codes);
+```
+
+然后就可以像之前那样打开我们的`html`看看效果了：
+
+![image-20210218160539306](../../images/engineering/mini-webpack/image-20210218160539306.png)
+
+## 总结
+
+本文使用简单质朴的方式讲述了`webpack`的基本原理，并自己手写实现了一个基本的支持`import`和`export`的`default`的`webpack`。
+
+**本文可运行代码已经上传GitHub，大家可以拿下来玩玩：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack)**
+
+下面再就本文的要点进行下总结：
+
+1. `webpack`最基本的功能其实是将`JS`的高级模块化语句，`import`和`require`之类的转换为浏览器能认识的普通函数调用语句。
+2. 要进行语言代码的转换，我们需要对代码进行解析。
+3. 常用的解析手段是`AST`，也就是将代码转换为`抽象语法树`。
+4. `AST`是一个描述代码结构的树形数据结构，代码可以转换为`AST`，`AST`也可以转换为代码。
+5. `babel`可以将代码转换为`AST`，但是`webpack`官方并没有使用`babel`，而是基于[acorn](https://github.com/acornjs/acorn)自己实现了一个[JavascriptParser](https://github.com/webpack/webpack/blob/a07a1269f0a0b23d40de6c9565eeaf962fbc8904/lib/javascript/JavascriptParser.js)。
+6. 本文从`webpack`构建的结果入手，也使用`AST`自己生成了一个类似的代码。
+7. `webpack`最终生成的代码其实分为动态和固定的两部分，我们将固定的部分写入一个模板，动态的部分在模板里面使用`ejs`占位。
+8. 生成代码动态部分需要借助`babel`来生成`AST`，并对其进行修改，最后再使用`babel`将其生成新的代码。
+9. 在生成`AST`时，我们从配置的入口文件开始，递归的解析所有文件。即解析入口文件的时候，将它的依赖记录下来，入口文件解析完后就去解析他的依赖文件，在解析他的依赖文件时，将依赖的依赖也记录下来，后面继续解析。重复这种步骤，直到所有依赖解析完。
+10. 动态代码生成好后，使用`ejs`将其写入模板，以生成最终的代码。
+11. 如果要支持`require`或者`AMD`，其实思路是类似的，最终生成的代码也是差不多的，主要的差别在`AST`解析那一块。
+
+## 参考资历
+
+1. [babel操作AST文档](https://babeljs.io/docs/en/babel-types)
+2. [webpack源码](https://github.com/webpack/webpack/)
+3. [webpack官方文档](https://webpack.js.org/concepts/)
+
+**文章的最后，感谢你花费宝贵的时间阅读本文，如果本文给了你一点点帮助或者启发，请不要吝啬你的赞和GitHub小星星，你的支持是作者持续创作的动力。**
+
+**欢迎关注我的公众号[进击的大前端](https://test-dennis.oss-cn-hangzhou.aliyuncs.com/QRCode/QR430.jpg)第一时间获取高质量原创~**
+
+**“前端进阶知识”系列文章：[https://juejin.im/post/5e3ffc85518825494e2772fd](https://juejin.im/post/5e3ffc85518825494e2772fd)**
+
+**“前端进阶知识”系列文章源码GitHub地址： [https://github.com/dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)**
 

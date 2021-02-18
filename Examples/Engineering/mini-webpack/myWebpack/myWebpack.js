@@ -18,12 +18,6 @@ const ESMODULE_TAG_FUN = `
 __webpack_require__.r(__webpack_exports__);\n
 `;
 
-const FUN_WRAPPER = `
-((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-    __TO_REPLACE_FUN_CONTENT__
-})
-`;
-
 // 解析单个文件
 function parseFile(file) {
   // 读取入口文件
@@ -107,9 +101,6 @@ function parseFile(file) {
   // 下面添加模块标记代码
   newCode = `${ESMODULE_TAG_FUN} ${newCode}`;
 
-  // 下面添加代码外层的函数壳
-  newCode = FUN_WRAPPER.replace("__TO_REPLACE_FUN_CONTENT__", newCode);
-
   return {
     file,
     dependencies: [importFilePath],
@@ -117,6 +108,7 @@ function parseFile(file) {
   };
 }
 
+// 递归解析多个文件
 function parseFiles(entryFile) {
   const entryRes = parseFile(entryFile); // 解析入口文件
   const results = [entryRes]; // 将解析结果放入一个数组
@@ -135,35 +127,24 @@ function parseFiles(entryFile) {
   return results;
 }
 
+// 使用ejs将上面解析好的ast传递给模板
+// 返回最终生成的代码
 function generateCode(allAst, entry) {
-  const __webpack_modules__ = allAst.map((item) => {
-    const module = {};
-    module[item.file] = Function(item.code);
-
-    return module;
-  });
-
   const temlateFile = fs.readFileSync(
     path.join(__dirname, "./template.js"),
     "utf-8"
   );
 
-  //   const codes = ejs.render(temlateFile, {
-  //     __TO_REPLACE_WEBPACK_MODULES__: allAst,
-  //     __TO_REPLACE_WEBPACK_ENTRY__: entry,
-  //   });
-
-  const codes = temlateFile
-    .replace(
-      "__TO_REPLACE_WEBPACK_MODULES__",
-      JSON.stringify(__webpack_modules__)
-    )
-    .replace("__TO_REPLACE_WEBPACK_ENTRY__", entry);
+  const codes = ejs.render(temlateFile, {
+    __TO_REPLACE_WEBPACK_MODULES__: allAst,
+    __TO_REPLACE_WEBPACK_ENTRY__: entry,
+  });
 
   return codes;
 }
 
 const allAst = parseFiles(config.entry);
+
 const codes = generateCode(allAst, config.entry);
 
-console.log(codes);
+fs.writeFileSync(path.join(config.output.path, config.output.filename), codes);
