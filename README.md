@@ -54,6 +54,7 @@
   * [手写koa-static源码，深入理解静态服务器原理](https://juejin.cn/post/6903350655474204680)
 * 工程化
   * [使用mono-repo实现跨项目组件共享](https://juejin.cn/post/6913788953971654663)
+  * [手写一个webpack，看看AST怎么用](https://juejin.cn/post/6930877602840182791)
 * 设计模式
   * [(推荐！！)不知道怎么封装代码？看看这几种设计模式吧！](https://juejin.im/post/5ec737b36fb9a04799583002)
   * [不知道怎么提高代码复用性？看看这几种设计模式吧！](https://juejin.im/post/5ecb67846fb9a047b534a346)

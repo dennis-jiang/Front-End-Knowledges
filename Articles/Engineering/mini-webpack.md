@@ -710,7 +710,7 @@ fs.writeFileSync(path.join(config.output.path, config.output.filename), codes);
 10. 动态代码生成好后，使用`ejs`将其写入模板，以生成最终的代码。
 11. 如果要支持`require`或者`AMD`，其实思路是类似的，最终生成的代码也是差不多的，主要的差别在`AST`解析那一块。
 
-## 参考资历
+## 参考资料
 
 1. [babel操作AST文档](https://babeljs.io/docs/en/babel-types)
 2. [webpack源码](https://github.com/webpack/webpack/)
