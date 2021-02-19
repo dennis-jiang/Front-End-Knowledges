@@ -1,6 +1,6 @@
 # 手写一个webpack，看看AST怎么用
 
-本文开始我会围绕`webpack`和`babel`写一系列的工程化文章，这两个工具我虽然天天用，但是对他们的原理理解的其实不是很深入，写这些文章的过程其实也是我深入学习的过程。由于`webpack`和`babel`的体系太大，知识点众多，不可能一篇文章囊括所有知识点，目前我的计划是从简单入手，先实现一个最简单的可以运行的`webpack`，然后再在这个基础上看看`plugin`, `loader`和`tree shaking`等功能。目前我计划会有这些文章：
+本文开始我会围绕`webpack`和`babel`写一系列的工程化文章，这两个工具我虽然天天用，但是对他们的原理理解的其实不是很深入，写这些文章的过程其实也是我深入学习的过程。由于`webpack`和`babel`的体系太大，知识点众多，不可能一篇文章囊括所有知识点，目前我的计划是从简单入手，先实现一个最简单的可以运行的`webpack`，然后再看看`plugin`, `loader`和`tree shaking`等功能。目前我计划会有这些文章：
 
 1. 手写最简`webpack`，也就是本文
 2. `webpack`的`plugin`实现原理
@@ -87,7 +87,7 @@ function component() {
 document.body.appendChild(component());
 ```
 
-现在如果你直接在`html`里面引用`index.js`是不能运行成功的，因为大部分浏览器都不支持`import`这种模块导入。而`webpack`就是来解决这个问题的，将我们模块化的代码转换成浏览器认识的普通JS来执行。
+现在如果你直接在`html`里面引用`index.js`是不能运行成功的，因为大部分浏览器都不支持`import`这种模块导入。而`webpack`就是来解决这个问题的，它会将我们模块化的代码转换成浏览器认识的普通JS来执行。
 
 ### 引入webpack
 
@@ -154,7 +154,7 @@ document.body.appendChild(component());
    </html>
    ```
 
-5. 运行下`yarn build`就会执行我们前面写好的脚本，编译这个代码，然后打开`index.html`就可以看到效果了。
+5. 运行下`yarn build`就会编译我们的代码，然后打开`index.html`就可以看到效果了。
 
    ![image-20210203154111168](../../images/engineering/mini-webpack/image-20210203154111168.png)
 
@@ -165,6 +165,8 @@ document.body.appendChild(component());
 ### webpack把代码编译成了啥？
 
 为了弄懂他的原理，我们可以直接从编译后的代码入手，先看看他长啥样子，有的朋友可能一提到去看源码，心理就没底，其实我以前也是这样的。但是完全没有必要惧怕，他编译后的代码浏览器能够执行，那肯定就是普通的JS代码，不会藏着这么黑科技。
+
+下面是编译完的代码截图：
 
 ![image-20210203155553091](../../images/engineering/mini-webpack/image-20210203155553091.png)
 
@@ -684,7 +686,7 @@ const codes = generateCode(allAst, config.entry);
 fs.writeFileSync(path.join(config.output.path, config.output.filename), codes);
 ```
 
-然后就可以像之前那样打开我们的`html`看看效果了：
+然后就可以使用我们自己的`webpack`来编译代码，最后就可以像之前那样打开我们的`html`看看效果了：
 
 ![image-20210218160539306](../../images/engineering/mini-webpack/image-20210218160539306.png)
 
