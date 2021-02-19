@@ -213,9 +213,9 @@ document.body.appendChild(component());
 
    3. `__webpack_require__.r`：这个方法就是给每个模块添加一个属性`__esModule`，来表明他是一个`ES6`的模块。
 
-![image-20210203164658054](../../images/engineering/mini-webpack/image-20210203164658054.png)
+      ![image-20210203164658054](../../images/engineering/mini-webpack/image-20210203164658054.png)     
 
-4. 第四块就一行代码，调用`__webpack_require__`加载入口模块，启动执行。
+   4. 第四块就一行代码，调用`__webpack_require__`加载入口模块，启动执行。
 
 这样我们将代码分成了4块，每块的作用都搞清楚，其实webpack干的事情就清晰了：
 
