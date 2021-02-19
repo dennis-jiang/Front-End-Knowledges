@@ -10,6 +10,8 @@
 
 思否：[https://segmentfault.com/u/jiangpengfei_5ecce944a3d8a](https://segmentfault.com/u/jiangpengfei_5ecce944a3d8a)
 
+开源中国：[https://my.oschina.net/u/4638235](https://my.oschina.net/u/4638235)
+
 也欢迎关注我的公众号【进击的大前端】，第一时间获取优质原创，末尾有公众号二维码~
 
 已经完成的文章如下:
