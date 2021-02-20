@@ -1,0 +1,2316 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>手写Promise/A+ · 前端进阶</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Dennis Jiang">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Generator.html" />
+    
+    
+    <link rel="prev" href="AsyncAndEventLoop.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
+            
+                <a href="../Layout/Layout.html">
+            
+                    
+                    页面布局
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Layout/MultiColumns.html">
+            
+                <a href="../Layout/MultiColumns.html">
+            
+                    
+                    多列布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="JavaScript.html">
+            
+                <a href="JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="MemoryManagement.html">
+            
+                <a href="MemoryManagement.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="FunctionalProgramming.html">
+            
+                <a href="FunctionalProgramming.html">
+            
+                    
+                    函数式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="ComposePipe.html">
+            
+                <a href="ComposePipe.html">
+            
+                    
+                    compose函数和pipe函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="CommonFunctions.html">
+            
+                <a href="CommonFunctions.html">
+            
+                    
+                    一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="Copy.html">
+            
+                <a href="Copy.html">
+            
+                    
+                    浅拷贝和深拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="UnitTest.html">
+            
+                <a href="UnitTest.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="myPrototype.html">
+            
+                <a href="myPrototype.html">
+            
+                    
+                    JS中的面向对象：prototype、__proto__与constructor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="this.html">
+            
+                <a href="this.html">
+            
+                    
+                    this指向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="AsyncAndEventLoop.html">
+            
+                <a href="AsyncAndEventLoop.html">
+            
+                    
+                    异步和EventLoop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.10" data-path="Promise.html">
+            
+                <a href="Promise.html">
+            
+                    
+                    手写Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="Generator.html">
+            
+                <a href="Generator.html">
+            
+                    
+                    Generator和async/await还有co源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="Types.html">
+            
+                <a href="Types.html">
+            
+                    
+                    数据类型转换和检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="Scope.html">
+            
+                <a href="Scope.html">
+            
+                    
+                    JS作用域
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network/Network.html">
+            
+                <a href="../Network/Network.html">
+            
+                    
+                    计算机网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../DataStructureAndAlgorithm/RSA.html">
+            
+                <a href="../DataStructureAndAlgorithm/RSA.html">
+            
+                    
+                    HTTPS和RSA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Network/HttpCache.html">
+            
+                <a href="../Network/HttpCache.html">
+            
+                    
+                    轻松理解HTTP缓存策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
+            
+                <a href="../Vue/Vue.html">
+            
+                    
+                    Vue.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Vue/vueRouter.html">
+            
+                <a href="../Vue/vueRouter.html">
+            
+                    
+                    Vue-Router原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../React/React.html">
+            
+                <a href="../React/React.html">
+            
+                    
+                    React.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../React/FiberAndHooks.html">
+            
+                <a href="../React/FiberAndHooks.html">
+            
+                    
+                    手写React的Fiber和Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../React/Redux.html">
+            
+                <a href="../React/Redux.html">
+            
+                    
+                    手写Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../React/React-Redux.html">
+            
+                <a href="../React/React-Redux.html">
+            
+                    
+                    手写React-Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../React/Redux-Thunk.html">
+            
+                <a href="../React/Redux-Thunk.html">
+            
+                    
+                    Redux-Thunk原理及源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../React/Redux-Saga.html">
+            
+                <a href="../React/Redux-Saga.html">
+            
+                    
+                    手写Redux-Saga源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../React/React-Router_Usage.html">
+            
+                <a href="../React/React-Router_Usage.html">
+            
+                    
+                    React-Router实现前端路由鉴权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../React/React-Router_Code.html">
+            
+                <a href="../React/React-Router_Code.html">
+            
+                    
+                    手写React-Router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../React/OptimizeCalendar.html">
+            
+                <a href="../React/OptimizeCalendar.html">
+            
+                    
+                    Calendar性能优化几十倍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Node/Node.html">
+            
+                <a href="../Node/Node.html">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Node/DeepInNodeModules.html">
+            
+                <a href="../Node/DeepInNodeModules.html">
+            
+                    
+                    模块加载机制，手写require
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../Node/HttpServer.html">
+            
+                <a href="../Node/HttpServer.html">
+            
+                    
+                    使用Node.js原生API写一个web服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../Node/Express.html">
+            
+                <a href="../Node/Express.html">
+            
+                    
+                    手写Express.js源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../Node/Koa.html">
+            
+                <a href="../Node/Koa.html">
+            
+                    
+                    手写Koa源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../Node/KoaRouter.html">
+            
+                <a href="../Node/KoaRouter.html">
+            
+                    
+                    手写@koa/router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../Node/KoaStatic.html">
+            
+                <a href="../Node/KoaStatic.html">
+            
+                    
+                    手写koa-static源码，深入理解静态服务器原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../DesignPatterns/DesignPatterns.html">
+            
+                <a href="../DesignPatterns/DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../DesignPatterns/PubSub.html">
+            
+                <a href="../DesignPatterns/PubSub.html">
+            
+                    
+                    从发布订阅模式入手读懂Node.js的EventEmitter源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../DesignPatterns/Encapsulate.html">
+            
+                <a href="../DesignPatterns/Encapsulate.html">
+            
+                    
+                    封装代码的设计模式：工厂，建造者，单例，原型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../DesignPatterns/Reusability.html">
+            
+                <a href="../DesignPatterns/Reusability.html">
+            
+                    
+                    提高复用性的设计模式：桥接，享元，模板方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../DesignPatterns/Extendability.html">
+            
+                <a href="../DesignPatterns/Extendability.html">
+            
+                    
+                    提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../DesignPatterns/Quality.html">
+            
+                <a href="../DesignPatterns/Quality.html">
+            
+                    
+                    提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Architecture/Architecture.html">
+            
+                <a href="../Architecture/Architecture.html">
+            
+                    
+                    架构和源码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../Architecture/readSourceCode.html">
+            
+                <a href="../Architecture/readSourceCode.html">
+            
+                    
+                    从架构入手读源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../Architecture/Undersocre.html">
+            
+                <a href="../Architecture/Undersocre.html">
+            
+                    
+                    Underscore源码架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Engineering/Engineering.html">
+            
+                <a href="../Engineering/Engineering.html">
+            
+                    
+                    工程化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../Engineering/leader.html">
+            
+                <a href="../Engineering/leader.html">
+            
+                    
+                    前端负责人/架构师职责
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../Engineering/mono-repo.html">
+            
+                <a href="../Engineering/mono-repo.html">
+            
+                    
+                    mono-repo + react
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../Engineering/mini-webpack.html">
+            
+                <a href="../Engineering/mini-webpack.html">
+            
+                    
+                    手写webpack
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                <a href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                    
+                    数据结构和算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../DataStructureAndAlgorithm/Sorting.html">
+            
+                <a href="../DataStructureAndAlgorithm/Sorting.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                <a href="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                    
+                    链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../DataStructureAndAlgorithm/Greedy.html">
+            
+                <a href="../DataStructureAndAlgorithm/Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../DataStructureAndAlgorithm/DP.html">
+            
+                <a href="../DataStructureAndAlgorithm/DP.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../DataStructureAndAlgorithm/OptimizeVariations.html">
+            
+                <a href="../DataStructureAndAlgorithm/OptimizeVariations.html">
+            
+                    
+                    三层商品选项优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Projects/Projects.html">
+            
+                <a href="../Projects/Projects.html">
+            
+                    
+                    实战项目
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../Projects/FractionCalcualator.html">
+            
+                <a href="../Projects/FractionCalcualator.html">
+            
+                    
+                    分数计算器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../Summary/Summary.html">
+            
+                <a href="../Summary/Summary.html">
+            
+                    
+                    心得与总结
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../Summary/AnnualReview2020.html">
+            
+                <a href="../Summary/AnnualReview2020.html">
+            
+                    
+                    2020年终总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+
+    
+    <li>
+        
+        
+        
+            
+        
+        
+            <a href="http://www.beian.miit.gov.cn/" target="blank" class="gitbook-link">
+                苏ICP备16008535号
+            </a>
+        
+    </li>
+    
+</ul>
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >手写Promise/A+</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#promise&#x7528;&#x6CD5;"><b></b>Promise&#x7528;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#promisesa&#x89C4;&#x8303;"><b></b>Promises/A+&#x89C4;&#x8303;</a></li><ul><li><span class="title-icon "></span><a href="#&#x672F;&#x8BED;"><b></b>&#x672F;&#x8BED;</a></li><li><span class="title-icon "></span><a href="#promise&#x72B6;&#x6001;"><b></b>Promise&#x72B6;&#x6001;</a></li><li><span class="title-icon "></span><a href="#then&#x65B9;&#x6CD5;"><b></b>then&#x65B9;&#x6CD5;</a></li></ul><li><span class="title-icon "></span><a href="#&#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;promise"><b></b>&#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;Promise</a></li><ul><li><span class="title-icon "></span><a href="#&#x6784;&#x9020;&#x51FD;&#x6570;"><b></b>&#x6784;&#x9020;&#x51FD;&#x6570;</a></li><li><span class="title-icon "></span><a href="#resolve&#x548C;reject&#x65B9;&#x6CD5;"><b></b>resolve&#x548C;reject&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53C2;&#x6570;"><b></b>&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53C2;&#x6570;</a></li><li><span class="title-icon "></span><a href="#then&#x65B9;&#x6CD5;_1"><b></b>then&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x5B8C;&#x6210;&#x4E86;&#x4E00;&#x5C0F;&#x6B65;"><b></b>&#x5B8C;&#x6210;&#x4E86;&#x4E00;&#x5C0F;&#x6B65;</a></li><li><span class="title-icon "></span><a href="#then&#x7684;&#x8FD4;&#x56DE;&#x503C;"><b></b>then&#x7684;&#x8FD4;&#x56DE;&#x503C;</a></li><li><span class="title-icon "></span><a href="#promise-&#x89E3;&#x51B3;&#x8FC7;&#x7A0B;"><b></b>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#onfulfilled-&#x548C;-onrejected-&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;"><b></b>onFulfilled &#x548C; onRejected &#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;</a></li><li><span class="title-icon "></span><a href="#&#x6D4B;&#x8BD5;&#x6211;&#x4EEC;&#x7684;promise"><b></b>&#x6D4B;&#x8BD5;&#x6211;&#x4EEC;&#x7684;Promise</a></li><li><span class="title-icon "></span><a href="#&#x5176;&#x4ED6;promise&#x65B9;&#x6CD5;"><b></b>&#x5176;&#x4ED6;Promise&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x5B8C;&#x6574;&#x4EE3;&#x7801;"><b></b>&#x5B8C;&#x6574;&#x4EE3;&#x7801;</a></li></ul><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b></b>&#x603B;&#x7ED3;</a></li></ul></ul></div><p>&#x524D;&#x6BB5;&#x65F6;&#x95F4;&#x6211;&#x7528;&#x4E24;&#x7BC7;&#x6587;&#x7AE0;&#x6DF1;&#x5165;&#x8BB2;&#x89E3;&#x4E86;&#x5F02;&#x6B65;&#x7684;&#x6982;&#x5FF5;&#x548C;Event Loop&#x7684;&#x5E95;&#x5C42;&#x539F;&#x7406;&#xFF0C;&#x7136;&#x540E;&#x8FD8;&#x8BB2;&#x4E86;&#x4E00;&#x79CD;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x5F02;&#x6B65;&#x7684;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#xFF1A;</p>
+<p><a href="https://juejin.im/post/5e782486518825490455fb17" target="_blank">setTimeout&#x548C;setImmediate&#x5230;&#x5E95;&#x8C01;&#x5148;&#x6267;&#x884C;&#xFF0C;&#x672C;&#x6587;&#x8BA9;&#x4F60;&#x5F7B;&#x5E95;&#x7406;&#x89E3;Event Loop</a></p>
+<p><a href="https://juejin.im/post/5e7978485188255e237c2a29" target="_blank">&#x4ECE;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x5165;&#x624B;&#x8BFB;&#x61C2;Node.js&#x7684;EventEmitter&#x6E90;&#x7801;</a></p>
+<p>&#x672C;&#x6587;&#x4F1A;&#x8BB2;&#x89E3;&#x53E6;&#x4E00;&#x79CD;&#x66F4;&#x73B0;&#x4EE3;&#x7684;&#x5F02;&#x6B65;&#x5B9E;&#x73B0;&#x65B9;&#x6848;&#xFF1A;<code>Promise</code>&#x3002;Promise&#x51E0;&#x4E4E;&#x662F;&#x9762;&#x8BD5;&#x5FC5;&#x8003;&#x70B9;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E0D;&#x80FD;&#x4EC5;&#x4EC5;&#x4F1A;&#x7528;&#xFF0C;&#x8FD8;&#x5F97;&#x77E5;&#x9053;&#x4ED6;&#x7684;&#x5E95;&#x5C42;&#x539F;&#x7406;&#xFF0C;&#x5B66;&#x4E60;&#x4ED6;&#x539F;&#x7406;&#x7684;&#x6700;&#x597D;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x81EA;&#x5DF1;&#x4E5F;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Promise&#x3002;&#x6240;&#x4EE5;&#x672C;&#x6587;&#x4F1A;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x9075;&#x5FAA;<code>Promise/A+</code>&#x89C4;&#x8303;&#x7684;Promise&#x3002;&#x5B9E;&#x73B0;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x8981;&#x7528;<code>Promise/A+</code>&#x5B98;&#x65B9;&#x7684;&#x6D4B;&#x8BD5;&#x5DE5;&#x5177;&#x6765;&#x6D4B;&#x8BD5;&#x4E0B;&#x6211;&#x4EEC;&#x7684;&#x5B9E;&#x73B0;&#x662F;&#x5426;&#x6B63;&#x786E;&#xFF0C;&#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#x603B;&#x5171;&#x6709;872&#x4E2A;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#xFF0C;&#x5168;&#x90E8;&#x901A;&#x8FC7;&#x624D;&#x7B97;&#x662F;&#x7B26;&#x5408;<code>Promise/A+</code>&#x89C4;&#x8303;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x4ED6;&#x4EEC;&#x7684;&#x94FE;&#x63A5;&#xFF1A;</p>
+<p><code>Promise/A+</code>&#x89C4;&#x8303;: <a href="https://github.com/promises-aplus/promises-spec" target="_blank">https://github.com/promises-aplus/promises-spec</a></p>
+<p><code>Promise/A+</code>&#x6D4B;&#x8BD5;&#x5DE5;&#x5177;: <a href="https://github.com/promises-aplus/promises-tests" target="_blank">https://github.com/promises-aplus/promises-tests</a></p>
+<p>&#x672C;&#x6587;&#x7684;&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x6258;&#x7BA1;&#x5728;GitHub&#x4E0A;: <a href="https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/JavaScript/Promise/MyPromise.js" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/JavaScript/Promise/MyPromise.js</a></p>
+<h2 id="promise&#x7528;&#x6CD5;"><a name="promise&#x7528;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#promise&#x7528;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>Promise&#x7528;&#x6CD5;</h2>
+<p>Promise&#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;&#xFF0C;&#x7F51;&#x4E0A;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x7B80;&#x5355;&#x63D0;&#x4E00;&#x4E0B;&#xFF0C;&#x6211;&#x8FD8;&#x662F;&#x7528;&#x4E09;&#x4E2A;&#x76F8;&#x4E92;&#x4F9D;&#x8D56;&#x7684;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x505A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x5982;&#x6211;&#x4EEC;&#x6709;&#x4E09;&#x4E2A;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#xFF0C;&#x8BF7;&#x6C42;2&#x5FC5;&#x987B;&#x4F9D;&#x8D56;&#x8BF7;&#x6C42;1&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x8BF7;&#x6C42;3&#x5FC5;&#x987B;&#x4F9D;&#x8D56;&#x8BF7;&#x6C42;2&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x5982;&#x679C;&#x7528;&#x56DE;&#x8C03;&#x7684;&#x8BDD;&#x4F1A;&#x6709;&#x4E09;&#x5C42;&#xFF0C;&#x4F1A;&#x9677;&#x5165;&#x201C;&#x56DE;&#x8C03;&#x5730;&#x72F1;&#x201D;&#xFF0C;&#x7528;Promise&#x5C31;&#x6E05;&#x6670;&#x591A;&#x4E86;:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;request&quot;</span>);
+
+<span class="hljs-comment">// &#x6211;&#x4EEC;&#x5148;&#x7528;Promise&#x5305;&#x88C5;&#x4E0B;&#x4E09;&#x4E2A;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</span>
+<span class="hljs-comment">// &#x8BF7;&#x6C42;&#x6210;&#x529F;&#x65F6;resolve&#x8FD9;&#x4E2A;Promise</span>
+<span class="hljs-keyword">const</span> request1 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> {
+    request(<span class="hljs-string">&apos;https://www.baidu.com&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, response</span>) </span>{
+      <span class="hljs-keyword">if</span> (!error &amp;&amp; response.statusCode == <span class="hljs-number">200</span>) {
+        resolve(<span class="hljs-string">&apos;request1 success&apos;</span>);
+      }
+    });
+  });
+
+  <span class="hljs-keyword">return</span> promise;
+}
+
+<span class="hljs-keyword">const</span> request2 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> {
+    request(<span class="hljs-string">&apos;https://www.baidu.com&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, response</span>) </span>{
+      <span class="hljs-keyword">if</span> (!error &amp;&amp; response.statusCode == <span class="hljs-number">200</span>) {
+        resolve(<span class="hljs-string">&apos;request2 success&apos;</span>);
+      }
+    });
+  });
+
+  <span class="hljs-keyword">return</span> promise;
+}
+
+<span class="hljs-keyword">const</span> request3 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> {
+    request(<span class="hljs-string">&apos;https://www.baidu.com&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, response</span>) </span>{
+      <span class="hljs-keyword">if</span> (!error &amp;&amp; response.statusCode == <span class="hljs-number">200</span>) {
+        resolve(<span class="hljs-string">&apos;request3 success&apos;</span>);
+      }
+    });
+  });
+
+  <span class="hljs-keyword">return</span> promise;
+}
+
+
+<span class="hljs-comment">// &#x5148;&#x53D1;&#x8D77;request1&#xFF0C;&#x7B49;&#x4ED6;resolve&#x540E;&#x518D;&#x53D1;&#x8D77;request2&#xFF0C;</span>
+<span class="hljs-comment">// &#x7136;&#x540E;&#x662F;request3</span>
+request1().then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(data);
+  <span class="hljs-keyword">return</span> request2();
+})
+.then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(data);
+  <span class="hljs-keyword">return</span> request3();
+})
+.then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(data);
+})
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x91CC;&#x9762;&#xFF0C;<code>then</code>&#x662F;&#x53EF;&#x4EE5;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x7684;&#xFF0C;&#x540E;&#x9762;&#x7684;<code>then</code>&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x524D;&#x9762;<code>resolve</code>&#x51FA;&#x6765;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6211;&#x4EEC;&#x63A7;&#x5236;&#x53F0;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4E09;&#x4E2A;success&#x4F9D;&#x6B21;&#x6253;&#x51FA;&#x6765;:</p>
+<p><img src="../../images/JavaScript/Promise/image-20200324164123892.png" alt="image-20200324164123892"></p>
+<h2 id="promisesa&#x89C4;&#x8303;"><a name="promisesa&#x89C4;&#x8303;" class="anchor-navigation-ex-anchor" href="#promisesa&#x89C4;&#x8303;"><i class="fa fa-link" aria-hidden="true"></i></a>Promises/A+&#x89C4;&#x8303;</h2>
+<p>&#x901A;&#x8FC7;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x5176;&#x5B9E;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x4E86;&#x4E00;&#x4E2A;promise&#x957F;&#x4EC0;&#x4E48;&#x6837;&#x5B50;&#xFF0C;Promises/A+&#x89C4;&#x8303;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5BF9;&#x8FD9;&#x4E2A;&#x957F;&#x76F8;&#x8FDB;&#x4E00;&#x6B65;&#x8FDB;&#x884C;&#x4E86;&#x89C4;&#x8303;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4F1A;&#x5BF9;&#x8FD9;&#x4E2A;&#x89C4;&#x8303;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x8BB2;&#x89E3;&#x3002;</p>
+<h3 id="&#x672F;&#x8BED;"><a name="&#x672F;&#x8BED;" class="anchor-navigation-ex-anchor" href="#&#x672F;&#x8BED;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x672F;&#x8BED;</h3>
+<blockquote>
+<ol>
+<li><p><code>promise</code>&#xFF1A;&#x662F;&#x4E00;&#x4E2A;&#x62E5;&#x6709; <code>then</code> &#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x8C61;&#x6216;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x884C;&#x4E3A;&#x7B26;&#x5408;&#x672C;&#x89C4;&#x8303;</p>
+</li>
+<li><p><code>thenable</code>&#xFF1A;&#x662F;&#x4E00;&#x4E2A;&#x5B9A;&#x4E49;&#x4E86; <code>then</code> &#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x8C61;&#x6216;&#x51FD;&#x6570;&#x3002;&#x8FD9;&#x4E2A;&#x4E3B;&#x8981;&#x662F;&#x7528;&#x6765;&#x517C;&#x5BB9;&#x4E00;&#x4E9B;&#x8001;&#x7684;Promise&#x5B9E;&#x73B0;&#xFF0C;&#x53EA;&#x8981;&#x4E00;&#x4E2A;Promise&#x5B9E;&#x73B0;&#x662F;thenable&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x62E5;&#x6709;<code>then</code>&#x65B9;&#x6CD5;&#x7684;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8DDF;Promises/A+&#x517C;&#x5BB9;&#x3002;</p>
+</li>
+<li><code>value</code>&#xFF1A;&#x6307;<code>reslove</code>&#x51FA;&#x6765;&#x7684;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x4F55;&#x5408;&#x6CD5;&#x7684;JS&#x503C;(&#x5305;&#x62EC; <code>undefined</code> , thenable &#x548C; promise&#x7B49;)</li>
+<li><code>exception</code>&#xFF1A;&#x5F02;&#x5E38;&#xFF0C;&#x5728;Promise&#x91CC;&#x9762;&#x7528;<code>throw</code>&#x629B;&#x51FA;&#x6765;&#x7684;&#x503C;</li>
+<li><code>reason</code>&#xFF1A;&#x62D2;&#x7EDD;&#x539F;&#x56E0;&#xFF0C;&#x662F;<code>reject</code>&#x91CC;&#x9762;&#x4F20;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x8868;&#x793A;<code>reject</code>&#x7684;&#x539F;&#x56E0;</li>
+</ol>
+</blockquote>
+<h3 id="promise&#x72B6;&#x6001;"><a name="promise&#x72B6;&#x6001;" class="anchor-navigation-ex-anchor" href="#promise&#x72B6;&#x6001;"><i class="fa fa-link" aria-hidden="true"></i></a>Promise&#x72B6;&#x6001;</h3>
+<p>Promise&#x603B;&#x5171;&#x6709;&#x4E09;&#x4E2A;&#x72B6;&#x6001;:</p>
+<blockquote>
+<ol>
+<li><code>pending</code>: &#x4E00;&#x4E2A;promise&#x5728;resolve&#x6216;&#x8005;reject&#x524D;&#x5C31;&#x5904;&#x4E8E;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x3002;</li>
+<li><code>fulfilled</code>: &#x4E00;&#x4E2A;promise&#x88AB;resolve&#x540E;&#x5C31;&#x5904;&#x4E8E;<code>fulfilled</code>&#x72B6;&#x6001;&#xFF0C;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x4E0D;&#x80FD;&#x518D;&#x6539;&#x53D8;&#xFF0C;&#x800C;&#x4E14;&#x5FC5;&#x987B;&#x62E5;&#x6709;&#x4E00;&#x4E2A;<strong>&#x4E0D;&#x53EF;&#x53D8;</strong>&#x7684;&#x503C;(<code>value</code>)&#x3002;</li>
+<li><code>rejected</code>: &#x4E00;&#x4E2A;promise&#x88AB;reject&#x540E;&#x5C31;&#x5904;&#x4E8E;<code>rejected</code>&#x72B6;&#x6001;&#xFF0C;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x4E5F;&#x4E0D;&#x80FD;&#x518D;&#x6539;&#x53D8;&#xFF0C;&#x800C;&#x4E14;&#x5FC5;&#x987B;&#x62E5;&#x6709;&#x4E00;&#x4E2A;<strong>&#x4E0D;&#x53EF;&#x53D8;</strong>&#x7684;&#x62D2;&#x7EDD;&#x539F;&#x56E0;(<code>reason</code>)&#x3002;</li>
+</ol>
+</blockquote>
+<p>&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7684;<strong>&#x4E0D;&#x53EF;&#x53D8;</strong>&#x6307;&#x7684;&#x662F;<code>===</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5982;&#x679C;<code>value</code>&#x6216;&#x8005;<code>reason</code>&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x53EA;&#x8981;&#x4FDD;&#x8BC1;&#x5F15;&#x7528;&#x4E0D;&#x53D8;&#x5C31;&#x884C;&#xFF0C;&#x89C4;&#x8303;&#x6CA1;&#x6709;&#x5F3A;&#x5236;&#x8981;&#x6C42;&#x91CC;&#x9762;&#x7684;&#x5C5E;&#x6027;&#x4E5F;&#x4E0D;&#x53D8;&#x3002;Promise&#x72B6;&#x6001;&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x753B;&#x5F20;&#x56FE;&#x5C31;&#x662F;:</p>
+<p><img src="../../images/JavaScript/Promise/image-20200324173555225.png" alt="image-20200324173555225"></p>
+<h3 id="then&#x65B9;&#x6CD5;"><a name="then&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#then&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>then&#x65B9;&#x6CD5;</h3>
+<p>&#x4E00;&#x4E2A;promise&#x5FC5;&#x987B;&#x62E5;&#x6709;&#x4E00;&#x4E2A;<code>then</code>&#x65B9;&#x6CD5;&#x6765;&#x8BBF;&#x95EE;&#x4ED6;&#x7684;&#x503C;&#x6216;&#x8005;&#x62D2;&#x7EDD;&#x539F;&#x56E0;&#x3002;<code>then</code>&#x65B9;&#x6CD5;&#x6709;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
+<pre><code class="lang-javascript">promise.then(onFulfilled, onRejected)
+</code></pre>
+<h4 id="&#x53C2;&#x6570;&#x53EF;&#x9009;"><a name="&#x53C2;&#x6570;&#x53EF;&#x9009;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x6570;&#x53EF;&#x9009;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53C2;&#x6570;&#x53EF;&#x9009;</h4>
+<p><code>onFulfilled</code> &#x548C; <code>onRejected</code> &#x90FD;&#x662F;&#x53EF;&#x9009;&#x53C2;&#x6570;&#x3002;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>onFulfilled</code> &#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x5FC5;&#x987B;&#x88AB;&#x5FFD;&#x7565;</li>
+<li>&#x5982;&#x679C; <code>onRejected</code> &#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x5FC5;&#x987B;&#x88AB;&#x5FFD;&#x7565;</li>
+</ul>
+<h4 id="onfulfilled-&#x7279;&#x6027;"><a name="onfulfilled-&#x7279;&#x6027;" class="anchor-navigation-ex-anchor" href="#onfulfilled-&#x7279;&#x6027;"><i class="fa fa-link" aria-hidden="true"></i></a><code>onFulfilled</code> &#x7279;&#x6027;</h4>
+<p>&#x5982;&#x679C; <code>onFulfilled</code> &#x662F;&#x51FD;&#x6570;&#xFF1A;</p>
+<ul>
+<li>&#x5F53; <code>promise</code> &#x6267;&#x884C;&#x7ED3;&#x675F;&#x540E;&#x5176;&#x5FC5;&#x987B;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5176;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4E3A; <code>promise</code> &#x7684;&#x7EC8;&#x503C;<code>value</code></li>
+<li>&#x5728; <code>promise</code> &#x6267;&#x884C;&#x7ED3;&#x675F;&#x524D;&#x5176;&#x4E0D;&#x53EF;&#x88AB;&#x8C03;&#x7528;</li>
+<li>&#x5176;&#x8C03;&#x7528;&#x6B21;&#x6570;&#x4E0D;&#x53EF;&#x8D85;&#x8FC7;&#x4E00;&#x6B21;</li>
+</ul>
+<h4 id="onrejected-&#x7279;&#x6027;"><a name="onrejected-&#x7279;&#x6027;" class="anchor-navigation-ex-anchor" href="#onrejected-&#x7279;&#x6027;"><i class="fa fa-link" aria-hidden="true"></i></a><code>onRejected</code> &#x7279;&#x6027;</h4>
+<p>&#x5982;&#x679C; <code>onRejected</code> &#x662F;&#x51FD;&#x6570;&#xFF1A;</p>
+<ul>
+<li>&#x5F53; <code>promise</code> &#x88AB;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#x540E;&#x5176;&#x5FC5;&#x987B;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5176;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4E3A; <code>promise</code> &#x7684;&#x636E;&#x56E0;<code>reason</code></li>
+<li>&#x5728; <code>promise</code> &#x88AB;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#x524D;&#x5176;&#x4E0D;&#x53EF;&#x88AB;&#x8C03;&#x7528;</li>
+<li>&#x5176;&#x8C03;&#x7528;&#x6B21;&#x6570;&#x4E0D;&#x53EF;&#x8D85;&#x8FC7;&#x4E00;&#x6B21;</li>
+</ul>
+<h4 id="&#x591A;&#x6B21;&#x8C03;&#x7528;"><a name="&#x591A;&#x6B21;&#x8C03;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x591A;&#x6B21;&#x8C03;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x591A;&#x6B21;&#x8C03;&#x7528;</h4>
+<p><code>then</code> &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x88AB;&#x540C;&#x4E00;&#x4E2A; <code>promise</code> &#x8C03;&#x7528;&#x591A;&#x6B21;</p>
+<ul>
+<li>&#x5F53; <code>promise</code> &#x6210;&#x529F;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x6240;&#x6709; <code>onFulfilled</code> &#x9700;&#x6309;&#x7167;&#x5176;&#x6CE8;&#x518C;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x56DE;&#x8C03;</li>
+<li>&#x5F53; <code>promise</code> &#x88AB;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x6240;&#x6709;&#x7684; <code>onRejected</code> &#x9700;&#x6309;&#x7167;&#x5176;&#x6CE8;&#x518C;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x56DE;&#x8C03;</li>
+</ul>
+<h4 id="&#x8FD4;&#x56DE;"><a name="&#x8FD4;&#x56DE;" class="anchor-navigation-ex-anchor" href="#&#x8FD4;&#x56DE;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8FD4;&#x56DE;</h4>
+<p><code>then</code> &#x65B9;&#x6CD5;&#x5FC5;&#x987B;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <code>promise</code> &#x5BF9;&#x8C61;&#x3002;</p>
+<pre><code class="lang-javascript">promise2 = promise1.then(onFulfilled, onRejected);
+</code></pre>
+<ul>
+<li>&#x5982;&#x679C; <code>onFulfilled</code> &#x6216;&#x8005; <code>onRejected</code> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x503C; <code>x</code> &#xFF0C;&#x5219;&#x8FD0;&#x884C; <strong>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</strong>&#xFF1A;<code>[[Resolve]](promise2, x)</code></li>
+<li>&#x5982;&#x679C; <code>onFulfilled</code> &#x6216;&#x8005; <code>onRejected</code> &#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x5F02;&#x5E38; <code>e</code> &#xFF0C;&#x5219; <code>promise2</code> &#x5FC5;&#x987B;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x62D2;&#x56E0; <code>e</code></li>
+<li>&#x5982;&#x679C; <code>onFulfilled</code> &#x4E0D;&#x662F;&#x51FD;&#x6570;&#x4E14; <code>promise1</code> &#x6210;&#x529F;&#x6267;&#x884C;&#xFF0C; <code>promise2</code> &#x5FC5;&#x987B;&#x6210;&#x529F;&#x6267;&#x884C;&#x5E76;&#x8FD4;&#x56DE;&#x76F8;&#x540C;&#x7684;&#x503C;</li>
+<li>&#x5982;&#x679C; <code>onRejected</code> &#x4E0D;&#x662F;&#x51FD;&#x6570;&#x4E14; <code>promise1</code> &#x62D2;&#x7EDD;&#x6267;&#x884C;&#xFF0C; <code>promise2</code> &#x5FC5;&#x987B;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#x5E76;&#x8FD4;&#x56DE;&#x76F8;&#x540C;&#x7684;&#x636E;&#x56E0;</li>
+</ul>
+<p>&#x89C4;&#x8303;&#x91CC;&#x9762;&#x8FD8;&#x6709;&#x5F88;&#x5927;&#x4E00;&#x90E8;&#x5206;&#x662F;&#x8BB2;&#x89E3;<strong>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</strong>&#x7684;&#xFF0C;&#x5149;&#x770B;&#x89C4;&#x8303;&#xFF0C;&#x5F88;&#x7A7A;&#x6D1E;&#xFF0C;&#x524D;&#x9762;&#x8FD9;&#x4E9B;&#x89C4;&#x8303;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x6307;&#x5BFC;&#x6211;&#x4EEC;&#x5F00;&#x59CB;&#x5199;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x7684;Promise&#x4E86;&#xFF0C;<strong>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</strong>&#x4F1A;&#x5728;&#x6211;&#x4EEC;&#x540E;&#x9762;&#x5199;&#x5230;&#x4E86;&#x518D;&#x8BE6;&#x7EC6;&#x8BB2;&#x89E3;&#x3002;</p>
+<h2 id="&#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;promise"><a name="&#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;promise" class="anchor-navigation-ex-anchor" href="#&#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;promise"><i class="fa fa-link" aria-hidden="true"></i></a>&#x81EA;&#x5DF1;&#x5199;&#x4E00;&#x4E2A;Promise</h2>
+<p>&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x8981;&#x5199;&#x4E00;&#x4E2A;Promise&#xFF0C;&#x80AF;&#x5B9A;&#x9700;&#x8981;&#x77E5;&#x9053;&#x6709;&#x54EA;&#x4E9B;&#x5DE5;&#x4F5C;&#x9700;&#x8981;&#x505A;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x4ECE;Promise&#x7684;&#x4F7F;&#x7528;&#x6765;&#x7AA5;&#x63A2;&#x4E0B;&#x9700;&#x8981;&#x505A;&#x5565;:</p>
+<blockquote>
+<ol>
+<li>&#x65B0;&#x5EFA;Promise&#x9700;&#x8981;&#x4F7F;&#x7528;<code>new</code>&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x90A3;&#x4ED6;&#x80AF;&#x5B9A;&#x662F;&#x4F5C;&#x4E3A;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x7684;&#x65B9;&#x5F0F;&#x8C03;&#x7528;&#x7684;&#xFF0C;Promise&#x662F;&#x4E00;&#x4E2A;&#x7C7B;&#x3002;<a href="https://juejin.im/post/5e50e5b16fb9a07c9a1959af" target="_blank">&#x5173;&#x4E8E;JS&#x7684;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x66F4;&#x8BE6;&#x7EC6;&#x7684;&#x89E3;&#x91CA;&#x53EF;&#x4EE5;&#x770B;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x3002;</a></li>
+<li>&#x6211;&#x4EEC;<code>new Promise(fn)</code>&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x4F20;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x8FDB;&#x53BB;&#xFF0C;&#x8BF4;&#x660E;Promise&#x7684;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</li>
+<li>&#x6784;&#x9020;&#x51FD;&#x6570;&#x4F20;&#x8FDB;&#x53BB;&#x7684;<code>fn</code>&#x4F1A;&#x6536;&#x5230;<code>resolve</code>&#x548C;<code>reject</code>&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x6765;&#x8868;&#x793A;Promise&#x6210;&#x529F;&#x548C;&#x5931;&#x8D25;&#xFF0C;&#x8BF4;&#x660E;&#x6784;&#x9020;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x8FD8;&#x9700;&#x8981;<code>resolve</code>&#x548C;<code>reject</code>&#x8FD9;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x6539;&#x53D8;Promise&#x7684;&#x72B6;&#x6001;&#x3002;</li>
+<li>&#x6839;&#x636E;&#x89C4;&#x8303;&#xFF0C;promise&#x6709;<code>pending</code>&#xFF0C;<code>fulfilled</code>&#xFF0C;<code>rejected</code>&#x4E09;&#x4E2A;&#x72B6;&#x6001;&#xFF0C;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x4E3A;<code>pending</code>&#xFF0C;&#x8C03;&#x7528;<code>resolve</code>&#x4F1A;&#x5C06;&#x5176;&#x6539;&#x4E3A;<code>fulfilled</code>&#xFF0C;&#x8C03;&#x7528;<code>reject</code>&#x4F1A;&#x6539;&#x4E3A;<code>rejected</code>&#x3002;</li>
+<li>promise&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x5EFA;&#x597D;&#x540E;&#x53EF;&#x4EE5;&#x8C03;&#x7528;<code>then</code>&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x4E14;&#x662F;&#x53EF;&#x4EE5;&#x94FE;&#x5F0F;&#x8C03;&#x7528;<code>then</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8BF4;&#x660E;<code>then</code>&#x662F;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x3002;<a href="https://juejin.im/post/5e64cf0ef265da5734024f84#heading-7" target="_blank">&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x7684;&#x5B9E;&#x73B0;&#x8FD9;&#x7BC7;&#x6709;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x4E0D;&#x518D;&#x8D58;&#x8FF0;</a>&#x3002;&#x7B80;&#x5355;&#x7684;&#x8BF4;&#x5C31;&#x662F;<code>then</code>&#x65B9;&#x6CD5;&#x4E5F;&#x5FC5;&#x987B;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5E26;<code>then</code>&#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;this&#x6216;&#x8005;&#x65B0;&#x7684;promise&#x5B9E;&#x4F8B;&#x3002;</li>
+</ol>
+</blockquote>
+<h3 id="&#x6784;&#x9020;&#x51FD;&#x6570;"><a name="&#x6784;&#x9020;&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x6784;&#x9020;&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6784;&#x9020;&#x51FD;&#x6570;</h3>
+<p>&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x517C;&#x5BB9;&#x6027;&#xFF0C;&#x672C;&#x6587;&#x5C31;&#x4E0D;&#x7528;ES6&#x4E86;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5148;&#x5B9A;&#x4E49;&#x4E09;&#x4E2A;&#x5E38;&#x91CF;&#x8868;&#x793A;&#x72B6;&#x6001;</span>
+<span class="hljs-keyword">var</span> PENDING = <span class="hljs-string">&apos;pending&apos;</span>;
+<span class="hljs-keyword">var</span> FULFILLED = <span class="hljs-string">&apos;fulfilled&apos;</span>;
+<span class="hljs-keyword">var</span> REJECTED = <span class="hljs-string">&apos;rejected&apos;</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPromise</span>(<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-keyword">this</span>.status = PENDING;    <span class="hljs-comment">// &#x521D;&#x59CB;&#x72B6;&#x6001;&#x4E3A;pending</span>
+  <span class="hljs-keyword">this</span>.value = <span class="hljs-literal">null</span>;        <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;value</span>
+  <span class="hljs-keyword">this</span>.reason = <span class="hljs-literal">null</span>;       <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;reason</span>
+}
+</code></pre>
+<h3 id="resolve&#x548C;reject&#x65B9;&#x6CD5;"><a name="resolve&#x548C;reject&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#resolve&#x548C;reject&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a><code>resolve</code>&#x548C;<code>reject</code>&#x65B9;&#x6CD5;</h3>
+<p>&#x6839;&#x636E;&#x89C4;&#x8303;&#xFF0C;<code>resolve</code>&#x65B9;&#x6CD5;&#x662F;&#x5C06;&#x72B6;&#x6001;&#x6539;&#x4E3A;fulfilled&#xFF0C;<code>reject</code>&#x662F;&#x5C06;&#x72B6;&#x6001;&#x6539;&#x4E3A;rejected&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x8FD9;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x76F4;&#x63A5;&#x5199;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x91CC;&#x9762;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPromise</span>(<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-comment">// ...&#x7701;&#x7565;&#x524D;&#x9762;&#x4EE3;&#x7801;...</span>
+
+  <span class="hljs-comment">// &#x5B58;&#x4E00;&#x4E0B;this,&#x4EE5;&#x4FBF;resolve&#x548C;reject&#x91CC;&#x9762;&#x8BBF;&#x95EE;</span>
+  <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+  <span class="hljs-comment">// resolve&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x662F;value</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolve</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span>(that.status === PENDING) {
+      that.status = FULFILLED;
+      that.value = value;
+    }
+  }
+
+  <span class="hljs-comment">// reject&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x662F;reason</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reject</span>(<span class="hljs-params">reason</span>) </span>{
+    <span class="hljs-keyword">if</span>(that.status === PENDING) {
+      that.status = REJECTED;
+      that.reason = reason;
+    }
+  }
+}
+</code></pre>
+<h3 id="&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53C2;&#x6570;"><a name="&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53C2;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53C2;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53C2;&#x6570;</h3>
+<p>&#x6700;&#x540E;&#x5C06;<code>resolve</code>&#x548C;<code>reject</code>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x8C03;&#x7528;&#x4F20;&#x8FDB;&#x6765;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x8BB0;&#x5F97;&#x52A0;&#x4E0A;<code>try</code>&#xFF0C;&#x5982;&#x679C;&#x6355;&#x83B7;&#x5230;&#x9519;&#x8BEF;&#x5C31;<code>reject</code>&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPromise</span>(<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-comment">// ...&#x7701;&#x7565;&#x524D;&#x9762;&#x4EE3;&#x7801;...</span>
+
+  <span class="hljs-keyword">try</span> {
+    fn(resolve, reject);
+  } <span class="hljs-keyword">catch</span> (error) {
+    reject(error);
+  }
+}
+</code></pre>
+<h3 id="then&#x65B9;&#x6CD5;_1"><a name="then&#x65B9;&#x6CD5;_1" class="anchor-navigation-ex-anchor" href="#then&#x65B9;&#x6CD5;_1"><i class="fa fa-link" aria-hidden="true"></i></a><code>then</code>&#x65B9;&#x6CD5;</h3>
+<p>&#x6839;&#x636E;&#x6211;&#x4EEC;&#x524D;&#x9762;&#x7684;&#x5206;&#x6790;&#xFF0C;<code>then</code>&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x4ED6;&#x662F;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x4E14;&#x89C4;&#x8303;&#x4E2D;&#x7684;API&#x662F;<code>promise.then(onFulfilled, onRejected)</code>&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x628A;&#x67B6;&#x5B50;&#x642D;&#x51FA;&#x6765;&#xFF1A;</p>
+<pre><code class="lang-javascript">MyPromise.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onFulfilled, onRejected</span>) </span>{}
+</code></pre>
+<p>&#x90A3;<code>then</code>&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x5E94;&#x8BE5;&#x5E72;&#x4EC0;&#x4E48;&#x5462;&#xFF0C;&#x5176;&#x5B9E;&#x89C4;&#x8303;&#x4E5F;&#x544A;&#x8BC9;&#x6211;&#x4EEC;&#x4E86;&#xFF0C;&#x5148;&#x68C0;&#x67E5;<code>onFulfilled</code>&#x548C;<code>onRejected</code>&#x662F;&#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x662F;&#x51FD;&#x6570;&#x5C31;&#x5FFD;&#x7565;&#x4ED6;&#x4EEC;&#xFF0C;&#x6240;&#x8C13;&#x201C;&#x5FFD;&#x7565;&#x201D;&#x5E76;&#x4E0D;&#x662F;&#x4EC0;&#x4E48;&#x90FD;&#x4E0D;&#x5E72;&#xFF0C;&#x5BF9;&#x4E8E;<code>onFulfilled</code>&#x6765;&#x8BF4;&#x201C;&#x5FFD;&#x7565;&#x201D;&#x5C31;&#x662F;&#x5C06;<code>value</code>&#x539F;&#x5C01;&#x4E0D;&#x52A8;&#x7684;&#x8FD4;&#x56DE;&#xFF0C;&#x5BF9;&#x4E8E;<code>onRejected</code>&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x8FD4;&#x56DE;<code>reason</code>&#xFF0C;<code>onRejected</code>&#x56E0;&#x4E3A;&#x662F;&#x9519;&#x8BEF;&#x5206;&#x652F;&#xFF0C;&#x6211;&#x4EEC;&#x8FD4;&#x56DE;<code>reason</code>&#x5E94;&#x8BE5;throw&#x4E00;&#x4E2A;Error:</p>
+<pre><code class="lang-javascript">MyPromise.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onFulfilled, onRejected</span>) </span>{
+  <span class="hljs-comment">// &#x5982;&#x679C;onFulfilled&#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x7ED9;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x51FD;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;value</span>
+  <span class="hljs-keyword">var</span> realOnFulfilled = onFulfilled;
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> realOnFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+    realOnFulfilled = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+      <span class="hljs-keyword">return</span> value;
+    }
+  }
+
+  <span class="hljs-comment">// &#x5982;&#x679C;onRejected&#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x7ED9;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x51FD;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;reason&#x7684;Error</span>
+  <span class="hljs-keyword">var</span> realOnRejected = onRejected;
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> realOnRejected !== <span class="hljs-string">&apos;function&apos;</span>) {
+    realOnRejected = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+      <span class="hljs-keyword">if</span>(reason <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+        <span class="hljs-keyword">throw</span> reason;
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(reason)
+      }
+    }
+  }
+}
+</code></pre>
+<p>&#x53C2;&#x6570;&#x68C0;&#x67E5;&#x5B8C;&#x540E;&#x5C31;&#x8BE5;&#x5E72;&#x70B9;&#x771F;&#x6B63;&#x7684;&#x4E8B;&#x60C5;&#x4E86;&#xFF0C;&#x60F3;&#x60F3;&#x6211;&#x4EEC;&#x4F7F;&#x7528;Promise&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;promise&#x64CD;&#x4F5C;&#x6210;&#x529F;&#x4E86;&#x5C31;&#x4F1A;&#x8C03;&#x7528;<code>then</code>&#x91CC;&#x9762;&#x7684;<code>onFulfilled</code>&#xFF0C;&#x5982;&#x679C;&#x4ED6;&#x5931;&#x8D25;&#x4E86;&#xFF0C;&#x5C31;&#x4F1A;&#x8C03;&#x7528;<code>onRejected</code>&#x3002;&#x5BF9;&#x5E94;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x5C31;&#x5E94;&#x8BE5;&#x68C0;&#x67E5;&#x4E0B;promise&#x7684;status&#xFF0C;&#x5982;&#x679C;&#x662F;<code>FULFILLED</code>&#xFF0C;&#x5C31;&#x8C03;&#x7528;<code>onFulfilled</code>&#xFF0C;&#x5982;&#x679C;&#x662F;<code>REJECTED</code>&#xFF0C;&#x5C31;&#x8C03;&#x7528;<code>onRejected</code>:</p>
+<pre><code class="lang-javascript">MyPromise.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onFulfilled, onRejected</span>) </span>{
+  <span class="hljs-comment">// ...&#x7701;&#x7565;&#x524D;&#x9762;&#x4EE3;&#x7801;...</span>
+
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === FULFILLED) {
+    onFulfilled(<span class="hljs-keyword">this</span>.value)
+  }
+
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === REJECTED) {
+    onRejected(<span class="hljs-keyword">this</span>.reason);
+  }
+}
+</code></pre>
+<p>&#x518D;&#x60F3;&#x4E00;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;promise&#x7684;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x662F;&#x76F4;&#x63A5;&#x8FD9;&#x6837;&#x7528;&#x7684;:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(fn).then(onFulfilled, onRejected);
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;<code>then</code>&#x662F;&#x5728;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x4E00;&#x521B;&#x5EFA;&#x597D;&#x5C31;&#x8C03;&#x7528;&#x4E86;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;<code>fn</code>&#x91CC;&#x9762;&#x7684;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x8FD8;&#x6CA1;&#x7ED3;&#x675F;&#x5462;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x4ED6;&#x7684;<code>status</code>&#x8FD8;&#x662F;<code>PENDING</code>&#xFF0C;&#x8FD9;&#x600E;&#x4E48;&#x529E;&#x5462;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x80AF;&#x5B9A;&#x4E0D;&#x80FD;&#x7ACB;&#x5373;&#x8C03;<code>onFulfilled</code>&#x6216;&#x8005;<code>onRejected</code>&#x7684;&#xFF0C;&#x56E0;&#x4E3A;<code>fn</code>&#x5230;&#x5E95;&#x6210;&#x529F;&#x8FD8;&#x662F;&#x5931;&#x8D25;&#x8FD8;&#x4E0D;&#x77E5;&#x9053;&#x5462;&#x3002;<strong>&#x90A3;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x77E5;&#x9053;<code>fn</code>&#x6210;&#x529F;&#x8FD8;&#x662F;&#x5931;&#x8D25;&#x5462;&#xFF1F;&#x7B54;&#x6848;&#x662F;<code>fn</code>&#x91CC;&#x9762;&#x4E3B;&#x52A8;&#x8C03;<code>resolve</code>&#x6216;&#x8005;<code>reject</code>&#x7684;&#x65F6;&#x5019;&#x3002;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x8FD9;&#x65F6;&#x5019;<code>status</code>&#x72B6;&#x6001;&#x8FD8;&#x662F;<code>PENDING</code>&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5C06;<code>onFulfilled</code>&#x548C;<code>onRejected</code>&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x5B58;&#x8D77;&#x6765;&#xFF0C;&#x7B49;&#x5230;<code>fn</code>&#x6709;&#x4E86;&#x7ED3;&#x8BBA;&#xFF0C;<code>resolve</code>&#x6216;&#x8005;<code>reject</code>&#x7684;&#x65F6;&#x5019;&#x518D;&#x6765;&#x8C03;&#x7528;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x56E0;&#x4E3A;&#x540E;&#x9762;<code>then</code>&#x8FD8;&#x6709;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#xFF0C;&#x4F1A;&#x6709;&#x591A;&#x4E2A;<code>onFulfilled</code>&#x548C;<code>onRejected</code>&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x7528;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#x5C06;&#x4ED6;&#x4EEC;&#x5B58;&#x8D77;&#x6765;&#xFF0C;&#x7B49;<code>resolve</code>&#x6216;&#x8005;<code>reject</code>&#x7684;&#x65F6;&#x5019;&#x5C06;&#x6570;&#x7EC4;&#x91CC;&#x9762;&#x7684;&#x5168;&#x90E8;&#x65B9;&#x6CD5;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;&#x4E00;&#x904D;</strong>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x6784;&#x9020;&#x51FD;&#x6570;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPromise</span>(<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-comment">// ...&#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801;...</span>
+
+  <span class="hljs-comment">// &#x6784;&#x9020;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x6DFB;&#x52A0;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#x5B58;&#x50A8;&#x6210;&#x529F;&#x548C;&#x5931;&#x8D25;&#x7684;&#x56DE;&#x8C03;</span>
+  <span class="hljs-keyword">this</span>.onFulfilledCallbacks = [];
+  <span class="hljs-keyword">this</span>.onRejectedCallbacks = [];
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolve</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span>(that.status === PENDING) {
+      <span class="hljs-comment">// ...&#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801;...</span>
+      <span class="hljs-comment">// resolve&#x91CC;&#x9762;&#x5C06;&#x6240;&#x6709;&#x6210;&#x529F;&#x7684;&#x56DE;&#x8C03;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;</span>
+      that.onFulfilledCallbacks.forEach(<span class="hljs-function"><span class="hljs-params">callback</span> =&gt;</span> {
+        callback(that.value);
+      });
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reject</span>(<span class="hljs-params">reason</span>) </span>{
+    <span class="hljs-keyword">if</span>(that.status === PENDING) {
+      <span class="hljs-comment">// ...&#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801;...</span>
+      <span class="hljs-comment">// resolve&#x91CC;&#x9762;&#x5C06;&#x6240;&#x6709;&#x5931;&#x8D25;&#x7684;&#x56DE;&#x8C03;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;</span>
+      that.onRejectedCallbacks.forEach(<span class="hljs-function"><span class="hljs-params">callback</span> =&gt;</span> {
+        callback(that.reason);
+      });
+    }
+  }
+}
+
+<span class="hljs-comment">// then&#x65B9;&#x6CD5;</span>
+MyPromise.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onFulfilled, onRejected</span>) </span>{
+  <span class="hljs-comment">// ...&#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801;...</span>
+
+  <span class="hljs-comment">// &#x5982;&#x679C;&#x8FD8;&#x662F;PENDING&#x72B6;&#x6001;&#xFF0C;&#x5C06;&#x56DE;&#x8C03;&#x4FDD;&#x5B58;&#x4E0B;&#x6765;</span>
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === PENDING) {
+    <span class="hljs-keyword">this</span>.onFulfilledCallbacks.push(realOnFulfilled);
+    <span class="hljs-keyword">this</span>.onRejectedCallbacks.push(realOnRejected);
+  }
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x8FD9;&#x79CD;&#x6682;&#x65F6;&#x5C06;&#x56DE;&#x8C03;&#x4FDD;&#x5B58;&#x4E0B;&#x6765;&#xFF0C;&#x7B49;&#x6761;&#x4EF6;&#x6EE1;&#x8DB3;&#x7684;&#x65F6;&#x5019;&#x518D;&#x62FF;&#x51FA;&#x6765;&#x8FD0;&#x884C;&#x8BA9;&#x6211;&#x60F3;&#x8D77;&#x4E86;&#x4E00;&#x79CD;&#x6A21;&#x5F0F;&#xFF1A;&#x8BA2;&#x9605;&#x53D1;&#x5E03;&#x6A21;&#x5F0F;&#x3002;&#x6211;&#x4EEC;&#x5F80;&#x56DE;&#x8C03;&#x6570;&#x7EC4;&#x91CC;&#x9762;<code>push</code>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x5F80;&#x4E8B;&#x4EF6;&#x4E2D;&#x5FC3;&#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x4E86;&#xFF0C;<code>resolve</code>&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x53D1;&#x5E03;&#x4E86;&#x4E00;&#x4E2A;&#x6210;&#x529F;&#x4E8B;&#x4EF6;&#xFF0C;&#x6240;&#x6709;&#x6CE8;&#x518C;&#x4E86;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x5373;<code>onFulfilledCallbacks</code>&#x91CC;&#x9762;&#x7684;&#x6240;&#x6709;&#x65B9;&#x6CD5;&#x90FD;&#x4F1A;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;&#xFF0C;&#x540C;&#x7406;<code>reject</code>&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x53D1;&#x5E03;&#x4E86;&#x4E00;&#x4E2A;&#x5931;&#x8D25;&#x4E8B;&#x4EF6;&#x3002;<a href="https://juejin.im/post/5e7978485188255e237c2a29" target="_blank">&#x66F4;&#x591A;&#x8BA2;&#x9605;&#x53D1;&#x5E03;&#x6A21;&#x5F0F;&#x7684;&#x539F;&#x7406;&#x53EF;&#x4EE5;&#x770B;&#x8FD9;&#x91CC;</a>&#x3002;</p>
+<h3 id="&#x5B8C;&#x6210;&#x4E86;&#x4E00;&#x5C0F;&#x6B65;"><a name="&#x5B8C;&#x6210;&#x4E86;&#x4E00;&#x5C0F;&#x6B65;" class="anchor-navigation-ex-anchor" href="#&#x5B8C;&#x6210;&#x4E86;&#x4E00;&#x5C0F;&#x6B65;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B8C;&#x6210;&#x4E86;&#x4E00;&#x5C0F;&#x6B65;</h3>
+<p>&#x5230;&#x8FD9;&#x91CC;&#x4E3A;&#x6B62;&#xFF0C;&#x5176;&#x5B9E;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#x4E86;&#xFF0C;&#x53EA;&#x662F;<code>then</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x8FD8;&#x6CA1;&#x5B9E;&#x73B0;&#xFF0C;&#x8FD8;&#x4E0D;&#x80FD;&#x5B9E;&#x73B0;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x73A9;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;request&quot;</span>);
+<span class="hljs-keyword">var</span> MyPromise = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./MyPromise&apos;</span>);
+
+<span class="hljs-keyword">var</span> promise1 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> {
+  request(<span class="hljs-string">&apos;https://www.baidu.com&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, response</span>) </span>{
+    <span class="hljs-keyword">if</span> (!error &amp;&amp; response.statusCode == <span class="hljs-number">200</span>) {
+      resolve(<span class="hljs-string">&apos;request1 success&apos;</span>);
+    }
+  });
+});
+
+promise1.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(value);
+});
+
+<span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+  request(<span class="hljs-string">&apos;https://www.baidu.com&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, response</span>) </span>{
+    <span class="hljs-keyword">if</span> (!error &amp;&amp; response.statusCode == <span class="hljs-number">200</span>) {
+      reject(<span class="hljs-string">&apos;request2 failed&apos;</span>);
+    }
+  });
+});
+
+promise2.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(value);
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">reason</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(reason);
+});
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x8F93;&#x51FA;&#x5982;&#x4E0B;&#x56FE;&#xFF0C;&#x7B26;&#x5408;&#x6211;&#x4EEC;&#x7684;&#x9884;&#x671F;&#xFF0C;&#x8BF4;&#x660E;&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x6CA1;&#x95EE;&#x9898;:</p>
+<p><img src="../../images/JavaScript/Promise/image-20200325172257655.png" alt="image-20200325172257655"></p>
+<h3 id="then&#x7684;&#x8FD4;&#x56DE;&#x503C;"><a name="then&#x7684;&#x8FD4;&#x56DE;&#x503C;" class="anchor-navigation-ex-anchor" href="#then&#x7684;&#x8FD4;&#x56DE;&#x503C;"><i class="fa fa-link" aria-hidden="true"></i></a><code>then</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;</h3>
+<p>&#x6839;&#x636E;&#x89C4;&#x8303;<code>then</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;promise&#xFF0C;&#x89C4;&#x8303;&#x8FD8;&#x5B9A;&#x4E49;&#x4E86;&#x4E0D;&#x540C;&#x60C5;&#x51B5;&#x5E94;&#x8BE5;&#x600E;&#x4E48;&#x5904;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x5904;&#x7406;&#x51E0;&#x79CD;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#x7684;&#x60C5;&#x51B5;:</p>
+<ol>
+<li>&#x5982;&#x679C; <code>onFulfilled</code> &#x6216;&#x8005; <code>onRejected</code> &#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x5F02;&#x5E38; <code>e</code> &#xFF0C;&#x5219; <code>promise2</code> &#x5FC5;&#x987B;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x62D2;&#x56E0; <code>e</code>&#x3002;</li>
+</ol>
+<pre><code class="lang-javascript">MyPromise.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onFulfilled, onRejected</span>) </span>{
+    <span class="hljs-comment">// ... &#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801; ...</span>
+
+  <span class="hljs-comment">// &#x6709;&#x4E86;&#x8FD9;&#x4E2A;&#x8981;&#x6C42;&#xFF0C;&#x5728;RESOLVED&#x548C;REJECTED&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4E0D;&#x80FD;&#x7B80;&#x5355;&#x7684;&#x8FD0;&#x884C;onFulfilled&#x548C;onRejected&#x4E86;&#x3002;</span>
+  <span class="hljs-comment">// &#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06;&#x4ED6;&#x4EEC;&#x7528;try...catch...&#x5305;&#x8D77;&#x6765;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x9519;&#x5C31;reject&#x3002;</span>
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === FULFILLED) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        realOnFulfilled(that.value);
+      } <span class="hljs-keyword">catch</span> (error) {
+        reject(error);
+      }
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === REJECTED) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        realOnRejected(that.reason);
+      } <span class="hljs-keyword">catch</span> (error) {
+        reject(error);
+      }
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+
+  <span class="hljs-comment">// &#x5982;&#x679C;&#x8FD8;&#x662F;PENDING&#x72B6;&#x6001;&#xFF0C;&#x4E5F;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x4FDD;&#x5B58;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x4E86;&#xFF0C;&#x9700;&#x8981;&#x5305;&#x4E00;&#x5C42;&#x6765;&#x6355;&#x83B7;&#x9519;&#x8BEF;</span>
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === PENDING) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+      that.onFulfilledCallbacks.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">try</span> {
+          realOnFulfilled(that.value);
+        } <span class="hljs-keyword">catch</span> (error) {
+          reject(error);
+        }
+      });
+      that.onRejectedCallbacks.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">try</span> {
+          realOnRejected(that.reason);
+        } <span class="hljs-keyword">catch</span> (error) {
+          reject(error);
+        }
+      });
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+}
+</code></pre>
+<ol>
+<li>&#x5982;&#x679C; <code>onFulfilled</code> &#x4E0D;&#x662F;&#x51FD;&#x6570;&#x4E14; <code>promise1</code> &#x6210;&#x529F;&#x6267;&#x884C;&#xFF0C; <code>promise2</code> &#x5FC5;&#x987B;&#x6210;&#x529F;&#x6267;&#x884C;&#x5E76;&#x8FD4;&#x56DE;&#x76F8;&#x540C;&#x7684;&#x503C;</li>
+</ol>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x6211;&#x4EEC;&#x5C31;&#x6839;&#x636E;&#x8981;&#x6C42;&#x52A0;&#x4E2A;&#x5224;&#x65AD;&#xFF0C;&#x6CE8;&#x610F;else&#x91CC;&#x9762;&#x662F;&#x6B63;&#x5E38;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#xFF0C;&#x9700;&#x8981;resolve</span>
+<span class="hljs-comment">// &#x8FD9;&#x662F;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x6BCF;&#x4E2A;realOnFulfilled&#x540E;&#x9762;&#x90FD;&#x8981;&#x8FD9;&#x6837;&#x5199;</span>
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === FULFILLED) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+          resolve(that.value);
+        } <span class="hljs-keyword">else</span> {
+          realOnFulfilled(that.value);
+          resolve(that.value);
+        }
+      } <span class="hljs-keyword">catch</span> (error) {
+        reject(error);
+      }
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+</code></pre>
+<ol>
+<li>&#x5982;&#x679C; <code>onRejected</code> &#x4E0D;&#x662F;&#x51FD;&#x6570;&#x4E14; <code>promise1</code> &#x62D2;&#x7EDD;&#x6267;&#x884C;&#xFF0C; <code>promise2</code> &#x5FC5;&#x987B;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#x5E76;&#x8FD4;&#x56DE;&#x76F8;&#x540C;&#x7684;&#x636E;&#x56E0;&#x3002;&#x8FD9;&#x4E2A;&#x8981;&#x6C42;&#x5176;&#x5B9E;&#x5728;&#x6211;&#x4EEC;&#x68C0;&#x6D4B; <code>onRejected</code> &#x4E0D;&#x662F;&#x51FD;&#x6570;&#x7684;&#x65F6;&#x5019;&#x5DF2;&#x7ECF;&#x505A;&#x5230;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x9ED8;&#x8BA4;&#x7ED9;&#x7684;<code>onRejected</code>&#x91CC;&#x9762;&#x4F1A;throw&#x4E00;&#x4E2A;Error&#xFF0C;&#x6240;&#x4EE5;&#x4EE3;&#x7801;&#x80AF;&#x5B9A;&#x4F1A;&#x8D70;&#x5230;catch&#x91CC;&#x9762;&#x53BB;&#x3002;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x4E3A;&#x4E86;&#x66F4;&#x76F4;&#x89C2;&#xFF0C;&#x4EE3;&#x7801;&#x8FD8;&#x662F;&#x8DDF;&#x89C4;&#x8303;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x5427;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;<code>promise1</code>&#x7684;<code>onRejected</code>&#x6267;&#x884C;&#x6210;&#x529F;&#x4E86;&#xFF0C;<code>promise2</code>&#x5E94;&#x8BE5;&#x88AB;<code>resolve</code>&#x3002;&#x6539;&#x9020;&#x4EE3;&#x7801;&#x5982;&#x4E0B;:</li>
+</ol>
+<pre><code class="lang-javascript">  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === REJECTED) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> onRejected !== <span class="hljs-string">&apos;function&apos;</span>) {
+          reject(that.reason);
+        } <span class="hljs-keyword">else</span> {
+          realOnRejected(that.reason);
+          resolve();
+        }
+      } <span class="hljs-keyword">catch</span> (error) {
+        reject(error);
+      }
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+</code></pre>
+<ol>
+<li>&#x5982;&#x679C; <code>onFulfilled</code> &#x6216;&#x8005; <code>onRejected</code> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x503C; <code>x</code> &#xFF0C;&#x5219;&#x8FD0;&#x884C;&#x4E0B;&#x9762;&#x7684; <strong>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</strong>&#xFF1A;<code>[[Resolve]](promise2, x)</code>&#x3002;&#x8FD9;&#x6761;&#x5176;&#x5B9E;&#x624D;&#x662F;&#x89C4;&#x8303;&#x7684;&#x7B2C;&#x4E00;&#x6761;&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5C06;&#x5B83;&#x653E;&#x5230;&#x4E86;&#x6700;&#x540E;&#x3002;&#x524D;&#x9762;&#x6211;&#x4EEC;&#x4EE3;&#x7801;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5176;&#x5B9E;&#x53EA;&#x8981;<code>onRejected</code>&#x6216;&#x8005;<code>onFulfilled</code>&#x6210;&#x529F;&#x6267;&#x884C;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x8981;<code>resolve promise2</code>&#x3002;&#x591A;&#x4E86;&#x8FD9;&#x6761;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x5BF9;<code>onRejected</code>&#x6216;&#x8005;<code>onFulfilled</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x5C31;&#x8981;&#x8FDB;&#x884C; <strong>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</strong>&#x3002;&#x6211;&#x4EEC;&#x4E13;&#x95E8;&#x5199;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x6765;&#x8FDB;&#x884C;<strong>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</strong>&#x3002;&#x524D;&#x9762;&#x6211;&#x4EEC;&#x4EE3;&#x7801;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5176;&#x5B9E;&#x53EA;&#x8981;<code>onRejected</code>&#x6216;&#x8005;<code>onFulfilled</code>&#x6210;&#x529F;&#x6267;&#x884C;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x8981;<code>resolve promise2</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x6211;&#x4EEC;&#x4E5F;&#x653E;&#x5230;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x53BB;&#x5427;&#xFF0C;&#x6240;&#x4EE5;&#x4EE3;&#x7801;&#x53D8;&#x4E3A;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#xFF0C;&#x5176;&#x4ED6;&#x5730;&#x65B9;&#x7C7B;&#x4F3C;&#xFF1A;</li>
+</ol>
+<pre><code class="lang-javascript">  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === FULFILLED) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+          resolve(that.value);
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">var</span> x = realOnFulfilled(that.value);
+          resolvePromise(promise2, x, resolve, reject);   <span class="hljs-comment">// &#x8C03;&#x7528;Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</span>
+        }
+      } <span class="hljs-keyword">catch</span> (error) {
+        reject(error);
+      }
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+</code></pre>
+<h3 id="promise-&#x89E3;&#x51B3;&#x8FC7;&#x7A0B;"><a name="promise-&#x89E3;&#x51B3;&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#promise-&#x89E3;&#x51B3;&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a><strong>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</strong></h3>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x8BE5;&#x6765;&#x5B9E;&#x73B0;<code>resolvePromise</code>&#x65B9;&#x6CD5;&#x4E86;&#xFF0C;&#x89C4;&#x8303;&#x4E2D;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x8F83;&#x957F;&#xFF0C;&#x6211;&#x5C31;&#x76F4;&#x63A5;&#x628A;&#x89C4;&#x8303;&#x4F5C;&#x4E3A;&#x6CE8;&#x91CA;&#x5199;&#x5728;&#x4EE3;&#x7801;&#x91CC;&#x9762;&#x4E86;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolvePromise</span>(<span class="hljs-params">promise, x, resolve, reject</span>) </span>{
+  <span class="hljs-comment">// &#x5982;&#x679C; promise &#x548C; x &#x6307;&#x5411;&#x540C;&#x4E00;&#x5BF9;&#x8C61;&#xFF0C;&#x4EE5; TypeError &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD;&#x6267;&#x884C; promise</span>
+  <span class="hljs-comment">// &#x8FD9;&#x662F;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x6B7B;&#x5FAA;&#x73AF;</span>
+  <span class="hljs-keyword">if</span> (promise === x) {
+    <span class="hljs-keyword">return</span> reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&apos;The promise and the return value are the same&apos;</span>));
+  }
+
+  <span class="hljs-keyword">if</span> (x <span class="hljs-keyword">instanceof</span> MyPromise) {
+    <span class="hljs-comment">// &#x5982;&#x679C; x &#x4E3A; Promise &#xFF0C;&#x5219;&#x4F7F; promise &#x63A5;&#x53D7; x &#x7684;&#x72B6;&#x6001;</span>
+    <span class="hljs-comment">// &#x4E5F;&#x5C31;&#x662F;&#x7EE7;&#x7EED;&#x6267;&#x884C;x&#xFF0C;&#x5982;&#x679C;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x62FF;&#x5230;&#x4E00;&#x4E2A;y&#xFF0C;&#x8FD8;&#x8981;&#x7EE7;&#x7EED;&#x89E3;&#x6790;y</span>
+    <span class="hljs-comment">// &#x8FD9;&#x4E2A;if&#x8DDF;&#x4E0B;&#x9762;&#x5224;&#x65AD;then&#x7136;&#x540E;&#x62FF;&#x5230;&#x6267;&#x884C;&#x5176;&#x5B9E;&#x91CD;&#x590D;&#x4E86;&#xFF0C;&#x53EF;&#x6709;&#x53EF;&#x65E0;</span>
+    x.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">y</span>) </span>{
+      resolvePromise(promise, y, resolve, reject);
+    }, reject);
+  }
+  <span class="hljs-comment">// &#x5982;&#x679C; x &#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x51FD;&#x6570;</span>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&apos;object&apos;</span> || <span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&apos;function&apos;</span>) {
+    <span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x5751;&#x662F;&#x8DD1;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x7684;&#xFF0C;&#x5982;&#x679C;x&#x662F;null&#xFF0C;&#x5E94;&#x8BE5;&#x76F4;&#x63A5;resolve</span>
+    <span class="hljs-keyword">if</span> (x === <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">return</span> resolve(x);
+    }
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-comment">// &#x628A; x.then &#x8D4B;&#x503C;&#x7ED9; then </span>
+      <span class="hljs-keyword">var</span> then = x.then;
+    } <span class="hljs-keyword">catch</span> (error) {
+      <span class="hljs-comment">// &#x5982;&#x679C;&#x53D6; x.then &#x7684;&#x503C;&#x65F6;&#x629B;&#x51FA;&#x9519;&#x8BEF; e &#xFF0C;&#x5219;&#x4EE5; e &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD; promise</span>
+      <span class="hljs-keyword">return</span> reject(error);
+    }
+
+    <span class="hljs-comment">// &#x5982;&#x679C; then &#x662F;&#x51FD;&#x6570;</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> then === <span class="hljs-string">&apos;function&apos;</span>) {
+      <span class="hljs-keyword">var</span> called = <span class="hljs-literal">false</span>;
+      <span class="hljs-comment">// &#x5C06; x &#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF; this &#x8C03;&#x7528;&#x4E4B;</span>
+      <span class="hljs-comment">// &#x4F20;&#x9012;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x53EB;&#x505A; resolvePromise &#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x53EB;&#x505A; rejectPromise</span>
+      <span class="hljs-comment">// &#x540D;&#x5B57;&#x91CD;&#x540D;&#x4E86;&#xFF0C;&#x6211;&#x76F4;&#x63A5;&#x7528;&#x533F;&#x540D;&#x51FD;&#x6570;&#x4E86;</span>
+      <span class="hljs-keyword">try</span> {
+        then.call(
+          x,
+          <span class="hljs-comment">// &#x5982;&#x679C; resolvePromise &#x4EE5;&#x503C; y &#x4E3A;&#x53C2;&#x6570;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x8FD0;&#x884C; [[Resolve]](promise, y)</span>
+          <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">y</span>) </span>{
+            <span class="hljs-comment">// &#x5982;&#x679C; resolvePromise &#x548C; rejectPromise &#x5747;&#x88AB;&#x8C03;&#x7528;&#xFF0C;</span>
+            <span class="hljs-comment">// &#x6216;&#x8005;&#x88AB;&#x540C;&#x4E00;&#x53C2;&#x6570;&#x8C03;&#x7528;&#x4E86;&#x591A;&#x6B21;&#xFF0C;&#x5219;&#x4F18;&#x5148;&#x91C7;&#x7528;&#x9996;&#x6B21;&#x8C03;&#x7528;&#x5E76;&#x5FFD;&#x7565;&#x5269;&#x4E0B;&#x7684;&#x8C03;&#x7528;</span>
+            <span class="hljs-comment">// &#x5B9E;&#x73B0;&#x8FD9;&#x6761;&#x9700;&#x8981;&#x524D;&#x9762;&#x52A0;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;called</span>
+            <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;
+            called = <span class="hljs-literal">true</span>;
+            resolvePromise(promise, y, resolve, reject);
+          },
+          <span class="hljs-comment">// &#x5982;&#x679C; rejectPromise &#x4EE5;&#x636E;&#x56E0; r &#x4E3A;&#x53C2;&#x6570;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x4EE5;&#x636E;&#x56E0; r &#x62D2;&#x7EDD; promise</span>
+          <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">r</span>) </span>{
+            <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;
+            called = <span class="hljs-literal">true</span>;
+            reject(r);
+          });
+      } <span class="hljs-keyword">catch</span> (error) {
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x8C03;&#x7528; then &#x65B9;&#x6CD5;&#x629B;&#x51FA;&#x4E86;&#x5F02;&#x5E38; e&#xFF1A;</span>
+        <span class="hljs-comment">// &#x5982;&#x679C; resolvePromise &#x6216; rejectPromise &#x5DF2;&#x7ECF;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x5FFD;&#x7565;&#x4E4B;</span>
+        <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;
+
+        <span class="hljs-comment">// &#x5426;&#x5219;&#x4EE5; e &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD; promise</span>
+        reject(error);
+      }
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// &#x5982;&#x679C; then &#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x4EE5; x &#x4E3A;&#x53C2;&#x6570;&#x6267;&#x884C; promise</span>
+      resolve(x);
+    }
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// &#x5982;&#x679C; x &#x4E0D;&#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x51FD;&#x6570;&#xFF0C;&#x4EE5; x &#x4E3A;&#x53C2;&#x6570;&#x6267;&#x884C; promise</span>
+    resolve(x);
+  }
+}
+</code></pre>
+<h3 id="onfulfilled-&#x548C;-onrejected-&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;"><a name="onfulfilled-&#x548C;-onrejected-&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;" class="anchor-navigation-ex-anchor" href="#onfulfilled-&#x548C;-onrejected-&#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;"><i class="fa fa-link" aria-hidden="true"></i></a><code>onFulfilled</code> &#x548C; <code>onRejected</code> &#x7684;&#x6267;&#x884C;&#x65F6;&#x673A;</h3>
+<p>&#x5728;&#x89C4;&#x8303;&#x4E2D;&#x8FD8;&#x6709;&#x4E00;&#x6761;&#xFF1A;<code>onFulfilled</code> &#x548C; <code>onRejected</code> &#x53EA;&#x6709;&#x5728;&#x6267;&#x884C;&#x73AF;&#x5883;&#x5806;&#x6808;&#x4EC5;&#x5305;&#x542B;<strong>&#x5E73;&#x53F0;&#x4EE3;&#x7801;</strong>&#x65F6;&#x624D;&#x53EF;&#x88AB;&#x8C03;&#x7528;&#x3002;&#x8FD9;&#x4E00;&#x6761;&#x7684;&#x610F;&#x601D;&#x662F;&#x5B9E;&#x8DF5;&#x4E2D;&#x8981;&#x786E;&#x4FDD; <code>onFulfilled</code> &#x548C; <code>onRejected</code> &#x65B9;&#x6CD5;&#x5F02;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x4E14;&#x5E94;&#x8BE5;&#x5728; <code>then</code> &#x65B9;&#x6CD5;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x90A3;&#x4E00;&#x8F6E;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x4E4B;&#x540E;&#x7684;&#x65B0;&#x6267;&#x884C;&#x6808;&#x4E2D;&#x6267;&#x884C;&#x3002;&#x6240;&#x4EE5;&#x5728;&#x6211;&#x4EEC;&#x6267;&#x884C;<code>onFulfilled</code> &#x548C; <code>onRejected</code>&#x7684;&#x65F6;&#x5019;&#x90FD;&#x5E94;&#x8BE5;&#x5305;&#x5230;<code>setTimeout</code>&#x91CC;&#x9762;&#x53BB;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x8FD9;&#x5757;&#x4EE3;&#x7801;&#x5728;then&#x91CC;&#x9762;</span>
+<span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === FULFILLED) {
+  <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x52A0;setTimeout</span>
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+          resolve(that.value);
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">var</span> x = realOnFulfilled(that.value);
+          resolvePromise(promise2, x, resolve, reject);
+        }
+      } <span class="hljs-keyword">catch</span> (error) {
+        reject(error);
+      }
+    }, <span class="hljs-number">0</span>);
+  });
+
+  <span class="hljs-keyword">return</span> promise2;
+}
+
+<span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.status === REJECTED) {
+  <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x52A0;setTimeout</span>
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> onRejected !== <span class="hljs-string">&apos;function&apos;</span>) {
+          reject(that.reason);
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">var</span> x = realOnRejected(that.reason);
+          resolvePromise(promise2, x, resolve, reject);
+        }
+      } <span class="hljs-keyword">catch</span> (error) {
+        reject(error);
+      }
+    }, <span class="hljs-number">0</span>);
+  });
+
+  <span class="hljs-keyword">return</span> promise2;
+}
+
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === PENDING) {
+  <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+    that.onFulfilledCallbacks.push(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x52A0;setTimeout</span>
+      setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">try</span> {
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+            resolve(that.value);
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">var</span> x = realOnFulfilled(that.value);
+            resolvePromise(promise2, x, resolve, reject);
+          }
+        } <span class="hljs-keyword">catch</span> (error) {
+          reject(error);
+        }
+      }, <span class="hljs-number">0</span>);
+    });
+    that.onRejectedCallbacks.push(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x52A0;setTimeout</span>
+      setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">try</span> {
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onRejected !== <span class="hljs-string">&apos;function&apos;</span>) {
+            reject(that.reason);
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">var</span> x = realOnRejected(that.reason);
+            resolvePromise(promise2, x, resolve, reject);
+          }
+        } <span class="hljs-keyword">catch</span> (error) {
+          reject(error);
+        }
+      }, <span class="hljs-number">0</span>)
+    });
+  });
+
+  <span class="hljs-keyword">return</span> promise2;
+}
+</code></pre>
+<h3 id="&#x6D4B;&#x8BD5;&#x6211;&#x4EEC;&#x7684;promise"><a name="&#x6D4B;&#x8BD5;&#x6211;&#x4EEC;&#x7684;promise" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x6211;&#x4EEC;&#x7684;promise"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x6211;&#x4EEC;&#x7684;Promise</h3>
+<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;Promise/A+&#x5B98;&#x65B9;&#x7684;&#x6D4B;&#x8BD5;&#x5DE5;&#x5177;<a href="https://github.com/promises-aplus/promises-tests" target="_blank">promises-aplus-tests</a>&#x6765;&#x5BF9;&#x6211;&#x4EEC;&#x7684;<code>MyPromise</code>&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#xFF0C;&#x8981;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;<code>deferred</code>&#xFF0C;&#x5B98;&#x65B9;&#x5BF9;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;:</p>
+<blockquote>
+<p><code>deferred</code>: &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;{ promise, resolve, reject }&#x7684;&#x5BF9;&#x8C61;</p>
+<p>&#x200B;    <code>promise</code> &#x662F;&#x4E00;&#x4E2A;&#x5904;&#x4E8E;<code>pending</code>&#x72B6;&#x6001;&#x7684;promise</p>
+<p>&#x200B;    <code>resolve(value)</code> &#x7528;<code>value</code>&#x89E3;&#x51B3;&#x4E0A;&#x9762;&#x90A3;&#x4E2A;<code>promise</code></p>
+<p>&#x200B;    <code>reject(reason)</code> &#x7528;<code>reason</code>&#x62D2;&#x7EDD;&#x4E0A;&#x9762;&#x90A3;&#x4E2A;<code>promise</code></p>
+</blockquote>
+<p>&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-javascript">MyPromise.deferred = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> result = {};
+  result.promise = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>)</span>{
+    result.resolve = resolve;
+    result.reject = reject;
+  });
+
+  <span class="hljs-keyword">return</span> result;
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#x7528;npm&#x5C06;<code>promises-aplus-tests</code>&#x4E0B;&#x8F7D;&#x4E0B;&#x6765;&#xFF0C;&#x518D;&#x914D;&#x7F6E;&#x4E0B;package.json&#x5C31;&#x53EF;&#x4EE5;&#x8DD1;&#x6D4B;&#x8BD5;&#x4E86;:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;devDependencies&quot;</span>: {
+    <span class="hljs-string">&quot;promises-aplus-tests&quot;</span>: <span class="hljs-string">&quot;^2.1.2&quot;</span>
+  },
+  <span class="hljs-string">&quot;scripts&quot;</span>: {
+    <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;promises-aplus-tests MyPromise&quot;</span>
+  }
+}
+</code></pre>
+<p>&#x5728;&#x8DD1;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x4E00;&#x4E2A;&#x5751;&#xFF0C;&#x5728;<code>resolvePromise</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;x&#x662F;<code>null</code>&#xFF0C;&#x4ED6;&#x7684;&#x7C7B;&#x578B;&#x4E5F;&#x662F;<code>object</code>&#xFF0C;&#x662F;&#x5E94;&#x8BE5;&#x76F4;&#x63A5;&#x7528;x&#x6765;resolve&#x7684;&#xFF0C;&#x4E4B;&#x524D;&#x7684;&#x4EE3;&#x7801;&#x4F1A;&#x8D70;&#x5230;<code>catch</code>&#x7136;&#x540E;<code>reject</code>&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x68C0;&#x6D4B;&#x4E0B;<code>null</code>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x5751;&#x662F;&#x8DD1;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x7684;&#xFF0C;&#x5982;&#x679C;x&#x662F;null&#xFF0C;&#x5E94;&#x8BE5;&#x76F4;&#x63A5;resolve</span>
+<span class="hljs-keyword">if</span>(x === <span class="hljs-literal">null</span>) {
+  <span class="hljs-keyword">return</span> resolve(x);
+}
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x6D4B;&#x8BD5;&#x603B;&#x5171;872&#x7528;&#x4F8B;&#xFF0C;&#x6211;&#x4EEC;&#x5199;&#x7684;Promise&#x5B8C;&#x7F8E;&#x901A;&#x8FC7;&#x4E86;&#x6240;&#x6709;&#x7528;&#x4F8B;:</p>
+<p><img src="../../images/JavaScript/Promise/image-20200326214543894.png" alt="image-20200326214543894"></p>
+<h3 id="&#x5176;&#x4ED6;promise&#x65B9;&#x6CD5;"><a name="&#x5176;&#x4ED6;promise&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x5176;&#x4ED6;promise&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5176;&#x4ED6;Promise&#x65B9;&#x6CD5;</h3>
+<p>&#x5728;ES6&#x7684;&#x5B98;&#x65B9;Promise&#x8FD8;&#x6709;&#x5F88;&#x591A;API&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<blockquote>
+<p>Promise.resolve</p>
+<p>Promise.reject</p>
+<p>Promise.all</p>
+<p>Promise.race</p>
+<p>Promise.prototype.catch</p>
+<p>Promise.prototype.finally</p>
+<p>Promise.allSettled</p>
+</blockquote>
+<p>&#x867D;&#x7136;&#x8FD9;&#x4E9B;&#x90FD;&#x4E0D;&#x5728;Promise/A+&#x91CC;&#x9762;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x4E5F;&#x6765;&#x5B9E;&#x73B0;&#x4E00;&#x4E0B;&#x5427;&#xFF0C;&#x52A0;&#x6DF1;&#x7406;&#x89E3;&#x3002;&#x5176;&#x5B9E;&#x6211;&#x4EEC;&#x524D;&#x9762;&#x5B9E;&#x73B0;&#x4E86;Promise/A+&#x518D;&#x6765;&#x5B9E;&#x73B0;&#x8FD9;&#x4E9B;&#x5DF2;&#x7ECF;&#x662F;&#x5C0F;&#x83DC;&#x4E00;&#x789F;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;API&#x5168;&#x90E8;&#x662F;&#x524D;&#x9762;&#x7684;&#x5C01;&#x88C5;&#x800C;&#x5DF2;&#x3002;</p>
+<h4 id="promiseresolve"><a name="promiseresolve" class="anchor-navigation-ex-anchor" href="#promiseresolve"><i class="fa fa-link" aria-hidden="true"></i></a>Promise.resolve</h4>
+<p>&#x5C06;&#x73B0;&#x6709;&#x5BF9;&#x8C61;&#x8F6C;&#x4E3A;Promise&#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C; Promise.resolve &#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x4E0D;&#x662F;&#x5177;&#x6709; then &#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x53C8;&#x79F0; thenable &#x5BF9;&#x8C61;&#xFF09;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5BF9;&#x8C61;&#xFF0C;&#x4E14;&#x5B83;&#x7684;&#x72B6;&#x6001;&#x4E3A;fulfilled&#x3002;</p>
+<pre><code class="lang-javascript">MyPromise.resolve = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">parameter</span>) </span>{
+  <span class="hljs-keyword">if</span>(parameter <span class="hljs-keyword">instanceof</span> MyPromise) {
+    <span class="hljs-keyword">return</span> parameter;
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>) </span>{
+    resolve(parameter);
+  });
+}
+</code></pre>
+<h4 id="promisereject"><a name="promisereject" class="anchor-navigation-ex-anchor" href="#promisereject"><i class="fa fa-link" aria-hidden="true"></i></a>Promise.reject</h4>
+<p>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Promise&#x5B9E;&#x4F8B;&#xFF0C;&#x8BE5;&#x5B9E;&#x4F8B;&#x7684;&#x72B6;&#x6001;&#x4E3A;rejected&#x3002;Promise.reject&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;reason&#xFF0C;&#x4F1A;&#x88AB;&#x4F20;&#x9012;&#x7ED9;&#x5B9E;&#x4F8B;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</p>
+<pre><code class="lang-javascript">MyPromise.reject = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">reason</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    reject(reason);
+  });
+}
+</code></pre>
+<h4 id="promiseall"><a name="promiseall" class="anchor-navigation-ex-anchor" href="#promiseall"><i class="fa fa-link" aria-hidden="true"></i></a>Promise.all</h4>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5C06;&#x591A;&#x4E2A; Promise &#x5B9E;&#x4F8B;&#xFF0C;&#x5305;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5B9E;&#x4F8B;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.all([p1, p2, p3]);
+</code></pre>
+<p><code>Promise.all()</code>&#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;<code>p1</code>&#x3001;<code>p2</code>&#x3001;<code>p3</code>&#x90FD;&#x662F; Promise &#x5B9E;&#x4F8B;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x662F;&#xFF0C;&#x5C31;&#x4F1A;&#x5148;&#x8C03;&#x7528;Promise.resolve`&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x53C2;&#x6570;&#x8F6C;&#x4E3A; Promise &#x5B9E;&#x4F8B;&#xFF0C;&#x518D;&#x8FDB;&#x4E00;&#x6B65;&#x5904;&#x7406;&#x3002;&#x5F53;p1, p2, p3&#x5168;&#x90E8;resolve&#xFF0C;&#x5927;&#x7684;promise&#x624D;resolve&#xFF0C;&#x6709;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;reject&#xFF0C;&#x5927;&#x7684;promise&#x90FD;reject&#x3002;</p>
+<pre><code class="lang-javascript">MyPromise.all = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">promiseList</span>) </span>{
+  <span class="hljs-keyword">var</span> resPromise = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-keyword">var</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> result = [];
+    <span class="hljs-keyword">var</span> length = promiseList.length;
+
+    <span class="hljs-keyword">if</span>(length === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> resolve(result);
+    }
+
+    promiseList.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">promise, index</span>) </span>{
+      MyPromise.resolve(promise).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
+        count++;
+        result[index] = value;
+        <span class="hljs-keyword">if</span>(count === length) {
+          resolve(result);
+        }
+      }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">reason</span>)</span>{
+        reject(reason);
+      });
+    });
+  });
+
+  <span class="hljs-keyword">return</span> resPromise;
+}
+</code></pre>
+<h4 id="promiserace"><a name="promiserace" class="anchor-navigation-ex-anchor" href="#promiserace"><i class="fa fa-link" aria-hidden="true"></i></a>Promise.race</h4>
+<p>&#x7528;&#x6CD5;:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.race([p1, p2, p3]);
+</code></pre>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x540C;&#x6837;&#x662F;&#x5C06;&#x591A;&#x4E2A; Promise &#x5B9E;&#x4F8B;&#xFF0C;&#x5305;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5B9E;&#x4F8B;&#x3002;&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x53EA;&#x8981;<code>p1</code>&#x3001;<code>p2</code>&#x3001;<code>p3</code>&#x4E4B;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x7387;&#x5148;&#x6539;&#x53D8;&#x72B6;&#x6001;&#xFF0C;<code>p</code>&#x7684;&#x72B6;&#x6001;&#x5C31;&#x8DDF;&#x7740;&#x6539;&#x53D8;&#x3002;&#x90A3;&#x4E2A;&#x7387;&#x5148;&#x6539;&#x53D8;&#x7684; Promise &#x5B9E;&#x4F8B;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x5C31;&#x4F20;&#x9012;&#x7ED9;<code>p</code>&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</p>
+<pre><code class="lang-javascript">MyPromise.race = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">promiseList</span>) </span>{
+  <span class="hljs-keyword">var</span> resPromise = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-keyword">var</span> length = promiseList.length;
+
+    <span class="hljs-keyword">if</span>(length === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> resolve();
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+        MyPromise.resolve(promiseList[i]).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+          <span class="hljs-keyword">return</span> resolve(value);
+        }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">reason</span>) </span>{
+          <span class="hljs-keyword">return</span> reject(reason);
+        });
+      }
+    }
+  });
+
+  <span class="hljs-keyword">return</span> resPromise;
+}
+</code></pre>
+<h4 id="promiseprototypecatch"><a name="promiseprototypecatch" class="anchor-navigation-ex-anchor" href="#promiseprototypecatch"><i class="fa fa-link" aria-hidden="true"></i></a>Promise.prototype.catch</h4>
+<p><code>Promise.prototype.catch</code>&#x65B9;&#x6CD5;&#x662F;<code>.then(null, rejection)</code>&#x6216;<code>.then(undefined, rejection)</code>&#x7684;&#x522B;&#x540D;&#xFF0C;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x65F6;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</p>
+<pre><code class="lang-javascript">MyPromise.prototype.catch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onRejected</span>) </span>{
+  <span class="hljs-keyword">this</span>.then(<span class="hljs-literal">null</span>, onRejected);
+}
+</code></pre>
+<h4 id="promiseprototypefinally"><a name="promiseprototypefinally" class="anchor-navigation-ex-anchor" href="#promiseprototypefinally"><i class="fa fa-link" aria-hidden="true"></i></a>Promise.prototype.finally</h4>
+<p><code>finally</code>&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x4E0D;&#x7BA1; Promise &#x5BF9;&#x8C61;&#x6700;&#x540E;&#x72B6;&#x6001;&#x5982;&#x4F55;&#xFF0C;&#x90FD;&#x4F1A;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x8BE5;&#x65B9;&#x6CD5;&#x662F; ES2018 &#x5F15;&#x5165;&#x6807;&#x51C6;&#x7684;&#x3002;</p>
+<pre><code class="lang-javascript">MyPromise.prototype.finally = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
+    <span class="hljs-keyword">return</span> MyPromise.resolve(value).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      <span class="hljs-keyword">return</span> value;
+    });
+  }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>)</span>{
+    <span class="hljs-keyword">return</span> MyPromise.resolve(reason).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">throw</span> error
+    });
+  });
+}
+</code></pre>
+<h4 id="promiseallsettled"><a name="promiseallsettled" class="anchor-navigation-ex-anchor" href="#promiseallsettled"><i class="fa fa-link" aria-hidden="true"></i></a>Promise.allSettled</h4>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x4E00;&#x7EC4; Promise &#x5B9E;&#x4F8B;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x5305;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5B9E;&#x4F8B;&#x3002;&#x53EA;&#x6709;&#x7B49;&#x5230;&#x6240;&#x6709;&#x8FD9;&#x4E9B;&#x53C2;&#x6570;&#x5B9E;&#x4F8B;&#x90FD;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x4E0D;&#x7BA1;&#x662F;<code>fulfilled</code>&#x8FD8;&#x662F;<code>rejected</code>&#xFF0C;&#x5305;&#x88C5;&#x5B9E;&#x4F8B;&#x624D;&#x4F1A;&#x7ED3;&#x675F;&#x3002;&#x8BE5;&#x65B9;&#x6CD5;&#x7531; <a href="https://github.com/tc39/proposal-promise-allSettled" target="_blank">ES2020</a> &#x5F15;&#x5165;&#x3002;&#x8BE5;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x65B0;&#x7684; Promise &#x5B9E;&#x4F8B;&#xFF0C;&#x4E00;&#x65E6;&#x7ED3;&#x675F;&#xFF0C;&#x72B6;&#x6001;&#x603B;&#x662F;<code>fulfilled</code>&#xFF0C;&#x4E0D;&#x4F1A;&#x53D8;&#x6210;<code>rejected</code>&#x3002;&#x72B6;&#x6001;&#x53D8;&#x6210;<code>fulfilled</code>&#x540E;&#xFF0C;Promise &#x7684;&#x76D1;&#x542C;&#x51FD;&#x6570;&#x63A5;&#x6536;&#x5230;&#x7684;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x6BCF;&#x4E2A;&#x6210;&#x5458;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x4F20;&#x5165;<code>Promise.allSettled()</code>&#x7684; Promise &#x5B9E;&#x4F8B;&#x7684;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x3002;</p>
+<pre><code class="lang-javascript">MyPromise.allSettled = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">promiseList</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>)</span>{
+    <span class="hljs-keyword">var</span> length = promiseList.length;
+    <span class="hljs-keyword">var</span> result = [];
+    <span class="hljs-keyword">var</span> count = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">if</span>(length === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> resolve(result);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+
+        (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i</span>)</span>{
+          <span class="hljs-keyword">var</span> currentPromise = MyPromise.resolve(promiseList[i]);
+
+          currentPromise.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>)</span>{
+            count++;
+            result[i] = {
+              <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;fulfilled&apos;</span>,
+              <span class="hljs-attr">value</span>: value
+            }
+            <span class="hljs-keyword">if</span>(count === length) {
+              <span class="hljs-keyword">return</span> resolve(result);
+            }
+          }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">reason</span>)</span>{
+            count++;
+            result[i] = {
+              <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;rejected&apos;</span>,
+              <span class="hljs-attr">reason</span>: reason
+            }
+            <span class="hljs-keyword">if</span>(count === length) {
+              <span class="hljs-keyword">return</span> resolve(result);
+            }
+          });
+        })(i)
+      }
+    }
+  });
+}
+</code></pre>
+<h3 id="&#x5B8C;&#x6574;&#x4EE3;&#x7801;"><a name="&#x5B8C;&#x6574;&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x5B8C;&#x6574;&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B8C;&#x6574;&#x4EE3;&#x7801;</h3>
+<p>&#x5B8C;&#x5168;&#x7248;&#x7684;&#x4EE3;&#x7801;&#x8F83;&#x957F;&#xFF0C;&#x8FD9;&#x91CC;&#x5982;&#x679C;&#x770B;&#x4E0D;&#x6E05;&#x695A;&#x7684;&#x53EF;&#x4EE5;&#x53BB;&#x6211;&#x7684;GitHub&#x4E0A;&#x770B;:</p>
+<p><a href="https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/JavaScript/Promise/MyPromise.js" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges/blob/master/Examples/JavaScript/Promise/MyPromise.js</a></p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x5148;&#x5B9A;&#x4E49;&#x4E09;&#x4E2A;&#x5E38;&#x91CF;&#x8868;&#x793A;&#x72B6;&#x6001;</span>
+<span class="hljs-keyword">var</span> PENDING = <span class="hljs-string">&apos;pending&apos;</span>;
+<span class="hljs-keyword">var</span> FULFILLED = <span class="hljs-string">&apos;fulfilled&apos;</span>;
+<span class="hljs-keyword">var</span> REJECTED = <span class="hljs-string">&apos;rejected&apos;</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPromise</span>(<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-keyword">this</span>.status = PENDING;    <span class="hljs-comment">// &#x521D;&#x59CB;&#x72B6;&#x6001;&#x4E3A;pending</span>
+  <span class="hljs-keyword">this</span>.value = <span class="hljs-literal">null</span>;        <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;value</span>
+  <span class="hljs-keyword">this</span>.reason = <span class="hljs-literal">null</span>;       <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;reason</span>
+
+  <span class="hljs-comment">// &#x6784;&#x9020;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x6DFB;&#x52A0;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;&#x5B58;&#x50A8;&#x6210;&#x529F;&#x548C;&#x5931;&#x8D25;&#x7684;&#x56DE;&#x8C03;</span>
+  <span class="hljs-keyword">this</span>.onFulfilledCallbacks = [];
+  <span class="hljs-keyword">this</span>.onRejectedCallbacks = [];
+
+  <span class="hljs-comment">// &#x5B58;&#x4E00;&#x4E0B;this,&#x4EE5;&#x4FBF;resolve&#x548C;reject&#x91CC;&#x9762;&#x8BBF;&#x95EE;</span>
+  <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+  <span class="hljs-comment">// resolve&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x662F;value</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolve</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span> (that.status === PENDING) {
+      that.status = FULFILLED;
+      that.value = value;
+
+      <span class="hljs-comment">// resolve&#x91CC;&#x9762;&#x5C06;&#x6240;&#x6709;&#x6210;&#x529F;&#x7684;&#x56DE;&#x8C03;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;</span>
+      that.onFulfilledCallbacks.forEach(<span class="hljs-function"><span class="hljs-params">callback</span> =&gt;</span> {
+        callback(that.value);
+      });
+    }
+  }
+
+  <span class="hljs-comment">// reject&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x662F;reason</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reject</span>(<span class="hljs-params">reason</span>) </span>{
+    <span class="hljs-keyword">if</span> (that.status === PENDING) {
+      that.status = REJECTED;
+      that.reason = reason;
+
+      <span class="hljs-comment">// resolve&#x91CC;&#x9762;&#x5C06;&#x6240;&#x6709;&#x5931;&#x8D25;&#x7684;&#x56DE;&#x8C03;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;</span>
+      that.onRejectedCallbacks.forEach(<span class="hljs-function"><span class="hljs-params">callback</span> =&gt;</span> {
+        callback(that.reason);
+      });
+    }
+  }
+
+  <span class="hljs-keyword">try</span> {
+    fn(resolve, reject);
+  } <span class="hljs-keyword">catch</span> (error) {
+    reject(error);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolvePromise</span>(<span class="hljs-params">promise, x, resolve, reject</span>) </span>{
+  <span class="hljs-comment">// &#x5982;&#x679C; promise &#x548C; x &#x6307;&#x5411;&#x540C;&#x4E00;&#x5BF9;&#x8C61;&#xFF0C;&#x4EE5; TypeError &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD;&#x6267;&#x884C; promise</span>
+  <span class="hljs-comment">// &#x8FD9;&#x662F;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x6B7B;&#x5FAA;&#x73AF;</span>
+  <span class="hljs-keyword">if</span> (promise === x) {
+    <span class="hljs-keyword">return</span> reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&apos;The promise and the return value are the same&apos;</span>));
+  }
+
+  <span class="hljs-keyword">if</span> (x <span class="hljs-keyword">instanceof</span> MyPromise) {
+    <span class="hljs-comment">// &#x5982;&#x679C; x &#x4E3A; Promise &#xFF0C;&#x5219;&#x4F7F; promise &#x63A5;&#x53D7; x &#x7684;&#x72B6;&#x6001;</span>
+    <span class="hljs-comment">// &#x4E5F;&#x5C31;&#x662F;&#x7EE7;&#x7EED;&#x6267;&#x884C;x&#xFF0C;&#x5982;&#x679C;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x62FF;&#x5230;&#x4E00;&#x4E2A;y&#xFF0C;&#x8FD8;&#x8981;&#x7EE7;&#x7EED;&#x89E3;&#x6790;y</span>
+    <span class="hljs-comment">// &#x8FD9;&#x4E2A;if&#x8DDF;&#x4E0B;&#x9762;&#x5224;&#x65AD;then&#x7136;&#x540E;&#x62FF;&#x5230;&#x6267;&#x884C;&#x5176;&#x5B9E;&#x91CD;&#x590D;&#x4E86;&#xFF0C;&#x53EF;&#x6709;&#x53EF;&#x65E0;</span>
+    x.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">y</span>) </span>{
+      resolvePromise(promise, y, resolve, reject);
+    }, reject);
+  }
+  <span class="hljs-comment">// &#x5982;&#x679C; x &#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x51FD;&#x6570;</span>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&apos;object&apos;</span> || <span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&apos;function&apos;</span>) {
+    <span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x5751;&#x662F;&#x8DD1;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x7684;&#xFF0C;&#x5982;&#x679C;x&#x662F;null&#xFF0C;&#x5E94;&#x8BE5;&#x76F4;&#x63A5;resolve</span>
+    <span class="hljs-keyword">if</span> (x === <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">return</span> resolve(x);
+    }
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-comment">// &#x628A; x.then &#x8D4B;&#x503C;&#x7ED9; then </span>
+      <span class="hljs-keyword">var</span> then = x.then;
+    } <span class="hljs-keyword">catch</span> (error) {
+      <span class="hljs-comment">// &#x5982;&#x679C;&#x53D6; x.then &#x7684;&#x503C;&#x65F6;&#x629B;&#x51FA;&#x9519;&#x8BEF; e &#xFF0C;&#x5219;&#x4EE5; e &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD; promise</span>
+      <span class="hljs-keyword">return</span> reject(error);
+    }
+
+    <span class="hljs-comment">// &#x5982;&#x679C; then &#x662F;&#x51FD;&#x6570;</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> then === <span class="hljs-string">&apos;function&apos;</span>) {
+      <span class="hljs-keyword">var</span> called = <span class="hljs-literal">false</span>;
+      <span class="hljs-comment">// &#x5C06; x &#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF; this &#x8C03;&#x7528;&#x4E4B;</span>
+      <span class="hljs-comment">// &#x4F20;&#x9012;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x53EB;&#x505A; resolvePromise &#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x53EB;&#x505A; rejectPromise</span>
+      <span class="hljs-comment">// &#x540D;&#x5B57;&#x91CD;&#x540D;&#x4E86;&#xFF0C;&#x6211;&#x76F4;&#x63A5;&#x7528;&#x533F;&#x540D;&#x51FD;&#x6570;&#x4E86;</span>
+      <span class="hljs-keyword">try</span> {
+        then.call(
+          x,
+          <span class="hljs-comment">// &#x5982;&#x679C; resolvePromise &#x4EE5;&#x503C; y &#x4E3A;&#x53C2;&#x6570;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x8FD0;&#x884C; [[Resolve]](promise, y)</span>
+          <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">y</span>) </span>{
+            <span class="hljs-comment">// &#x5982;&#x679C; resolvePromise &#x548C; rejectPromise &#x5747;&#x88AB;&#x8C03;&#x7528;&#xFF0C;</span>
+            <span class="hljs-comment">// &#x6216;&#x8005;&#x88AB;&#x540C;&#x4E00;&#x53C2;&#x6570;&#x8C03;&#x7528;&#x4E86;&#x591A;&#x6B21;&#xFF0C;&#x5219;&#x4F18;&#x5148;&#x91C7;&#x7528;&#x9996;&#x6B21;&#x8C03;&#x7528;&#x5E76;&#x5FFD;&#x7565;&#x5269;&#x4E0B;&#x7684;&#x8C03;&#x7528;</span>
+            <span class="hljs-comment">// &#x5B9E;&#x73B0;&#x8FD9;&#x6761;&#x9700;&#x8981;&#x524D;&#x9762;&#x52A0;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;called</span>
+            <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;
+            called = <span class="hljs-literal">true</span>;
+            resolvePromise(promise, y, resolve, reject);
+          },
+          <span class="hljs-comment">// &#x5982;&#x679C; rejectPromise &#x4EE5;&#x636E;&#x56E0; r &#x4E3A;&#x53C2;&#x6570;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x4EE5;&#x636E;&#x56E0; r &#x62D2;&#x7EDD; promise</span>
+          <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">r</span>) </span>{
+            <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;
+            called = <span class="hljs-literal">true</span>;
+            reject(r);
+          });
+      } <span class="hljs-keyword">catch</span> (error) {
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x8C03;&#x7528; then &#x65B9;&#x6CD5;&#x629B;&#x51FA;&#x4E86;&#x5F02;&#x5E38; e&#xFF1A;</span>
+        <span class="hljs-comment">// &#x5982;&#x679C; resolvePromise &#x6216; rejectPromise &#x5DF2;&#x7ECF;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x5FFD;&#x7565;&#x4E4B;</span>
+        <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;
+
+        <span class="hljs-comment">// &#x5426;&#x5219;&#x4EE5; e &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD; promise</span>
+        reject(error);
+      }
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// &#x5982;&#x679C; then &#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x4EE5; x &#x4E3A;&#x53C2;&#x6570;&#x6267;&#x884C; promise</span>
+      resolve(x);
+    }
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// &#x5982;&#x679C; x &#x4E0D;&#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x51FD;&#x6570;&#xFF0C;&#x4EE5; x &#x4E3A;&#x53C2;&#x6570;&#x6267;&#x884C; promise</span>
+    resolve(x);
+  }
+}
+
+MyPromise.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">onFulfilled, onRejected</span>) </span>{
+  <span class="hljs-comment">// &#x5982;&#x679C;onFulfilled&#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x7ED9;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x51FD;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;value</span>
+  <span class="hljs-comment">// &#x540E;&#x9762;&#x8FD4;&#x56DE;&#x65B0;promise&#x7684;&#x65F6;&#x5019;&#x4E5F;&#x505A;&#x4E86;onFulfilled&#x7684;&#x53C2;&#x6570;&#x68C0;&#x67E5;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x5220;&#x9664;&#xFF0C;&#x6682;&#x65F6;&#x4FDD;&#x7559;&#x662F;&#x4E3A;&#x4E86;&#x8DDF;&#x89C4;&#x8303;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#xFF0C;&#x770B;&#x5F97;&#x66F4;&#x76F4;&#x89C2;</span>
+  <span class="hljs-keyword">var</span> realOnFulfilled = onFulfilled;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> realOnFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+    realOnFulfilled = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+      <span class="hljs-keyword">return</span> value;
+    }
+  }
+
+  <span class="hljs-comment">// &#x5982;&#x679C;onRejected&#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x7ED9;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x51FD;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;reason&#x7684;Error</span>
+  <span class="hljs-comment">// &#x540E;&#x9762;&#x8FD4;&#x56DE;&#x65B0;promise&#x7684;&#x65F6;&#x5019;&#x4E5F;&#x505A;&#x4E86;onRejected&#x7684;&#x53C2;&#x6570;&#x68C0;&#x67E5;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x5220;&#x9664;&#xFF0C;&#x6682;&#x65F6;&#x4FDD;&#x7559;&#x662F;&#x4E3A;&#x4E86;&#x8DDF;&#x89C4;&#x8303;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#xFF0C;&#x770B;&#x5F97;&#x66F4;&#x76F4;&#x89C2;</span>
+  <span class="hljs-keyword">var</span> realOnRejected = onRejected;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> realOnRejected !== <span class="hljs-string">&apos;function&apos;</span>) {
+    realOnRejected = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+      <span class="hljs-keyword">throw</span> reason;
+    }
+  }
+
+  <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;   <span class="hljs-comment">// &#x4FDD;&#x5B58;&#x4E00;&#x4E0B;this</span>
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === FULFILLED) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">try</span> {
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+            resolve(that.value);
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">var</span> x = realOnFulfilled(that.value);
+            resolvePromise(promise2, x, resolve, reject);
+          }
+        } <span class="hljs-keyword">catch</span> (error) {
+          reject(error);
+        }
+      }, <span class="hljs-number">0</span>);
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === REJECTED) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">try</span> {
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onRejected !== <span class="hljs-string">&apos;function&apos;</span>) {
+            reject(that.reason);
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">var</span> x = realOnRejected(that.reason);
+            resolvePromise(promise2, x, resolve, reject);
+          }
+        } <span class="hljs-keyword">catch</span> (error) {
+          reject(error);
+        }
+      }, <span class="hljs-number">0</span>);
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+
+  <span class="hljs-comment">// &#x5982;&#x679C;&#x8FD8;&#x662F;PENDING&#x72B6;&#x6001;&#xFF0C;&#x5C06;&#x56DE;&#x8C03;&#x4FDD;&#x5B58;&#x4E0B;&#x6765;</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === PENDING) {
+    <span class="hljs-keyword">var</span> promise2 = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      that.onFulfilledCallbacks.push(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onFulfilled !== <span class="hljs-string">&apos;function&apos;</span>) {
+              resolve(that.value);
+            } <span class="hljs-keyword">else</span> {
+              <span class="hljs-keyword">var</span> x = realOnFulfilled(that.value);
+              resolvePromise(promise2, x, resolve, reject);
+            }
+          } <span class="hljs-keyword">catch</span> (error) {
+            reject(error);
+          }
+        }, <span class="hljs-number">0</span>);
+      });
+      that.onRejectedCallbacks.push(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onRejected !== <span class="hljs-string">&apos;function&apos;</span>) {
+              reject(that.reason);
+            } <span class="hljs-keyword">else</span> {
+              <span class="hljs-keyword">var</span> x = realOnRejected(that.reason);
+              resolvePromise(promise2, x, resolve, reject);
+            }
+          } <span class="hljs-keyword">catch</span> (error) {
+            reject(error);
+          }
+        }, <span class="hljs-number">0</span>)
+      });
+    });
+
+    <span class="hljs-keyword">return</span> promise2;
+  }
+}
+
+MyPromise.deferred = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> result = {};
+  result.promise = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+    result.resolve = resolve;
+    result.reject = reject;
+  });
+
+  <span class="hljs-keyword">return</span> result;
+}
+
+MyPromise.resolve = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">parameter</span>) </span>{
+  <span class="hljs-keyword">if</span> (parameter <span class="hljs-keyword">instanceof</span> MyPromise) {
+    <span class="hljs-keyword">return</span> parameter;
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) </span>{
+    resolve(parameter);
+  });
+}
+
+MyPromise.reject = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+    reject(reason);
+  });
+}
+
+MyPromise.all = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promiseList</span>) </span>{
+  <span class="hljs-keyword">var</span> resPromise = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-keyword">var</span> count = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> result = [];
+    <span class="hljs-keyword">var</span> length = promiseList.length;
+
+    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> resolve(result);
+    }
+
+    promiseList.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promise, index</span>) </span>{
+      MyPromise.resolve(promise).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+        count++;
+        result[index] = value;
+        <span class="hljs-keyword">if</span> (count === length) {
+          resolve(result);
+        }
+      }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+        reject(reason);
+      });
+    });
+  });
+
+  <span class="hljs-keyword">return</span> resPromise;
+}
+
+MyPromise.race = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promiseList</span>) </span>{
+  <span class="hljs-keyword">var</span> resPromise = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-keyword">var</span> length = promiseList.length;
+
+    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> resolve();
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+        MyPromise.resolve(promiseList[i]).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+          <span class="hljs-keyword">return</span> resolve(value);
+        }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+          <span class="hljs-keyword">return</span> reject(reason);
+        });
+      }
+    }
+  });
+
+  <span class="hljs-keyword">return</span> resPromise;
+}
+
+MyPromise.prototype.catch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">onRejected</span>) </span>{
+  <span class="hljs-keyword">this</span>.then(<span class="hljs-literal">null</span>, onRejected);
+}
+
+MyPromise.prototype.finally = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> MyPromise.resolve(fn()).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> value;
+    });
+  }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">return</span> MyPromise.resolve(fn()).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">throw</span> error
+    });
+  });
+}
+
+MyPromise.allSettled = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promiseList</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) </span>{
+    <span class="hljs-keyword">var</span> length = promiseList.length;
+    <span class="hljs-keyword">var</span> result = [];
+    <span class="hljs-keyword">var</span> count = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> resolve(result);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+
+        (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+          <span class="hljs-keyword">var</span> currentPromise = MyPromise.resolve(promiseList[i]);
+
+          currentPromise.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+            count++;
+            result[i] = {
+              <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;fulfilled&apos;</span>,
+              <span class="hljs-attr">value</span>: value
+            }
+            <span class="hljs-keyword">if</span> (count === length) {
+              <span class="hljs-keyword">return</span> resolve(result);
+            }
+          }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+            count++;
+            result[i] = {
+              <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;rejected&apos;</span>,
+              <span class="hljs-attr">reason</span>: reason
+            }
+            <span class="hljs-keyword">if</span> (count === length) {
+              <span class="hljs-keyword">return</span> resolve(result);
+            }
+          });
+        })(i)
+      }
+    }
+  });
+}
+
+<span class="hljs-built_in">module</span>.exports = MyPromise;
+</code></pre>
+<h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x603B;&#x7ED3;</h2>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x7684;Promise&#x5C31;&#x7B80;&#x5355;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x53EA;&#x662F;&#x6211;&#x4EEC;&#x4E0D;&#x662F;&#x539F;&#x751F;&#x4EE3;&#x7801;&#xFF0C;&#x4E0D;&#x80FD;&#x505A;&#x6210;&#x5FAE;&#x4EFB;&#x52A1;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x5B9A;&#x8981;&#x505A;&#x6210;&#x5FAE;&#x4EFB;&#x52A1;&#x7684;&#x8BDD;&#xFF0C;&#x53EA;&#x80FD;&#x7528;&#x5176;&#x4ED6;&#x5FAE;&#x4EFB;&#x52A1;API&#x6A21;&#x62DF;&#xFF0C;&#x6BD4;&#x5982;<code>MutaionObserver</code>&#x6216;&#x8005;<code>process.nextTick</code>&#x3002;&#x4E0B;&#x9762;&#x518D;&#x56DE;&#x987E;&#x4E0B;&#x51E0;&#x4E2A;&#x8981;&#x70B9;:</p>
+<ol>
+<li>Promise&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;</li>
+<li><code>then</code>&#x65B9;&#x6CD5;&#x5BF9;&#x4E8E;&#x8FD8;&#x5728;<code>pending</code>&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x5C06;&#x56DE;&#x8C03;&#x51FD;&#x6570;<code>onFilfilled</code>&#x548C;<code>onRejected</code>&#x585E;&#x5165;&#x4E86;&#x4E24;&#x4E2A;&#x6570;&#x7EC4;</li>
+<li>Promise&#x6784;&#x9020;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;<code>resolve</code>&#x65B9;&#x6CD5;&#x4F1A;&#x5C06;&#x6570;&#x7EC4;<code>onFilfilledCallbacks</code>&#x91CC;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x5168;&#x90E8;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;&#xFF0C;&#x8FD9;&#x91CC;&#x9762;&#x662F;&#x4E4B;&#x524D;then&#x65B9;&#x6CD5;&#x585E;&#x8FDB;&#x53BB;&#x7684;&#x6210;&#x529F;&#x56DE;&#x8C03;</li>
+<li>&#x540C;&#x7406;&#xFF0C;Promise&#x6784;&#x9020;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;<code>reject</code>&#x65B9;&#x6CD5;&#x4F1A;&#x5C06;&#x6570;&#x7EC4;<code>onRejectedCallbacks</code>&#x91CC;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x5168;&#x90E8;&#x62FF;&#x51FA;&#x6765;&#x6267;&#x884C;&#xFF0C;&#x8FD9;&#x91CC;&#x9762;&#x662F;&#x4E4B;&#x524D;then&#x65B9;&#x6CD5;&#x585E;&#x8FDB;&#x53BB;&#x7684;&#x5931;&#x8D25;&#x56DE;&#x8C03;</li>
+<li><code>then</code>&#x65B9;&#x6CD5;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Promise&#x4EE5;&#x4FBF;&#x6267;&#x884C;&#x94FE;&#x5F0F;&#x8C03;&#x7528;</li>
+<li><code>catch</code>&#x548C;<code>finally</code>&#x8FD9;&#x4E9B;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x90FD;&#x5FC5;&#x987B;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Promise&#x5B9E;&#x4F8B;&#x4EE5;&#x4FBF;&#x5B9E;&#x73B0;&#x94FE;&#x5F0F;&#x8C03;&#x7528;</li>
+</ol>
+<p><strong>&#x6587;&#x7AE0;&#x7684;&#x6700;&#x540E;&#xFF0C;&#x611F;&#x8C22;&#x4F60;&#x82B1;&#x8D39;&#x5B9D;&#x8D35;&#x7684;&#x65F6;&#x95F4;&#x9605;&#x8BFB;&#x672C;&#x6587;&#xFF0C;&#x5982;&#x679C;&#x672C;&#x6587;&#x7ED9;&#x4E86;&#x4F60;&#x4E00;&#x70B9;&#x70B9;&#x5E2E;&#x52A9;&#x6216;&#x8005;&#x542F;&#x53D1;&#xFF0C;&#x8BF7;&#x4E0D;&#x8981;&#x541D;&#x556C;&#x4F60;&#x7684;&#x8D5E;&#x548C;GitHub&#x5C0F;&#x661F;&#x661F;&#xFF0C;&#x4F60;&#x7684;&#x652F;&#x6301;&#x662F;&#x4F5C;&#x8005;&#x6301;&#x7EED;&#x521B;&#x4F5C;&#x7684;&#x52A8;&#x529B;&#x3002;</strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x535A;&#x6587;GitHub&#x9879;&#x76EE;&#x5730;&#x5740;&#xFF1A; <a href="https://github.com/dennis-jiang/Front-End-Knowledges" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges</a></strong></p>
+<p><strong>&#x4F5C;&#x8005;&#x6398;&#x91D1;&#x6587;&#x7AE0;&#x6C47;&#x603B;&#xFF1A;<a href="https://juejin.im/post/5e3ffc85518825494e2772fd" target="_blank">https://juejin.im/post/5e3ffc85518825494e2772fd</a></strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="AsyncAndEventLoop.html" class="navigation navigation-prev " aria-label="Previous page: 异步和EventLoop">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Generator.html" class="navigation navigation-next " aria-label="Next page: Generator和async/await还有co源码">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"手写Promise/A+","level":"1.3.10","depth":2,"next":{"title":"Generator和async/await还有co源码","level":"1.3.11","depth":2,"path":"Articles/JavaScript/Generator.md","ref":"Articles/JavaScript/Generator.md","articles":[]},"previous":{"title":"异步和EventLoop","level":"1.3.9","depth":2,"path":"Articles/JavaScript/AsyncAndEventLoop.md","ref":"Articles/JavaScript/AsyncAndEventLoop.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/JavaScript/Promise.md","mtime":"2020-10-26T02:23:21.424Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-02-20T02:25:58.668Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

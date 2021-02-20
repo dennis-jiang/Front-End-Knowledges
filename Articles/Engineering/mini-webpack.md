@@ -236,7 +236,7 @@ document.body.appendChild(component());
 
 由于我们需要将`import`这种代码转换成浏览器能识别的普通JS代码，所以我们首先要能够将代码解析出来。在解析代码的时候，可以将它读出来当成字符串替换，也可以使用更专业的`AST`来解析。`AST`全称叫`Abstract Syntax Trees`，也就是`抽象语法树`，是一个将代码用树来表示的数据结构，一个代码可以转换成`AST`，`AST`又可以转换成代码，而我们熟知的`babel`其实就可以做这个工作。要生成`AST`很复杂，涉及到编译原理，但是如果仅仅拿来用就比较简单了，本文就先不涉及复杂的编译原理，而是直接将`babel`生成好的`AST`拿来使用。
 
-**注意： webpack源码解析AST并不是使用的`babel`，而是使用的[acorn](https://github.com/acornjs/acorn)，webpack继承`acorn`的`Parser`，自己实现了一个[JavascriptParser](https://github.com/webpack/webpack/blob/a07a1269f0a0b23d40de6c9565eeaf962fbc8904/lib/javascript/JavascriptParser.js)，本文写作时采用了`babel`，这也是一个大家更熟悉的工具**。
+**注意：webpack源码解析AST并不是使用的`babel`，而是使用的[acorn](https://github.com/acornjs/acorn)。`webpack`自己实现了一个[JavascriptParser类](https://github.com/webpack/webpack/blob/a07a1269f0a0b23d40de6c9565eeaf962fbc8904/lib/javascript/JavascriptParser.js)，这个类里面用到了`acorn`。本文写作时采用了`babel`，这也是一个大家更熟悉的工具**。
 
 比如我先将入口文件读出来，然后用`babel`转换成`AST`可以直接这样写：
 

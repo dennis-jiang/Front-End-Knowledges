@@ -1,0 +1,1748 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>手写webpack · 前端进阶</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Dennis Jiang">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html" />
+    
+    
+    <link rel="prev" href="mono-repo.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Layout/Layout.html">
+            
+                <a href="../Layout/Layout.html">
+            
+                    
+                    页面布局
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Layout/Centered.html">
+            
+                <a href="../Layout/Centered.html">
+            
+                    
+                    居中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Layout/MultiColumns.html">
+            
+                <a href="../Layout/MultiColumns.html">
+            
+                    
+                    多列布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../JavaScript/JavaScript.html">
+            
+                <a href="../JavaScript/JavaScript.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../JavaScript/MemoryManagement.html">
+            
+                <a href="../JavaScript/MemoryManagement.html">
+            
+                    
+                    JavaScript内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../JavaScript/FunctionalProgramming.html">
+            
+                <a href="../JavaScript/FunctionalProgramming.html">
+            
+                    
+                    函数式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../JavaScript/ComposePipe.html">
+            
+                <a href="../JavaScript/ComposePipe.html">
+            
+                    
+                    compose函数和pipe函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../JavaScript/CommonFunctions.html">
+            
+                <a href="../JavaScript/CommonFunctions.html">
+            
+                    
+                    一些常用函数-数组扁平化，缓存函数，科里化函数，防抖函数，节流函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../JavaScript/Copy.html">
+            
+                <a href="../JavaScript/Copy.html">
+            
+                    
+                    浅拷贝和深拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../JavaScript/UnitTest.html">
+            
+                <a href="../JavaScript/UnitTest.html">
+            
+                    
+                    单元测试及原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../JavaScript/myPrototype.html">
+            
+                <a href="../JavaScript/myPrototype.html">
+            
+                    
+                    JS中的面向对象：prototype、__proto__与constructor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../JavaScript/this.html">
+            
+                <a href="../JavaScript/this.html">
+            
+                    
+                    this指向
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="../JavaScript/AsyncAndEventLoop.html">
+            
+                <a href="../JavaScript/AsyncAndEventLoop.html">
+            
+                    
+                    异步和EventLoop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="../JavaScript/Promise.html">
+            
+                <a href="../JavaScript/Promise.html">
+            
+                    
+                    手写Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="../JavaScript/Generator.html">
+            
+                <a href="../JavaScript/Generator.html">
+            
+                    
+                    Generator和async/await还有co源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="../JavaScript/Types.html">
+            
+                <a href="../JavaScript/Types.html">
+            
+                    
+                    数据类型转换和检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="../JavaScript/Scope.html">
+            
+                <a href="../JavaScript/Scope.html">
+            
+                    
+                    JS作用域
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network/Network.html">
+            
+                <a href="../Network/Network.html">
+            
+                    
+                    计算机网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../DataStructureAndAlgorithm/RSA.html">
+            
+                <a href="../DataStructureAndAlgorithm/RSA.html">
+            
+                    
+                    HTTPS和RSA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Network/HttpCache.html">
+            
+                <a href="../Network/HttpCache.html">
+            
+                    
+                    轻松理解HTTP缓存策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Vue/Vue.html">
+            
+                <a href="../Vue/Vue.html">
+            
+                    
+                    Vue.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Vue/reactive.html">
+            
+                <a href="../Vue/reactive.html">
+            
+                    
+                    Vue响应式原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Vue/vueRouter.html">
+            
+                <a href="../Vue/vueRouter.html">
+            
+                    
+                    Vue-Router原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../React/React.html">
+            
+                <a href="../React/React.html">
+            
+                    
+                    React.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../React/FiberAndHooks.html">
+            
+                <a href="../React/FiberAndHooks.html">
+            
+                    
+                    手写React的Fiber和Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../React/Redux.html">
+            
+                <a href="../React/Redux.html">
+            
+                    
+                    手写Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../React/React-Redux.html">
+            
+                <a href="../React/React-Redux.html">
+            
+                    
+                    手写React-Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../React/Redux-Thunk.html">
+            
+                <a href="../React/Redux-Thunk.html">
+            
+                    
+                    Redux-Thunk原理及源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../React/Redux-Saga.html">
+            
+                <a href="../React/Redux-Saga.html">
+            
+                    
+                    手写Redux-Saga源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../React/React-Router_Usage.html">
+            
+                <a href="../React/React-Router_Usage.html">
+            
+                    
+                    React-Router实现前端路由鉴权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../React/React-Router_Code.html">
+            
+                <a href="../React/React-Router_Code.html">
+            
+                    
+                    手写React-Router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../React/OptimizeCalendar.html">
+            
+                <a href="../React/OptimizeCalendar.html">
+            
+                    
+                    Calendar性能优化几十倍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Node/Node.html">
+            
+                <a href="../Node/Node.html">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Node/DeepInNodeModules.html">
+            
+                <a href="../Node/DeepInNodeModules.html">
+            
+                    
+                    模块加载机制，手写require
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../Node/HttpServer.html">
+            
+                <a href="../Node/HttpServer.html">
+            
+                    
+                    使用Node.js原生API写一个web服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../Node/Express.html">
+            
+                <a href="../Node/Express.html">
+            
+                    
+                    手写Express.js源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../Node/Koa.html">
+            
+                <a href="../Node/Koa.html">
+            
+                    
+                    手写Koa源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../Node/KoaRouter.html">
+            
+                <a href="../Node/KoaRouter.html">
+            
+                    
+                    手写@koa/router源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../Node/KoaStatic.html">
+            
+                <a href="../Node/KoaStatic.html">
+            
+                    
+                    手写koa-static源码，深入理解静态服务器原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../DesignPatterns/DesignPatterns.html">
+            
+                <a href="../DesignPatterns/DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../DesignPatterns/PubSub.html">
+            
+                <a href="../DesignPatterns/PubSub.html">
+            
+                    
+                    从发布订阅模式入手读懂Node.js的EventEmitter源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../DesignPatterns/Encapsulate.html">
+            
+                <a href="../DesignPatterns/Encapsulate.html">
+            
+                    
+                    封装代码的设计模式：工厂，建造者，单例，原型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../DesignPatterns/Reusability.html">
+            
+                <a href="../DesignPatterns/Reusability.html">
+            
+                    
+                    提高复用性的设计模式：桥接，享元，模板方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../DesignPatterns/Extendability.html">
+            
+                <a href="../DesignPatterns/Extendability.html">
+            
+                    
+                    提高扩展性的设计模式：职责链，观察者，装饰器，适配器，命令，访问者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../DesignPatterns/Quality.html">
+            
+                <a href="../DesignPatterns/Quality.html">
+            
+                    
+                    提高代码质量的设计模式：策略/状态，外观，迭代器，备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Architecture/Architecture.html">
+            
+                <a href="../Architecture/Architecture.html">
+            
+                    
+                    架构和源码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../Architecture/readSourceCode.html">
+            
+                <a href="../Architecture/readSourceCode.html">
+            
+                    
+                    从架构入手读源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../Architecture/Undersocre.html">
+            
+                <a href="../Architecture/Undersocre.html">
+            
+                    
+                    Underscore源码架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="Engineering.html">
+            
+                <a href="Engineering.html">
+            
+                    
+                    工程化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="leader.html">
+            
+                <a href="leader.html">
+            
+                    
+                    前端负责人/架构师职责
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="mono-repo.html">
+            
+                <a href="mono-repo.html">
+            
+                    
+                    mono-repo + react
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.10.3" data-path="mini-webpack.html">
+            
+                <a href="mini-webpack.html">
+            
+                    
+                    手写webpack
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                <a href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html">
+            
+                    
+                    数据结构和算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../DataStructureAndAlgorithm/Sorting.html">
+            
+                <a href="../DataStructureAndAlgorithm/Sorting.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                <a href="../DataStructureAndAlgorithm/LinkedList.html">
+            
+                    
+                    链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../DataStructureAndAlgorithm/Greedy.html">
+            
+                <a href="../DataStructureAndAlgorithm/Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../DataStructureAndAlgorithm/DP.html">
+            
+                <a href="../DataStructureAndAlgorithm/DP.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../DataStructureAndAlgorithm/OptimizeVariations.html">
+            
+                <a href="../DataStructureAndAlgorithm/OptimizeVariations.html">
+            
+                    
+                    三层商品选项优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Projects/Projects.html">
+            
+                <a href="../Projects/Projects.html">
+            
+                    
+                    实战项目
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../Projects/FractionCalcualator.html">
+            
+                <a href="../Projects/FractionCalcualator.html">
+            
+                    
+                    分数计算器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../Summary/Summary.html">
+            
+                <a href="../Summary/Summary.html">
+            
+                    
+                    心得与总结
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../Summary/AnnualReview2020.html">
+            
+                <a href="../Summary/AnnualReview2020.html">
+            
+                    
+                    2020年终总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+
+    
+    <li>
+        
+        
+        
+            
+        
+        
+            <a href="http://www.beian.miit.gov.cn/" target="blank" class="gitbook-link">
+                苏ICP备16008535号
+            </a>
+        
+    </li>
+    
+</ul>
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >手写webpack</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x624B;&#x5199;&#x4E00;&#x4E2A;webpack&#xFF0C;&#x770B;&#x770B;ast&#x600E;&#x4E48;&#x7528;"><b></b>&#x624B;&#x5199;&#x4E00;&#x4E2A;webpack&#xFF0C;&#x770B;&#x770B;AST&#x600E;&#x4E48;&#x7528;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;webpack"><b></b>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;webpack</a></li><li><span class="title-icon "></span><a href="#&#x7B80;&#x5355;&#x4F8B;&#x5B50;"><b></b>&#x7B80;&#x5355;&#x4F8B;&#x5B50;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5F15;&#x5165;webpack"><b></b>&#x5F15;&#x5165;webpack</a></li></ul><li><span class="title-icon "></span><a href="#&#x6DF1;&#x5165;&#x539F;&#x7406;"><b></b>&#x6DF1;&#x5165;&#x539F;&#x7406;</a></li><ul><li><span class="title-icon "></span><a href="#webpack&#x628A;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x6210;&#x4E86;&#x5565;&#xFF1F;"><b></b>webpack&#x628A;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x6210;&#x4E86;&#x5565;&#xFF1F;</a></li><li><span class="title-icon "></span><a href="#&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;webpack"><b></b>&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;webpack</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;ast&#x89E3;&#x6790;&#x4EE3;&#x7801;"><b></b>&#x4F7F;&#x7528;AST&#x89E3;&#x6790;&#x4EE3;&#x7801;</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;traverse&#x904D;&#x5386;ast"><b></b>&#x4F7F;&#x7528;traverse&#x904D;&#x5386;AST</a></li><li><span class="title-icon "></span><a href="#&#x5C06;import&#x8F6C;&#x6362;&#x4E3A;&#x51FD;&#x6570;&#x8C03;&#x7528;"><b></b>&#x5C06;import&#x8F6C;&#x6362;&#x4E3A;&#x51FD;&#x6570;&#x8C03;&#x7528;</a></li><li><span class="title-icon "></span><a href="#&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;"><b></b>&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;</a></li><li><span class="title-icon "></span><a href="#&#x9012;&#x5F52;&#x89E3;&#x6790;&#x591A;&#x4E2A;&#x6587;&#x4EF6;"><b></b>&#x9012;&#x5F52;&#x89E3;&#x6790;&#x591A;&#x4E2A;&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x8C03;&#x7528;"><b></b>&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;(&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x8C03;&#x7528;)</a></li><li><span class="title-icon "></span><a href="#&#x66FF;&#x6362;export&#x8BED;&#x53E5;"><b></b>&#x66FF;&#x6362;export&#x8BED;&#x53E5;</a></li><li><span class="title-icon "></span><a href="#&#x628A;webpackrequirer&#x7684;&#x8C03;&#x7528;&#x6DFB;&#x4E0A;&#x5427;"><b></b>&#x628A;__webpack_require__.r&#x7684;&#x8C03;&#x7528;&#x6DFB;&#x4E0A;&#x5427;</a></li><li><span class="title-icon "></span><a href="#&#x521B;&#x5EFA;&#x4EE3;&#x7801;&#x6A21;&#x677F;"><b></b>&#x521B;&#x5EFA;&#x4EE3;&#x7801;&#x6A21;&#x677F;</a></li><li><span class="title-icon "></span><a href="#&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;"><b></b>&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;</a></li><li><span class="title-icon "></span><a href="#&#x5927;&#x529F;&#x544A;&#x6210;"><b></b>&#x5927;&#x529F;&#x544A;&#x6210;</a></li></ul><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b></b>&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#x8D44;&#x6599;"><b></b>&#x53C2;&#x8003;&#x8D44;&#x6599;</a></li></ul></ul></div><h1 id="&#x624B;&#x5199;&#x4E00;&#x4E2A;webpack&#xFF0C;&#x770B;&#x770B;ast&#x600E;&#x4E48;&#x7528;"><a name="&#x624B;&#x5199;&#x4E00;&#x4E2A;webpack&#xFF0C;&#x770B;&#x770B;ast&#x600E;&#x4E48;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x624B;&#x5199;&#x4E00;&#x4E2A;webpack&#xFF0C;&#x770B;&#x770B;ast&#x600E;&#x4E48;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x624B;&#x5199;&#x4E00;&#x4E2A;webpack&#xFF0C;&#x770B;&#x770B;AST&#x600E;&#x4E48;&#x7528;</h1>
+<p>&#x672C;&#x6587;&#x5F00;&#x59CB;&#x6211;&#x4F1A;&#x56F4;&#x7ED5;<code>webpack</code>&#x548C;<code>babel</code>&#x5199;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x5DE5;&#x7A0B;&#x5316;&#x6587;&#x7AE0;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x5DE5;&#x5177;&#x6211;&#x867D;&#x7136;&#x5929;&#x5929;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x4ED6;&#x4EEC;&#x7684;&#x539F;&#x7406;&#x7406;&#x89E3;&#x7684;&#x5176;&#x5B9E;&#x4E0D;&#x662F;&#x5F88;&#x6DF1;&#x5165;&#xFF0C;&#x5199;&#x8FD9;&#x4E9B;&#x6587;&#x7AE0;&#x7684;&#x8FC7;&#x7A0B;&#x5176;&#x5B9E;&#x4E5F;&#x662F;&#x6211;&#x6DF1;&#x5165;&#x5B66;&#x4E60;&#x7684;&#x8FC7;&#x7A0B;&#x3002;&#x7531;&#x4E8E;<code>webpack</code>&#x548C;<code>babel</code>&#x7684;&#x4F53;&#x7CFB;&#x592A;&#x5927;&#xFF0C;&#x77E5;&#x8BC6;&#x70B9;&#x4F17;&#x591A;&#xFF0C;&#x4E0D;&#x53EF;&#x80FD;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x56CA;&#x62EC;&#x6240;&#x6709;&#x77E5;&#x8BC6;&#x70B9;&#xFF0C;&#x76EE;&#x524D;&#x6211;&#x7684;&#x8BA1;&#x5212;&#x662F;&#x4ECE;&#x7B80;&#x5355;&#x5165;&#x624B;&#xFF0C;&#x5148;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x7684;<code>webpack</code>&#xFF0C;&#x7136;&#x540E;&#x518D;&#x770B;&#x770B;<code>plugin</code>, <code>loader</code>&#x548C;<code>tree shaking</code>&#x7B49;&#x529F;&#x80FD;&#x3002;&#x76EE;&#x524D;&#x6211;&#x8BA1;&#x5212;&#x4F1A;&#x6709;&#x8FD9;&#x4E9B;&#x6587;&#x7AE0;&#xFF1A;</p>
+<ol>
+<li>&#x624B;&#x5199;&#x6700;&#x7B80;<code>webpack</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x672C;&#x6587;</li>
+<li><code>webpack</code>&#x7684;<code>plugin</code>&#x5B9E;&#x73B0;&#x539F;&#x7406;</li>
+<li><code>webpack</code>&#x7684;<code>loader</code>&#x5B9E;&#x73B0;&#x539F;&#x7406;</li>
+<li><code>webpack</code>&#x7684;<code>tree shaking</code>&#x5B9E;&#x73B0;&#x539F;&#x7406;</li>
+<li><code>webpack</code>&#x7684;<code>HMR</code>&#x5B9E;&#x73B0;&#x539F;&#x7406;</li>
+<li><code>babel</code>&#x548C;<code>ast</code>&#x539F;&#x7406;</li>
+</ol>
+<p>&#x6240;&#x6709;&#x6587;&#x7AE0;&#x90FD;&#x662F;&#x539F;&#x7406;&#x6216;&#x8005;&#x6E90;&#x7801;&#x89E3;&#x6790;&#xFF0C;&#x6B22;&#x8FCE;&#x5173;&#x6CE8;~</p>
+<p><strong>&#x672C;&#x6587;&#x53EF;&#x8FD0;&#x884C;&#x4EE3;&#x7801;&#x5DF2;&#x7ECF;&#x4E0A;&#x4F20;GitHub&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x62FF;&#x4E0B;&#x6765;&#x73A9;&#x73A9;&#xFF1A;<a href="https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack</a></strong></p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x8BB2;<code>webpack</code>&#x539F;&#x7406;&#xFF0C;&#x5728;&#x5B9E;&#x73B0;&#x65F6;&#x5E76;&#x4E0D;&#x4E25;&#x8C28;&#xFF0C;&#x800C;&#x4E14;&#x53EA;&#x5904;&#x7406;&#x4E86;<code>import</code>&#x548C;<code>export</code>&#x7684;<code>default</code>&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#xFF0C;&#x8BF7;&#x81EA;&#x5DF1;&#x6DFB;&#x52A0;&#x5176;&#x4ED6;&#x60C5;&#x51B5;&#x7684;&#x5904;&#x7406;&#x548C;&#x8FB9;&#x754C;&#x5224;&#x65AD;</strong>&#x3002;</p>
+<h2 id="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;webpack"><a name="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;webpack" class="anchor-navigation-ex-anchor" href="#&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;webpack"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;webpack</h2>
+<p>&#x7B14;&#x8005;&#x521A;&#x5F00;&#x59CB;&#x505A;&#x524D;&#x7AEF;&#x65F6;&#xFF0C;&#x5176;&#x5B9E;&#x4E0D;&#x77E5;&#x9053;&#x4EC0;&#x4E48;<code>webpack</code>&#xFF0C;&#x4E5F;&#x4E0D;&#x61C2;&#x6A21;&#x5757;&#x5316;&#xFF0C;&#x90FD;&#x662F;<code>html</code>&#x91CC;&#x9762;&#x76F4;&#x63A5;&#x5199;<code>script</code>&#xFF0C;&#x5F15;&#x5165;<code>jquery</code>&#x76F4;&#x63A5;&#x5E72;&#x3002;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x7684;JS&#x9700;&#x8981;&#x4F9D;&#x8D56;<code>jquery</code>&#x548C;<code>lodash</code>&#xFF0C;&#x90A3;<code>html</code>&#x53EF;&#x80FD;&#x5C31;&#x957F;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/jquery@3.5.1&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/lodash@4.17.20&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./src/index.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>&#x8FD9;&#x6837;&#x5199;&#x4F1A;&#x5BFC;&#x81F4;&#x51E0;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+<ol>
+<li>&#x5355;&#x72EC;&#x770B;<code>index.js</code>&#x4E0D;&#x80FD;&#x6E05;&#x6670;&#x7684;&#x627E;&#x5230;&#x4ED6;&#x5230;&#x5E95;&#x4F9D;&#x8D56;&#x54EA;&#x4E9B;&#x5916;&#x90E8;&#x5E93;</li>
+<li><code>script</code>&#x7684;&#x987A;&#x5E8F;&#x5FC5;&#x987B;&#x5199;&#x6B63;&#x786E;&#xFF0C;&#x5982;&#x679C;&#x9519;&#x4E86;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x627E;&#x4E0D;&#x5230;&#x4F9D;&#x8D56;&#xFF0C;&#x76F4;&#x63A5;&#x62A5;&#x9519;</li>
+<li>&#x6A21;&#x5757;&#x95F4;&#x901A;&#x4FE1;&#x56F0;&#x96BE;&#xFF0C;&#x57FA;&#x672C;&#x90FD;&#x9760;&#x5F80;<code>window</code>&#x4E0A;&#x6CE8;&#x5165;&#x53D8;&#x91CF;&#x6765;&#x66B4;&#x9732;&#x7ED9;&#x5916;&#x90E8;</li>
+<li>&#x6D4F;&#x89C8;&#x5668;&#x4E25;&#x683C;&#x6309;&#x7167;<code>script</code>&#x6807;&#x7B7E;&#x6765;&#x4E0B;&#x8F7D;&#x4EE3;&#x7801;&#xFF0C;&#x6709;&#x4E9B;&#x6CA1;&#x7528;&#x5230;&#x7684;&#x4EE3;&#x7801;&#x4E5F;&#x4F1A;&#x4E0B;&#x8F7D;&#x4E0B;&#x6765;</li>
+<li>&#x5F53;&#x524D;&#x7AEF;&#x89C4;&#x6A21;&#x53D8;&#x5927;&#xFF0C;JS&#x811A;&#x672C;&#x4F1A;&#x663E;&#x5F97;&#x5F88;&#x6742;&#x4E71;&#xFF0C;&#x9879;&#x76EE;&#x7BA1;&#x7406;&#x6DF7;&#x4E71;</li>
+</ol>
+<p><code>webpack</code>&#x7684;&#x4E00;&#x4E2A;&#x6700;&#x57FA;&#x672C;&#x7684;&#x529F;&#x80FD;&#x5C31;&#x662F;&#x6765;&#x89E3;&#x51B3;&#x4E0A;&#x8FF0;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5141;&#x8BB8;&#x5728;JS&#x91CC;&#x9762;&#x901A;&#x8FC7;<code>import</code>&#x6216;&#x8005;<code>require</code>&#x7B49;&#x5173;&#x952E;&#x5B57;&#x6765;&#x663E;&#x5F0F;&#x7533;&#x660E;&#x4F9D;&#x8D56;&#xFF0C;&#x53EF;&#x4EE5;&#x5F15;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#xFF0C;&#x81EA;&#x5DF1;&#x7684;JS&#x4EE3;&#x7801;&#x95F4;&#x4E5F;&#x53EF;&#x4EE5;&#x76F8;&#x4E92;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x6837;&#x5728;&#x5B9E;&#x8D28;&#x4E0A;&#x5C31;&#x5B9E;&#x73B0;&#x4E86;&#x524D;&#x7AEF;&#x4EE3;&#x7801;&#x7684;&#x6A21;&#x5757;&#x5316;&#x3002;&#x7531;&#x4E8E;&#x5386;&#x53F2;&#x95EE;&#x9898;&#xFF0C;&#x8001;&#x7248;&#x7684;JS&#x5E76;&#x6CA1;&#x6709;&#x81EA;&#x5DF1;&#x6A21;&#x5757;&#x7BA1;&#x7406;&#x65B9;&#x6848;&#xFF0C;&#x6240;&#x4EE5;&#x793E;&#x533A;&#x63D0;&#x51FA;&#x4E86;&#x5F88;&#x591A;&#x6A21;&#x5757;&#x7BA1;&#x7406;&#x65B9;&#x6848;&#xFF0C;&#x6BD4;&#x5982;<code>ES2015</code>&#x7684;<code>import</code>&#xFF0C;<code>CommonJS</code>&#x7684;<code>require</code>&#xFF0C;&#x53E6;&#x5916;&#x8FD8;&#x6709;<code>AMD</code>&#xFF0C;<code>CMD</code>&#x7B49;&#x7B49;&#x3002;&#x5C31;&#x76EE;&#x524D;&#x6211;&#x89C1;&#x5230;&#x7684;&#x60C5;&#x51B5;&#x6765;&#x8BF4;&#xFF0C;<code>import</code>&#x56E0;&#x4E3A;&#x5DF2;&#x7ECF;&#x6210;&#x4E3A;<code>ES2015</code>&#x6807;&#x51C6;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x5E7F;&#x6CDB;&#x4F7F;&#x7528;&#xFF0C;&#x800C;<code>require</code>&#x662F;<code>Node.js</code>&#x7684;&#x81EA;&#x5E26;&#x6A21;&#x5757;&#x7BA1;&#x7406;&#x673A;&#x5236;&#xFF0C;&#x4E5F;&#x6709;&#x5F88;&#x5E7F;&#x6CDB;&#x7684;&#x7528;&#x9014;&#xFF0C;&#x800C;<code>AMD</code>&#x548C;<code>CMD</code>&#x7684;&#x4F7F;&#x7528;&#x5DF2;&#x7ECF;&#x5F88;&#x5C11;&#x89C1;&#x4E86;&#x3002;</p>
+<p>&#x4F46;&#x662F;<code>webpack</code>&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x5F00;&#x653E;&#x7684;&#x6A21;&#x5757;&#x5316;&#x5DE5;&#x5177;&#xFF0C;&#x4ED6;&#x662F;&#x652F;&#x6301;<code>ES6</code>&#xFF0C;<code>CommonJS</code>&#x548C;<code>AMD</code>&#x7B49;&#x591A;&#x79CD;&#x6807;&#x51C6;&#x7684;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x6A21;&#x5757;&#x5316;&#x6807;&#x51C6;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x89E3;&#x6790;&#x65B9;&#x6CD5;&#xFF0C;&#x672C;&#x6587;&#x53EA;&#x4F1A;&#x8BB2;<code>ES6</code>&#x6807;&#x51C6;&#x7684;<code>import</code>&#x65B9;&#x6848;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x5BA2;&#x6237;&#x7AEF;JS&#x4F7F;&#x7528;&#x6700;&#x591A;&#x7684;&#x65B9;&#x6848;&#x3002;</p>
+<h2 id="&#x7B80;&#x5355;&#x4F8B;&#x5B50;"><a name="&#x7B80;&#x5355;&#x4F8B;&#x5B50;" class="anchor-navigation-ex-anchor" href="#&#x7B80;&#x5355;&#x4F8B;&#x5B50;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7B80;&#x5355;&#x4F8B;&#x5B50;</h2>
+<p>&#x6309;&#x7167;&#x4E1A;&#x754C;&#x60EF;&#x4F8B;&#xFF0C;&#x6211;&#x4E5F;&#x7528;<code>hello world</code>&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x5C06;&#x8FD9;&#x53E5;&#x8BDD;&#x62C6;&#x6210;&#x4E86;&#x51E0;&#x90E8;&#x5206;&#xFF0C;&#x653E;&#x5230;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x3002;</p>
+<p>&#x5148;&#x6765;&#x5EFA;&#x4E00;&#x4E2A;<code>hello.js</code>&#xFF0C;&#x53EA;&#x5BFC;&#x51FA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> hello = <span class="hljs-string">&apos;hello&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> hello;
+</code></pre>
+<p>&#x7136;&#x540E;&#x518D;&#x6765;&#x4E00;&#x4E2A;<code>helloWorld.js</code>&#xFF0C;&#x5C06;<code>hello</code>&#x548C;<code>world</code>&#x62FC;&#x6210;&#x4E00;&#x53E5;&#x8BDD;&#xFF0C;&#x5E76;&#x5BFC;&#x51FA;&#x62FC;&#x63A5;&#x7684;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> hello <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./hello&apos;</span>;
+
+<span class="hljs-keyword">const</span> world = <span class="hljs-string">&apos;world&apos;</span>;
+
+<span class="hljs-keyword">const</span> helloWorld = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${hello}</span> <span class="hljs-subst">${world}</span>`</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> helloWorld;
+</code></pre>
+<p>&#x6700;&#x540E;&#x518D;&#x6765;&#x4E2A;<code>index.js</code>&#xFF0C;&#x5C06;&#x62FC;&#x597D;&#x7684;<code>hello world</code>&#x63D2;&#x5165;&#x5230;&#x9875;&#x9762;&#x4E0A;&#x53BB;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> helloWorld <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./helloWorld&quot;</span>;
+
+<span class="hljs-keyword">const</span> helloWorldStr = helloWorld();
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">component</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> element = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;div&quot;</span>);
+
+  element.innerHTML = helloWorldStr;
+
+  <span class="hljs-keyword">return</span> element;
+}
+
+<span class="hljs-built_in">document</span>.body.appendChild(component());
+</code></pre>
+<p>&#x73B0;&#x5728;&#x5982;&#x679C;&#x4F60;&#x76F4;&#x63A5;&#x5728;<code>html</code>&#x91CC;&#x9762;&#x5F15;&#x7528;<code>index.js</code>&#x662F;&#x4E0D;&#x80FD;&#x8FD0;&#x884C;&#x6210;&#x529F;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5927;&#x90E8;&#x5206;&#x6D4F;&#x89C8;&#x5668;&#x90FD;&#x4E0D;&#x652F;&#x6301;<code>import</code>&#x8FD9;&#x79CD;&#x6A21;&#x5757;&#x5BFC;&#x5165;&#x3002;&#x800C;<code>webpack</code>&#x5C31;&#x662F;&#x6765;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x6211;&#x4EEC;&#x6A21;&#x5757;&#x5316;&#x7684;&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x6210;&#x6D4F;&#x89C8;&#x5668;&#x8BA4;&#x8BC6;&#x7684;&#x666E;&#x901A;JS&#x6765;&#x6267;&#x884C;&#x3002;</p>
+<h3 id="&#x5F15;&#x5165;webpack"><a name="&#x5F15;&#x5165;webpack" class="anchor-navigation-ex-anchor" href="#&#x5F15;&#x5165;webpack"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5F15;&#x5165;webpack</h3>
+<p>&#x6211;&#x4EEC;&#x5370;&#x8C61;&#x4E2D;<code>webpack</code>&#x7684;&#x914D;&#x7F6E;&#x5F88;&#x591A;&#xFF0C;&#x5F88;&#x9EBB;&#x70E6;&#xFF0C;&#x4F46;&#x90A3;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5F00;&#x542F;&#x7684;&#x529F;&#x80FD;&#x5F88;&#x591A;&#xFF0C;&#x5982;&#x679C;&#x53EA;&#x662F;&#x89E3;&#x6790;&#x8F6C;&#x6362;<code>import</code>&#xFF0C;&#x914D;&#x7F6E;&#x8D77;&#x6765;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x3002;</p>
+<ol>
+<li><p>&#x5148;&#x628A;&#x4F9D;&#x8D56;&#x88C5;&#x4E0A;&#x5427;&#xFF0C;&#x8FD9;&#x6CA1;&#x4EC0;&#x4E48;&#x597D;&#x8BF4;&#x7684;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// package.json</span>
+{
+  <span class="hljs-string">&quot;devDependencies&quot;</span>: {
+    <span class="hljs-string">&quot;webpack&quot;</span>: <span class="hljs-string">&quot;^5.4.0&quot;</span>,
+    <span class="hljs-string">&quot;webpack-cli&quot;</span>: <span class="hljs-string">&quot;^4.2.0&quot;</span>
+  },
+}
+</code></pre>
+</li>
+<li><p>&#x4E3A;&#x4E86;&#x4F7F;&#x7528;&#x65B9;&#x4FBF;&#xFF0C;&#x518D;&#x52A0;&#x4E2A;<code>build</code>&#x811A;&#x672C;&#x5427;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// package.json</span>
+{
+  <span class="hljs-string">&quot;scripts&quot;</span>: {
+    <span class="hljs-string">&quot;build&quot;</span>: <span class="hljs-string">&quot;webpack&quot;</span>
+  },
+}
+</code></pre>
+</li>
+<li><p>&#x6700;&#x540E;&#x518D;&#x7B80;&#x5355;&#x5199;&#x4E0B;<code>webpack</code>&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C31;&#x597D;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// webpack.config.js</span>
+
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>);
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">mode</span>: <span class="hljs-string">&quot;development&quot;</span>,
+  <span class="hljs-attr">devtool</span>: <span class="hljs-string">&apos;source-map&apos;</span>,
+  <span class="hljs-attr">entry</span>: <span class="hljs-string">&quot;./src/index.js&quot;</span>,
+  <span class="hljs-attr">output</span>: {
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">&quot;main.js&quot;</span>,
+    <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),
+  },
+};
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x5176;&#x5B9E;&#x53EA;&#x8981;&#x6307;&#x5B9A;&#x4E86;&#x5165;&#x53E3;&#x6587;&#x4EF6;<code>entry</code>&#x548C;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x76EE;&#x5F55;<code>output</code>&#x5C31;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x7684;&#x610F;&#x601D;&#x662F;&#x8BA9;<code>webpack</code>&#x4ECE;<code>./src/index.js</code>&#x5F00;&#x59CB;&#x7F16;&#x8BD1;&#xFF0C;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x8F93;&#x51FA;&#x5230;<code>dist/main.js</code>&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E0A;&#x8FD8;&#x6709;&#x4E24;&#x4E2A;&#x914D;&#x7F6E;<code>mode</code>&#x548C;<code>devtool</code>&#x53EA;&#x662F;&#x6211;&#x7528;&#x6765;&#x65B9;&#x4FBF;&#x8C03;&#x8BD5;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x7684;&#xFF0C;<code>mode</code>&#x6307;&#x5B9A;&#x7528;&#x54EA;&#x79CD;&#x6A21;&#x5F0F;&#x7F16;&#x8BD1;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;<code>production</code>&#xFF0C;&#x4F1A;&#x5BF9;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x538B;&#x7F29;&#x548C;&#x6DF7;&#x6DC6;&#xFF0C;&#x4E0D;&#x597D;&#x8BFB;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x8BBE;&#x7F6E;&#x4E3A;<code>development</code>&#xFF1B;&#x800C;<code>devtool</code>&#x662F;&#x7528;&#x6765;&#x63A7;&#x5236;&#x751F;&#x6210;&#x54EA;&#x79CD;&#x7C92;&#x5EA6;&#x7684;<code>source map</code>&#xFF0C;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;&#x60F3;&#x8981;&#x66F4;&#x597D;&#x8C03;&#x8BD5;&#xFF0C;&#x5C31;&#x8981;&#x66F4;&#x597D;&#x7684;&#xFF0C;&#x66F4;&#x6E05;&#x6670;&#x7684;<code>source map</code>&#xFF0C;&#x4F46;&#x662F;&#x7F16;&#x8BD1;&#x901F;&#x5EA6;&#x53D8;&#x6162;&#xFF1B;&#x53CD;&#x4E4B;&#xFF0C;&#x60F3;&#x8981;&#x7F16;&#x8BD1;&#x901F;&#x5EA6;&#x5FEB;&#xFF0C;&#x5C31;&#x8981;&#x9009;&#x62E9;&#x7C92;&#x5EA6;&#x66F4;&#x7C97;&#xFF0C;&#x66F4;&#x4E0D;&#x597D;&#x8BFB;&#x7684;<code>source map</code>&#xFF0C;<code>webpack</code>&#x63D0;&#x4F9B;&#x4E86;&#x5F88;&#x591A;&#x53EF;&#x4F9B;&#x9009;&#x62E9;&#x7684;<code>source map</code>&#xFF0C;<a href="https://webpack.docschina.org/configuration/devtool/" target="_blank">&#x5177;&#x4F53;&#x7684;&#x53EF;&#x4EE5;&#x770B;&#x4ED6;&#x7684;&#x6587;&#x6863;</a>&#x3002;</p>
+</li>
+<li><p>&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x5728;<code>dist</code>&#x4E0B;&#x9762;&#x5EFA;&#x4E2A;<code>index.html</code>&#x6765;&#x5F15;&#x7528;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-html">// index.html
+
+<span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;main.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+</li>
+<li><p>&#x8FD0;&#x884C;&#x4E0B;<code>yarn build</code>&#x5C31;&#x4F1A;&#x7F16;&#x8BD1;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x7136;&#x540E;&#x6253;&#x5F00;<code>index.html</code>&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6548;&#x679C;&#x4E86;&#x3002;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203154111168.png" alt="image-20210203154111168"></p>
+</li>
+</ol>
+<h2 id="&#x6DF1;&#x5165;&#x539F;&#x7406;"><a name="&#x6DF1;&#x5165;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x6DF1;&#x5165;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6DF1;&#x5165;&#x539F;&#x7406;</h2>
+<p>&#x524D;&#x9762;&#x8BB2;&#x7684;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4E00;&#x822C;&#x4E5F;&#x6EE1;&#x8DB3;&#x4E0D;&#x4E86;&#x6211;&#x4EEC;&#x5B9E;&#x9645;&#x5DE5;&#x7A0B;&#x4E2D;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x7406;&#x89E3;&#x539F;&#x7406;&#x5374;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x597D;&#x7684;&#x7A81;&#x7834;&#x53E3;&#xFF0C;&#x6BD5;&#x7ADF;<code>webpack</code>&#x8FD9;&#x4E48;&#x5E9E;&#x5927;&#x7684;&#x4E00;&#x4E2A;&#x4F53;&#x7CFB;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x4E0D;&#x80FD;&#x4E00;&#x53E3;&#x5403;&#x4E2A;&#x80D6;&#x5B50;&#xFF0C;&#x5F97;&#x4E00;&#x70B9;&#x4E00;&#x70B9;&#x6765;&#x3002;</p>
+<h3 id="webpack&#x628A;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x6210;&#x4E86;&#x5565;&#xFF1F;"><a name="webpack&#x628A;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x6210;&#x4E86;&#x5565;&#xFF1F;" class="anchor-navigation-ex-anchor" href="#webpack&#x628A;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x6210;&#x4E86;&#x5565;&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>webpack&#x628A;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x6210;&#x4E86;&#x5565;&#xFF1F;</h3>
+<p>&#x4E3A;&#x4E86;&#x5F04;&#x61C2;&#x4ED6;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4ECE;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x5165;&#x624B;&#xFF0C;&#x5148;&#x770B;&#x770B;&#x4ED6;&#x957F;&#x5565;&#x6837;&#x5B50;&#xFF0C;&#x6709;&#x7684;&#x670B;&#x53CB;&#x53EF;&#x80FD;&#x4E00;&#x63D0;&#x5230;&#x53BB;&#x770B;&#x6E90;&#x7801;&#xFF0C;&#x5FC3;&#x7406;&#x5C31;&#x6CA1;&#x5E95;&#xFF0C;&#x5176;&#x5B9E;&#x6211;&#x4EE5;&#x524D;&#x4E5F;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x3002;&#x4F46;&#x662F;&#x5B8C;&#x5168;&#x6CA1;&#x6709;&#x5FC5;&#x8981;&#x60E7;&#x6015;&#xFF0C;&#x4ED6;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x6D4F;&#x89C8;&#x5668;&#x80FD;&#x591F;&#x6267;&#x884C;&#xFF0C;&#x90A3;&#x80AF;&#x5B9A;&#x5C31;&#x662F;&#x666E;&#x901A;&#x7684;JS&#x4EE3;&#x7801;&#xFF0C;&#x4E0D;&#x4F1A;&#x85CF;&#x7740;&#x8FD9;&#x4E48;&#x9ED1;&#x79D1;&#x6280;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x7F16;&#x8BD1;&#x5B8C;&#x7684;&#x4EE3;&#x7801;&#x622A;&#x56FE;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203155553091.png" alt="image-20210203155553091"></p>
+<p>&#x867D;&#x7136;&#x6211;&#x4EEC;&#x53EA;&#x6709;&#x4E09;&#x4E2A;&#x7B80;&#x5355;&#x7684;JS&#x6587;&#x4EF6;&#xFF0C;&#x4F46;&#x662F;&#x52A0;&#x4E0A;<code>webpack</code>&#x81EA;&#x5DF1;&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x8FD8;&#x662F;&#x6709;&#x4E00;&#x767E;&#x591A;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x6240;&#x4EE5;&#x5373;&#x4F7F;&#x6211;&#x628A;&#x5177;&#x4F53;&#x903B;&#x8F91;&#x6298;&#x53E0;&#x8D77;&#x6765;&#x4E86;&#xFF0C;&#x8FD9;&#x4E2A;&#x622A;&#x56FE;&#x8FD8;&#x662F;&#x6709;&#x70B9;&#x957F;&#xFF0C;&#x4E3A;&#x4E86;&#x80FD;&#x591F;&#x770B;&#x6E05;&#x695A;&#x4ED6;&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x6211;&#x5C06;&#x5B83;&#x5206;&#x6210;&#x4E86;4&#x4E2A;&#x90E8;&#x5206;&#xFF0C;&#x6807;&#x8BB0;&#x5728;&#x4E86;&#x622A;&#x56FE;&#x4E0A;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5206;&#x522B;&#x6765;&#x770B;&#x770B;&#x8FD9;&#x51E0;&#x4E2A;&#x90E8;&#x5206;&#x5427;&#x3002;</p>
+<ol>
+<li><p>&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;<code>__webpack_modules__</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x91CC;&#x9762;&#x6709;&#x4E09;&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x5C5E;&#x6027;&#x540D;&#x5B57;&#x662F;&#x6211;&#x4EEC;&#x4E09;&#x4E2A;&#x6A21;&#x5757;&#x7684;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF0C;&#x5C5E;&#x6027;&#x7684;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x6211;&#x4EEC;&#x968F;&#x4FBF;&#x5C55;&#x5F00;&#x4E00;&#x4E2A;<code>./src/helloWorld.js</code>&#x770B;&#x4E0B;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203161613636.png" alt="image-20210203161613636"></p>
+<p>&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x8FD9;&#x4E2A;&#x4EE3;&#x7801;&#x5185;&#x5BB9;&#x8DDF;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199;&#x7684;<code>helloWorld.js</code>&#x975E;&#x5E38;&#x50CF;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203161902647.png" alt="image-20210203161902647"></p>
+<p>&#x4ED6;&#x53EA;&#x662F;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x524D;&#x5148;&#x8C03;&#x7528;&#x4E86;<code>__webpack_require__.r</code>&#x548C;<code>__webpack_require__.d</code>&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x6211;&#x4EEC;&#x5728;&#x540E;&#x9762;&#x4F1A;&#x770B;&#x5230;&#x3002;</p>
+<p>&#x7136;&#x540E;&#x5BF9;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x4E86;&#x4E00;&#x70B9;&#x4FEE;&#x6539;&#xFF0C;&#x5C06;&#x6211;&#x4EEC;&#x7684;<code>import</code>&#x5173;&#x952E;&#x5B57;&#x6539;&#x6210;&#x4E86;<code>__webpack_require__</code>&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x7528;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;<code>_hello__WEBPACK_IMPORTED_MODULE_0__</code>&#x6765;&#x63A5;&#x6536;&#x4E86;<code>import</code>&#x8FDB;&#x6765;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x540E;&#x9762;&#x5F15;&#x7528;&#x7684;&#x5730;&#x65B9;&#x4E5F;&#x6539;&#x6210;&#x4E86;&#x8FD9;&#x4E2A;&#xFF0C;&#x5176;&#x4ED6;&#x8DDF;&#x8FD9;&#x4E2A;&#x65E0;&#x5173;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x6BD4;&#x5982;<code>const world = &apos;world&apos;;</code>&#x8FD8;&#x662F;&#x4FDD;&#x6301;&#x539F;&#x6837;&#x7684;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;<code>__webpack_modules__</code>&#x5BF9;&#x8C61;&#x5B58;&#x4E86;&#x6240;&#x6709;&#x7684;&#x6A21;&#x5757;&#x4EE3;&#x7801;&#xFF0C;&#x5176;&#x5B9E;&#x5BF9;&#x4E8E;&#x6A21;&#x5757;&#x4EE3;&#x7801;&#x7684;&#x4FDD;&#x5B58;&#xFF0C;&#x5728;&#x4E0D;&#x540C;&#x7248;&#x672C;&#x7684;<code>webpack</code>&#x91CC;&#x9762;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x5F0F;&#x5E76;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x6211;&#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x662F;<code>5.4.0</code>&#xFF0C;&#x5728;<code>4.x</code>&#x7684;&#x7248;&#x672C;&#x91CC;&#x9762;&#x597D;&#x50CF;&#x662F;&#x4F5C;&#x4E3A;&#x6570;&#x7EC4;&#x5B58;&#x4E0B;&#x6765;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x6700;&#x5916;&#x5C42;&#x7684;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x4EE5;&#x53C2;&#x6570;&#x7684;&#x5F62;&#x5F0F;&#x4F20;&#x8FDB;&#x6765;&#x7684;&#x3002;&#x4F46;&#x662F;&#x4E0D;&#x7BA1;&#x662F;&#x54EA;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x90FD;&#x53EA;&#x662F;&#x8F6C;&#x6362;&#x7136;&#x540E;&#x4FDD;&#x5B58;&#x4E00;&#x4E0B;&#x6A21;&#x5757;&#x4EE3;&#x7801;&#x800C;&#x5DF2;&#x3002;</p>
+</li>
+<li><p>&#x7B2C;&#x4E8C;&#x5757;&#x4EE3;&#x7801;&#x7684;&#x6838;&#x5FC3;&#x662F;<code>__webpack_require__</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x4EE3;&#x7801;&#x5C55;&#x5F00;&#xFF0C;&#x77AC;&#x95F4;&#x7ED9;&#x4E86;&#x6211;&#x4E00;&#x79CD;&#x719F;&#x6089;&#x611F;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203162542359.png" alt="image-20210203162542359"></p>
+<p>&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x8FD9;&#x4E2A;&#x6D41;&#x7A0B;&#x5427;&#xFF1A;</p>
+<ol>
+<li>&#x5148;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;<code>__webpack_module_cache__</code>&#x4F5C;&#x4E3A;&#x52A0;&#x8F7D;&#x4E86;&#x7684;&#x6A21;&#x5757;&#x7684;&#x7F13;&#x5B58;</li>
+<li><code>__webpack_require__</code>&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x7528;&#x6765;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x7684;</li>
+<li>&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;&#xFF0C;&#x5148;&#x68C0;&#x67E5;&#x7F13;&#x5B58;&#x4E2D;&#x6709;&#x6CA1;&#x6709;&#xFF0C;&#x5982;&#x679C;&#x6709;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x7F13;&#x5B58;</li>
+<li>&#x5982;&#x679C;&#x7F13;&#x5B58;&#x6CA1;&#x6709;&#xFF0C;&#x5C31;&#x4ECE;<code>__webpack_modules__</code>&#x5C06;&#x5BF9;&#x5E94;&#x7684;&#x6A21;&#x5757;&#x53D6;&#x51FA;&#x6765;&#x6267;&#x884C;</li>
+<li><code>__webpack_modules__</code>&#x5C31;&#x662F;&#x4E0A;&#x9762;&#x7B2C;&#x4E00;&#x5757;&#x4EE3;&#x7801;&#x91CC;&#x7684;&#x90A3;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x53D6;&#x51FA;&#x7684;&#x6A21;&#x5757;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x53D6;&#x51FA;&#x6267;&#x884C;&#x7684;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x7684;&#x4EE3;&#x7801;</li>
+<li>&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x6267;&#x884C;&#x9664;&#x4E86;&#x6267;&#x884C;&#x6211;&#x4EEC;&#x7684;&#x903B;&#x8F91;&#x5916;&#xFF0C;&#x8FD8;&#x4F1A;&#x5C06;<code>export</code>&#x7684;&#x5185;&#x5BB9;&#x6DFB;&#x52A0;&#x5230;<code>module.exports</code>&#x4E0A;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x524D;&#x9762;&#x8BF4;&#x7684;<code>__webpack_require__.d</code>&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#x7684;&#x4F5C;&#x7528;&#x3002;&#x6DFB;&#x52A0;&#x5230;<code>module.exports</code>&#x4E0A;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x6DFB;&#x52A0;&#x5230;&#x4E86;<code>__webpack_module_cache__</code>&#x7F13;&#x5B58;&#x4E0A;&#xFF0C;&#x540E;&#x9762;&#x518D;&#x5F15;&#x7528;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x5C31;&#x76F4;&#x63A5;&#x4ECE;&#x7F13;&#x5B58;&#x62FF;&#x4E86;&#x3002;</li>
+</ol>
+<p>&#x8FD9;&#x4E2A;&#x6D41;&#x7A0B;&#x6211;&#x592A;&#x719F;&#x6089;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x7B80;&#x76F4;&#x8DDF;<code>Node.js</code>&#x7684;<code>CommonJS</code>&#x5B9E;&#x73B0;&#x601D;&#x8DEF;&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x53EF;&#x4EE5;&#x770B;&#x6211;&#x4E4B;&#x524D;&#x5199;&#x7684;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#xFF1A;<a href="https://juejin.cn/post/6866973719634542606" target="_blank">&#x6DF1;&#x5165;Node.js&#x7684;&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x673A;&#x5236;&#xFF0C;&#x624B;&#x5199;require&#x51FD;&#x6570;</a>&#x3002;</p>
+</li>
+<li><p>&#x7B2C;&#x4E09;&#x5757;&#x4EE3;&#x7801;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x524D;&#x9762;&#x770B;&#x5230;&#x8FC7;&#x7684;&#x51E0;&#x4E2A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x5177;&#x4F53;&#x5E72;&#x5565;&#x7684;&#xFF0C;&#x5176;&#x5B9E;&#x4ED6;&#x7684;&#x6CE8;&#x91CA;&#x5DF2;&#x7ECF;&#x5199;&#x4E86;&#xFF1A;</p>
+<ol>
+<li><p><code>__webpack_require__.d</code>&#xFF1A;&#x6838;&#x5FC3;&#x5176;&#x5B9E;&#x662F;<code>Object.defineProperty</code>&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x7528;&#x6765;&#x5C06;&#x6211;&#x4EEC;&#x6A21;&#x5757;&#x5BFC;&#x51FA;&#x7684;&#x5185;&#x5BB9;&#x6DFB;&#x52A0;&#x5230;&#x5168;&#x5C40;&#x7684;<code>__webpack_module_cache__</code>&#x7F13;&#x5B58;&#x4E0A;&#x3002;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203164427116.png" alt="image-20210203164427116"></p>
+</li>
+<li><p><code>__webpack_require__.o</code>&#xFF1A;&#x5176;&#x5B9E;&#x5C31;&#x662F;<code>Object.prototype.hasOwnProperty</code>&#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5199;&#x800C;&#x5DF2;&#x3002;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203164450385.png" alt="image-20210203164450385"></p>
+</li>
+<li><p><code>__webpack_require__.r</code>&#xFF1A;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x7ED9;&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;<code>__esModule</code>&#xFF0C;&#x6765;&#x8868;&#x660E;&#x4ED6;&#x662F;&#x4E00;&#x4E2A;<code>ES6</code>&#x7684;&#x6A21;&#x5757;&#x3002;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210203164658054.png" alt="image-20210203164658054">     </p>
+</li>
+<li><p>&#x7B2C;&#x56DB;&#x5757;&#x5C31;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x8C03;&#x7528;<code>__webpack_require__</code>&#x52A0;&#x8F7D;&#x5165;&#x53E3;&#x6A21;&#x5757;&#xFF0C;&#x542F;&#x52A8;&#x6267;&#x884C;&#x3002;</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x5C06;&#x4EE3;&#x7801;&#x5206;&#x6210;&#x4E86;4&#x5757;&#xFF0C;&#x6BCF;&#x5757;&#x7684;&#x4F5C;&#x7528;&#x90FD;&#x641E;&#x6E05;&#x695A;&#xFF0C;&#x5176;&#x5B9E;webpack&#x5E72;&#x7684;&#x4E8B;&#x60C5;&#x5C31;&#x6E05;&#x6670;&#x4E86;&#xFF1A;</p>
+<ol>
+<li>&#x5C06;<code>import</code>&#x8FD9;&#x79CD;&#x6D4F;&#x89C8;&#x5668;&#x4E0D;&#x8BA4;&#x8BC6;&#x7684;&#x5173;&#x952E;&#x5B57;&#x66FF;&#x6362;&#x6210;&#x4E86;<code>__webpack_require__</code>&#x51FD;&#x6570;&#x8C03;&#x7528;&#x3002;</li>
+<li><code>__webpack_require__</code>&#x5728;&#x5B9E;&#x73B0;&#x65F6;&#x91C7;&#x7528;&#x4E86;&#x7C7B;&#x4F3C;<code>CommonJS</code>&#x7684;&#x6A21;&#x5757;&#x601D;&#x60F3;&#x3002;</li>
+<li>&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#xFF0C;&#x5BF9;&#x5E94;&#x6A21;&#x5757;&#x7F13;&#x5B58;&#x4E0A;&#x7684;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</li>
+<li>&#x5F53;&#x6A21;&#x5757;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x4F1A;&#x5C06;<code>export</code>&#x7684;&#x5185;&#x5BB9;&#x6DFB;&#x52A0;&#x5230;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x5BF9;&#x8C61;&#x4E0A;&#x3002;</li>
+<li>&#x5F53;&#x518D;&#x6B21;&#x5F15;&#x7528;&#x4E00;&#x4E2A;&#x4EE5;&#x524D;&#x5F15;&#x7528;&#x8FC7;&#x7684;&#x6A21;&#x5757;&#x65F6;&#xFF0C;&#x4F1A;&#x76F4;&#x63A5;&#x4ECE;&#x7F13;&#x5B58;&#x4E0A;&#x8BFB;&#x53D6;&#x6A21;&#x5757;&#x3002;</li>
+</ol>
+<h3 id="&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;webpack"><a name="&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;webpack" class="anchor-navigation-ex-anchor" href="#&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;webpack"><i class="fa fa-link" aria-hidden="true"></i></a>&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;webpack</h3>
+<p>&#x73B0;&#x5728;webpack&#x5230;&#x5E95;&#x5E72;&#x4E86;&#x4EC0;&#x4E48;&#x4E8B;&#x60C5;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x6E05;&#x695A;&#x4E86;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x52A8;&#x624B;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x4E86;&#x3002;&#x6839;&#x636E;&#x524D;&#x9762;&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x7ED3;&#x679C;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x5B9E;&#x73B0;&#x7684;&#x4EE3;&#x7801;&#x5176;&#x5B9E;&#x4E3B;&#x8981;&#x5206;&#x4E24;&#x5757;&#xFF1A;</p>
+<ol>
+<li>&#x904D;&#x5386;&#x6240;&#x6709;&#x6A21;&#x5757;&#xFF0C;&#x5C06;&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x4EE3;&#x7801;&#x8BFB;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x66FF;&#x6362;&#x6389;<code>import</code>&#x548C;<code>export</code>&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x653E;&#x5230;<code>__webpack_modules__</code>&#x5BF9;&#x8C61;&#x4E0A;&#x3002;</li>
+<li>&#x6574;&#x4E2A;&#x4EE3;&#x7801;&#x91CC;&#x9762;&#x9664;&#x4E86;<code>__webpack_modules__</code>&#x548C;&#x6700;&#x540E;&#x542F;&#x52A8;&#x7684;&#x5165;&#x53E3;&#x662F;&#x53D8;&#x5316;&#x7684;&#xFF0C;&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#xFF0C;&#x50CF;<code>__webpack_require__</code>&#xFF0C;<code>__webpack_require__.r</code>&#x8FD9;&#x4E9B;&#x65B9;&#x6CD5;&#x5176;&#x5B9E;&#x90FD;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x6574;&#x4E2A;&#x4EE3;&#x7801;&#x7ED3;&#x6784;&#x4E5F;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x5148;&#x5B9A;&#x4E49;&#x597D;&#x4E00;&#x4E2A;&#x6A21;&#x677F;&#x3002;</li>
+</ol>
+<h3 id="&#x4F7F;&#x7528;ast&#x89E3;&#x6790;&#x4EE3;&#x7801;"><a name="&#x4F7F;&#x7528;ast&#x89E3;&#x6790;&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;ast&#x89E3;&#x6790;&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4F7F;&#x7528;AST&#x89E3;&#x6790;&#x4EE3;&#x7801;</h3>
+<p>&#x7531;&#x4E8E;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06;<code>import</code>&#x8FD9;&#x79CD;&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x6210;&#x6D4F;&#x89C8;&#x5668;&#x80FD;&#x8BC6;&#x522B;&#x7684;&#x666E;&#x901A;JS&#x4EE3;&#x7801;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x8981;&#x80FD;&#x591F;&#x5C06;&#x4EE3;&#x7801;&#x89E3;&#x6790;&#x51FA;&#x6765;&#x3002;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x5B83;&#x8BFB;&#x51FA;&#x6765;&#x5F53;&#x6210;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x66F4;&#x4E13;&#x4E1A;&#x7684;<code>AST</code>&#x6765;&#x89E3;&#x6790;&#x3002;<code>AST</code>&#x5168;&#x79F0;&#x53EB;<code>Abstract Syntax Trees</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>&#x62BD;&#x8C61;&#x8BED;&#x6CD5;&#x6811;</code>&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x5C06;&#x4EE3;&#x7801;&#x7528;&#x6811;&#x6765;&#x8868;&#x793A;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x4E00;&#x4E2A;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x8F6C;&#x6362;&#x6210;<code>AST</code>&#xFF0C;<code>AST</code>&#x53C8;&#x53EF;&#x4EE5;&#x8F6C;&#x6362;&#x6210;&#x4EE3;&#x7801;&#xFF0C;&#x800C;&#x6211;&#x4EEC;&#x719F;&#x77E5;&#x7684;<code>babel</code>&#x5176;&#x5B9E;&#x5C31;&#x53EF;&#x4EE5;&#x505A;&#x8FD9;&#x4E2A;&#x5DE5;&#x4F5C;&#x3002;&#x8981;&#x751F;&#x6210;<code>AST</code>&#x5F88;&#x590D;&#x6742;&#xFF0C;&#x6D89;&#x53CA;&#x5230;&#x7F16;&#x8BD1;&#x539F;&#x7406;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x4EC5;&#x4EC5;&#x62FF;&#x6765;&#x7528;&#x5C31;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#x4E86;&#xFF0C;&#x672C;&#x6587;&#x5C31;&#x5148;&#x4E0D;&#x6D89;&#x53CA;&#x590D;&#x6742;&#x7684;&#x7F16;&#x8BD1;&#x539F;&#x7406;&#xFF0C;&#x800C;&#x662F;&#x76F4;&#x63A5;&#x5C06;<code>babel</code>&#x751F;&#x6210;&#x597D;&#x7684;<code>AST</code>&#x62FF;&#x6765;&#x4F7F;&#x7528;&#x3002;</p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;webpack&#x6E90;&#x7801;&#x89E3;&#x6790;AST&#x5E76;&#x4E0D;&#x662F;&#x4F7F;&#x7528;&#x7684;<code>babel</code>&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;&#x7684;<a href="https://github.com/acornjs/acorn" target="_blank">acorn</a>&#x3002;<code>webpack</code>&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;<a href="https://github.com/webpack/webpack/blob/a07a1269f0a0b23d40de6c9565eeaf962fbc8904/lib/javascript/JavascriptParser.js" target="_blank">JavascriptParser&#x7C7B;</a>&#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x91CC;&#x9762;&#x7528;&#x5230;&#x4E86;<code>acorn</code>&#x3002;&#x672C;&#x6587;&#x5199;&#x4F5C;&#x65F6;&#x91C7;&#x7528;&#x4E86;<code>babel</code>&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x5927;&#x5BB6;&#x66F4;&#x719F;&#x6089;&#x7684;&#x5DE5;&#x5177;</strong>&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x6211;&#x5148;&#x5C06;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x8BFB;&#x51FA;&#x6765;&#xFF0C;&#x7136;&#x540E;&#x7528;<code>babel</code>&#x8F6C;&#x6362;&#x6210;<code>AST</code>&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+<span class="hljs-keyword">const</span> parser = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/parser&quot;</span>);
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;../webpack.config&quot;</span>); <span class="hljs-comment">// &#x5F15;&#x5165;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</span>
+
+<span class="hljs-comment">// &#x8BFB;&#x53D6;&#x5165;&#x53E3;&#x6587;&#x4EF6;</span>
+<span class="hljs-keyword">const</span> fileContent = fs.readFileSync(config.entry, <span class="hljs-string">&quot;utf-8&quot;</span>);
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;babel parser&#x89E3;&#x6790;AST</span>
+<span class="hljs-keyword">const</span> ast = parser.parse(fileContent, { <span class="hljs-attr">sourceType</span>: <span class="hljs-string">&quot;module&quot;</span> });
+
+<span class="hljs-built_in">console</span>.log(ast);   <span class="hljs-comment">// &#x628A;ast&#x6253;&#x5370;&#x51FA;&#x6765;&#x770B;&#x770B;</span>
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x5C06;&#x751F;&#x6210;&#x597D;&#x7684;<code>ast</code>&#x6253;&#x5370;&#x5728;&#x63A7;&#x5236;&#x53F0;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210207153459699.png" alt="image-20210207153459699"></p>
+<p>&#x8FD9;&#x867D;&#x7136;&#x662F;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;<code>AST</code>&#xFF0C;&#x4F46;&#x662F;&#x770B;&#x8D77;&#x6765;&#x5E76;&#x4E0D;&#x6E05;&#x6670;&#xFF0C;&#x5173;&#x952E;&#x6570;&#x636E;&#x5176;&#x5B9E;&#x662F;<code>body</code>&#x5B57;&#x6BB5;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;<code>body</code>&#x4E5F;&#x53EA;&#x662F;&#x5C55;&#x793A;&#x4E86;&#x7C7B;&#x578B;&#x540D;&#x5B57;&#x3002;&#x6240;&#x4EE5;&#x7167;&#x7740;&#x8FD9;&#x4E2A;&#x5199;&#x4EE3;&#x7801;&#x5176;&#x5B9E;&#x4E0D;&#x597D;&#x5199;&#xFF0C;&#x8FD9;&#x91CC;&#x63A8;&#x8350;&#x4E00;&#x4E2A;&#x5728;&#x7EBF;&#x5DE5;&#x5177;<a href="https://astexplorer.net/" target="_blank">https://astexplorer.net/</a>&#xFF0C;&#x53EF;&#x4EE5;&#x5F88;&#x6E05;&#x695A;&#x7684;&#x770B;&#x5230;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x5185;&#x5BB9;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210207154116026.png" alt="image-20210207154116026"></p>
+<p>&#x4ECE;&#x8FD9;&#x4E2A;&#x89E3;&#x6790;&#x51FA;&#x6765;&#x7684;<code>AST</code>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;<code>body</code>&#x4E3B;&#x8981;&#x6709;4&#x5757;&#x4EE3;&#x7801;&#xFF1A;</p>
+<ol>
+<li><code>ImportDeclaration</code>&#xFF1A;&#x5C31;&#x662F;&#x7B2C;&#x4E00;&#x884C;&#x7684;<code>import</code>&#x5B9A;&#x4E49;</li>
+<li><code>VariableDeclaration</code>&#xFF1A;&#x7B2C;&#x4E09;&#x884C;&#x7684;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x7533;&#x660E;</li>
+<li><code>FunctionDeclaration</code>&#xFF1A;&#x7B2C;&#x4E94;&#x884C;&#x7684;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5B9A;&#x4E49;</li>
+<li><code>ExpressionStatement</code>&#xFF1A;&#x7B2C;&#x5341;&#x4E09;&#x884C;&#x7684;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x8BED;&#x53E5;</li>
+</ol>
+<p>&#x4F60;&#x5982;&#x679C;&#x628A;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x5C55;&#x5F00;&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x4ED6;&#x4EEC;&#x4E0B;&#x9762;&#x53C8;&#x5D4C;&#x5957;&#x4E86;&#x5F88;&#x591A;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#xFF0C;&#x6BD4;&#x5982;&#x7B2C;&#x4E09;&#x884C;&#x7684;<code>VariableDeclaration</code>&#x5C55;&#x5F00;&#x540E;&#xFF0C;&#x5176;&#x5B9E;&#x8FD8;&#x6709;&#x4E2A;&#x51FD;&#x6570;&#x8C03;&#x7528;<code>helloWorld()</code>&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210207154741847.png" alt="image-20210207154741847"></p>
+<h3 id="&#x4F7F;&#x7528;traverse&#x904D;&#x5386;ast"><a name="&#x4F7F;&#x7528;traverse&#x904D;&#x5386;ast" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;traverse&#x904D;&#x5386;ast"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4F7F;&#x7528;<code>traverse</code>&#x904D;&#x5386;<code>AST</code></h3>
+<p>&#x5BF9;&#x4E8E;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x751F;&#x6210;&#x597D;&#x7684;<code>AST</code>&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>@babel/traverse</code>&#x6765;&#x5BF9;&#x4ED6;&#x8FDB;&#x884C;&#x904D;&#x5386;&#x548C;&#x64CD;&#x4F5C;&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x60F3;&#x62FF;&#x5230;<code>ImportDeclaration</code>&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x4F7F;&#x7528;babel traverse&#x6765;&#x904D;&#x5386;ast&#x4E0A;&#x7684;&#x8282;&#x70B9;</span>
+traverse(ast, {
+  ImportDeclaration(path) {
+    <span class="hljs-built_in">console</span>.log(path.node);
+  },
+});
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x6240;&#x6709;&#x7684;<code>import</code>&#x8BED;&#x53E5;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210207162114290.png" alt="image-20210207162114290"></p>
+<h3 id="&#x5C06;import&#x8F6C;&#x6362;&#x4E3A;&#x51FD;&#x6570;&#x8C03;&#x7528;"><a name="&#x5C06;import&#x8F6C;&#x6362;&#x4E3A;&#x51FD;&#x6570;&#x8C03;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x5C06;import&#x8F6C;&#x6362;&#x4E3A;&#x51FD;&#x6570;&#x8C03;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5C06;<code>import</code>&#x8F6C;&#x6362;&#x4E3A;&#x51FD;&#x6570;&#x8C03;&#x7528;</h3>
+<p>&#x524D;&#x9762;&#x6211;&#x4EEC;&#x8BF4;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x76EE;&#x6807;&#x662F;&#x5C06;ES6&#x7684;<code>import</code>&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> helloWorld <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./helloWorld&quot;</span>;
+</code></pre>
+<p>&#x8F6C;&#x6362;&#x6210;&#x666E;&#x901A;&#x6D4F;&#x89C8;&#x5668;&#x80FD;&#x8BC6;&#x522B;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> _helloWorld__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<span class="hljs-string">&quot;./src/helloWorld.js&quot;</span>);
+</code></pre>
+<p>&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x5F15;&#x5165;<code>@babel/types</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x5E93;&#x53EF;&#x4EE5;&#x5E2E;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x65B0;&#x7684;<code>AST</code>&#x8282;&#x70B9;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x8F6C;&#x6362;&#x4EE3;&#x7801;&#x5199;&#x51FA;&#x6765;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> t = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/types&quot;</span>);
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;babel traverse&#x6765;&#x904D;&#x5386;ast&#x4E0A;&#x7684;&#x8282;&#x70B9;</span>
+traverse(ast, {
+  ImportDeclaration(p) {
+    <span class="hljs-comment">// &#x83B7;&#x53D6;&#x88AB;import&#x7684;&#x6587;&#x4EF6;</span>
+    <span class="hljs-keyword">const</span> importFile = p.node.source.value;
+
+    <span class="hljs-comment">// &#x83B7;&#x53D6;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</span>
+    <span class="hljs-keyword">let</span> importFilePath = path.join(path.dirname(config.entry), importFile);
+    importFilePath = <span class="hljs-string">`./<span class="hljs-subst">${importFilePath}</span>.js`</span>;
+
+    <span class="hljs-comment">// &#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x7684;AST&#x8282;&#x70B9;</span>
+    <span class="hljs-keyword">const</span> variableDeclaration = t.variableDeclaration(<span class="hljs-string">&quot;var&quot;</span>, [
+      t.variableDeclarator(
+        t.identifier(
+          <span class="hljs-string">`__<span class="hljs-subst">${path.basename(importFile)}</span>__WEBPACK_IMPORTED_MODULE_0__`</span>
+        ),
+        t.callExpression(t.identifier(<span class="hljs-string">&quot;__webpack_require__&quot;</span>), [
+          t.stringLiteral(importFilePath),
+        ])
+      ),
+    ]);
+
+    <span class="hljs-comment">// &#x5C06;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x66FF;&#x6362;&#x4E3A;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x8282;&#x70B9;</span>
+    p.replaceWith(variableDeclaration);
+  },
+});
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x7528;&#x4E86;&#x5F88;&#x591A;<code>@babel/types</code>&#x4E0B;&#x9762;&#x7684;API&#xFF0C;&#x6BD4;&#x5982;<code>t.variableDeclaration</code>&#xFF0C;<code>t.variableDeclarator</code>&#xFF0C;&#x8FD9;&#x4E9B;&#x90FD;&#x662F;&#x7528;&#x6765;&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7684;&#x8282;&#x70B9;&#x7684;&#xFF0C;<a href="https://babeljs.io/docs/en/babel-types#variabledeclaration" target="_blank">&#x5177;&#x4F53;&#x7684;API&#x53EF;&#x4EE5;&#x770B;&#x8FD9;&#x91CC;</a>&#x3002;&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x4EE3;&#x7801;&#x91CC;&#x9762;&#x6211;&#x6709;&#x5F88;&#x591A;&#x5199;&#x6B7B;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x6BD4;&#x5982;<code>importFilePath</code>&#x751F;&#x6210;&#x903B;&#x8F91;&#xFF0C;&#x8FD8;&#x5E94;&#x8BE5;&#x5904;&#x7406;&#x591A;&#x79CD;&#x540E;&#x7F00;&#x540D;&#x7684;&#xFF0C;&#x8FD8;&#x6709;&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x53D8;&#x91CF;&#x540D;<code>_${path.basename(importFile)}__WEBPACK_IMPORTED_MODULE_0__</code>&#xFF0C;&#x6700;&#x540E;&#x7684;&#x6570;&#x5B57;&#x6211;&#x4E5F;&#x662F;&#x76F4;&#x63A5;&#x5199;&#x4E86;<code>0</code>&#xFF0C;&#x6309;&#x7406;&#x6765;&#x8BF4;&#x5E94;&#x8BE5;&#x662F;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;<code>import</code>&#x987A;&#x5E8F;&#x6765;&#x751F;&#x6210;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x672C;&#x6587;&#x4E3B;&#x8981;&#x8BB2;<code>webpack</code>&#x7684;&#x539F;&#x7406;&#xFF0C;&#x8FD9;&#x4E9B;&#x7EC6;&#x8282;&#x4E0A;&#x6211;&#x5C31;&#x6CA1;&#x82B1;&#x8FC7;&#x591A;&#x65F6;&#x95F4;&#x4E86;&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x5176;&#x5B9E;&#x662F;&#x4FEE;&#x6539;&#x4E86;&#x6211;&#x4EEC;&#x7684;<code>AST</code>&#xFF0C;&#x4FEE;&#x6539;&#x540E;&#x7684;<code>AST</code>&#x53EF;&#x4EE5;&#x7528;<code>@babel/generator</code>&#x53C8;&#x8F6C;&#x6362;&#x4E3A;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> generate  = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@babel/generator&apos;</span>).default;
+
+<span class="hljs-keyword">const</span> newCode = generate(ast).code;
+<span class="hljs-built_in">console</span>.log(newCode);
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x6253;&#x5370;&#x7ED3;&#x679C;&#x662F;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210207172310114.png" alt="image-20210207172310114"></p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD9;&#x4E2A;&#x7ED3;&#x679C;&#x91CC;&#x9762;<code>import helloWorld from &quot;./helloWorld&quot;;</code>&#x5DF2;&#x7ECF;&#x88AB;&#x8F6C;&#x6362;&#x4E3A;<code>var __helloWorld__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(&quot;./src/helloWorld.js&quot;);</code>&#x3002;</p>
+<h3 id="&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;"><a name="&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;" class="anchor-navigation-ex-anchor" href="#&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x66FF;&#x6362;<code>import</code>&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;</h3>
+<p>&#x524D;&#x9762;&#x6211;&#x4EEC;&#x5C06;<code>import</code>&#x8BED;&#x53E5;&#x66FF;&#x6362;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#xFF0C;&#x53D8;&#x91CF;&#x540D;&#x5B57;&#x4E5F;&#x6539;&#x4E3A;&#x4E86;<code>__helloWorld__WEBPACK_IMPORTED_MODULE_0__</code>&#xFF0C;&#x81EA;&#x7136;&#x8981;&#x5C06;&#x8C03;&#x7528;&#x7684;&#x5730;&#x65B9;&#x4E5F;&#x6539;&#x4E86;&#x3002;&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x7BA1;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;<code>AST</code>&#x904D;&#x5386;&#xFF0C;&#x64CD;&#x4F5C;&#x4EE5;&#x53CA;&#x6700;&#x540E;&#x7684;&#x751F;&#x6210;&#x65B0;&#x4EE3;&#x7801;&#x90FD;&#x5C01;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5427;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseFile</span>(<span class="hljs-params">file</span>) </span>{
+  <span class="hljs-comment">// &#x8BFB;&#x53D6;&#x5165;&#x53E3;&#x6587;&#x4EF6;</span>
+  <span class="hljs-keyword">const</span> fileContent = fs.readFileSync(file, <span class="hljs-string">&quot;utf-8&quot;</span>);
+
+  <span class="hljs-comment">// &#x4F7F;&#x7528;babel parser&#x89E3;&#x6790;AST</span>
+  <span class="hljs-keyword">const</span> ast = parser.parse(fileContent, { <span class="hljs-attr">sourceType</span>: <span class="hljs-string">&quot;module&quot;</span> });
+
+  <span class="hljs-keyword">let</span> importFilePath = <span class="hljs-string">&quot;&quot;</span>;
+
+  <span class="hljs-comment">// &#x4F7F;&#x7528;babel traverse&#x6765;&#x904D;&#x5386;ast&#x4E0A;&#x7684;&#x8282;&#x70B9;</span>
+  traverse(ast, {
+    ImportDeclaration(p) {
+      <span class="hljs-comment">// &#x8DDF;&#x4E4B;&#x524D;&#x4E00;&#x6837;&#x7684;</span>
+    },
+  });
+
+  <span class="hljs-keyword">const</span> newCode = generate(ast).code;
+
+  <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x5FC5;&#x8981;&#x4FE1;&#x606F;&#x7684;&#x65B0;&#x5BF9;&#x8C61;</span>
+  <span class="hljs-keyword">return</span> {
+    file,
+    <span class="hljs-attr">dependcies</span>: [importFilePath],
+    <span class="hljs-attr">code</span>: newCode,
+  };
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#x542F;&#x52A8;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x53EF;&#x4EE5;&#x8C03;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4E86;</p>
+<pre><code class="lang-javascript">parseFile(config.entry);
+</code></pre>
+<p>&#x62FF;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x8DDF;&#x4E4B;&#x524D;&#x7684;&#x5DEE;&#x4E0D;&#x591A;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210207173744463.png" alt="image-20210207173744463"></p>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x73B0;&#x5728;&#x9700;&#x8981;&#x5C06;&#x4F7F;&#x7528;<code>import</code>&#x7684;&#x5730;&#x65B9;&#x4E5F;&#x66FF;&#x6362;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x4E86;&#x8FD9;&#x4E2A;&#x5730;&#x65B9;&#x662F;&#x5C06;&#x5B83;&#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8981;&#x5C06;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> helloWorldStr = helloWorld();
+</code></pre>
+<p>&#x8F6C;&#x4E3A;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> helloWorldStr = (<span class="hljs-number">0</span>,_helloWorld__WEBPACK_IMPORTED_MODULE_0__.default)();
+</code></pre>
+<p>&#x8FD9;&#x884C;&#x4EE3;&#x7801;&#x7684;&#x6548;&#x679C;&#x5176;&#x5B9E;&#x8DDF;<code>_helloWorld__WEBPACK_IMPORTED_MODULE_0__.default()</code>&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4E3A;&#x5565;&#x5728;&#x524D;&#x9762;&#x5305;&#x4E2A;<code>(0, )</code>&#xFF0C;&#x6211;&#x4E5F;&#x4E0D;&#x77E5;&#x9053;&#xFF0C;&#x6709;&#x77E5;&#x9053;&#x7684;&#x5927;&#x4F6C;&#x544A;&#x8BC9;&#x4E0B;&#x6211;&#x5457;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5728;<code>traverse</code>&#x91CC;&#x9762;&#x52A0;&#x4E00;&#x4E2A;<code>CallExpression</code>&#xFF1A;</p>
+<pre><code class="lang-javascript">  traverse(ast, {
+    ImportDeclaration(p) {
+      <span class="hljs-comment">// &#x8DDF;&#x524D;&#x9762;&#x7684;&#x5DEE;&#x4E0D;&#x591A;&#xFF0C;&#x7701;&#x7565;&#x4E86;</span>
+    },
+    CallExpression(p) {
+      <span class="hljs-comment">// &#x5982;&#x679C;&#x8C03;&#x7528;&#x7684;&#x662F;import&#x8FDB;&#x6765;&#x7684;&#x51FD;&#x6570;</span>
+      <span class="hljs-keyword">if</span> (p.node.callee.name === importVarName) {
+        <span class="hljs-comment">// &#x5C31;&#x5C06;&#x5B83;&#x66FF;&#x6362;&#x4E3A;&#x8F6C;&#x6362;&#x540E;&#x7684;&#x51FD;&#x6570;&#x540D;&#x5B57;</span>
+        p.node.callee.name = <span class="hljs-string">`<span class="hljs-subst">${importCovertVarName}</span>.default`</span>;
+      }
+    },
+  });
+</code></pre>
+<p>&#x8FD9;&#x6837;&#x8F6C;&#x6362;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x518D;&#x91CD;&#x65B0;&#x751F;&#x6210;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;&#xFF0C;&#x5DF2;&#x7ECF;&#x50CF;&#x90A3;&#x4E48;&#x4E2A;&#x6837;&#x5B50;&#x4E86;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210207175649607.png" alt="image-20210207175649607"></p>
+<h3 id="&#x9012;&#x5F52;&#x89E3;&#x6790;&#x591A;&#x4E2A;&#x6587;&#x4EF6;"><a name="&#x9012;&#x5F52;&#x89E3;&#x6790;&#x591A;&#x4E2A;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x9012;&#x5F52;&#x89E3;&#x6790;&#x591A;&#x4E2A;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9012;&#x5F52;&#x89E3;&#x6790;&#x591A;&#x4E2A;&#x6587;&#x4EF6;</h3>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x4E00;&#x4E2A;<code>parseFile</code>&#x65B9;&#x6CD5;&#x6765;&#x89E3;&#x6790;&#x5904;&#x7406;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x6587;&#x4EF6;&#x5176;&#x5B9E;&#x4E0D;&#x6B62;&#x4E00;&#x4E2A;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x4F9D;&#x636E;&#x6A21;&#x5757;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#xFF0C;&#x9012;&#x5F52;&#x7684;&#x5C06;&#x6240;&#x6709;&#x7684;&#x6A21;&#x5757;&#x90FD;&#x89E3;&#x6790;&#x4E86;&#x3002;&#x8981;&#x5B9E;&#x73B0;&#x9012;&#x5F52;&#x89E3;&#x6790;&#x4E5F;&#x4E0D;&#x590D;&#x6742;&#xFF0C;&#x56E0;&#x4E3A;&#x524D;&#x9762;&#x7684;<code>parseFile</code>&#x7684;&#x4F9D;&#x8D56;<code>dependcies</code>&#x5DF2;&#x7ECF;&#x8FD4;&#x56DE;&#x4E86;&#xFF1A;</p>
+<ol>
+<li>&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x5B58;&#x653E;&#x6587;&#x4EF6;&#x7684;&#x89E3;&#x6790;&#x7ED3;&#x679C;&#xFF0C;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x4E0B;&#x4ED6;&#x53EA;&#x6709;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x7684;&#x89E3;&#x6790;&#x7ED3;&#x679C;</li>
+<li>&#x6839;&#x636E;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x7684;&#x89E3;&#x6790;&#x7ED3;&#x679C;&#xFF0C;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x7684;&#x4F9D;&#x8D56;</li>
+<li>&#x89E3;&#x6790;&#x6240;&#x6709;&#x7684;&#x4F9D;&#x8D56;&#xFF0C;&#x5C06;&#x7ED3;&#x679C;&#x7EE7;&#x7EED;&#x52A0;&#x5230;&#x89E3;&#x6790;&#x7ED3;&#x679C;&#x6570;&#x7EC4;&#x91CC;&#x9762;</li>
+<li>&#x4E00;&#x76F4;&#x5FAA;&#x73AF;&#x8FD9;&#x4E2A;&#x89E3;&#x6790;&#x7ED3;&#x679C;&#x6570;&#x7EC4;&#xFF0C;&#x5C06;&#x91CC;&#x9762;&#x7684;&#x4F9D;&#x8D56;&#x6587;&#x4EF6;&#x89E3;&#x6790;&#x5B8C;</li>
+<li>&#x6700;&#x540E;&#x5C06;&#x89E3;&#x6790;&#x7ED3;&#x679C;&#x6570;&#x7EC4;&#x8FD4;&#x56DE;&#x5C31;&#x884C;</li>
+</ol>
+<p>&#x5199;&#x6210;&#x4EE3;&#x7801;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseFiles</span>(<span class="hljs-params">entryFile</span>) </span>{
+  <span class="hljs-keyword">const</span> entryRes = parseFile(entryFile); <span class="hljs-comment">// &#x89E3;&#x6790;&#x5165;&#x53E3;&#x6587;&#x4EF6;</span>
+  <span class="hljs-keyword">const</span> results = [entryRes]; <span class="hljs-comment">// &#x5C06;&#x89E3;&#x6790;&#x7ED3;&#x679C;&#x653E;&#x5165;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;</span>
+
+  <span class="hljs-comment">// &#x5FAA;&#x73AF;&#x7ED3;&#x679C;&#x6570;&#x7EC4;&#xFF0C;&#x5C06;&#x5B83;&#x7684;&#x4F9D;&#x8D56;&#x5168;&#x90E8;&#x62FF;&#x51FA;&#x6765;&#x89E3;&#x6790;</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> res <span class="hljs-keyword">of</span> results) {
+    <span class="hljs-keyword">const</span> dependencies = res.dependencies;
+    dependencies.map(<span class="hljs-function">(<span class="hljs-params">dependency</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (dependency) {
+        <span class="hljs-keyword">const</span> ast = parseFile(dependency);
+        results.push(ast);
+      }
+    });
+  }
+
+  <span class="hljs-keyword">return</span> results;
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x89E3;&#x6790;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> allAst = parseFiles(config.entry);
+<span class="hljs-built_in">console</span>.log(allAst);
+</code></pre>
+<p>&#x770B;&#x770B;&#x89E3;&#x6790;&#x7ED3;&#x679C;&#x5427;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210208152330212.png" alt="image-20210208152330212"></p>
+<p>&#x8FD9;&#x4E2A;&#x7ED3;&#x679C;&#x5176;&#x5B9E;&#x8DDF;&#x6211;&#x4EEC;&#x6700;&#x7EC8;&#x9700;&#x8981;&#x751F;&#x6210;&#x7684;<code>__webpack_modules__</code>&#x5DF2;&#x7ECF;&#x5F88;&#x50CF;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x8FD8;&#x6709;&#x4E24;&#x5757;&#x6CA1;&#x6709;&#x5904;&#x7406;&#xFF1A;</p>
+<ol>
+<li><p>&#x4E00;&#x4E2A;&#x662F;<code>import</code>&#x8FDB;&#x6765;&#x7684;&#x5185;&#x5BB9;&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x4F7F;&#x7528;&#xFF0C;&#x6BD4;&#x5982;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> hello <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./hello&apos;</span>;
+
+<span class="hljs-keyword">const</span> world = <span class="hljs-string">&apos;world&apos;</span>;
+
+<span class="hljs-keyword">const</span> helloWorld = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${hello}</span> <span class="hljs-subst">${world}</span>`</span>;
+</code></pre>
+</li>
+<li><p>&#x53E6;&#x4E00;&#x4E2A;&#x5C31;&#x662F;<code>export</code>&#x8BED;&#x53E5;&#x8FD8;&#x6CA1;&#x5904;&#x7406;</p>
+</li>
+</ol>
+<h3 id="&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x8C03;&#x7528;"><a name="&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x8C03;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x66FF;&#x6362;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x8C03;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x66FF;&#x6362;<code>import</code>&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;(&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x8C03;&#x7528;)</h3>
+<p>&#x524D;&#x9762;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x7528;<code>CallExpression</code>&#x5904;&#x7406;&#x8FC7;&#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x4F7F;&#x7528;&#x7684;<code>import</code>&#x53D8;&#x91CF;&#x4E86;&#xFF0C;&#x73B0;&#x5728;&#x8981;&#x5904;&#x7406;&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x4F7F;&#x7528;&#x7684;&#x5176;&#x5B9E;&#x7528;<code>Identifier</code>&#x5904;&#x7406;&#x4E0B;&#x5C31;&#x884C;&#x4E86;&#xFF0C;&#x5904;&#x7406;&#x903B;&#x8F91;&#x8DDF;&#x4E4B;&#x524D;&#x7684;<code>CallExpression</code>&#x5DEE;&#x4E0D;&#x591A;&#xFF1A;</p>
+<pre><code class="lang-javascript">  traverse(ast, {
+    ImportDeclaration(p) {
+      <span class="hljs-comment">// &#x8DDF;&#x4EE5;&#x524D;&#x4E00;&#x6837;&#x7684;</span>
+    },
+    CallExpression(p) {
+            <span class="hljs-comment">// &#x8DDF;&#x4EE5;&#x524D;&#x4E00;&#x6837;&#x7684;</span>
+    },
+    Identifier(p) {
+      <span class="hljs-comment">// &#x5982;&#x679C;&#x8C03;&#x7528;&#x7684;&#x662F;import&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;</span>
+      <span class="hljs-keyword">if</span> (p.node.name === importVarName) {
+        <span class="hljs-comment">// &#x5C31;&#x5C06;&#x5B83;&#x66FF;&#x6362;&#x4E3A;&#x8F6C;&#x6362;&#x540E;&#x7684;&#x53D8;&#x91CF;&#x540D;&#x5B57;</span>
+        p.node.name = <span class="hljs-string">`<span class="hljs-subst">${importCovertVarName}</span>.default`</span>;
+      }
+    },
+  });
+</code></pre>
+<p>&#x73B0;&#x5728;&#x518D;&#x8FD0;&#x884C;&#x4E0B;&#xFF0C;<code>import</code>&#x8FDB;&#x6765;&#x7684;&#x53D8;&#x91CF;&#x540D;&#x5B57;&#x5DF2;&#x7ECF;&#x53D8;&#x6389;&#x4E86;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210208153942630.png" alt="image-20210208153942630"></p>
+<h3 id="&#x66FF;&#x6362;export&#x8BED;&#x53E5;"><a name="&#x66FF;&#x6362;export&#x8BED;&#x53E5;" class="anchor-navigation-ex-anchor" href="#&#x66FF;&#x6362;export&#x8BED;&#x53E5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x66FF;&#x6362;<code>export</code>&#x8BED;&#x53E5;</h3>
+<p>&#x4ECE;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x751F;&#x6210;&#x7684;&#x7ED3;&#x679C;&#x6765;&#x770B;&#xFF0C;<code>export</code>&#x9700;&#x8981;&#x8FDB;&#x884C;&#x4E24;&#x4E2A;&#x5904;&#x7406;&#xFF1A;</p>
+<ol>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x6709;<code>export default</code>&#xFF0C;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;<code>__webpack_require__.d</code>&#x7684;&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#xFF0C;&#x5185;&#x5BB9;&#x90FD;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x52A0;&#x4E0A;&#x5C31;&#x884C;&#x3002;</li>
+<li>&#x5C06;<code>export</code>&#x8BED;&#x53E5;&#x8F6C;&#x6362;&#x4E3A;&#x666E;&#x901A;&#x7684;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x3002;</li>
+</ol>
+<p>&#x5BF9;&#x5E94;&#x751F;&#x6210;&#x7ED3;&#x679C;&#x4E0A;&#x7684;&#x8FD9;&#x4E24;&#x4E2A;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210208154959592.png" alt="image-20210208154959592"></p>
+<p>&#x8981;&#x5904;&#x7406;<code>export</code>&#x8BED;&#x53E5;&#xFF0C;&#x5728;&#x904D;&#x5386;<code>ast</code>&#x7684;&#x65F6;&#x5019;&#x6DFB;&#x52A0;<code>ExportDefaultDeclaration</code>&#x5C31;&#x884C;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-javascript">  traverse(ast, {
+    ImportDeclaration(p) {
+      <span class="hljs-comment">// &#x8DDF;&#x4EE5;&#x524D;&#x4E00;&#x6837;&#x7684;</span>
+    },
+    CallExpression(p) {
+            <span class="hljs-comment">// &#x8DDF;&#x4EE5;&#x524D;&#x4E00;&#x6837;&#x7684;</span>
+    },
+    Identifier(p) {
+      <span class="hljs-comment">// &#x8DDF;&#x4EE5;&#x524D;&#x4E00;&#x6837;&#x7684;</span>
+    },
+    ExportDefaultDeclaration(p) {
+      hasExport = <span class="hljs-literal">true</span>; <span class="hljs-comment">// &#x5148;&#x6807;&#x8BB0;&#x662F;&#x5426;&#x6709;export</span>
+
+      <span class="hljs-comment">// &#x8DDF;&#x524D;&#x9762;import&#x7C7B;&#x4F3C;&#x7684;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x8282;&#x70B9;</span>
+      <span class="hljs-keyword">const</span> variableDeclaration = t.variableDeclaration(<span class="hljs-string">&quot;const&quot;</span>, [
+        t.variableDeclarator(
+          t.identifier(<span class="hljs-string">&quot;__WEBPACK_DEFAULT_EXPORT__&quot;</span>),
+          t.identifier(p.node.declaration.name)
+        ),
+      ]);
+
+      <span class="hljs-comment">// &#x5C06;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x66FF;&#x6362;&#x4E3A;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x8282;&#x70B9;</span>
+      p.replaceWith(variableDeclaration);
+    },
+  });
+</code></pre>
+<p>&#x7136;&#x540E;&#x518D;&#x8FD0;&#x884C;&#x4E0B;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>export</code>&#x8BED;&#x53E5;&#x88AB;&#x66FF;&#x6362;&#x4E86;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210208160244276.png" alt="image-20210208160244276"></p>
+<p>&#x7136;&#x540E;&#x5C31;&#x662F;&#x6839;&#x636E;<code>hasExport</code>&#x53D8;&#x91CF;&#x5224;&#x65AD;&#x5728;<code>AST</code>&#x8F6C;&#x6362;&#x4E3A;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x8981;&#x4E0D;&#x8981;&#x52A0;<code>__webpack_require__.d</code>&#x8F85;&#x52A9;&#x51FD;&#x6570;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> EXPORT_DEFAULT_FUN = <span class="hljs-string">`
+__webpack_require__.d(__webpack_exports__, {
+   &quot;default&quot;: () =&gt; (__WEBPACK_DEFAULT_EXPORT__)
+});\n
+`</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseFile</span>(<span class="hljs-params">file</span>) </span>{
+  <span class="hljs-comment">// &#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801;</span>
+  <span class="hljs-comment">// ......</span>
+
+  <span class="hljs-keyword">let</span> newCode = generate(ast).code;
+
+  <span class="hljs-keyword">if</span> (hasExport) {
+    newCode = <span class="hljs-string">`<span class="hljs-subst">${EXPORT_DEFAULT_FUN}</span> <span class="hljs-subst">${newCode}</span>`</span>;
+  }
+}
+</code></pre>
+<p>&#x6700;&#x540E;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x91CC;&#x9762;<code>export</code>&#x4E5F;&#x5C31;&#x5904;&#x7406;&#x597D;&#x4E86;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210208161030554.png" alt="image-20210208161030554"></p>
+<h3 id="&#x628A;webpackrequirer&#x7684;&#x8C03;&#x7528;&#x6DFB;&#x4E0A;&#x5427;"><a name="&#x628A;webpackrequirer&#x7684;&#x8C03;&#x7528;&#x6DFB;&#x4E0A;&#x5427;" class="anchor-navigation-ex-anchor" href="#&#x628A;webpackrequirer&#x7684;&#x8C03;&#x7528;&#x6DFB;&#x4E0A;&#x5427;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x628A;<code>__webpack_require__.r</code>&#x7684;&#x8C03;&#x7528;&#x6DFB;&#x4E0A;&#x5427;</h3>
+<p>&#x524D;&#x9762;&#x8BF4;&#x4E86;&#xFF0C;&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x524D;&#x9762;&#x90FD;&#x6709;&#x4E2A;<code>__webpack_require__.r</code>&#x7684;&#x8C03;&#x7528;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210208161321401.png" alt="image-20210208161321401"></p>
+<p>&#x8FD9;&#x4E2A;&#x53EA;&#x662F;&#x62FF;&#x6765;&#x7ED9;&#x6A21;&#x5757;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;<code>__esModule</code>&#x6807;&#x8BB0;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x7ED9;&#x4ED6;&#x52A0;&#x4E0A;&#x5427;&#xFF0C;&#x76F4;&#x63A5;&#x5728;&#x524D;&#x9762;<code>export</code>&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#x540E;&#x9762;&#x52A0;&#x70B9;&#x4EE3;&#x7801;&#x5C31;&#x884C;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> ESMODULE_TAG_FUN = <span class="hljs-string">`
+__webpack_require__.r(__webpack_exports__);\n
+`</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseFile</span>(<span class="hljs-params">file</span>) </span>{
+  <span class="hljs-comment">// &#x7701;&#x7565;&#x5176;&#x4ED6;&#x4EE3;&#x7801;</span>
+  <span class="hljs-comment">// ......</span>
+
+  <span class="hljs-keyword">let</span> newCode = generate(ast).code;
+
+  <span class="hljs-keyword">if</span> (hasExport) {
+    newCode = <span class="hljs-string">`<span class="hljs-subst">${EXPORT_DEFAULT_FUN}</span> <span class="hljs-subst">${newCode}</span>`</span>;
+  }
+
+  <span class="hljs-comment">// &#x4E0B;&#x9762;&#x6DFB;&#x52A0;&#x6A21;&#x5757;&#x6807;&#x8BB0;&#x4EE3;&#x7801;</span>
+  newCode = <span class="hljs-string">`<span class="hljs-subst">${ESMODULE_TAG_FUN}</span> <span class="hljs-subst">${newCode}</span>`</span>;
+}
+</code></pre>
+<p>&#x518D;&#x8FD0;&#x884C;&#x4E0B;&#x770B;&#x770B;&#xFF0C;&#x8FD9;&#x4E2A;&#x4EE3;&#x7801;&#x4E5F;&#x52A0;&#x4E0A;&#x4E86;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210208161721369.png" alt="image-20210208161721369"></p>
+<h3 id="&#x521B;&#x5EFA;&#x4EE3;&#x7801;&#x6A21;&#x677F;"><a name="&#x521B;&#x5EFA;&#x4EE3;&#x7801;&#x6A21;&#x677F;" class="anchor-navigation-ex-anchor" href="#&#x521B;&#x5EFA;&#x4EE3;&#x7801;&#x6A21;&#x677F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x521B;&#x5EFA;&#x4EE3;&#x7801;&#x6A21;&#x677F;</h3>
+<p>&#x5230;&#x73B0;&#x5728;&#xFF0C;&#x6700;&#x96BE;&#x7684;&#x4E00;&#x5757;&#xFF0C;&#x6A21;&#x5757;&#x4EE3;&#x7801;&#x7684;&#x89E3;&#x6790;&#x548C;&#x8F6C;&#x6362;&#x6211;&#x4EEC;&#x5176;&#x5B9E;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x4E86;&#x3002;&#x4E0B;&#x9762;&#x8981;&#x505A;&#x7684;&#x5DE5;&#x4F5C;&#x5C31;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x91CC;&#x9762;&#xFF0C;&#x5404;&#x79CD;&#x8F85;&#x52A9;&#x65B9;&#x6CD5;&#x90FD;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x52A8;&#x6001;&#x7684;&#x90E8;&#x5206;&#x5C31;&#x662F;&#x524D;&#x9762;&#x89E3;&#x6790;&#x7684;&#x6A21;&#x5757;&#x548C;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x8FD9;&#x6837;&#x7684;&#x6A21;&#x677F;&#xFF0C;&#x5C06;&#x52A8;&#x6001;&#x7684;&#x90E8;&#x5206;&#x6807;&#x8BB0;&#x51FA;&#x6765;&#x5C31;&#x884C;&#xFF0C;&#x5176;&#x4ED6;&#x4E0D;&#x53D8;&#x7684;&#x90E8;&#x5206;&#x5199;&#x6B7B;&#x3002;&#x8FD9;&#x4E2A;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5C06;&#x5B83;&#x8BFB;&#x8FDB;&#x6765;&#x4F5C;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x5904;&#x7406;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x6A21;&#x677F;&#x5F15;&#x64CE;&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x91C7;&#x7528;<code>ejs</code>&#x6A21;&#x677F;&#x5F15;&#x64CE;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x6A21;&#x677F;&#x6587;&#x4EF6;&#xFF0C;&#x76F4;&#x63A5;&#x4ECE;webpack&#x751F;&#x6210;&#x7ED3;&#x679C;&#x6284;&#x8FC7;&#x6765;&#xFF0C;&#x6539;&#x6539;&#x5C31;&#x884C;</span>
+<span class="hljs-comment">/******/</span> (<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-comment">// webpackBootstrap</span>
+<span class="hljs-comment">/******/</span>     <span class="hljs-string">&quot;use strict&quot;</span>;
+<span class="hljs-comment">// &#x9700;&#x8981;&#x66FF;&#x6362;&#x7684;__TO_REPLACE_WEBPACK_MODULES__</span>
+<span class="hljs-comment">/******/</span>     <span class="hljs-keyword">var</span> __webpack_modules__ = ({
+                &lt;% __TO_REPLACE_WEBPACK_MODULES__.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> { %&gt;
+                    <span class="hljs-string">&apos;&lt;%- item.file %&gt;&apos;</span> : 
+                    <span class="hljs-function">(<span class="hljs-params">(__unused_webpack_module, __webpack_exports__, __webpack_require__</span>) =&gt;</span> {
+                        &lt;%- item.code %&gt;
+                    }),
+                &lt;% }) %&gt;
+            });
+<span class="hljs-comment">// &#x7701;&#x7565;&#x4E2D;&#x95F4;&#x7684;&#x8F85;&#x52A9;&#x65B9;&#x6CD5;</span>
+    <span class="hljs-comment">/************************************************************************/</span>
+    <span class="hljs-comment">/******/</span>     <span class="hljs-comment">// startup</span>
+    <span class="hljs-comment">/******/</span>     <span class="hljs-comment">// Load entry module</span>
+<span class="hljs-comment">// &#x9700;&#x8981;&#x66FF;&#x6362;&#x7684;__TO_REPLACE_WEBPACK_ENTRY</span>
+    <span class="hljs-comment">/******/</span>     __webpack_require__(<span class="hljs-string">&apos;&lt;%- __TO_REPLACE_WEBPACK_ENTRY__ %&gt;&apos;</span>);
+    <span class="hljs-comment">/******/</span>     <span class="hljs-comment">// This entry module used &apos;exports&apos; so it can&apos;t be inlined</span>
+    <span class="hljs-comment">/******/</span> })()
+    ;
+    <span class="hljs-comment">//# sourceMappingURL=main.js.map</span>
+</code></pre>
+<h3 id="&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;"><a name="&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;</h3>
+<p>&#x751F;&#x6210;&#x6700;&#x7EC8;&#x4EE3;&#x7801;&#x7684;&#x601D;&#x8DEF;&#x5C31;&#x662F;&#xFF1A;</p>
+<ol>
+<li>&#x6A21;&#x677F;&#x91CC;&#x9762;&#x7528;<code>__TO_REPLACE_WEBPACK_MODULES__</code>&#x6765;&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;<code>__webpack_modules__</code></li>
+<li>&#x6A21;&#x677F;&#x91CC;&#x9762;&#x7528;<code>__TO_REPLACE_WEBPACK_ENTRY__</code>&#x6765;&#x66FF;&#x4EE3;&#x52A8;&#x6001;&#x7684;&#x5165;&#x53E3;&#x6587;&#x4EF6;</li>
+<li><code>webpack</code>&#x4EE3;&#x7801;&#x91CC;&#x9762;&#x4F7F;&#x7528;&#x524D;&#x9762;&#x751F;&#x6210;&#x597D;&#x7684;<code>AST</code>&#x6570;&#x7EC4;&#x6765;&#x66FF;&#x6362;&#x6A21;&#x677F;&#x7684;<code>__TO_REPLACE_WEBPACK_MODULES__</code></li>
+<li><code>webpack</code>&#x4EE3;&#x7801;&#x91CC;&#x9762;&#x4F7F;&#x7528;&#x524D;&#x9762;&#x62FF;&#x5230;&#x7684;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x6765;&#x66FF;&#x4EE3;&#x6A21;&#x677F;&#x7684;<code>__TO_REPLACE_WEBPACK_ENTRY__</code></li>
+<li>&#x4F7F;&#x7528;<code>ejs</code>&#x6765;&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;</li>
+</ol>
+<p>&#x6240;&#x4EE5;&#x4EE3;&#x7801;&#x5C31;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x4F7F;&#x7528;ejs&#x5C06;&#x4E0A;&#x9762;&#x89E3;&#x6790;&#x597D;&#x7684;ast&#x4F20;&#x9012;&#x7ED9;&#x6A21;&#x677F;</span>
+<span class="hljs-comment">// &#x8FD4;&#x56DE;&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateCode</span>(<span class="hljs-params">allAst, entry</span>) </span>{
+  <span class="hljs-keyword">const</span> temlateFile = fs.readFileSync(
+    path.join(__dirname, <span class="hljs-string">&quot;./template.js&quot;</span>),
+    <span class="hljs-string">&quot;utf-8&quot;</span>
+  );
+
+  <span class="hljs-keyword">const</span> codes = ejs.render(temlateFile, {
+    <span class="hljs-attr">__TO_REPLACE_WEBPACK_MODULES__</span>: allAst,
+    <span class="hljs-attr">__TO_REPLACE_WEBPACK_ENTRY__</span>: entry,
+  });
+
+  <span class="hljs-keyword">return</span> codes;
+}
+</code></pre>
+<h3 id="&#x5927;&#x529F;&#x544A;&#x6210;"><a name="&#x5927;&#x529F;&#x544A;&#x6210;" class="anchor-navigation-ex-anchor" href="#&#x5927;&#x529F;&#x544A;&#x6210;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5927;&#x529F;&#x544A;&#x6210;</h3>
+<p>&#x6700;&#x540E;&#x5C06;<code>ejs</code>&#x751F;&#x6210;&#x597D;&#x7684;&#x4EE3;&#x7801;&#x5199;&#x5165;&#x914D;&#x7F6E;&#x7684;&#x8F93;&#x51FA;&#x8DEF;&#x5F84;&#x5C31;&#x884C;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> codes = generateCode(allAst, config.entry);
+
+fs.writeFileSync(path.join(config.output.path, config.output.filename), codes);
+</code></pre>
+<p>&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;<code>webpack</code>&#x6765;&#x7F16;&#x8BD1;&#x4EE3;&#x7801;&#xFF0C;&#x6700;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x50CF;&#x4E4B;&#x524D;&#x90A3;&#x6837;&#x6253;&#x5F00;&#x6211;&#x4EEC;&#x7684;<code>html</code>&#x770B;&#x770B;&#x6548;&#x679C;&#x4E86;&#xFF1A;</p>
+<p><img src="../../images/engineering/mini-webpack/image-20210218160539306.png" alt="image-20210218160539306"></p>
+<h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x603B;&#x7ED3;</h2>
+<p>&#x672C;&#x6587;&#x4F7F;&#x7528;&#x7B80;&#x5355;&#x8D28;&#x6734;&#x7684;&#x65B9;&#x5F0F;&#x8BB2;&#x8FF0;&#x4E86;<code>webpack</code>&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;&#xFF0C;&#x5E76;&#x81EA;&#x5DF1;&#x624B;&#x5199;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x7684;&#x652F;&#x6301;<code>import</code>&#x548C;<code>export</code>&#x7684;<code>default</code>&#x7684;<code>webpack</code>&#x3002;</p>
+<p><strong>&#x672C;&#x6587;&#x53EF;&#x8FD0;&#x884C;&#x4EE3;&#x7801;&#x5DF2;&#x7ECF;&#x4E0A;&#x4F20;GitHub&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x62FF;&#x4E0B;&#x6765;&#x73A9;&#x73A9;&#xFF1A;<a href="https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/mini-webpack</a></strong></p>
+<p>&#x4E0B;&#x9762;&#x518D;&#x5C31;&#x672C;&#x6587;&#x7684;&#x8981;&#x70B9;&#x8FDB;&#x884C;&#x4E0B;&#x603B;&#x7ED3;&#xFF1A;</p>
+<ol>
+<li><code>webpack</code>&#x6700;&#x57FA;&#x672C;&#x7684;&#x529F;&#x80FD;&#x5176;&#x5B9E;&#x662F;&#x5C06;<code>JS</code>&#x7684;&#x9AD8;&#x7EA7;&#x6A21;&#x5757;&#x5316;&#x8BED;&#x53E5;&#xFF0C;<code>import</code>&#x548C;<code>require</code>&#x4E4B;&#x7C7B;&#x7684;&#x8F6C;&#x6362;&#x4E3A;&#x6D4F;&#x89C8;&#x5668;&#x80FD;&#x8BA4;&#x8BC6;&#x7684;&#x666E;&#x901A;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8BED;&#x53E5;&#x3002;</li>
+<li>&#x8981;&#x8FDB;&#x884C;&#x8BED;&#x8A00;&#x4EE3;&#x7801;&#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5BF9;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x89E3;&#x6790;&#x3002;</li>
+<li>&#x5E38;&#x7528;&#x7684;&#x89E3;&#x6790;&#x624B;&#x6BB5;&#x662F;<code>AST</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5C06;&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x4E3A;<code>&#x62BD;&#x8C61;&#x8BED;&#x6CD5;&#x6811;</code>&#x3002;</li>
+<li><code>AST</code>&#x662F;&#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x4EE3;&#x7801;&#x7ED3;&#x6784;&#x7684;&#x6811;&#x5F62;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x8F6C;&#x6362;&#x4E3A;<code>AST</code>&#xFF0C;<code>AST</code>&#x4E5F;&#x53EF;&#x4EE5;&#x8F6C;&#x6362;&#x4E3A;&#x4EE3;&#x7801;&#x3002;</li>
+<li><code>babel</code>&#x53EF;&#x4EE5;&#x5C06;&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x4E3A;<code>AST</code>&#xFF0C;&#x4F46;&#x662F;<code>webpack</code>&#x5B98;&#x65B9;&#x5E76;&#x6CA1;&#x6709;&#x4F7F;&#x7528;<code>babel</code>&#xFF0C;&#x800C;&#x662F;&#x57FA;&#x4E8E;<a href="https://github.com/acornjs/acorn" target="_blank">acorn</a>&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;<a href="https://github.com/webpack/webpack/blob/a07a1269f0a0b23d40de6c9565eeaf962fbc8904/lib/javascript/JavascriptParser.js" target="_blank">JavascriptParser</a>&#x3002;</li>
+<li>&#x672C;&#x6587;&#x4ECE;<code>webpack</code>&#x6784;&#x5EFA;&#x7684;&#x7ED3;&#x679C;&#x5165;&#x624B;&#xFF0C;&#x4E5F;&#x4F7F;&#x7528;<code>AST</code>&#x81EA;&#x5DF1;&#x751F;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x7684;&#x4EE3;&#x7801;&#x3002;</li>
+<li><code>webpack</code>&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x5176;&#x5B9E;&#x5206;&#x4E3A;&#x52A8;&#x6001;&#x548C;&#x56FA;&#x5B9A;&#x7684;&#x4E24;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x56FA;&#x5B9A;&#x7684;&#x90E8;&#x5206;&#x5199;&#x5165;&#x4E00;&#x4E2A;&#x6A21;&#x677F;&#xFF0C;&#x52A8;&#x6001;&#x7684;&#x90E8;&#x5206;&#x5728;&#x6A21;&#x677F;&#x91CC;&#x9762;&#x4F7F;&#x7528;<code>ejs</code>&#x5360;&#x4F4D;&#x3002;</li>
+<li>&#x751F;&#x6210;&#x4EE3;&#x7801;&#x52A8;&#x6001;&#x90E8;&#x5206;&#x9700;&#x8981;&#x501F;&#x52A9;<code>babel</code>&#x6765;&#x751F;&#x6210;<code>AST</code>&#xFF0C;&#x5E76;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#xFF0C;&#x6700;&#x540E;&#x518D;&#x4F7F;&#x7528;<code>babel</code>&#x5C06;&#x5176;&#x751F;&#x6210;&#x65B0;&#x7684;&#x4EE3;&#x7801;&#x3002;</li>
+<li>&#x5728;&#x751F;&#x6210;<code>AST</code>&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x4ECE;&#x914D;&#x7F6E;&#x7684;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x5F00;&#x59CB;&#xFF0C;&#x9012;&#x5F52;&#x7684;&#x89E3;&#x6790;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x3002;&#x5373;&#x89E3;&#x6790;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C06;&#x5B83;&#x7684;&#x4F9D;&#x8D56;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#xFF0C;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x89E3;&#x6790;&#x5B8C;&#x540E;&#x5C31;&#x53BB;&#x89E3;&#x6790;&#x4ED6;&#x7684;&#x4F9D;&#x8D56;&#x6587;&#x4EF6;&#xFF0C;&#x5728;&#x89E3;&#x6790;&#x4ED6;&#x7684;&#x4F9D;&#x8D56;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x5C06;&#x4F9D;&#x8D56;&#x7684;&#x4F9D;&#x8D56;&#x4E5F;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#xFF0C;&#x540E;&#x9762;&#x7EE7;&#x7EED;&#x89E3;&#x6790;&#x3002;&#x91CD;&#x590D;&#x8FD9;&#x79CD;&#x6B65;&#x9AA4;&#xFF0C;&#x76F4;&#x5230;&#x6240;&#x6709;&#x4F9D;&#x8D56;&#x89E3;&#x6790;&#x5B8C;&#x3002;</li>
+<li>&#x52A8;&#x6001;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x597D;&#x540E;&#xFF0C;&#x4F7F;&#x7528;<code>ejs</code>&#x5C06;&#x5176;&#x5199;&#x5165;&#x6A21;&#x677F;&#xFF0C;&#x4EE5;&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x8981;&#x652F;&#x6301;<code>require</code>&#x6216;&#x8005;<code>AMD</code>&#xFF0C;&#x5176;&#x5B9E;&#x601D;&#x8DEF;&#x662F;&#x7C7B;&#x4F3C;&#x7684;&#xFF0C;&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x4E5F;&#x662F;&#x5DEE;&#x4E0D;&#x591A;&#x7684;&#xFF0C;&#x4E3B;&#x8981;&#x7684;&#x5DEE;&#x522B;&#x5728;<code>AST</code>&#x89E3;&#x6790;&#x90A3;&#x4E00;&#x5757;&#x3002;</li>
+</ol>
+<h2 id="&#x53C2;&#x8003;&#x8D44;&#x6599;"><a name="&#x53C2;&#x8003;&#x8D44;&#x6599;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#x8D44;&#x6599;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53C2;&#x8003;&#x8D44;&#x6599;</h2>
+<ol>
+<li><a href="https://babeljs.io/docs/en/babel-types" target="_blank">babel&#x64CD;&#x4F5C;AST&#x6587;&#x6863;</a></li>
+<li><a href="https://github.com/webpack/webpack/" target="_blank">webpack&#x6E90;&#x7801;</a></li>
+<li><a href="https://webpack.js.org/concepts/" target="_blank">webpack&#x5B98;&#x65B9;&#x6587;&#x6863;</a></li>
+</ol>
+<p><strong>&#x6587;&#x7AE0;&#x7684;&#x6700;&#x540E;&#xFF0C;&#x611F;&#x8C22;&#x4F60;&#x82B1;&#x8D39;&#x5B9D;&#x8D35;&#x7684;&#x65F6;&#x95F4;&#x9605;&#x8BFB;&#x672C;&#x6587;&#xFF0C;&#x5982;&#x679C;&#x672C;&#x6587;&#x7ED9;&#x4E86;&#x4F60;&#x4E00;&#x70B9;&#x70B9;&#x5E2E;&#x52A9;&#x6216;&#x8005;&#x542F;&#x53D1;&#xFF0C;&#x8BF7;&#x4E0D;&#x8981;&#x541D;&#x556C;&#x4F60;&#x7684;&#x8D5E;&#x548C;GitHub&#x5C0F;&#x661F;&#x661F;&#xFF0C;&#x4F60;&#x7684;&#x652F;&#x6301;&#x662F;&#x4F5C;&#x8005;&#x6301;&#x7EED;&#x521B;&#x4F5C;&#x7684;&#x52A8;&#x529B;&#x3002;</strong></p>
+<p><strong>&#x6B22;&#x8FCE;&#x5173;&#x6CE8;&#x6211;&#x7684;&#x516C;&#x4F17;&#x53F7;<a href="https://test-dennis.oss-cn-hangzhou.aliyuncs.com/QRCode/QR430.jpg" target="_blank">&#x8FDB;&#x51FB;&#x7684;&#x5927;&#x524D;&#x7AEF;</a>&#x7B2C;&#x4E00;&#x65F6;&#x95F4;&#x83B7;&#x53D6;&#x9AD8;&#x8D28;&#x91CF;&#x539F;&#x521B;~</strong></p>
+<p><strong>&#x201C;&#x524D;&#x7AEF;&#x8FDB;&#x9636;&#x77E5;&#x8BC6;&#x201D;&#x7CFB;&#x5217;&#x6587;&#x7AE0;&#xFF1A;<a href="https://juejin.im/post/5e3ffc85518825494e2772fd" target="_blank">https://juejin.im/post/5e3ffc85518825494e2772fd</a></strong></p>
+<p><strong>&#x201C;&#x524D;&#x7AEF;&#x8FDB;&#x9636;&#x77E5;&#x8BC6;&#x201D;&#x7CFB;&#x5217;&#x6587;&#x7AE0;&#x6E90;&#x7801;GitHub&#x5730;&#x5740;&#xFF1A; <a href="https://github.com/dennis-jiang/Front-End-Knowledges" target="_blank">https://github.com/dennis-jiang/Front-End-Knowledges</a></strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="mono-repo.html" class="navigation navigation-prev " aria-label="Previous page: mono-repo + react">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../DataStructureAndAlgorithm/DataStructureAndAlgorithm.html" class="navigation navigation-next " aria-label="Next page: 数据结构和算法">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"手写webpack","level":"1.10.3","depth":2,"next":{"title":"数据结构和算法","level":"1.11","depth":1,"path":"Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md","ref":"Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md","articles":[{"title":"排序算法","level":"1.11.1","depth":2,"path":"Articles/DataStructureAndAlgorithm/Sorting.md","ref":"Articles/DataStructureAndAlgorithm/Sorting.md","articles":[]},{"title":"链表","level":"1.11.2","depth":2,"path":"Articles/DataStructureAndAlgorithm/LinkedList.md","ref":"Articles/DataStructureAndAlgorithm/LinkedList.md","articles":[]},{"title":"贪心算法","level":"1.11.3","depth":2,"path":"Articles/DataStructureAndAlgorithm/Greedy.md","ref":"Articles/DataStructureAndAlgorithm/Greedy.md","articles":[]},{"title":"动态规划","level":"1.11.4","depth":2,"path":"Articles/DataStructureAndAlgorithm/DP.md","ref":"Articles/DataStructureAndAlgorithm/DP.md","articles":[]},{"title":"三层商品选项优化","level":"1.11.5","depth":2,"path":"Articles/DataStructureAndAlgorithm/OptimizeVariations.md","ref":"Articles/DataStructureAndAlgorithm/OptimizeVariations.md","articles":[]}]},"previous":{"title":"mono-repo + react","level":"1.10.2","depth":2,"path":"Articles/Engineering/mono-repo.md","ref":"Articles/Engineering/mono-repo.md","articles":[]},"dir":"ltr"},"config":{"plugins":["highlight","search-pro","livereload","back-to-top-button","github","-sharing","sharing-plus","chapter-fold","anchor-navigation-ex","katex","icp","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"github":{"url":"https://github.com/dennis-jiang/Front-End-Knowledges"},"livereload":{},"search-pro":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"icp":{"link":"http://www.beian.miit.gov.cn/","style":{},"number":"苏ICP备16008535号"},"back-to-top-button":{},"sharing":{"weibo":true,"qq":true,"all":["douban","linkedin","qzone","facebook","twitter","google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Dennis Jiang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"前端进阶","language":"zh-hans","gitbook":"3.2.3","description":"前端知识总结"},"file":{"path":"Articles/Engineering/mini-webpack.md","mtime":"2021-02-20T02:23:42.092Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-02-20T02:25:58.668Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
