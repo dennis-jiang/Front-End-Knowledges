@@ -15,6 +15,8 @@
 
 本文就是讲用法的文章，知道了他的用法，大家以后如果有自己实现`hook`或者事件监听的需求，可以直接拿过来用，非常强大！
 
+**本文例子已经全部上传到GitHub，大家可以拿下来做个参考：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/tapable-usage](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/tapable-usage)**
+
 ## tapable是什么
 
 `tapable`是`webpack`的核心模块，也是`webpack`团队维护的，是`webpack plugin`的基本实现方式。他的主要功能是为使用者提供强大的`hook`机制，`webpack plugin`就是基于`hook`的。
@@ -646,6 +648,8 @@ accelerate.callAsync(500, (error, data) => {
 ![image-20210311150510851](../../images/engineering/tapable-usage/image-20210311150510851.png)
 
 ## 总结
+
+**本文例子已经全部上传到GitHub，大家可以拿下来做个参考：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/tapable-usage](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/tapable-usage)**
 
 1. `tapable`是`webpack`实现`plugin`的核心库，他为`webpack`提供了多种事件处理和流程控制的`Hook`。
 2. 这些`Hook`主要有同步(`Sync`)和异步(`Async`)两种，同时还提供了阻断(`Bail`)，瀑布(`Waterfall`)，循环(`Loop`)等流程控制，对于异步流程还提供了并行(`Paralle`)和串行(`Series`)两种控制方式。
