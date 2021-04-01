@@ -58,6 +58,7 @@
   * [使用mono-repo实现跨项目组件共享](https://juejin.cn/post/6913788953971654663)
   * [手写一个webpack，看看AST怎么用](https://juejin.cn/post/6930877602840182791)
   * [webpack核心模块tapable用法解析](https://juejin.cn/post/6939794845053485093)
+  * [webpack核心模块tapable源码解析](https://juejin.cn/post/6946094725703139358)
 * 设计模式
   * [(推荐！！)不知道怎么封装代码？看看这几种设计模式吧！](https://juejin.im/post/5ec737b36fb9a04799583002)
   * [不知道怎么提高代码复用性？看看这几种设计模式吧！](https://juejin.im/post/5ecb67846fb9a047b534a346)
