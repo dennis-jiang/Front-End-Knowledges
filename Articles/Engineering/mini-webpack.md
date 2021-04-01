@@ -91,7 +91,7 @@ document.body.appendChild(component());
 
 ### 引入webpack
 
-我们印象中`webpack`的配置很多，很麻烦，但那是因为我们需要开启的功能很多，如果只是解析转换`import`，配置起来非常简单。
+我们印象中`webpack`的配置很多，很麻烦，但那是因为我们需要开启的功能很多，如果只是解析转换`import`，配置起来非常简单。因为从`webpack 2`开始，就默认支持`import`了，不需要额外导入`babel-loader`之类的，当然如果你需要使用更高级的`ES6+`语法，还是需要导入`babel-loader`的。
 
 1. 先把依赖装上吧，这没什么好说的：
 

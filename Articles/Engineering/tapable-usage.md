@@ -134,7 +134,7 @@ accelerate.tap("LoggerPlugin", (newSpeed) =>
 
 ![image-20210309154641835](../../images/engineering/tapable-usage/image-20210309154641835.png)
 
-而`call`就是简单的触发这个事件，在`webpack`的`plguin`中一般不需要开发者去触发事件，而是`webpack`自己在不同阶段会触发不同的事件，比如`beforeRun`, `run`等等，`plguin`开发者更多的会关注这些事件出现时应该进行什么操作，也就是在这些事件上注册自己的回调。
+而`call`就是简单的触发这个事件，在`webpack`的`plguin`中一般不需要开发者去触发事件，而是`webpack`自己在不同阶段会触发不同的事件，比如`beforeRun`, `run`等等，`plugin`开发者更多的会关注这些事件出现时应该进行什么操作，也就是在这些事件上注册自己的回调。
 
 ### SyncBailHook
 
