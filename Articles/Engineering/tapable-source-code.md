@@ -1,3 +1,5 @@
+# webpack核心模块tapable源码解析
+
 [上一篇文章我写了`tapable`的基本用法](https://juejin.cn/post/6939794845053485093)，我们知道他是一个增强版版的`发布订阅模式`，本文想来学习下他的源码。`tapable`的源码我读了一下，发现他的抽象程度比较高，直接扎进去反而会让人云里雾里的，所以本文会从最简单的`SyncHook`和`发布订阅模式`入手，再一步一步抽象，慢慢变成他源码的样子。
 
 **本文可运行示例代码已经上传GitHub，大家拿下来一边玩一边看文章效果更佳：[https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/tapable-source-code](https://github.com/dennis-jiang/Front-End-Knowledges/tree/master/Examples/Engineering/tapable-source-code)**。
