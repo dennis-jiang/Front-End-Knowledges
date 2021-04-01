@@ -54,6 +54,7 @@
     * [mono-repo + react](/Articles/Engineering/mono-repo.md)
     * [手写webpack](/Articles/Engineering/mini-webpack.md)
     * [webpack核心模块tapable用法](/Articles/Engineering/tapable-usage.md)
+    * [webpack核心模块tapable源码解析](/Articles/Engineering/tapable-source-code.md)
 * [数据结构和算法](/Articles/DataStructureAndAlgorithm/DataStructureAndAlgorithm.md)
     * [排序算法](/Articles/DataStructureAndAlgorithm/Sorting.md)
     * [链表](/Articles/DataStructureAndAlgorithm/LinkedList.md)

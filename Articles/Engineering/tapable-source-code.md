@@ -72,7 +72,7 @@ const { SyncHook } = require("./SyncHook");
 
 ## `SyncBailHook`的基本实现
 
-然后再来一个`SyncBailHook`的基本实现，`SyncBailHook`的作用是当前一个回调返回不为`undefined`的值的时候，阻止后面的回调执行。基本使用是这样的：
+再来一个`SyncBailHook`的基本实现吧，`SyncBailHook`的作用是当前一个回调返回不为`undefined`的值的时候，阻止后面的回调执行。基本使用是这样的：
 
 ```javascript
 const { SyncBailHook } = require("tapable");    // 使用的是SyncBailHook
@@ -461,7 +461,7 @@ class HookCodeFactory {
 
         this.deinit();  // 重置变量
 
-        return fn;
+        return fn;    // 返回生成的函数
     }
 }
 ```
@@ -524,7 +524,7 @@ class HookCodeFactory {
         // 用传进来的参数和函数体创建一个函数出来
         fn = new Function(this.args(),
             header +
-            this.content());         // 注意这里的content函数并没有在基类HookCodeFactory实现
+            this.content());         // 注意这里的content函数并没有在基类HookCodeFactory实现，而是子类实现的
 
         this.deinit();
 
@@ -532,6 +532,7 @@ class HookCodeFactory {
     }
 
     // 拼装函数体
+  	// callTapsSeries也没在基类调用，而是子类调用的
     callTapsSeries() {
         const { taps } = this.options;
         let code = '';
@@ -630,12 +631,12 @@ const Hook = require('./Hook');
 const HookCodeFactory = require("./HookCodeFactory");
 
 // SyncBailHookCodeFactory继承HookCodeFactory并实现content函数
-// content里面传入定制的onResult函数
+// content里面传入定制的onResult函数，onResult回去调用next递归生成嵌套的if...else...
 class SyncBailHookCodeFactory extends HookCodeFactory {
     content() {
         return this.callTapsSeries({
             onResult: (i, result, next) =>
-                `if(${result} !== undefined) {\nreturn ${result};\n} else {\n${next(i)}}\n`,
+                `if(${result} !== undefined) {\nreturn ${result};\n} else {\n${next()}}\n`,
         });
     }
 }
