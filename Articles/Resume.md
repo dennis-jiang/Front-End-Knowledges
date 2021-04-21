@@ -36,6 +36,7 @@ icon:phone | icon:weixin  **17358674613** &emsp;
 * 思否2020年度"Top Writer"，万粉专栏作者
 * 开源中国优秀源创作者，源创计划2020年度活跃博主 Top20
 * 博客项目在GitHub有400+ star，100+ folk
+* 慕课网【手写webpack】讲师
 * 公众号【进击的大前端】作者
 
 ## 技能
