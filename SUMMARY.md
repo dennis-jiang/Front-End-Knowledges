@@ -64,7 +64,6 @@
 * [实战项目](/Articles/Projects/Projects.md)
     * [分数计算器](/Articles/Projects/FractionCalcualator.md)
 * [心得与总结](/Articles/Summary/Summary.md)
-    * [2020年终总结](/Articles/Summary/AnnualReview2020.md)
     * [写作技巧分享](/Articles/Summary/WritingSkills.md)
 
 

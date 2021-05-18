@@ -840,13 +840,13 @@ MyPromise.prototype.catch = function(onRejected) {
 `finally`方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。
 
 ```javascript
-MyPromise.prototype.finally = function(fn) {
-  return this.then(function(value){
-    return MyPromise.resolve(value).then(function(){
+MyPromise.prototype.finally = function (fn) {
+  return this.then(function (value) {
+    return MyPromise.resolve(fn()).then(function () {
       return value;
     });
-  }, function(error){
-    return MyPromise.resolve(reason).then(function() {
+  }, function (error) {
+    return MyPromise.resolve(fn()).then(function () {
       throw error
     });
   });

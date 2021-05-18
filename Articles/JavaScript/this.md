@@ -231,7 +231,7 @@ func();   // 输出是undefined
 
 ## this能改吗
 
-this是能改的，`call`和`apply`都可以修改this，ES6里面还新增了一个`bind`函数。
+this是能改的，`call`和`apply`都可以修改this，ES5里面还新增了一个`bind`函数。
 
 ### 使用call和apply修改this
 
