@@ -77,7 +77,6 @@
 * 实战项目
   * [(推荐！！)学以致用：手把手教你撸一个工具库并打包发布，顺便解决JS浮点数计算精度问题](https://juejin.im/post/5e64cf0ef265da5734024f84)
 * 心得与总结
-  * [2020年度总结：工作都是公司的，技术才是自己的！](https://juejin.cn/post/6914100931000795144)
   * [技术写作技巧分享：我是如何从写作小白成长为多平台优秀作者的？](https://juejin.cn/post/6932288843018141709)
 
 Github地址： https://github.com/dennis-jiang/Front-End-Knowledges
