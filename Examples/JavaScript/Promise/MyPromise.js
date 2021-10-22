@@ -288,7 +288,7 @@ MyPromise.race = function (promiseList) {
 }
 
 MyPromise.prototype.catch = function (onRejected) {
-  this.then(null, onRejected);
+  return this.then(null, onRejected);
 }
 
 MyPromise.prototype.finally = function (fn) {
