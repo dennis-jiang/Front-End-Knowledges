@@ -24,15 +24,21 @@ function App() {
     });
   }
 
+  const logout = () => {
+    setUser({
+      role: []
+    });
+  }
+
   return (
     <Router>
       <Switch>
         {publicRoutes.map(
-          ({path, component, ...route}) => 
+          ({path, component, ...route}) =>
             <Route key={path} path={path} {...route} render={(routeProps) => {
               const Component = component;
               return (
-                <Component loginAsUser={loginAsUser} loginAsAdmin={loginAsAdmin} {...routeProps}/>
+                <Component loginAsUser={loginAsUser} loginAsAdmin={loginAsAdmin} logout={logout} {...routeProps}/>
               )
             }}/>
         )}
