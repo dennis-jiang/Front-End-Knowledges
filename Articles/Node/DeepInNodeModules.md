@@ -187,7 +187,7 @@ MyModule.prototype.require = function (id) {
 ```javascript
 MyModule._cache = Object.create(null);
 
-MyModule._load = function (request) {    // request是我们传入的路劲参数
+MyModule._load = function (request) {    // request是我们传入的路径参数
   const filename = MyModule._resolveFilename(request);
 
   // 先检查缓存，如果缓存存在且已经加载，直接返回缓存
