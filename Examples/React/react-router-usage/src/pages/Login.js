@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Login(props) {
-  const {loginAsUser, loginAsAdmin, history} = props;
+  const {loginAsUser, loginAsAdmin, logout, history} = props;
 
   const userLoginHandler = () => {
     loginAsUser();      // 调用父级方法设置用户权限
@@ -13,6 +13,10 @@ function Login(props) {
     loginAsAdmin();     // 调用父级方法设置管理员权限
     history.replace('/admin');     // 登录后跳转管理员页面
   }
+  const logoutHandler = () => {
+    logout();     // 调用父级方法退出登录
+    history.replace('/');     // 退出登录后跳转到首页
+  }
 
   return (
     <>
@@ -20,6 +24,8 @@ function Login(props) {
       <button onClick={userLoginHandler}>普通用户登录</button>
       <br/><br/>
       <button onClick={adminLoginHandler}>管理员登录</button>
+      <br/><br/>
+      <button onClick={logoutHandler}>退出登录</button>
       <br/><br/>
       <Link to="/">回首页</Link>
     </>
